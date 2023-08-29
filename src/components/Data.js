@@ -1,12 +1,14 @@
 import "../styles/Data.css";
 import { useEffect, useState } from "react";
+import axios from "axios";
+
 function Data(props) {
   const delete_tournament = (id) => {
     console.log(id);
     fetch(`http://127.0.0.1:5000/delete/${id}/`, {
       method: "DELETE",
       headers: {
-        "Content-Type": "application/json",
+        Authorization: "Bearer " + props.token,
       },
     })
       .then((resp) => resp.json())

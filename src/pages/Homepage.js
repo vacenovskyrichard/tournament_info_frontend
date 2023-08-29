@@ -3,6 +3,7 @@ import Data from "../components/Data";
 import Filters from "../components/Filters";
 import { useEffect, useState } from "react";
 import useToken from "../components/useToken";
+
 function Homepage() {
   const [tournamentsData, setTournamentsData] = useState([]);
   const { token, removeToken, setToken } = useToken();
