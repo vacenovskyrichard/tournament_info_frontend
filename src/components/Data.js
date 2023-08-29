@@ -58,12 +58,14 @@ function Data(props) {
               <div>
                 <a href={tournament["link"]}>link</a>
               </div>
-              <button
-                className="delete-button"
-                onClick={() => delete_tournament(tournament["id"])}
-              >
-                delete
-              </button>
+              {props.token && (
+                <button
+                  className="delete-button"
+                  onClick={() => delete_tournament(tournament["id"])}
+                >
+                  delete
+                </button>
+              )}
             </div>
           );
         })}

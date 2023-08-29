@@ -2,10 +2,10 @@ import Navbar from "../components/Navbar";
 import Data from "../components/Data";
 import Filters from "../components/Filters";
 import { useEffect, useState } from "react";
-
+import useToken from "../components/useToken";
 function Homepage() {
   const [tournamentsData, setTournamentsData] = useState([]);
-
+  const { token, removeToken, setToken } = useToken();
   useEffect(() => {
     fetch("http://127.0.0.1:5000/get", {
       method: "GET",
@@ -20,9 +20,9 @@ function Homepage() {
 
   return (
     <>
-      <Navbar />
+      <Navbar token={token} setToken={setToken} removeToken={removeToken} />
       <Filters data={tournamentsData} setData={setTournamentsData} />
-      <Data data={tournamentsData} setData={setTournamentsData} />
+      <Data data={tournamentsData} setData={setTournamentsData} token={token} />
     </>
   );
 }
