@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 
 function Navbar(props) {
-  const [show, setShow] = useState(false);
+  const [showLogin, setShowLogin] = useState(false);
   const [showRegister, setShowRegister] = useState(false);
 
   const [loginForm, setloginForm] = useState({
@@ -11,7 +11,7 @@ function Navbar(props) {
     password: "",
   });
 
-  function logMeOut() {
+  function logout() {
     axios({
       method: "POST",
       url: "http://127.0.0.1:5000/logout",
@@ -29,7 +29,7 @@ function Navbar(props) {
   }
 
   function login(event) {
-    setShow(false);
+    setShowLogin(false);
     axios({
       method: "POST",
       url: "http://127.0.0.1:5000/token",
@@ -61,7 +61,7 @@ function Navbar(props) {
   }
 
   function register(event) {
-    setShow(false);
+    setShowLogin(false);
     axios({
       method: "POST",
       url: "http://127.0.0.1:5000/register",
@@ -71,7 +71,7 @@ function Navbar(props) {
       },
     })
       .then(() => {
-        setShow(false);
+        setShowLogin(false);
         setShowRegister(false);
       })
       .catch((error) => {
@@ -101,6 +101,11 @@ function Navbar(props) {
     }));
   }
 
+  function forgot_password(){
+    console.log("Forgot password")
+
+  }
+
   return (
     <div className="navbar">
       <title>Jdem Hrát</title>
@@ -116,10 +121,10 @@ function Navbar(props) {
       <div className="navbar--right">
         <div>
           {!props.token && props.token !== "" && props.token !== undefined ? (
-            !show &&
+            !showLogin &&
             !showRegister && (
               <div>
-                <button className="login-button" onClick={() => setShow(true)}>
+                <button className="login-button" onClick={() => setShowLogin(true)}>
                   Přihlásit
                 </button>
                 <button
@@ -131,11 +136,11 @@ function Navbar(props) {
               </div>
             )
           ) : (
-            <button onClick={logMeOut} className="logout-button">
+            <button onClick={logout} className="logout-button">
               Logout
             </button>
           )}
-          {show && (
+          {showLogin && (
             <form className="login">
               <input
                 onChange={handleChange}
@@ -153,11 +158,14 @@ function Navbar(props) {
                 placeholder="Password"
                 value={loginForm.password}
               />
-              <button onClick={login}>Přihlásit</button>
+              <div className="login-and-forgot">
+                <button className="login--button" onClick={login}>Login</button>
+                <p className="forgot_password--button" onClick={forgot_password}>Forgot password</p>
+              </div>
             </form>
           )}
           {showRegister && (
-            <form className="login">
+            <form className="register">
               <input
                 onChange={handleChange}
                 type="email"
@@ -174,7 +182,7 @@ function Navbar(props) {
                 placeholder="Password"
                 value={loginForm.password}
               />
-              <button onClick={register}>Registrovat</button>
+              <button onClick={register}>Register</button>
             </form>
           )}
           <div></div>

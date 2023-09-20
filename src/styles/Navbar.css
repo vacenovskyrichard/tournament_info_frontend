@@ -29,7 +29,11 @@ body{
     display:flex;
     width:200px; 
     justify-content: center;
+    margin-right: 15px;
+}
 
+.login > input{
+    width: 200px;
 }
 
 .login-button,.register-button{
@@ -65,5 +69,28 @@ body{
 
 .navbar--logo:hover{
     box-shadow: 0 0 11px rgba(33,33,33,0.7); 
+}
+
+.login-and-forgot{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: start;
+}
+
+.login-and-forgot > button{
+    display: flex;
+    height: 30px;
+    margin-top:3px;
+}
+
+.login-and-forgot > p{
+    color: white;
+    margin-top:8px;
+}
+
+.login-and-forgot > p:hover {
+    text-decoration: underline;
+    cursor:default;
 }
 
