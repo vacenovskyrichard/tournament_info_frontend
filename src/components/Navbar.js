@@ -5,6 +5,7 @@ import axios from "axios";
 function Navbar(props) {
   const [showLogin, setShowLogin] = useState(false);
   const [showRegister, setShowRegister] = useState(false);
+  const [showNewPassword, setShowNewPassword] = useState(false);
 
   const [loginForm, setloginForm] = useState({
     email: "",
@@ -32,7 +33,7 @@ function Navbar(props) {
     setShowLogin(false);
     axios({
       method: "POST",
-      url: "http://127.0.0.1:5000/token",
+      url: "http://127.0.0.1:5000/login",
       data: {
         email: loginForm.email,
         password: loginForm.password,
@@ -101,9 +102,38 @@ function Navbar(props) {
     }));
   }
 
-  function forgot_password(){
-    console.log("Forgot password")
+  function forgot_password(event) {
+    setShowLogin(false);
+    axios({
+      method: "POST",
+      url: "http://127.0.0.1:5000/reset",
+      data: {
+        email: loginForm.email,
+        password: "",
+      },
+    })
+      .then(() => {
+        setShowLogin(false);
+        setShowRegister(false);
+        setShowNewPassword(false);
+      })
+      .catch((error) => {
+        if (error.response) {
+          console.log(error.response);
+          console.log(error.response.status);
+          console.log(error.response.headers);
+        }
+        if (error.response.status === 404) {
+          alert("Uživatel s tímto emailem neexistuje.");
+        }
+      });
 
+    setloginForm({
+      email: "",
+      password: "",
+    });
+
+    event.preventDefault();
   }
 
   return (
@@ -124,7 +154,10 @@ function Navbar(props) {
             !showLogin &&
             !showRegister && (
               <div>
-                <button className="login-button" onClick={() => setShowLogin(true)}>
+                <button
+                  className="login-button"
+                  onClick={() => setShowLogin(true)}
+                >
                   Přihlásit
                 </button>
                 <button
@@ -159,15 +192,25 @@ function Navbar(props) {
                 value={loginForm.password}
               />
               <div className="login-and-forgot">
-                <button className="login--button" onClick={login}>Login</button>
-                <p className="forgot_password--button" onClick={forgot_password}>Forgot password</p>
+                <button className="login--button" onClick={login}>
+                  Login
+                </button>
+                <p
+                  className="forgot_password--button"
+                  onClick={() => {
+                    setShowNewPassword(true);
+                    setShowLogin(false)
+                  }}
+                >
+                  Forgot password
+                </p>
               </div>
             </form>
           )}
           {showRegister && (
             <form className="register">
               <input
-                onChange={handleChange}
+                onChanregisterge={handleChange}
                 type="email"
                 text={loginForm.email}
                 name="email"
@@ -183,6 +226,21 @@ function Navbar(props) {
                 value={loginForm.password}
               />
               <button onClick={register}>Register</button>
+            </form>
+          )}
+          {showNewPassword && (
+            <form className="new-password">
+              <input
+                onChange={handleChange}
+                type="email"
+                text={loginForm.email}
+                name="email"
+                placeholder="Email"
+                value={loginForm.email}
+              />
+              <button onClick={forgot_password}>
+                Send me new password
+              </button>
             </form>
           )}
           <div></div>
