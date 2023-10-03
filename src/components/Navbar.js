@@ -199,7 +199,7 @@ function Navbar(props) {
                   className="forgot_password--button"
                   onClick={() => {
                     setShowNewPassword(true);
-                    setShowLogin(false)
+                    setShowLogin(false);
                   }}
                 >
                   Forgot password
@@ -210,7 +210,7 @@ function Navbar(props) {
           {showRegister && (
             <form className="register">
               <input
-                onChanregisterge={handleChange}
+                onChange={handleChange}
                 type="email"
                 text={loginForm.email}
                 name="email"
@@ -238,9 +238,7 @@ function Navbar(props) {
                 placeholder="Email"
                 value={loginForm.email}
               />
-              <button onClick={forgot_password}>
-                Send me new password
-              </button>
+              <button onClick={forgot_password}>Send me new password</button>
             </form>
           )}
           <div></div>
