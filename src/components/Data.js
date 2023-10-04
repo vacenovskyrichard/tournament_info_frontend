@@ -72,9 +72,11 @@ function Data(props) {
           );
         })}
       </div>
-      <a className="add-button" href="/add_tournament">
-        <button>Přidat turnaj</button>
-      </a>
+      {props.token && (
+        <a className="add-button" href="/add_tournament">
+          <button>Přidat turnaj</button>
+        </a>
+      )}
     </div>
   );
 }

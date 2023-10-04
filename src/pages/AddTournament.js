@@ -3,7 +3,7 @@ import { useForm } from "react-hook-form";
 import "../styles/Form.css";
 import { Routes, Route, useNavigate } from "react-router-dom";
 
-export default function Form() {
+export default function Form(props) {
   const navigate = useNavigate();
   const {
     register,
