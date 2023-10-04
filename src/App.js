@@ -37,7 +37,16 @@ function App() {
               />
             }
           />
-          <Route path="/add_tournament" element={<AddTournament />} />
+          <Route
+            path="/add_tournament"
+            element={
+              <AddTournament
+                getToken={getToken}
+                removeToken={removeToken}
+                setToken={setToken}
+              />
+            }
+          />
           <Route
             path="/login"
             element={
