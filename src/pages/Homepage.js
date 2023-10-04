@@ -3,7 +3,7 @@ import Data from "../components/Data";
 import Filters from "../components/Filters";
 import { useEffect, useState } from "react";
 
-function Homepage({ token, setToken, removeToken }) {
+function Homepage(props) {
   const [tournamentsData, setTournamentsData] = useState([]);
   useEffect(() => {
     fetch("http://127.0.0.1:5000/get", {
@@ -19,9 +19,17 @@ function Homepage({ token, setToken, removeToken }) {
 
   return (
     <>
-      <Navbar token={token} setToken={setToken} removeToken={removeToken} />
+      <Navbar
+        getToken={props.getToken}
+        removeToken={props.removeToken}
+        setToken={props.setToken}
+      />
       <Filters data={tournamentsData} setData={setTournamentsData} />
-      <Data data={tournamentsData} setData={setTournamentsData} token={token} />
+      <Data
+        data={tournamentsData}
+        setData={setTournamentsData}
+        getToken={props.getToken}
+      />
     </>
   );
 }

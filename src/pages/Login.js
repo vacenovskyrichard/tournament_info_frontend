@@ -21,7 +21,8 @@ function Login(props) {
       },
     })
       .then((response) => {
-        props.setToken(response.data.access_token);
+        props.setToken(response.data);
+        console.log(response.data);
         navigate("/");
       })
       .catch((error) => {

@@ -4,9 +4,6 @@ import axios from "axios";
 import { Routes, Route, useNavigate } from "react-router-dom";
 
 function Navbar(props) {
-  const [showLogin, setShowLogin] = useState(false);
-  const [showRegister, setShowRegister] = useState(false);
-  const [showNewPassword, setShowNewPassword] = useState(false);
   const navigate = useNavigate();
 
   const [loginForm, setloginForm] = useState({
@@ -45,22 +42,19 @@ function Navbar(props) {
 
       <div className="navbar--right">
         <div>
-          {!props.token && props.token !== "" ? (
-            !showLogin &&
-            !showRegister && (
-              <div>
-                <button
-                  className="login-button"
-                  onClick={() => navigate("/login")}
-                >
-                  Přihlásit
-                </button>
-              </div>
-            )
-          ) : (
+          {props.getToken() ? (
             <button onClick={logout} className="logout-button">
               Logout
             </button>
+          ) : (
+            <div>
+              <button
+                className="login-button"
+                onClick={() => navigate("/login")}
+              >
+                Přihlásit
+              </button>
+            </div>
           )}
         </div>
       </div>

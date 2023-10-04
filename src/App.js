@@ -6,7 +6,23 @@ import Login from "./pages/Login";
 import useToken from "./components/useToken";
 
 function App() {
-  const { token, removeToken, setToken } = useToken();
+  const { setToken, getToken, removeToken } = useToken();
+  // Saving the token
+  // setToken({
+  //   access_token: "your-access-token-value",
+  //   role: "basic",
+  //   user_id: "your-user-id-value",
+  // });
+
+  // // Reading the access_token
+  // const tokenObject = getToken();
+  // if (tokenObject) {
+  //   const access_token = tokenObject.access_token;
+  //   console.log("Access Token:", access_token);
+  // } else {
+  //   console.log("Token not found.");
+  // }
+
   return (
     <div>
       <BrowserRouter>
@@ -15,7 +31,7 @@ function App() {
             index
             element={
               <Homepage
-                token={token}
+                getToken={getToken}
                 removeToken={removeToken}
                 setToken={setToken}
               />
@@ -26,7 +42,7 @@ function App() {
             path="/login"
             element={
               <Login
-                token={token}
+                getToken={getToken}
                 removeToken={removeToken}
                 setToken={setToken}
               />

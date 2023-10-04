@@ -3,24 +3,23 @@ import { useState } from "react";
 function useToken() {
   function getToken() {
     const userToken = localStorage.getItem("token");
-    return userToken && userToken;
+    return userToken ? JSON.parse(userToken) : null; // Check if userToken exists before parsing
   }
+  const [token, _setToken] = useState(getToken());
 
-  const [token, setToken] = useState(getToken());
-
-  function saveToken(userToken) {
-    localStorage.setItem("token", userToken);
-    setToken(userToken);
+  function setToken(userToken) {
+    localStorage.setItem("token", JSON.stringify(userToken));
+    _setToken(JSON.stringify(userToken));
   }
 
   function removeToken() {
     localStorage.removeItem("token");
-    setToken(null);
+    _setToken(null);
   }
 
   return {
-    setToken: saveToken,
-    token,
+    setToken,
+    getToken,
     removeToken,
   };
 }
