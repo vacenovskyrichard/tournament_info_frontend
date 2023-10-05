@@ -4,15 +4,19 @@ import axios from "axios";
 import { Routes, Route, useNavigate } from "react-router-dom";
 import { LoginSocialFacebook } from "reactjs-social-login";
 import { FacebookLoginButton } from "react-social-login-buttons";
+import jwt_decode from "jwt-decode";
+import { GoogleLogin } from "@react-oauth/google";
 
 function Login(props) {
   const [loginForm, setloginForm] = useState({
     email: "",
     password: "",
   });
+
   const navigate = useNavigate();
 
   function login(event) {
+    console.log("Logging in.");
     axios({
       method: "POST",
       url: "http://127.0.0.1:5000/login",
@@ -72,6 +76,29 @@ function Login(props) {
     });
 
     event.preventDefault();
+  }
+
+  function loginWithGoogle(googleLoginCred) {
+    axios({
+      method: "POST",
+      url: "http://127.0.0.1:5000/google_login",
+      data: {
+        email: googleLoginCred.email,
+        password: googleLoginCred.sub,
+      },
+    })
+      .then((response) => {
+        props.setToken(response.data);
+        console.log(response.data);
+        navigate("/");
+      })
+      .catch((error) => {
+        if (error.response) {
+          console.log(error.response);
+          console.log(error.response.status);
+          console.log(error.response.headers);
+        }
+      });
   }
 
   function handleChange(event) {
@@ -188,6 +215,17 @@ function Login(props) {
             <h1>Login with facebook</h1>
             <FacebookLoginButton />
           </LoginSocialFacebook>
+        </div>
+        <div className="google-login">
+          <h1>Login with Google</h1>
+          <GoogleLogin
+            onSuccess={(response) => {
+              console.log("Login with google succesful.");
+              console.log(jwt_decode(response.credential));
+              loginWithGoogle(jwt_decode(response.credential));
+            }}
+            onError={(error) => console.log("Login failed")}
+          />
         </div>
 
         <div>
