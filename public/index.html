@@ -14,6 +14,27 @@
       integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9"
       crossorigin="anonymous"
     /> -->
+    <script>
+      window.fbAsyncInit = function() {
+        FB.init({
+          appId      : '1071320220907752',
+          cookie     : true,
+          xfbml      : true,
+          version    : '18.0'
+        });
+          
+        FB.AppEvents.logPageView();   
+          
+      };
+    
+      (function(d, s, id){
+         var js, fjs = d.getElementsByTagName(s)[0];
+         if (d.getElementById(id)) {return;}
+         js = d.createElement(s); js.id = id;
+         js.src = "https://connect.facebook.net/en_US/sdk.js";
+         fjs.parentNode.insertBefore(js, fjs);
+       }(document, 'script', 'facebook-jssdk'));
+    </script>
   </head>
   <body>
     <noscript>You need to enable JavaScript to run this app.</noscript>
