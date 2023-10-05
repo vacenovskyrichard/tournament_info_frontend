@@ -2,7 +2,8 @@ import "../styles/Login.css";
 import { useState, useEffect } from "react";
 import axios from "axios";
 import { Routes, Route, useNavigate } from "react-router-dom";
-import Navbar from "../components/Navbar";
+import { LoginSocialFacebook } from "reactjs-social-login";
+import { FacebookLoginButton } from "react-social-login-buttons";
 
 function Login(props) {
   const [loginForm, setloginForm] = useState({
@@ -178,6 +179,17 @@ function Login(props) {
             <button onClick={forgot_password}>Send me new password</button>
           </form>
         </div>
+        <div className="facebook-login">
+          <LoginSocialFacebook
+            appId="1071320220907752"
+            onResolve={(response) => console.log(response)}
+            onReject={(error) => console.error()}
+          >
+            <h1>Login with facebook</h1>
+            <FacebookLoginButton />
+          </LoginSocialFacebook>
+        </div>
+
         <div>
           <button onClick={goToMainPage}>Back to main page</button>
         </div>
@@ -186,42 +198,3 @@ function Login(props) {
   );
 }
 export default Login;
-
-// import { LoginSocialFacebook } from "reactjs-social-login";
-// import { FacebookLoginButton } from "react-social-login-buttons";
-// import jwt_decode from "jwt-decode";
-// import { GoogleLogin } from "@react-oauth/google";
-// import useToken from "../components/useToken";
-// import { useState } from "react";
-
-// function Login() {
-//   const { token, removeToken, setToken } = useToken();
-//   const [myToken, setMyToken] = useState("");
-//   return (
-// <LoginSocialFacebook
-//   appId="1071320220907752"
-//   onResolve={(response) => console.log(response)}
-//   onReject={(error) => console.error()}
-// >
-//   <h1>Login with facebook</h1>
-//   <FacebookLoginButton />
-// </LoginSocialFacebook>
-//     <div>
-//       {!myToken ? (
-//         <GoogleLogin
-//           onSuccess={(credentialResponse) => {
-//             // const credentialResponseDecoded = jwt_decode(credentialResponse);
-//             setToken(credentialResponse.credential);
-//             setMyToken(credentialResponse.credential);
-//           }}
-//           onError={() => console.log("Login failed.")}
-//         />
-//       ) : (
-//         <div>
-//           <h1>Logged in</h1>
-//           <button onClick={removeToken()}>logout</button>
-//         </div>
-//       )}
-//     </div>
-//   );
-// }
