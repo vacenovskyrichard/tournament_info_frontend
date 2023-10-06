@@ -6,6 +6,7 @@ import { LoginSocialFacebook } from "reactjs-social-login";
 import { FacebookLoginButton } from "react-social-login-buttons";
 import jwt_decode from "jwt-decode";
 import { GoogleLogin } from "@react-oauth/google";
+import { useGoogleLogin } from "@react-oauth/google";
 
 function Login(props) {
   const [loginForm, setloginForm] = useState({
@@ -14,6 +15,14 @@ function Login(props) {
   });
 
   const navigate = useNavigate();
+
+  // const google_login = useGoogleLogin({
+  //   onSuccess: (response) => {
+  //     console.log("Login with google succesful.");
+  //     loginWithGoogle(jwt_decode(response.credential));
+  //     console.log("second log.");
+  //   },
+  // });
 
   function login(event) {
     axios({
@@ -49,6 +58,8 @@ function Login(props) {
   }
 
   function loginWithGoogle(googleLoginCred) {
+    console.log("called with:");
+    console.log(googleLoginCred.email, googleLoginCred.sub);
     axios({
       method: "POST",
       url: "http://127.0.0.1:5000/google_login",
@@ -121,8 +132,8 @@ function Login(props) {
   return (
     <div className="login-page">
       <div className="login-box">
-        <form class="login-form">
-          <span class="login-form-title">Sign In With</span>
+        <form className="login-form">
+          <span className="login-form-title">Přihlášení</span>
           <div className="socials-buttons">
             <div className="facebook-button">
               <img
@@ -132,60 +143,60 @@ function Login(props) {
               />
               Facebook
             </div>
-            <div className="google-button">
+
+            {/* <div onClick={google_login} className="google-button">
               <img className="google-logo" alt="logo" src="./google-logo.png" />
               Google
+            </div> */}
+
+            <GoogleLogin
+              onSuccess={(response) => {
+                console.log("Login with google succesful.");
+                loginWithGoogle(jwt_decode(response.credential));
+              }}
+              onError={(error) => console.log("Login failed")}
+            />
+          </div>
+
+          <div className="Login--main-form">
+            <p className="Login--label">Email</p>
+            <div className="wrap-input">
+              <input
+                onChange={handleChange}
+                type="email"
+                text={loginForm.email}
+                name="email"
+                value={loginForm.email}
+              />
             </div>
+            <div className="Login--password-label-box">
+              <p className="Login--label">Heslo</p>
+              <p
+                onClick={goToForgotPassword}
+                className="Login--tiny-label clickable"
+              >
+                Zapomněli jste?
+              </p>
+            </div>
+            <div className="wrap-input">
+              <input
+                onChange={handleChange}
+                type="password"
+                text={loginForm.password}
+                name="password"
+                value={loginForm.password}
+              />
+            </div>
+            <div className="Login--login-button">Přihlásit</div>
           </div>
-
-          <div class="p-t-31 p-b-9">
-            <span class="txt1">Username</span>
-          </div>
-          <div
-            class="wrap-input100 validate-input"
-            data-validate="Username is required"
-          >
-            <input
-              class="input100"
-              onChange={handleChange}
-              type="email"
-              text={loginForm.email}
-              name="email"
-              placeholder="Email"
-              value={loginForm.email}
-            />
-            <span class="focus-input100"></span>
-          </div>
-          <div class="p-t-13 p-b-9">
-            <span class="txt1">Password</span>
-            <a href="#" class="txt2 bo1 m-l-5">
-              Forgot?
-            </a>
-          </div>
-          <div
-            class="wrap-input100 validate-input"
-            data-validate="Password is required"
-          >
-            <input
-              class="input100"
-              onChange={handleChange}
-              type="password"
-              text={loginForm.password}
-              name="password"
-              placeholder="Password"
-              value={loginForm.password}
-            />
-
-            <span class="focus-input100"></span>
-          </div>
-          <div class="container-login100-form-btn m-t-17">
-            <button class="login100-form-btn">Sign In</button>
-          </div>
-          <div class="w-full text-center p-t-55">
-            <span class="txt2">Not a member?</span>
-            <a href="#" class="txt2 bo1">
-              Sign up now
-            </a>
+          <div className="Login--register">
+            <p className="Login--tiny-label">Nemáte účet?</p>
+            <p
+              onClick={goToRegistration}
+              className="Login--tiny-label clickable"
+            >
+              Registrovat
+            </p>
           </div>
         </form>
       </div>
@@ -234,13 +245,15 @@ export default Login;
 //     </div>
 //     <div className="google-login">
 //       <h1>Login with Google</h1>
-//       <GoogleLogin
-//         onSuccess={(response) => {
-//           console.log("Login with google succesful.");
-//           loginWithGoogle(jwt_decode(response.credential));
-//         }}
-//         onError={(error) => console.log("Login failed")}
-//       />
+{
+  /* <GoogleLogin
+  onSuccess={(response) => {
+    console.log("Login with google succesful.");
+    loginWithGoogle(jwt_decode(response.credential));
+  }}
+  onError={(error) => console.log("Login failed")}
+/> */
+}
 //     </div>
 //     <div>
 //       <h1>Ostatní</h1>

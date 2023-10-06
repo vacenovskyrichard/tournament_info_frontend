@@ -3,7 +3,8 @@
   justify-content: center;
   align-items: center;
   height: 100vh;
-  background-image: url("../../public/login.jpg"); /* Set the image URL */
+  /* background-image: url("../../public/login.jpg"); */
+  background-color: #ff847c;
   background-size: cover; /* Cover the entire container */
   background-repeat: no-repeat; /* Prevent image repetition */
   background-position: center; /* Center the image */ /* background-image: "./public/"; */
@@ -11,9 +12,7 @@
 
 .login-box {
   display: flex;
-  width: 600px; /* Set a width for your login box */
-  height: 600px; /* Set a width for your login box */
-  padding: 20px; /* Add some padding for spacing */
+  padding: 50px; /* Add some padding for spacing */
   background-color: white; /* Background color for the login box */
   border-radius: 15px;
   justify-content: center;
@@ -29,19 +28,6 @@
   text-align: center;
   margin-bottom: 20px;
   margin-top: 20px;
-}
-
-.txt1 {
-  font-family: "Montserrat", sans-serif;
-  font-size: 16px;
-  color: #555;
-  line-height: 1.5;
-}
-.txt2 {
-  font-family: "Poppins", sans-serif;
-  font-size: 14px;
-  color: #999;
-  line-height: 1.5;
 }
 
 .socials-buttons {
@@ -120,8 +106,82 @@
 .facebook-button:hover:before,
 .google-button:hover:before {
   opacity: 1;
+  cursor: default;
 }
 .facebook-button:hover,
 .google-button:hover {
   color: #fff;
+  cursor: default;
+}
+
+.Login--main-form {
+  width: 500px;
+  margin: 40px 0px;
+}
+
+.Login--label {
+  font-family: "Montserrat", sans-serif;
+  font-weight: bold;
+  font-size: 16px;
+  color: #555;
+  line-height: 1.5;
+  margin-right: 5px;
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+.Login--password-label-box {
+  margin-top: 5px;
+  margin-bottom: 5px;
+  display: flex;
+  align-items: center;
+}
+
+.Login--tiny-label {
+  font-family: "Poppins", sans-serif;
+  font-size: 14px;
+  color: #999;
+  line-height: 1.5;
+  margin-right: 3px;
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+
+.wrap-input > input {
+  font-family: "Montserrat", sans-serif;
+  font-size: 18px;
+  width: 100%;
+  background-color: #f7f7f7;
+  border: 1px solid #e6e6e6;
+  height: 40px;
+  border-radius: 10px;
+}
+
+.Login--login-button {
+  cursor: default;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0 20px;
+  height: 60px;
+  background-color: #333;
+  border-radius: 10px;
+  font-family: "Poppins", sans-serif;
+  font-size: 16px;
+  color: #fff;
+  margin-top: 10px;
+}
+.Login--login-button:hover {
+  box-shadow: 0 0 11px rgba(33, 33, 33, 0.7);
+}
+
+.Login--register {
+  display: flex;
+  position: relative;
+  justify-content: center;
+  bottom: 0;
+}
+
+.clickable:hover {
+  text-decoration: underline;
+  cursor: pointer;
 }
