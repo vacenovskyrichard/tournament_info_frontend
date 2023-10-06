@@ -3,25 +3,12 @@ import Homepage from "./pages/Homepage";
 import Nopage from "./pages/Nopage";
 import AddTournament from "./pages/AddTournament";
 import Login from "./pages/Login";
+import Register from "./pages/Register";
+import ForgotPassword from "./pages/ForgotPassword";
 import useToken from "./components/useToken";
 
 function App() {
   const { setToken, getToken, removeToken } = useToken();
-  // Saving the token
-  // setToken({
-  //   access_token: "your-access-token-value",
-  //   role: "basic",
-  //   user_id: "your-user-id-value",
-  // });
-
-  // // Reading the access_token
-  // const tokenObject = getToken();
-  // if (tokenObject) {
-  //   const access_token = tokenObject.access_token;
-  //   console.log("Access Token:", access_token);
-  // } else {
-  //   console.log("Token not found.");
-  // }
 
   return (
     <div>
@@ -51,6 +38,26 @@ function App() {
             path="/login"
             element={
               <Login
+                getToken={getToken}
+                removeToken={removeToken}
+                setToken={setToken}
+              />
+            }
+          />
+          <Route
+            path="/register"
+            element={
+              <Register
+                getToken={getToken}
+                removeToken={removeToken}
+                setToken={setToken}
+              />
+            }
+          />
+          <Route
+            path="/forgot_password"
+            element={
+              <ForgotPassword
                 getToken={getToken}
                 removeToken={removeToken}
                 setToken={setToken}
