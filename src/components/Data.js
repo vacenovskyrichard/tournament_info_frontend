@@ -8,7 +8,7 @@ function Data(props) {
     fetch(`http://127.0.0.1:5000/delete/${id}/`, {
       method: "DELETE",
       headers: {
-        Authorization: "Bearer " + props.getToken().access_token,
+        Authorization: "Bearer " + props.token.access_token,
       },
     })
       .then((resp) => resp.json())
@@ -60,20 +60,19 @@ function Data(props) {
               <div>
                 <a href={tournament["link"]}>link</a>
               </div>
-              {props.getToken() &&
-                tournament["user_id"] == props.getToken().user_id && (
-                  <button
-                    className="delete-button"
-                    onClick={() => delete_tournament(tournament["id"])}
-                  >
-                    delete
-                  </button>
-                )}
+              {props.token && tournament["user_id"] == props.token.user_id && (
+                <button
+                  className="delete-button"
+                  onClick={() => delete_tournament(tournament["id"])}
+                >
+                  delete
+                </button>
+              )}
             </div>
           );
         })}
       </div>
-      {props.getToken() && (
+      {props.token && (
         <a className="add-button" href="/add_tournament">
           <button>Přidat turnaj</button>
         </a>

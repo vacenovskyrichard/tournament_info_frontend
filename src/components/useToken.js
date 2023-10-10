@@ -19,7 +19,7 @@ function useToken() {
 
   return {
     setToken,
-    getToken,
+    token: getToken(),
     removeToken,
   };
 }

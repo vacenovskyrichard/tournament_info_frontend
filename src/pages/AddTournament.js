@@ -12,7 +12,7 @@ export default function Form(props) {
   } = useForm();
 
   const onSubmit = (data) => {
-    data.user_id = props.getToken().user_id;
+    data.user_id = props.token.user_id;
     console.log(data);
     fetch("http://127.0.0.1:5000/post", {
       method: "POST",

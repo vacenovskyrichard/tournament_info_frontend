@@ -8,7 +8,7 @@ import ForgotPassword from "./pages/ForgotPassword";
 import useToken from "./components/useToken";
 
 function App() {
-  const { setToken, getToken, removeToken } = useToken();
+  const { setToken, token, removeToken } = useToken();
 
   return (
     <div>
@@ -18,7 +18,7 @@ function App() {
             index
             element={
               <Homepage
-                getToken={getToken}
+                token={token}
                 removeToken={removeToken}
                 setToken={setToken}
               />
@@ -28,7 +28,7 @@ function App() {
             path="/add_tournament"
             element={
               <AddTournament
-                getToken={getToken}
+                token={token}
                 removeToken={removeToken}
                 setToken={setToken}
               />
@@ -38,7 +38,7 @@ function App() {
             path="/login"
             element={
               <Login
-                getToken={getToken}
+                token={token}
                 removeToken={removeToken}
                 setToken={setToken}
               />
@@ -48,7 +48,7 @@ function App() {
             path="/register"
             element={
               <Register
-                getToken={getToken}
+                token={token}
                 removeToken={removeToken}
                 setToken={setToken}
               />
@@ -58,7 +58,7 @@ function App() {
             path="/forgot_password"
             element={
               <ForgotPassword
-                getToken={getToken}
+                token={token}
                 removeToken={removeToken}
                 setToken={setToken}
               />

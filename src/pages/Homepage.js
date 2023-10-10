@@ -20,7 +20,7 @@ function Homepage(props) {
   return (
     <>
       <Navbar
-        getToken={props.getToken}
+        token={props.token}
         removeToken={props.removeToken}
         setToken={props.setToken}
       />
@@ -28,7 +28,7 @@ function Homepage(props) {
       <Data
         data={tournamentsData}
         setData={setTournamentsData}
-        getToken={props.getToken}
+        token={props.token}
       />
     </>
   );
