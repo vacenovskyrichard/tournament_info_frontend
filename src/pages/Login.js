@@ -5,8 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { LoginSocialFacebook } from "reactjs-social-login";
 import { FacebookLoginButton } from "react-social-login-buttons";
 import jwt_decode from "jwt-decode";
-import { GoogleLogin } from "@react-oauth/google";
-import { useGoogleLogin } from "@react-oauth/google";
+import { useGoogleLogin, GoogleLogin } from "@react-oauth/google";
 
 function Login(props) {
   const [loginForm, setloginForm] = useState({
@@ -16,13 +15,31 @@ function Login(props) {
 
   const navigate = useNavigate();
 
-  // const google_login = useGoogleLogin({
-  //   onSuccess: (response) => {
-  //     console.log("Login with google succesful.");
-  //     loginWithGoogle(jwt_decode(response.credential));
-  //     console.log("second log.");
-  //   },
-  // });
+  const google_login = useGoogleLogin({
+    onSuccess: async (response) => {
+      console.log("Login with google succesful.");
+      console.log(response);
+      const at = response.access_token;
+      axios({
+        method: "GET",
+        url: `https://www.googleapis.com/oauth2/v3/userinfo?access_token=${response.access_token}`,
+      })
+        .then((response) => {
+          console.log(response.data);
+          loginWithGoogle({
+            email: response.data.email,
+            password: response.data.sub,
+          });
+        })
+        .catch((error) => {
+          if (error.response) {
+            console.log(error.response);
+            console.log(error.response.status);
+            console.log(error.response.headers);
+          }
+        });
+    },
+  });
 
   function login(event) {
     axios({
@@ -36,6 +53,10 @@ function Login(props) {
       .then((response) => {
         props.setToken(response.data);
         console.log(response.data);
+        const decodedToken = jwt_decode(response.data.access_token);
+        const email = decodedToken.identity; // This will contain the user ID
+        // console.log(response.data.access_token);
+        console.log(decodedToken);
         navigate("/");
       })
       .catch((error) => {
@@ -58,14 +79,13 @@ function Login(props) {
   }
 
   function loginWithGoogle(googleLoginCred) {
-    console.log("called with:");
     console.log(googleLoginCred.email, googleLoginCred.sub);
     axios({
       method: "POST",
       url: "http://127.0.0.1:5000/google_login",
       data: {
         email: googleLoginCred.email,
-        password: googleLoginCred.sub,
+        password: googleLoginCred.password,
       },
     })
       .then((response) => {
@@ -144,18 +164,20 @@ function Login(props) {
               Facebook
             </div>
 
-            {/* <div onClick={google_login} className="google-button">
+            <div onClick={google_login} className="google-button">
               <img className="google-logo" alt="logo" src="./google-logo.png" />
               Google
-            </div> */}
+            </div>
 
-            <GoogleLogin
+            {/* <GoogleLogin
               onSuccess={(response) => {
                 console.log("Login with google succesful.");
-                loginWithGoogle(jwt_decode(response.credential));
+                // loginWithGoogle(jwt_decode(response.credential));
+                console.log(response.credential);
+                console.log(jwt_decode(response.credential));
               }}
               onError={(error) => console.log("Login failed")}
-            />
+            /> */}
           </div>
 
           <div className="Login--main-form">
@@ -187,7 +209,9 @@ function Login(props) {
                 value={loginForm.password}
               />
             </div>
-            <div className="Login--login-button">Přihlásit</div>
+            <div className="Login--login-button" onClick={login}>
+              Přihlásit
+            </div>
           </div>
           <div className="Login--register">
             <p className="Login--tiny-label">Nemáte účet?</p>
@@ -218,14 +242,14 @@ export default Login;
 //         placeholder="Email"
 //         value={loginForm.email}
 //       />
-// <input
-//   onChange={handleChange}
-//   type="password"
-//   text={loginForm.password}
-//   name="password"
-//   placeholder="Password"
-//   value={loginForm.password}
-// />
+//       <input
+//         onChange={handleChange}
+//         type="password"
+//         text={loginForm.password}
+//         name="password"
+//         placeholder="Password"
+//         value={loginForm.password}
+//       />
 //       <button className="" onClick={login}>
 //         Přihlásit
 //       </button>
