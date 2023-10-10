@@ -2,8 +2,9 @@ import React from "react";
 import { useForm } from "react-hook-form";
 import "../styles/Form.css";
 import { Routes, Route, useNavigate } from "react-router-dom";
+import jwt_decode from "jwt-decode";
 
-export default function Form(props) {
+export default function AddTournament(props) {
   const navigate = useNavigate();
   const {
     register,
@@ -12,12 +13,13 @@ export default function Form(props) {
   } = useForm();
 
   const onSubmit = (data) => {
-    data.user_id = props.token.user_id;
+    data.user_id = jwt_decode(props.token.access_token).sub;
     console.log(data);
     fetch("http://127.0.0.1:5000/post", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
+        Authorization: `Bearer ${props.token.access_token}`,
       },
       body: JSON.stringify(data),
     })

@@ -1,6 +1,7 @@
 import "../styles/Data.css";
 import { useEffect, useState } from "react";
 import axios from "axios";
+import jwt_decode from "jwt-decode";
 
 function Data(props) {
   const delete_tournament = (id) => {
@@ -60,14 +61,16 @@ function Data(props) {
               <div>
                 <a href={tournament["link"]}>link</a>
               </div>
-              {props.token && tournament["user_id"] == props.token.user_id && (
-                <button
-                  className="delete-button"
-                  onClick={() => delete_tournament(tournament["id"])}
-                >
-                  delete
-                </button>
-              )}
+              {props.token &&
+                tournament["user_id"] ==
+                  jwt_decode(props.token.access_token).sub && (
+                  <button
+                    className="delete-button"
+                    onClick={() => delete_tournament(tournament["id"])}
+                  >
+                    delete
+                  </button>
+                )}
             </div>
           );
         })}
