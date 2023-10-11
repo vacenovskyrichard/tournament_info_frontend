@@ -25,11 +25,7 @@ function Homepage(props) {
         setToken={props.setToken}
       />
       <Filters data={tournamentsData} setData={setTournamentsData} />
-      <Data
-        data={tournamentsData}
-        setData={setTournamentsData}
-        token={props.token}
-      />
+      <Data tournamentData={tournamentsData} token={props.token} />
     </>
   );
 }

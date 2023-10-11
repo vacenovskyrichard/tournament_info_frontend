@@ -1,76 +1,98 @@
-h1{
-    display: flex;
-    justify-content: center;
+h1 {
+  display: flex;
+  justify-content: center;
 }
 
-.tournament-table{
-    display:flex;
-    flex-direction: column;
-    margin-left: 100px;
-    margin-right: 100px;
-    /* box-shadow: 0px 3px 7px rgba(0,0,0,1); */
+.tournament-table {
+  display: flex;
+  flex-direction: column;
+  margin-left: 100px;
+  margin-right: 100px;
+  /* box-shadow: 0px 3px 7px rgba(0,0,0,1); */
 }
 
-
-.tournament-labels{
-    font-size: 20px;
-    display:flex;
+.tournament-labels {
+  font-size: 20px;
+  display: flex;
 }
 
-.tournament{
-    display:flex;
+.tournament {
+  display: flex;
 }
 
-.tournament >div,.tournament-labels >div {
-    display:flex;
-    padding-left: 10px;
-    padding-right: 10px;
-    width: 100px;
-    border:1px solid black;
+.tournament > div,
+.tournament-labels > div {
+  display: flex;
+  padding-left: 10px;
+  padding-right: 10px;
+  width: 100px;
+  border: 1px solid black;
 }
 
-.tournament-labels >div{
-    color: white;
-    background-color: black;
+.tournament-labels > div {
+  color: white;
+  background-color: black;
 }
 
-
-.add-button{
-display: flex;
-justify-content: center;
+.add-button {
+  display: flex;
+  justify-content: center;
 }
 
-.add-button >button {
-    font-family: 'Frank Ruhl Libre', serif;
-    display:flex;
-    transition: box-shadow .3s;
-    padding-right: 17px;
-    padding-left: 17px;
-    padding-top: 11px;
-    padding-bottom: 11px;
-    background-color: black;
-    color:white;
-    border-radius: 50px;
-    border-width: 0;
-    margin-top:10px;
+.add-button > button {
+  font-family: "Frank Ruhl Libre", serif;
+  display: flex;
+  transition: box-shadow 0.3s;
+  padding-right: 17px;
+  padding-left: 17px;
+  padding-top: 11px;
+  padding-bottom: 11px;
+  background-color: black;
+  color: white;
+  border-radius: 50px;
+  border-width: 0;
+  margin-top: 10px;
 }
-.delete-button{
-    font-family: 'Frank Ruhl Libre', serif;
-    display:flex;
-    transition: box-shadow .3s;
-    font-size: 18px;
-    padding-left: 15px;
-    padding-right: 15px;
-    background-color: rgb(248, 0, 0);
-    color:white;
-    border-radius: 50px;
-    border-width: 0;
-    /* margin-top:auto; */
-    /* margin-bottom:auto; */
-    /* margin-left:10px; */
-    height:35px;
+.delete-button {
+  font-family: "Frank Ruhl Libre", serif;
+  display: flex;
+  transition: box-shadow 0.3s;
+  font-size: 18px;
+  padding-left: 15px;
+  padding-right: 15px;
+  background-color: rgb(248, 0, 0);
+  color: white;
+  border-radius: 50px;
+  border-width: 0;
+  /* margin-top:auto; */
+  /* margin-bottom:auto; */
+  /* margin-left:10px; */
+  height: 35px;
 }
-   
-.delete-button:hover{
-    box-shadow: 0 0 11px rgba(33,33,33,0.7); 
+
+.delete-button:hover {
+  box-shadow: 0 0 11px rgba(33, 33, 33, 0.7);
+}
+
+.Data--tournament-table {
+  margin: 10px 80px 80px;
+}
+
+.Data--expanded-data-box {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  border-bottom: 1px solid black;
+}
+
+.Data--expanded-data {
+  margin: 10px 25px;
+}
+
+.Data--time-remaining {
+  display: flex;
+  justify-content: center;
+  flex: 1;
+  font-size: 18px;
+  font-weight: 600;
 }
