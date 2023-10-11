@@ -51,36 +51,55 @@ function Register(props) {
   const goToMainPage = () => {
     navigate("/");
   };
-
+  const goToLogin = () => {
+    navigate("/login");
+  };
   return (
-    <div className="register--page">
-      <title>Jdem Hrát - Registrace</title>
-      <h1>Registrace</h1>
+    <>
+      <div className="login-page">
+        <div className="login-box">
+          <span className="Login--x-btn" onClick={goToMainPage}>
+            x
+          </span>
+          <form className="login-form">
+            <span className="login-form-title">Registrace</span>
 
-      <form className="">
-        <input
-          onChange={handleChange}
-          type="email"
-          text={loginForm.email}
-          name="email"
-          placeholder="Email"
-          value={loginForm.email}
-        />
-        <input
-          onChange={handleChange}
-          type="password"
-          text={loginForm.password}
-          name="password"
-          placeholder="Password"
-          value={loginForm.password}
-        />
-        <button onClick={register}>Registrovat</button>
-      </form>
-
-      <div>
-        <button onClick={goToMainPage}>Zpět na hlavní stranu</button>
+            <div className="Login--main-form">
+              <p className="Login--label">Email</p>
+              <div className="wrap-input">
+                <input
+                  onChange={handleChange}
+                  type="email"
+                  text={loginForm.email}
+                  name="email"
+                  value={loginForm.email}
+                />
+              </div>
+              <div className="Login--password-label-box">
+                <p className="Login--label">Heslo</p>
+              </div>
+              <div className="wrap-input">
+                <input
+                  onChange={handleChange}
+                  type="password"
+                  text={loginForm.password}
+                  name="password"
+                  value={loginForm.password}
+                />
+              </div>
+              <div className="Login--login-button" onClick={register}>
+                Registrovat
+              </div>
+            </div>
+            <div className="Login--register">
+              <p onClick={goToLogin} className="Login--tiny-label clickable">
+                Zpět na přihlášení
+              </p>
+            </div>
+          </form>
+        </div>
       </div>
-    </div>
+    </>
   );
 }
 export default Register;

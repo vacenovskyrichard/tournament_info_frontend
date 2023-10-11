@@ -11,6 +11,7 @@
 }
 
 .login-box {
+  position: relative;
   display: flex;
   padding: 50px; /* Add some padding for spacing */
   background-color: white; /* Background color for the login box */
@@ -184,4 +185,24 @@
 .clickable:hover {
   text-decoration: underline;
   cursor: pointer;
+}
+
+.Login--navbar {
+  display: flex;
+}
+
+.Login--x-btn {
+  background-color: white;
+  position: absolute;
+  top: 2px;
+  right: 10px;
+  font-family: "Autour One", sans-serif;
+  font-size: 35px;
+  color: #555;
+  text-align: center;
+}
+
+.Login--x-btn:hover {
+  text-shadow: 0 0 11px rgba(33, 33, 33, 0.7);
+  cursor: default;
 }

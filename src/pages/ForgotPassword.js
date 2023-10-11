@@ -51,24 +51,38 @@ function ForgotPassword(props) {
   const goToMainPage = () => {
     navigate("/");
   };
+  const goToLogin = () => {
+    navigate("/login");
+  };
 
   return (
-    <div className="forgot-password--page">
-      <title>Jdem Hrát - Zapomenuté heslo</title>
-      <h1>Zapomenuté heslo</h1>
-      <form className="">
-        <input
-          onChange={handleChange}
-          type="email"
-          text={loginForm.email}
-          name="email"
-          placeholder="Email"
-          value={loginForm.email}
-        />
-        <button onClick={forgot_password}>Send me new password</button>
-      </form>
-      <div>
-        <button onClick={goToMainPage}>Back to main page</button>
+    <div className="login-page">
+      <div className="login-box">
+        <span className="Login--x-btn" onClick={goToMainPage}>
+          x
+        </span>
+        <form className="login-form">
+          <span className="login-form-title">Zapomenuté heslo</span>
+
+          <div className="Login--main-form">
+            <p className="Login--label">Email</p>
+            <div className="wrap-input">
+              <input
+                onChange={handleChange}
+                type="email"
+                text={loginForm.email}
+                name="email"
+                value={loginForm.email}
+              />
+            </div>
+            <div className="Login--login-button" onClick={forgot_password}>
+              Odeslat heslo
+            </div>
+          </div>
+          <p onClick={goToLogin} className="Login--tiny-label clickable">
+            Zpět na přihlášení
+          </p>
+        </form>
       </div>
     </div>
   );

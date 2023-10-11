@@ -2,10 +2,9 @@ import "../styles/Login.css";
 import { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import { LoginSocialFacebook } from "reactjs-social-login";
-import { FacebookLoginButton } from "react-social-login-buttons";
 import jwt_decode from "jwt-decode";
 import { useGoogleLogin, GoogleLogin } from "@react-oauth/google";
+import Navbar from "../components/Navbar";
 
 function Login(props) {
   const [loginForm, setloginForm] = useState({
@@ -150,26 +149,43 @@ function Login(props) {
   };
 
   return (
-    <div className="login-page">
-      <div className="login-box">
-        <form className="login-form">
-          <span className="login-form-title">Přihlášení</span>
-          <div className="socials-buttons">
-            <div className="facebook-button">
-              <img
-                className="facebook-logo"
-                alt="logo"
-                src="./facebook-logo.png"
-              />
-              Facebook
-            </div>
+    <>
+      <div className="login-page">
+        <div className="login-box">
+          {/* <div > */}
+          {/* <img
+              onClick={goToMainPage}
+              className="navbar--logo"
+              alt="home"
+              src="./home.png"
+              border="0"
+            /> */}
+          <span className="Login--x-btn" onClick={goToMainPage}>
+            x
+          </span>
+          {/* </div> */}
+          <form className="login-form">
+            <span className="login-form-title">Přihlášení</span>
+            <div className="socials-buttons">
+              <div className="facebook-button">
+                <img
+                  className="facebook-logo"
+                  alt="logo"
+                  src="./facebook-logo.png"
+                />
+                Facebook
+              </div>
 
-            <div onClick={google_login} className="google-button">
-              <img className="google-logo" alt="logo" src="./google-logo.png" />
-              Google
-            </div>
+              <div onClick={google_login} className="google-button">
+                <img
+                  className="google-logo"
+                  alt="logo"
+                  src="./google-logo.png"
+                />
+                Google
+              </div>
 
-            {/* <GoogleLogin
+              {/* <GoogleLogin
               onSuccess={(response) => {
                 console.log("Login with google succesful.");
                 // loginWithGoogle(jwt_decode(response.credential));
@@ -178,112 +194,54 @@ function Login(props) {
               }}
               onError={(error) => console.log("Login failed")}
             /> */}
-          </div>
-
-          <div className="Login--main-form">
-            <p className="Login--label">Email</p>
-            <div className="wrap-input">
-              <input
-                onChange={handleChange}
-                type="email"
-                text={loginForm.email}
-                name="email"
-                value={loginForm.email}
-              />
             </div>
-            <div className="Login--password-label-box">
-              <p className="Login--label">Heslo</p>
+
+            <div className="Login--main-form">
+              <p className="Login--label">Email</p>
+              <div className="wrap-input">
+                <input
+                  onChange={handleChange}
+                  type="email"
+                  text={loginForm.email}
+                  name="email"
+                  value={loginForm.email}
+                />
+              </div>
+              <div className="Login--password-label-box">
+                <p className="Login--label">Heslo</p>
+                <p
+                  onClick={goToForgotPassword}
+                  className="Login--tiny-label clickable"
+                >
+                  Zapomněli jste?
+                </p>
+              </div>
+              <div className="wrap-input">
+                <input
+                  onChange={handleChange}
+                  type="password"
+                  text={loginForm.password}
+                  name="password"
+                  value={loginForm.password}
+                />
+              </div>
+              <div className="Login--login-button" onClick={login}>
+                Přihlásit
+              </div>
+            </div>
+            <div className="Login--register">
+              <p className="Login--tiny-label">Nemáte účet?</p>
               <p
-                onClick={goToForgotPassword}
+                onClick={goToRegistration}
                 className="Login--tiny-label clickable"
               >
-                Zapomněli jste?
+                Registrovat
               </p>
             </div>
-            <div className="wrap-input">
-              <input
-                onChange={handleChange}
-                type="password"
-                text={loginForm.password}
-                name="password"
-                value={loginForm.password}
-              />
-            </div>
-            <div className="Login--login-button" onClick={login}>
-              Přihlásit
-            </div>
-          </div>
-          <div className="Login--register">
-            <p className="Login--tiny-label">Nemáte účet?</p>
-            <p
-              onClick={goToRegistration}
-              className="Login--tiny-label clickable"
-            >
-              Registrovat
-            </p>
-          </div>
-        </form>
+          </form>
+        </div>
       </div>
-    </div>
+    </>
   );
 }
 export default Login;
-
-// <div className="login--page">
-//   <title>Jdem Hrát - Přihlášení</title>
-//   <div className="login">
-//     <h1>Přihlášení</h1>
-//     <form className="login-form">
-//       <input
-//         onChange={handleChange}
-//         type="email"
-//         text={loginForm.email}
-//         name="email"
-//         placeholder="Email"
-//         value={loginForm.email}
-//       />
-//       <input
-//         onChange={handleChange}
-//         type="password"
-//         text={loginForm.password}
-//         name="password"
-//         placeholder="Password"
-//         value={loginForm.password}
-//       />
-//       <button className="" onClick={login}>
-//         Přihlásit
-//       </button>
-//     </form>
-//     <div />
-//     <div />
-
-//     <div className="facebook-login">
-//       <LoginSocialFacebook
-//         appId="1071320220907752"
-//         onResolve={(response) => console.log(response)}
-//         onReject={(error) => console.error()}
-//       >
-//         <h1>Login with facebook</h1>
-//         <FacebookLoginButton />
-//       </LoginSocialFacebook>
-//     </div>
-//     <div className="google-login">
-//       <h1>Login with Google</h1>
-{
-  /* <GoogleLogin
-  onSuccess={(response) => {
-    console.log("Login with google succesful.");
-    loginWithGoogle(jwt_decode(response.credential));
-  }}
-  onError={(error) => console.log("Login failed")}
-/> */
-}
-//     </div>
-//     <div>
-//       <h1>Ostatní</h1>
-//       <button onClick={goToMainPage}>Hlavní strana</button>
-//       <button onClick={goToRegistration}>Registrovat</button>
-//       <button onClick={goToForgotPassword}>Zapomenuté heslo</button>
-//     </div>
-//   </div>
-// </div>
