@@ -7,7 +7,11 @@ function Register(props) {
   const [loginForm, setloginForm] = useState({
     email: "",
     password: "",
+    name: "",
+    surname: "",
   });
+  const [registrationSuccesful, setRegistrationSuccesful] = useState(false);
+  const [registrationFailed, setRegistrationFailed] = useState(false);
 
   const navigate = useNavigate();
 
@@ -18,9 +22,15 @@ function Register(props) {
       data: {
         email: loginForm.email,
         password: loginForm.password,
+        name: loginForm.name,
+        surname: loginForm.surname,
       },
     })
-      .then(() => {})
+      .then((resp) => {
+        if (resp.status === 200) {
+          setRegistrationSuccesful(true);
+        }
+      })
       .catch((error) => {
         if (error.response) {
           console.log(error.response);
@@ -28,13 +38,15 @@ function Register(props) {
           console.log(error.response.headers);
         }
         if (error.response.status === 409) {
-          alert("Uživatel s tímto emailem už je registrován.");
+          setRegistrationFailed(true);
         }
       });
 
     setloginForm({
       email: "",
       password: "",
+      name: "",
+      surname: "",
     });
 
     event.preventDefault();
@@ -57,6 +69,17 @@ function Register(props) {
   return (
     <>
       <div className="login-page">
+        {registrationSuccesful && (
+          <div className="Login--registration_succesfull">
+            <span>Registrace proběhla úspěšně</span>
+          </div>
+        )}
+        {registrationFailed && (
+          <div className="Login--registration_failed">
+            <span>Uživatel s tímto emailem již existuje</span>
+          </div>
+        )}
+
         <div className="login-box">
           <span className="Login--x-btn" onClick={goToMainPage}>
             x
@@ -65,6 +88,26 @@ function Register(props) {
             <span className="login-form-title">Registrace</span>
 
             <div className="Login--main-form">
+              <p className="Login--label">Jméno</p>
+              <div className="wrap-input">
+                <input
+                  onChange={handleChange}
+                  type="name"
+                  text={loginForm.name}
+                  name="name"
+                  value={loginForm.name}
+                />
+              </div>
+              <p className="Login--label">Příjmení</p>
+              <div className="wrap-input">
+                <input
+                  onChange={handleChange}
+                  type="surname"
+                  text={loginForm.surname}
+                  name="surname"
+                  value={loginForm.surname}
+                />
+              </div>
               <p className="Login--label">Email</p>
               <div className="wrap-input">
                 <input
@@ -75,9 +118,7 @@ function Register(props) {
                   value={loginForm.email}
                 />
               </div>
-              <div className="Login--password-label-box">
-                <p className="Login--label">Heslo</p>
-              </div>
+              <p className="Login--label">Heslo</p>
               <div className="wrap-input">
                 <input
                   onChange={handleChange}

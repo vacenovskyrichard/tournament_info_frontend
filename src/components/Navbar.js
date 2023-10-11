@@ -43,7 +43,7 @@ function Navbar(props) {
       <div className="navbar--right">
         <div>
           {props.token ? (
-            <button onClick={logout} className="logout-button">
+            <button onClick={logout} className="Navbar--hamburger-menu">
               Logout
             </button>
           ) : (

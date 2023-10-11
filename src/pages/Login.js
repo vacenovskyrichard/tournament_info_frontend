@@ -11,7 +11,7 @@ function Login(props) {
     email: "",
     password: "",
   });
-
+  const [registrationFailed, setRegistrationFailed] = useState(false);
   const navigate = useNavigate();
 
   const google_login = useGoogleLogin({
@@ -51,11 +51,6 @@ function Login(props) {
     })
       .then((response) => {
         props.setToken(response.data);
-        console.log(response.data);
-        const decodedToken = jwt_decode(response.data.access_token);
-        const email = decodedToken.identity; // This will contain the user ID
-        // console.log(response.data.access_token);
-        console.log(decodedToken);
         navigate("/");
       })
       .catch((error) => {
@@ -65,7 +60,7 @@ function Login(props) {
           console.log(error.response.headers);
         }
         if (error.response.status === 401) {
-          alert("Neplatný email nebo heslo.");
+          setRegistrationFailed(true);
         }
       });
 
@@ -109,35 +104,6 @@ function Login(props) {
     }));
   }
 
-  function forgot_password(event) {
-    axios({
-      method: "POST",
-      url: "http://127.0.0.1:5000/reset",
-      data: {
-        email: loginForm.email,
-        password: "",
-      },
-    })
-      .then(() => {})
-      .catch((error) => {
-        if (error.response) {
-          console.log(error.response);
-          console.log(error.response.status);
-          console.log(error.response.headers);
-        }
-        if (error.response.status === 404) {
-          alert("Uživatel s tímto emailem neexistuje.");
-        }
-      });
-
-    setloginForm({
-      email: "",
-      password: "",
-    });
-
-    event.preventDefault();
-  }
-
   const goToMainPage = () => {
     navigate("/");
   };
@@ -151,19 +117,15 @@ function Login(props) {
   return (
     <>
       <div className="login-page">
+        {registrationFailed && (
+          <div className="Login--registration_failed">
+            <span>Neplatný email nebo heslo</span>
+          </div>
+        )}
         <div className="login-box">
-          {/* <div > */}
-          {/* <img
-              onClick={goToMainPage}
-              className="navbar--logo"
-              alt="home"
-              src="./home.png"
-              border="0"
-            /> */}
           <span className="Login--x-btn" onClick={goToMainPage}>
             x
           </span>
-          {/* </div> */}
           <form className="login-form">
             <span className="login-form-title">Přihlášení</span>
             <div className="socials-buttons">

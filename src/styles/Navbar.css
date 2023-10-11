@@ -1,96 +1,112 @@
-body{
-    font-family: 'Frank Ruhl Libre', serif;
-    margin:0;
+body {
+  font-family: "Frank Ruhl Libre", serif;
+  margin: 0;
 }
 
-.navbar{
-    display:flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
-    height: 100px;
-    /* background-color: #7cf7ff; */
-    background-color: #ff5449;
-    color:black;
-    box-shadow: 0px 3px 7px rgba(0,0,0,1);
+.navbar {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  height: 100px;
+  /* background-color: #7cf7ff; */
+  background-color: #ff5449;
+  color: black;
+  box-shadow: 0px 3px 7px rgba(0, 0, 0, 1);
 }
 
-.navbar--left{
-    width:100px;
+.navbar--left {
+  width: 100px;
 }
 
-.navbar--center{
-    display:flex;
-    flex: 1;
-    justify-content: center;
+.navbar--center {
+  display: flex;
+  flex: 1;
+  justify-content: center;
 }
 
-.navbar--right{
-    display:flex;
-    width:200px; 
-    justify-content: center;
-    margin-right: 15px;
+.navbar--right {
+  display: flex;
+  width: 200px;
+  justify-content: center;
+  margin-right: 15px;
 }
 
-.login > input{
-    width: 200px;
+.login > input {
+  width: 200px;
 }
 
-.login-button,.register-button{
-    transition: box-shadow .3s;
-    font-family: 'Frank Ruhl Libre', serif;
-    padding-right: 17px;
-    padding-left: 17px;
-    padding-top: 11px;
-    padding-bottom: 11px;
-    background-color: #ff847c;
-    color:black;
-    border-radius: 50px;
-    border-width: 0;
-    margin-left: 3px;
-    margin-right: 3px;
-    margin-top: 2px;
-    margin-bottom: 2px;
+.login-button {
+  transition: box-shadow 0.3s;
+  font-family: "Frank Ruhl Libre", serif;
+  padding-right: 17px;
+  padding-left: 17px;
+  padding-top: 11px;
+  padding-bottom: 11px;
+  background-color: #ff847c;
+  color: black;
+  border-radius: 50px;
+  border-width: 0;
+  margin-left: 3px;
+  margin-right: 3px;
+  margin-top: 2px;
+  margin-bottom: 2px;
 }
 
-.login-button:hover,.register-button:hover{
-    box-shadow: 0 0 11px rgba(33,33,33,0.7); 
+.login-button:hover,
+.register-button:hover {
+  box-shadow: 0 0 11px rgba(33, 33, 33, 0.7);
 }
 
-
-.navbar--logo{
-    transition: box-shadow .3s;
-    margin-left: 20px;
-    margin-right: 20px;
-    height: 80px;
-    border-radius: 50px;
-    /* flex-shrink: 0; */
+.navbar--logo {
+  transition: box-shadow 0.3s;
+  margin-left: 20px;
+  margin-right: 20px;
+  height: 80px;
+  border-radius: 50px;
+  /* flex-shrink: 0; */
 }
 
-.navbar--logo:hover{
-    box-shadow: 0 0 11px rgba(33,33,33,0.7); 
+.navbar--logo:hover {
+  box-shadow: 0 0 11px rgba(33, 33, 33, 0.7);
 }
 
-.login-and-forgot{
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: flex-start;
+.login-and-forgot {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: flex-start;
 }
 
-.login-and-forgot > button{
-    display: flex;
-    height: 30px;
-    margin-top:3px;
+.login-and-forgot > button {
+  display: flex;
+  height: 30px;
+  margin-top: 3px;
 }
 
-.login-and-forgot > p{
-    color: white;
-    margin-top:8px;
+.login-and-forgot > p {
+  color: white;
+  margin-top: 8px;
 }
 
 .login-and-forgot > p:hover {
-    text-decoration: underline;
-    cursor:default;
+  text-decoration: underline;
+  cursor: default;
 }
 
+.Navbar--hamburger-menu {
+  transition: box-shadow 0.3s;
+  font-family: "Frank Ruhl Libre", serif;
+  padding-right: 17px;
+  padding-left: 17px;
+  padding-top: 11px;
+  padding-bottom: 11px;
+  background-color: #ff847c;
+  color: black;
+  border-radius: 50px;
+  border-width: 0;
+  margin-left: 3px;
+  margin-right: 3px;
+  margin-top: 2px;
+  margin-bottom: 2px;
+}
