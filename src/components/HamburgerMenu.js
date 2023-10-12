@@ -1,4 +1,3 @@
-// HamburgerMenu.js
 import React, { useState } from "react";
 import "../styles/HamburgerMenu.css";
 
@@ -20,8 +19,6 @@ const HamburgerMenu = ({ logout }) => {
       </div>
       <div className={`menu ${isOpen ? "open" : ""}`}>
         <a href="/profile">Profil</a>
-        <a href="/about">O nás</a>
-        <a href="/about">O nás</a>
         <a href="/about">O nás</a>
         <a className="Hamburger-menu--logout" onClick={logout}>
           Odhlásit

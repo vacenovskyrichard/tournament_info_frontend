@@ -7,9 +7,22 @@ import Register from "./pages/Register";
 import ForgotPassword from "./pages/ForgotPassword";
 import Profile from "./pages/Profile";
 import useToken from "./components/useToken";
+import { useEffect, useState } from "react";
 
 function App() {
   const { setToken, token, removeToken } = useToken();
+  const [tournamentsData, setTournamentsData] = useState([]);
+  useEffect(() => {
+    fetch("http://127.0.0.1:5000/get", {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+      .then((resp) => resp.json())
+      .then((resp) => setTournamentsData(resp))
+      .catch((err) => console.log(err));
+  }, []);
 
   return (
     <div>
@@ -22,6 +35,8 @@ function App() {
                 token={token}
                 removeToken={removeToken}
                 setToken={setToken}
+                tournamentsData={tournamentsData}
+                setTournamentsData={tournamentsData}
               />
             }
           />
@@ -72,6 +87,8 @@ function App() {
                 token={token}
                 removeToken={removeToken}
                 setToken={setToken}
+                tournamentsData={tournamentsData}
+                setTournamentsData={tournamentsData}
               />
             }
           />

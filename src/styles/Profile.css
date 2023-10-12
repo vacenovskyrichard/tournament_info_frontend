@@ -1,0 +1,9 @@
+.Profile--tmp-buttons {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.Profile--tmp-buttons > a {
+  display: flex;
+  margin: 10px;
+}

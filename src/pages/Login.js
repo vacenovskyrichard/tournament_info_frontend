@@ -28,6 +28,8 @@ function Login(props) {
           loginWithGoogle({
             email: response.data.email,
             password: response.data.sub,
+            name: response.data.given_name,
+            surname: response.data.family_name,
           });
         })
         .catch((error) => {
@@ -80,9 +82,12 @@ function Login(props) {
       data: {
         email: googleLoginCred.email,
         password: googleLoginCred.password,
+        name: googleLoginCred.name,
+        surname: googleLoginCred.surname,
       },
     })
       .then((response) => {
+        console.log("STATUS CODE:" + response.status);
         props.setToken(response.data);
         console.log(response.data);
         navigate("/");
