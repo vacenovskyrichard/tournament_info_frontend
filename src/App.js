@@ -36,7 +36,7 @@ function App() {
                 removeToken={removeToken}
                 setToken={setToken}
                 tournamentsData={tournamentsData}
-                setTournamentsData={tournamentsData}
+                setTournamentsData={setTournamentsData}
               />
             }
           />

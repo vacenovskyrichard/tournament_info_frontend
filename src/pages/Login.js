@@ -75,7 +75,6 @@ function Login(props) {
   }
 
   function loginWithGoogle(googleLoginCred) {
-    console.log(googleLoginCred.email, googleLoginCred.sub);
     axios({
       method: "POST",
       url: "http://127.0.0.1:5000/google_login",
