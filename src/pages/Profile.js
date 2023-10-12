@@ -5,7 +5,13 @@ import { useNavigate } from "react-router-dom";
 import jwt_decode from "jwt-decode";
 import DataTable from "react-data-table-component";
 
-function Profile(props) {
+function Profile({
+  token,
+  removeToken,
+  setToken,
+  tournamentsData,
+  setTournamentsData,
+}) {
   const navigate = useNavigate();
   const [userData, setUserData] = useState({
     id: "",
@@ -15,12 +21,18 @@ function Profile(props) {
     role: "",
   });
 
+  const userId = jwt_decode(token.access_token).sub;
+
+  const userTournaments = tournamentsData.filter(
+    (tournament) => tournament.user_id === userId
+  );
+
   const delete_tournament = (id) => {
     console.log(id);
     fetch(`http://127.0.0.1:5000/delete/${id}/`, {
       method: "DELETE",
       headers: {
-        Authorization: "Bearer " + props.token.access_token,
+        Authorization: "Bearer " + token.access_token,
       },
     })
       .then((resp) => resp.json())
@@ -62,41 +74,35 @@ function Profile(props) {
       selector: (row) => row.category,
     },
     {
-      name: "Město",
-      selector: (row) => row.city,
-    },
-    {
       name: "Areál",
       selector: (row) => row.areal,
     },
     {
-      name: "Kapacita",
-      selector: (row) => {
-        if (row.signed == null || row.capacity == null) {
-          return "";
-        }
-        return `${row.signed}/${row.capacity}`;
-      },
-    },
-    {
-      name: "Úroveň",
-      selector: (row) => row.level,
-    },
-    {
       name: "",
       cell: (row) => (
-        <button onClick={() => delete_tournament(row.id)}>Smazat</button>
+        <div
+          style={{
+            color: "red",
+            textAlign: "right",
+            width: "100%",
+            boxSizing: "border-box",
+            cursor: "pointer",
+          }}
+          onClick={() => delete_tournament(row.id)}
+        >
+          Smazat
+        </div>
       ),
     },
   ];
 
   useEffect(() => {
-    const user_id = jwt_decode(props.token.access_token).sub;
+    const user_id = jwt_decode(token.access_token).sub;
     fetch("http://127.0.0.1:5000/user_info", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        Authorization: `Bearer ${props.token.access_token}`,
+        Authorization: `Bearer ${token.access_token}`,
       },
       body: JSON.stringify({ user_id: user_id }),
     })
@@ -112,13 +118,6 @@ function Profile(props) {
         setUserData(resp);
       });
   }, []);
-
-  const goToMainPage = () => {
-    navigate("/");
-  };
-  const goToLogin = () => {
-    navigate("/login");
-  };
 
   const create_random_tournament = () => {
     const generateRandomNumber = (min, max) => {
@@ -141,14 +140,14 @@ function Profile(props) {
       price: 400,
       signed: generateRandomNumber(0, 10),
       start: "10:00",
-      user_id: jwt_decode(props.token.access_token).sub,
+      user_id: jwt_decode(token.access_token).sub,
     };
 
     fetch("http://127.0.0.1:5000/post", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        Authorization: `Bearer ${props.token.access_token}`,
+        Authorization: `Bearer ${token.access_token}`,
       },
       body: JSON.stringify(data),
     })
@@ -160,21 +159,20 @@ function Profile(props) {
 
   return (
     <>
-      {props.token && (
-        <div>
-          <h1>Profil</h1>
-          <p>{userData.id}</p>
-          <p>{userData.email}</p>
-          <p>{userData.name}</p>
-          <p>{userData.surname}</p>
-          <p>{userData.role}</p>
+      <h1>Profil</h1>
+      {token && (
+        <div className="Profile--user-data">
+          <p>Jméno: {userData.name}</p>
+          <p>Příjmení: {userData.surname}</p>
+          <p>Email: {userData.email}</p>
+          <p>Role: {userData.role}</p>
         </div>
       )}
       <h1>Moje Turnaje</h1>
       <div className="Data--tournament-table">
         <DataTable
           columns={columns}
-          data={props.tournamentsData}
+          data={userTournaments}
           pagination
           customStyles={customStyles}
         />

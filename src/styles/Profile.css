@@ -7,3 +7,8 @@
   display: flex;
   margin: 10px;
 }
+
+.Profile--user-data {
+  margin: 80px;
+  font-size: 20px;
+}
