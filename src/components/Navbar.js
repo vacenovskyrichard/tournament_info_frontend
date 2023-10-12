@@ -2,6 +2,7 @@ import "../styles/Navbar.css";
 import { useState, useEffect } from "react";
 import axios from "axios";
 import { Routes, Route, useNavigate } from "react-router-dom";
+import HamburgerMenu from "./HamburgerMenu";
 
 function Navbar(props) {
   const navigate = useNavigate();
@@ -43,9 +44,10 @@ function Navbar(props) {
       <div className="navbar--right">
         <div>
           {props.token ? (
-            <button onClick={logout} className="Navbar--hamburger-menu">
-              Logout
-            </button>
+            // <button onClick={logout} className="Navbar--hamburger-menu">
+            //   Logout
+            // </button>
+            <HamburgerMenu logout={logout} />
           ) : (
             <div>
               <button

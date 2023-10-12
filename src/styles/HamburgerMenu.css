@@ -1,0 +1,111 @@
+/* .hamburger-menu {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+}
+
+.hamburger-button {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 10px;
+  margin: 10px;
+}
+
+.line {
+  background-color: #333;
+  height: 5px;
+  width: 35px;
+  margin: 6px 0;
+  transition: 0.4s;
+  border-radius: 20px;
+}
+
+.open.line {
+  width: 42px;
+}
+
+.menu {
+  top: 60px;
+  background: #fff;
+  padding: 5px 15px 5px;
+  display: none;
+  border-radius: 5px;
+}
+
+.open.menu {
+  display: flex;
+  flex-direction: row;
+}
+
+.menu > a {
+  display: flex;
+  margin: 10px;
+  text-decoration: none;
+}
+
+.Hamburger-menu--logout {
+  color: red;
+  cursor: pointer;
+} */
+
+.hamburger-menu {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column; /* Change to column to make the menu appear below the button */
+  position: relative; /* Add this for positioning the menu */
+}
+
+.hamburger-button {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 10px;
+  margin: 10px;
+}
+
+.line {
+  background-color: #333;
+  height: 5px;
+  width: 35px;
+  margin: 6px 0;
+  transition: 0.4s;
+  border-radius: 20px;
+}
+
+.open.line {
+  width: 42px;
+}
+
+.menu {
+  position: absolute; /* Position the menu absolutely */
+  top: 60px; /* Adjust this as needed to position the menu relative to the button */
+  background: #fff;
+  padding: 5px 15px 5px;
+  display: flex; /* Display as flex */
+  flex-direction: column; /* Stack menu items vertically */
+  border-radius: 5px;
+  max-height: 0; /* Start with a max-height of 0 */
+  overflow: hidden; /* Hide overflow content */
+  transition: max-height 0.3s ease; /* Add max-height transition */
+  background-color: #ff5449;
+}
+
+.open.menu {
+  max-height: 200px; /* Adjust the max-height to show menu items */
+  background-color: white;
+  z-index: 1;
+}
+
+.menu > a {
+  display: flex;
+  margin: 10px;
+  text-decoration: none;
+}
+
+.Hamburger-menu--logout {
+  color: red;
+  cursor: pointer;
+}

@@ -16,7 +16,7 @@ body {
 }
 
 .navbar--left {
-  width: 100px;
+  flex: 1;
 }
 
 .navbar--center {
@@ -27,9 +27,9 @@ body {
 
 .navbar--right {
   display: flex;
-  width: 200px;
-  justify-content: center;
-  margin-right: 15px;
+  flex: 1;
+  justify-content: right;
+  margin-right: 25px;
 }
 
 .login > input {
@@ -92,21 +92,4 @@ body {
 .login-and-forgot > p:hover {
   text-decoration: underline;
   cursor: default;
-}
-
-.Navbar--hamburger-menu {
-  transition: box-shadow 0.3s;
-  font-family: "Frank Ruhl Libre", serif;
-  padding-right: 17px;
-  padding-left: 17px;
-  padding-top: 11px;
-  padding-bottom: 11px;
-  background-color: #ff847c;
-  color: black;
-  border-radius: 50px;
-  border-width: 0;
-  margin-left: 3px;
-  margin-right: 3px;
-  margin-top: 2px;
-  margin-bottom: 2px;
 }
