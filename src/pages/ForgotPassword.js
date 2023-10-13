@@ -22,7 +22,8 @@ function ForgotPassword(props) {
   function forgot_password(event) {
     axios({
       method: "POST",
-      url: "http://127.0.0.1:5000/reset",
+      // url: "http://127.0.0.1:5000/reset",
+      url: "https://jdem-hrat-58da3e527841.herokuapp.com/reset",
       data: {
         email: loginForm.email,
         password: "",

@@ -75,7 +75,8 @@ export default function Filters(props) {
 
   const saveData = (form_data) => {
     console.log("form_data", form_data);
-    fetch("http://127.0.0.1:5000/filter", {
+    // fetch("http://127.0.0.1:5000/filter", {
+    fetch("https://jdem-hrat-58da3e527841.herokuapp.com/filter", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

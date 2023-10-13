@@ -45,7 +45,8 @@ function Login(props) {
   function login(event) {
     axios({
       method: "POST",
-      url: "http://127.0.0.1:5000/login",
+      // url: "http://127.0.0.1:5000/login",
+      url: "https://jdem-hrat-58da3e527841.herokuapp.com/login",
       data: {
         email: loginForm.email,
         password: loginForm.password,
@@ -77,7 +78,8 @@ function Login(props) {
   function loginWithGoogle(googleLoginCred) {
     axios({
       method: "POST",
-      url: "http://127.0.0.1:5000/google_login",
+      // url: "http://127.0.0.1:5000/google_login",
+      url: "https://jdem-hrat-58da3e527841.herokuapp.com/google_login",
       data: {
         email: googleLoginCred.email,
         password: googleLoginCred.password,

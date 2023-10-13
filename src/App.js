@@ -13,7 +13,8 @@ function App() {
   const { setToken, token, removeToken } = useToken();
   const [tournamentsData, setTournamentsData] = useState([]);
   useEffect(() => {
-    fetch("http://127.0.0.1:5000/get", {
+    // fetch("http://127.0.0.1:5000/get", {
+    fetch("https://jdem-hrat-58da3e527841.herokuapp.com/get", {
       method: "GET",
       headers: {
         "Content-Type": "application/json",

@@ -15,7 +15,8 @@ export default function AddTournament(props) {
   const onSubmit = (data) => {
     data.user_id = jwt_decode(props.token.access_token).sub;
     console.log(data);
-    fetch("http://127.0.0.1:5000/post", {
+    // fetch("http://127.0.0.1:5000/post", {
+    fetch("https://jdem-hrat-58da3e527841.herokuapp.com/post", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
