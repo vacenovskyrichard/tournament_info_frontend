@@ -4,7 +4,7 @@ import "../styles/Form.css";
 import { Routes, Route, useNavigate } from "react-router-dom";
 import jwt_decode from "jwt-decode";
 
-export default function AddTournament(props) {
+export default function AddTournament({ token, apiUrl }) {
   const navigate = useNavigate();
   const {
     register,
@@ -13,14 +13,13 @@ export default function AddTournament(props) {
   } = useForm();
 
   const onSubmit = (data) => {
-    data.user_id = jwt_decode(props.token.access_token).sub;
+    data.user_id = jwt_decode(token.access_token).sub;
     console.log(data);
-    // fetch("http://127.0.0.1:5000/post", {
-    fetch("https://jdem-hrat-58da3e527841.herokuapp.com/post", {
+    fetch(`${apiUrl}/post`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        Authorization: `Bearer ${props.token.access_token}`,
+        Authorization: `Bearer ${token.access_token}`,
       },
       body: JSON.stringify(data),
     })

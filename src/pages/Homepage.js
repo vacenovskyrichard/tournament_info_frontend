@@ -3,19 +3,28 @@ import Data from "../components/Data";
 import Filters from "../components/Filters";
 import { useEffect, useState } from "react";
 
-function Homepage(props) {
+function Homepage({
+  token,
+  removeToken,
+  setToken,
+  tournamentsData,
+  setTournamentsData,
+  apiUrl,
+}) {
   return (
     <>
       <Navbar
-        token={props.token}
-        removeToken={props.removeToken}
-        setToken={props.setToken}
+        token={token}
+        removeToken={removeToken}
+        setToken={setToken}
+        apiUrl={apiUrl}
       />
       <Filters
-        data={props.tournamentsData}
-        setData={props.setTournamentsData}
+        data={tournamentsData}
+        setData={setTournamentsData}
+        apiUrl={apiUrl}
       />
-      <Data tournamentData={props.tournamentsData} token={props.token} />
+      <Data tournamentData={tournamentsData} token={token} apiUrl={apiUrl} />
     </>
   );
 }

@@ -4,7 +4,7 @@ import Select from "react-select";
 import "../styles/Filters.css";
 import Filter from "./Filter";
 
-export default function Filters(props) {
+export default function Filters({ data, setData, apiUrl }) {
   const {
     control,
     handleSubmit,
@@ -18,7 +18,7 @@ export default function Filters(props) {
     levels: new Set(),
   };
 
-  props.data.map((tournament) => {
+  data.map((tournament) => {
     filter_values.areals.add(tournament.areal);
   });
   const areals = Array.from(filter_values.areals).map((areal) => {
@@ -32,7 +32,7 @@ export default function Filters(props) {
     value: "Bez filtru",
   });
 
-  props.data.map((tournament) => {
+  data.map((tournament) => {
     filter_values.cities.add(tournament.city);
   });
   const cities = Array.from(filter_values.cities).map((city) => {
@@ -45,7 +45,7 @@ export default function Filters(props) {
     label: "Bez filtru",
     value: "Bez filtru",
   });
-  props.data.map((tournament) => {
+  data.map((tournament) => {
     filter_values.categories.add(tournament.category);
   });
   const categories = Array.from(filter_values.categories).map((category) => {
@@ -58,7 +58,7 @@ export default function Filters(props) {
     label: "Bez filtru",
     value: "Bez filtru",
   });
-  props.data.map((tournament) => {
+  data.map((tournament) => {
     filter_values.levels.add(tournament.level);
   });
 
@@ -75,8 +75,7 @@ export default function Filters(props) {
 
   const saveData = (form_data) => {
     console.log("form_data", form_data);
-    // fetch("http://127.0.0.1:5000/filter", {
-    fetch("https://jdem-hrat-58da3e527841.herokuapp.com/filter", {
+    fetch(`${apiUrl}/filter`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -84,7 +83,7 @@ export default function Filters(props) {
       body: JSON.stringify(form_data),
     })
       .then((resp) => resp.json())
-      .then((resp) => props.setData(resp));
+      .then((resp) => setData(resp));
   };
 
   return (

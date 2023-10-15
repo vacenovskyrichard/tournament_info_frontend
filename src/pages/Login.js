@@ -6,7 +6,7 @@ import jwt_decode from "jwt-decode";
 import { useGoogleLogin, GoogleLogin } from "@react-oauth/google";
 import Navbar from "../components/Navbar";
 
-function Login(props) {
+function Login({ setToken, apiUrl }) {
   const [loginForm, setloginForm] = useState({
     email: "",
     password: "",
@@ -45,15 +45,14 @@ function Login(props) {
   function login(event) {
     axios({
       method: "POST",
-      // url: "http://127.0.0.1:5000/login",
-      url: "https://jdem-hrat-58da3e527841.herokuapp.com/login",
+      url: `${apiUrl}/login`,
       data: {
         email: loginForm.email,
         password: loginForm.password,
       },
     })
       .then((response) => {
-        props.setToken(response.data);
+        setToken(response.data);
         navigate("/");
       })
       .catch((error) => {
@@ -78,8 +77,7 @@ function Login(props) {
   function loginWithGoogle(googleLoginCred) {
     axios({
       method: "POST",
-      // url: "http://127.0.0.1:5000/google_login",
-      url: "https://jdem-hrat-58da3e527841.herokuapp.com/google_login",
+      url: `${apiUrl}/google_login`,
       data: {
         email: googleLoginCred.email,
         password: googleLoginCred.password,
@@ -89,7 +87,7 @@ function Login(props) {
     })
       .then((response) => {
         console.log("STATUS CODE:" + response.status);
-        props.setToken(response.data);
+        setToken(response.data);
         console.log(response.data);
         navigate("/");
       })

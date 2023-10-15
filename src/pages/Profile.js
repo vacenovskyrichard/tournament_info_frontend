@@ -11,6 +11,7 @@ function Profile({
   setToken,
   tournamentsData,
   setTournamentsData,
+  apiUrl,
 }) {
   const navigate = useNavigate();
   const [userData, setUserData] = useState({
@@ -29,8 +30,7 @@ function Profile({
 
   const delete_tournament = (id) => {
     console.log(id);
-    // fetch(`http://127.0.0.1:5000/delete/${id}/`, {
-    fetch(`https://jdem-hrat-58da3e527841.herokuapp.com/delete/${id}/`, {
+    fetch(`${apiUrl}/delete/${id}/`, {
       method: "DELETE",
       headers: {
         Authorization: "Bearer " + token.access_token,
@@ -99,8 +99,7 @@ function Profile({
 
   useEffect(() => {
     const user_id = jwt_decode(token.access_token).sub;
-    // fetch("http://127.0.0.1:5000/user_info", {
-    fetch("https://jdem-hrat-58da3e527841.herokuapp.com/user_info", {
+    fetch(`${apiUrl}/user_info`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -145,8 +144,7 @@ function Profile({
       user_id: jwt_decode(token.access_token).sub,
     };
 
-    // fetch("http://127.0.0.1:5000/post", {
-    fetch("https://jdem-hrat-58da3e527841.herokuapp.com/post", {
+    fetch(`${apiUrl}/post`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
