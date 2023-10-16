@@ -32,9 +32,9 @@ function Homepage({
         <button onClick={() => setShowData(false)}>Kalendář</button>
       </div>
       {showData ? (
-        <Data tournamentData={tournamentsData} token={token} apiUrl={apiUrl} />
+        <Data tournamentsData={tournamentsData} />
       ) : (
-        <MyCalendar />
+        <MyCalendar tournamentsData={tournamentsData} />
       )}
     </>
   );

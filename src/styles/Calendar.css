@@ -1,3 +1,16 @@
 .Calendar--main-content {
   margin: 10px 80px 80px;
+  align-items: center;
+  justify-content: center;
+  width: 90%;
+}
+
+.Calendar--detail-window {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.Calendar--detail-window > div > p {
+  font-size: 20px;
 }

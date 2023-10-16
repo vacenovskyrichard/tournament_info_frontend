@@ -2,7 +2,7 @@ import "../styles/Data.css";
 import { useEffect, useState } from "react";
 import DataTable from "react-data-table-component";
 
-function Data({ token, tournamentData }) {
+function Data({ tournamentsData }) {
   const ExpandedComponent = ({ data }) => {
     const [timeRemainingString, setTimeRemainingString] = useState();
     const targetDateString = `${data.date} ${data.start}`;
@@ -124,7 +124,7 @@ function Data({ token, tournamentData }) {
     <div className="Data--tournament-table">
       <DataTable
         columns={columns}
-        data={tournamentData}
+        data={tournamentsData}
         pagination
         expandableRows
         expandableRowsComponent={ExpandedComponent}
