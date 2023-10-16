@@ -23,7 +23,9 @@ function App() {
         "Content-Type": "application/json",
       },
     })
-      .then((resp) => resp.json())
+      .then((resp) => {
+        return resp.json();
+      })
       .then((resp) => setTournamentsData(resp))
       .catch((err) => console.log(err));
   }, []);

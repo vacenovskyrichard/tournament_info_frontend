@@ -4,6 +4,7 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import jwt_decode from "jwt-decode";
 import DataTable from "react-data-table-component";
+import { set } from "react-hook-form";
 
 function Profile({
   token,
@@ -30,15 +31,37 @@ function Profile({
 
   const delete_tournament = (id) => {
     console.log(id);
-    fetch(`${apiUrl}/delete/${id}/`, {
-      method: "DELETE",
-      headers: {
-        Authorization: "Bearer " + token.access_token,
-      },
-    })
-      .then((resp) => resp.json())
-      .then(() => window.location.reload(false))
-      .then(() => alert("Turnaj byl úspěšně smazán"));
+
+    axios
+      .delete(`${apiUrl}/delete/${id}/`, {
+        headers: {
+          Authorization: `Bearer ${token.access_token}`,
+        },
+      })
+      .then((response) => {
+        // You can also iterate through the headers and log them individually
+        // for (const [name, value] of Object.entries(response.headers)) {
+        //   console.log(name, value);
+        // }
+
+        const new_access_token = response.headers.get("new_access_token");
+        console.log("current_access_token");
+        console.log(token.access_token);
+        console.log("new_access_token");
+        console.log(new_access_token);
+        if (new_access_token != "None") {
+          console.log("new_access_token has been set");
+          setToken({ access_token: new_access_token });
+        }
+
+        return response;
+      })
+      // .then(() => window.location.reload(false))
+      // .then(() => alert("Turnaj byl úspěšně smazán"))
+      .catch((error) => {
+        console.error("Error:", error);
+        // Handle errors here
+      });
   };
 
   const customStyles = {
@@ -99,6 +122,8 @@ function Profile({
 
   useEffect(() => {
     const user_id = jwt_decode(token.access_token).sub;
+    console.log("user_id");
+    console.log(user_id);
     fetch(`${apiUrl}/user_info`, {
       method: "POST",
       headers: {
