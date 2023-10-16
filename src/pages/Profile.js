@@ -1,10 +1,8 @@
 import "../styles/Profile.css";
 import { useState, useEffect } from "react";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
 import jwt_decode from "jwt-decode";
 import DataTable from "react-data-table-component";
-import { set } from "react-hook-form";
 
 function Profile({
   token,
@@ -14,7 +12,6 @@ function Profile({
   setTournamentsData,
   apiUrl,
 }) {
-  const navigate = useNavigate();
   const [userData, setUserData] = useState({
     id: "",
     name: "",
@@ -40,12 +37,11 @@ function Profile({
       })
       .then((response) => {
         const new_access_token = response.headers.get("new_access_token");
-        if (new_access_token != "None") {
+        if (new_access_token !== "None") {
           console.log("new_access_token has been set");
           setToken({ access_token: new_access_token });
         }
-
-        return response.json();
+        return response;
       })
       .then(() => window.location.reload(false))
       .then(() => alert("Turnaj byl úspěšně smazán"))
@@ -126,7 +122,7 @@ function Profile({
       .then((response) => {
         if (response.status === 200) {
           const new_access_token = response.headers.get("new_access_token");
-          if (new_access_token != "None") {
+          if (new_access_token !== "None") {
             console.log("new_access_token has been set");
             setToken({ access_token: new_access_token });
           }
@@ -139,17 +135,18 @@ function Profile({
       .then((response) => {
         console.log(response);
         setUserData(response);
-      });
+      }); // eslint-disable-next-line
   }, []);
 
   const create_random_tournament = () => {
     const generateRandomNumber = (min, max) => {
       return Math.floor(Math.random() * (max - min + 1)) + min;
     };
+    const categories = ["Mixy", "Muži", "Ženy"];
     const data = {
-      areal: "Prague Beach Team (Střešovice)",
-      capacity: 24,
-      category: "Mixy",
+      areal: "Testovací Areál",
+      capacity: "24",
+      category: categories[generateRandomNumber(0, 2)],
       city: "Praha",
       date: `2023-${generateRandomNumber(1, 12)}-${generateRandomNumber(
         1,
@@ -161,7 +158,6 @@ function Profile({
       name: `Random Torunament Name ${generateRandomNumber(1, 50)}`,
       organizer: "Random Name",
       price: 400,
-      signed: generateRandomNumber(0, 10),
       start: "10:00",
       user_id: jwt_decode(token.access_token).sub,
     };

@@ -1,7 +1,8 @@
 import Navbar from "../components/Navbar";
 import Data from "../components/Data";
+import MyCalendar from "../components/Calendar";
 import Filters from "../components/Filters";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 function Homepage({
   token,
@@ -11,6 +12,8 @@ function Homepage({
   setTournamentsData,
   apiUrl,
 }) {
+  const [showData, setShowData] = useState(false);
+
   return (
     <>
       <Navbar
@@ -24,7 +27,15 @@ function Homepage({
         setData={setTournamentsData}
         apiUrl={apiUrl}
       />
-      <Data tournamentData={tournamentsData} token={token} apiUrl={apiUrl} />
+      <div className="Filters--content-selector">
+        <button onClick={() => setShowData(true)}>Tabulka</button>
+        <button onClick={() => setShowData(false)}>Kalendář</button>
+      </div>
+      {showData ? (
+        <Data tournamentsData={tournamentsData} />
+      ) : (
+        <MyCalendar tournamentsData={tournamentsData} />
+      )}
     </>
   );
 }

@@ -5,6 +5,7 @@ function useToken() {
     const userToken = localStorage.getItem("token");
     return userToken ? JSON.parse(userToken) : null; // Check if userToken exists before parsing
   }
+  // eslint-disable-next-line
   const [token, _setToken] = useState(getToken());
 
   function setToken(userToken) {
