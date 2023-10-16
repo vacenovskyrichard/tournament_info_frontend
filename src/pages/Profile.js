@@ -4,6 +4,7 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import jwt_decode from "jwt-decode";
 import DataTable from "react-data-table-component";
+import { set } from "react-hook-form";
 
 function Profile({
   token,
@@ -11,6 +12,7 @@ function Profile({
   setToken,
   tournamentsData,
   setTournamentsData,
+  apiUrl,
 }) {
   const navigate = useNavigate();
   const [userData, setUserData] = useState({
@@ -29,16 +31,28 @@ function Profile({
 
   const delete_tournament = (id) => {
     console.log(id);
-    // fetch(`http://127.0.0.1:5000/delete/${id}/`, {
-    fetch(`https://jdem-hrat-58da3e527841.herokuapp.com/delete/${id}/`, {
-      method: "DELETE",
-      headers: {
-        Authorization: "Bearer " + token.access_token,
-      },
-    })
-      .then((resp) => resp.json())
+
+    axios
+      .delete(`${apiUrl}/delete/${id}/`, {
+        headers: {
+          Authorization: `Bearer ${token.access_token}`,
+        },
+      })
+      .then((response) => {
+        const new_access_token = response.headers.get("new_access_token");
+        if (new_access_token != "None") {
+          console.log("new_access_token has been set");
+          setToken({ access_token: new_access_token });
+        }
+
+        return response.json();
+      })
       .then(() => window.location.reload(false))
-      .then(() => alert("Turnaj byl úspěšně smazán"));
+      .then(() => alert("Turnaj byl úspěšně smazán"))
+      .catch((error) => {
+        console.error("Error:", error);
+        // Handle errors here
+      });
   };
 
   const customStyles = {
@@ -99,8 +113,9 @@ function Profile({
 
   useEffect(() => {
     const user_id = jwt_decode(token.access_token).sub;
-    // fetch("http://127.0.0.1:5000/user_info", {
-    fetch("https://jdem-hrat-58da3e527841.herokuapp.com/user_info", {
+    console.log("user_id");
+    console.log(user_id);
+    fetch(`${apiUrl}/user_info`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -108,16 +123,22 @@ function Profile({
       },
       body: JSON.stringify({ user_id: user_id }),
     })
-      .then((resp) => {
-        if (resp.status === 200) {
-          return resp.json();
+      .then((response) => {
+        if (response.status === 200) {
+          const new_access_token = response.headers.get("new_access_token");
+          if (new_access_token != "None") {
+            console.log("new_access_token has been set");
+            setToken({ access_token: new_access_token });
+          }
+
+          return response.json();
         } else {
           throw new Error("Failed to send data or fetch response");
         }
       })
-      .then((resp) => {
-        console.log(resp);
-        setUserData(resp);
+      .then((response) => {
+        console.log(response);
+        setUserData(response);
       });
   }, []);
 
@@ -145,8 +166,7 @@ function Profile({
       user_id: jwt_decode(token.access_token).sub,
     };
 
-    // fetch("http://127.0.0.1:5000/post", {
-    fetch("https://jdem-hrat-58da3e527841.herokuapp.com/post", {
+    fetch(`${apiUrl}/post`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -154,7 +174,7 @@ function Profile({
       },
       body: JSON.stringify(data),
     })
-      .then((resp) => resp.json())
+      .then((response) => response.json())
       .then(() => window.location.reload(false))
 
       .catch((error) => console.log(error));

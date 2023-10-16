@@ -3,7 +3,7 @@ import { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
-function ForgotPassword(props) {
+function ForgotPassword({ apiUrl }) {
   const [loginForm, setloginForm] = useState({
     email: "",
     password: "",
@@ -22,8 +22,7 @@ function ForgotPassword(props) {
   function forgot_password(event) {
     axios({
       method: "POST",
-      // url: "http://127.0.0.1:5000/reset",
-      url: "https://jdem-hrat-58da3e527841.herokuapp.com/reset",
+      url: `${apiUrl}/reset`,
       data: {
         email: loginForm.email,
         password: "",

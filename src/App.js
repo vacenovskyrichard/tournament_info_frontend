@@ -12,15 +12,20 @@ import { useEffect, useState } from "react";
 function App() {
   const { setToken, token, removeToken } = useToken();
   const [tournamentsData, setTournamentsData] = useState([]);
+  const localhost = "http://127.0.0.1:5000";
+  const production = "https://jdem-hrat-58da3e527841.herokuapp.com";
+
+  const apiUrl = localhost;
   useEffect(() => {
-    // fetch("http://127.0.0.1:5000/get", {
-    fetch("https://jdem-hrat-58da3e527841.herokuapp.com/get", {
+    fetch(`${apiUrl}/get`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
       },
     })
-      .then((resp) => resp.json())
+      .then((resp) => {
+        return resp.json();
+      })
       .then((resp) => setTournamentsData(resp))
       .catch((err) => console.log(err));
   }, []);
@@ -38,6 +43,7 @@ function App() {
                 setToken={setToken}
                 tournamentsData={tournamentsData}
                 setTournamentsData={setTournamentsData}
+                apiUrl={apiUrl}
               />
             }
           />
@@ -48,6 +54,7 @@ function App() {
                 token={token}
                 removeToken={removeToken}
                 setToken={setToken}
+                apiUrl={apiUrl}
               />
             }
           />
@@ -58,6 +65,7 @@ function App() {
                 token={token}
                 removeToken={removeToken}
                 setToken={setToken}
+                apiUrl={apiUrl}
               />
             }
           />
@@ -68,6 +76,7 @@ function App() {
                 token={token}
                 removeToken={removeToken}
                 setToken={setToken}
+                apiUrl={apiUrl}
               />
             }
           />
@@ -78,6 +87,7 @@ function App() {
                 token={token}
                 removeToken={removeToken}
                 setToken={setToken}
+                apiUrl={apiUrl}
               />
             }
           />
@@ -90,6 +100,7 @@ function App() {
                 setToken={setToken}
                 tournamentsData={tournamentsData}
                 setTournamentsData={setTournamentsData}
+                apiUrl={apiUrl}
               />
             }
           />

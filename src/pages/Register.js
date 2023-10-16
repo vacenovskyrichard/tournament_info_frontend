@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
-function Register(props) {
+function Register({ apiUrl }) {
   const [loginForm, setloginForm] = useState({
     email: "",
     password: "",
@@ -18,8 +18,7 @@ function Register(props) {
   function register(event) {
     axios({
       method: "POST",
-      // url: "http://127.0.0.1:5000/register",
-      url: "https://jdem-hrat-58da3e527841.herokuapp.com/register",
+      url: `${apiUrl}/register`,
       data: {
         email: loginForm.email,
         password: loginForm.password,
