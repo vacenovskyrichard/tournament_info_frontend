@@ -39,25 +39,16 @@ function Profile({
         },
       })
       .then((response) => {
-        // You can also iterate through the headers and log them individually
-        // for (const [name, value] of Object.entries(response.headers)) {
-        //   console.log(name, value);
-        // }
-
         const new_access_token = response.headers.get("new_access_token");
-        console.log("current_access_token");
-        console.log(token.access_token);
-        console.log("new_access_token");
-        console.log(new_access_token);
         if (new_access_token != "None") {
           console.log("new_access_token has been set");
           setToken({ access_token: new_access_token });
         }
 
-        return response;
+        return response.json();
       })
-      // .then(() => window.location.reload(false))
-      // .then(() => alert("Turnaj byl úspěšně smazán"))
+      .then(() => window.location.reload(false))
+      .then(() => alert("Turnaj byl úspěšně smazán"))
       .catch((error) => {
         console.error("Error:", error);
         // Handle errors here
@@ -132,16 +123,22 @@ function Profile({
       },
       body: JSON.stringify({ user_id: user_id }),
     })
-      .then((resp) => {
-        if (resp.status === 200) {
-          return resp.json();
+      .then((response) => {
+        if (response.status === 200) {
+          const new_access_token = response.headers.get("new_access_token");
+          if (new_access_token != "None") {
+            console.log("new_access_token has been set");
+            setToken({ access_token: new_access_token });
+          }
+
+          return response.json();
         } else {
           throw new Error("Failed to send data or fetch response");
         }
       })
-      .then((resp) => {
-        console.log(resp);
-        setUserData(resp);
+      .then((response) => {
+        console.log(response);
+        setUserData(response);
       });
   }, []);
 
@@ -177,7 +174,7 @@ function Profile({
       },
       body: JSON.stringify(data),
     })
-      .then((resp) => resp.json())
+      .then((response) => response.json())
       .then(() => window.location.reload(false))
 
       .catch((error) => console.log(error));
