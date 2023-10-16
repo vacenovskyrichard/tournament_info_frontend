@@ -1,7 +1,5 @@
 import "../styles/Data.css";
 import { useEffect, useState } from "react";
-import axios from "axios";
-import jwt_decode from "jwt-decode";
 import DataTable from "react-data-table-component";
 
 function Data({ token, tournamentData }) {
@@ -28,12 +26,12 @@ function Data({ token, tournamentData }) {
         );
         const seconds = Math.floor((timeDifference % (1000 * 60)) / 1000);
 
-        let dayWord = days == 1 ? "den" : days < 5 ? "dny" : "dní";
-        let hourWord = hours == 1 ? "hodina" : hours < 5 ? "hodiny" : "hodin";
+        let dayWord = days === 1 ? "den" : days < 5 ? "dny" : "dní";
+        let hourWord = hours === 1 ? "hodina" : hours < 5 ? "hodiny" : "hodin";
         let minutesWord =
-          hours == 1 ? "minuta" : hours < 5 ? "minuty" : "minut";
+          hours === 1 ? "minuta" : hours < 5 ? "minuty" : "minut";
         let secondsWord =
-          hours == 1 ? "vteřina" : hours < 5 ? "vteřiny" : "vteřin";
+          hours === 1 ? "vteřina" : hours < 5 ? "vteřiny" : "vteřin";
         let remainsWord = days > 1 && days < 5 ? "zbývají" : "zbývá";
 
         setTimeRemainingString(
@@ -41,7 +39,7 @@ function Data({ token, tournamentData }) {
         );
       }, 1000);
 
-      return () => clearInterval(secTimer);
+      return () => clearInterval(secTimer); // eslint-disable-next-line
     }, []);
 
     return (
@@ -108,8 +106,10 @@ function Data({ token, tournamentData }) {
     {
       name: "Kapacita",
       selector: (row) => {
-        if (row.signed == null || row.capacity == null) {
+        if (row.signed == null && row.capacity == null) {
           return "";
+        } else if (row.signed == null) {
+          return `/${row.capacity}`;
         }
         return `${row.signed}/${row.capacity}`;
       },

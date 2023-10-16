@@ -31,3 +31,12 @@
 .save-button:hover {
   box-shadow: 0 0 11px rgba(33, 33, 33, 0.7);
 }
+
+.Filters--content-selector {
+  margin-top: 20px;
+  margin-left: 80px;
+}
+
+.Filters--content-selector > a {
+  margin: 5px;
+}

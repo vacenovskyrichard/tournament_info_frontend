@@ -1,16 +1,12 @@
 import React from "react";
 import { useForm } from "react-hook-form";
 import "../styles/Form.css";
-import { Routes, Route, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import jwt_decode from "jwt-decode";
 
 export default function AddTournament({ token, apiUrl }) {
   const navigate = useNavigate();
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm();
+  const { register, handleSubmit } = useForm();
 
   const onSubmit = (data) => {
     data.user_id = jwt_decode(token.access_token).sub;

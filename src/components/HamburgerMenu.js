@@ -20,9 +20,9 @@ const HamburgerMenu = ({ logout }) => {
       <div className={`menu ${isOpen ? "open" : ""}`}>
         <a href="/profile">Profil</a>
         <a href="/about">O nás</a>
-        <a className="Hamburger-menu--logout" onClick={logout}>
+        <p className="Hamburger-menu--logout" onClick={logout}>
           Odhlásit
-        </a>
+        </p>
       </div>
     </div>
   );

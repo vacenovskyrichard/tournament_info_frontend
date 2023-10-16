@@ -1,5 +1,4 @@
-import { useForm, Controller } from "react-hook-form";
-import { useState, useEffect } from "react";
+import { Controller } from "react-hook-form";
 import Select from "react-select";
 import "../styles/Filters.css";
 

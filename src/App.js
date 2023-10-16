@@ -13,6 +13,7 @@ function App() {
   const { setToken, token, removeToken } = useToken();
   const [tournamentsData, setTournamentsData] = useState([]);
   const localhost = "http://127.0.0.1:5000";
+  // eslint-disable-next-line
   const production = "https://jdem-hrat-58da3e527841.herokuapp.com";
 
   const apiUrl = localhost;
@@ -27,7 +28,7 @@ function App() {
         return resp.json();
       })
       .then((resp) => setTournamentsData(resp))
-      .catch((err) => console.log(err));
+      .catch((err) => console.log(err)); // eslint-disable-next-line
   }, []);
 
   return (

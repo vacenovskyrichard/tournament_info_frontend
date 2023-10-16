@@ -1,16 +1,10 @@
 import "../styles/Navbar.css";
-import { useState, useEffect } from "react";
 import axios from "axios";
-import { Routes, Route, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import HamburgerMenu from "./HamburgerMenu";
 
 function Navbar({ token, removeToken, apiUrl }) {
   const navigate = useNavigate();
-
-  const [loginForm, setloginForm] = useState({
-    email: "",
-    password: "",
-  });
 
   function logout() {
     axios({

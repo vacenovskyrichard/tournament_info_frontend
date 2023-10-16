@@ -1,15 +1,9 @@
-import { useForm, Controller } from "react-hook-form";
-import { useState, useEffect } from "react";
-import Select from "react-select";
+import { useForm } from "react-hook-form";
 import "../styles/Filters.css";
 import Filter from "./Filter";
 
 export default function Filters({ data, setData, apiUrl }) {
-  const {
-    control,
-    handleSubmit,
-    formState: { errors },
-  } = useForm();
+  const { control, handleSubmit } = useForm();
 
   const filter_values = {
     areals: new Set(),
@@ -18,9 +12,7 @@ export default function Filters({ data, setData, apiUrl }) {
     levels: new Set(),
   };
 
-  data.map((tournament) => {
-    filter_values.areals.add(tournament.areal);
-  });
+  data.map((tournament) => filter_values.areals.add(tournament.areal));
   const areals = Array.from(filter_values.areals).map((areal) => {
     return {
       label: areal,
@@ -32,9 +24,7 @@ export default function Filters({ data, setData, apiUrl }) {
     value: "Bez filtru",
   });
 
-  data.map((tournament) => {
-    filter_values.cities.add(tournament.city);
-  });
+  data.map((tournament) => filter_values.cities.add(tournament.city));
   const cities = Array.from(filter_values.cities).map((city) => {
     return {
       label: city,
@@ -45,9 +35,7 @@ export default function Filters({ data, setData, apiUrl }) {
     label: "Bez filtru",
     value: "Bez filtru",
   });
-  data.map((tournament) => {
-    filter_values.categories.add(tournament.category);
-  });
+  data.map((tournament) => filter_values.categories.add(tournament.category));
   const categories = Array.from(filter_values.categories).map((category) => {
     return {
       label: category,
@@ -58,9 +46,7 @@ export default function Filters({ data, setData, apiUrl }) {
     label: "Bez filtru",
     value: "Bez filtru",
   });
-  data.map((tournament) => {
-    filter_values.levels.add(tournament.level);
-  });
+  data.map((tournament) => filter_values.levels.add(tournament.level));
 
   const levels = Array.from(filter_values.levels).map((level) => {
     return {

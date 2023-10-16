@@ -2,9 +2,7 @@ import "../styles/Login.css";
 import { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import jwt_decode from "jwt-decode";
-import { useGoogleLogin, GoogleLogin } from "@react-oauth/google";
-import Navbar from "../components/Navbar";
+import { useGoogleLogin } from "@react-oauth/google";
 
 function Login({ setToken, apiUrl }) {
   const [loginForm, setloginForm] = useState({
@@ -16,12 +14,10 @@ function Login({ setToken, apiUrl }) {
 
   const google_login = useGoogleLogin({
     onSuccess: async (response) => {
-      console.log("Login with google succesful.");
-      console.log(response);
       const at = response.access_token;
       axios({
         method: "GET",
-        url: `https://www.googleapis.com/oauth2/v3/userinfo?access_token=${response.access_token}`,
+        url: `https://www.googleapis.com/oauth2/v3/userinfo?access_token=${at}`,
       })
         .then((response) => {
           console.log(response.data);
