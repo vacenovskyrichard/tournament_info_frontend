@@ -119,13 +119,13 @@ export default function MyCalendar({ tournamentsData, filterResults }) {
         level = filterResults.level;
       }
       setCalendarUrl(
-        `https://jdem-hrat-58da3e527841.herokuapp.com/calendar-feed.ics/${city}/${areal}/${category}/${level}/`
+        `https://jdem-hrat-58da3e527841.herokuapp.com/ical.feed/${city}/${areal}/${category}/${level}/`
       );
       console.log("calendarUrl");
       console.log(calendarUrl);
     } else {
       setCalendarUrl(
-        "https://jdem-hrat-58da3e527841.herokuapp.com/calendar-feed.ics/none/none/none/none/"
+        "https://jdem-hrat-58da3e527841.herokuapp.com/ical.feed/none/none/none/none/"
       );
     }
   };
