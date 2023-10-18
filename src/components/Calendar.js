@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "../styles/Calendar.css";
 import { Calendar, momentLocalizer } from "react-big-calendar";
 import moment from "moment";
@@ -6,8 +6,10 @@ import "moment/locale/cs";
 import "react-big-calendar/lib/css/react-big-calendar.css";
 import "react-responsive-modal/styles.css";
 import { Modal } from "react-responsive-modal";
+import { useResolvedPath } from "react-router-dom";
+import { set } from "react-hook-form";
 
-export default function MyCalendar({ tournamentsData }) {
+export default function MyCalendar({ tournamentsData, filterResults }) {
   // Define custom month names in Czech
   const customMonthNames = [
     "Leden",
@@ -84,6 +86,50 @@ export default function MyCalendar({ tournamentsData }) {
     setSelectedEvent(event);
   };
 
+  const [calendarUrl, setCalendarUrl] = useState(null);
+
+  const generateCalendarUrl = () => {
+    if (filterResults !== undefined) {
+      var city = "none";
+      if (
+        filterResults.city !== undefined &&
+        filterResults.city !== "Bez filtru"
+      ) {
+        city = filterResults.city;
+      }
+      var areal = "none";
+      if (
+        filterResults.areal !== undefined &&
+        filterResults.areal !== "Bez filtru"
+      ) {
+        areal = filterResults.areal;
+      }
+      var category = "none";
+      if (
+        filterResults.category !== undefined &&
+        filterResults.category !== "Bez filtru"
+      ) {
+        category = filterResults.category;
+      }
+      var level = "none";
+      if (
+        filterResults.level !== undefined &&
+        filterResults.level !== "Bez filtru"
+      ) {
+        level = filterResults.level;
+      }
+      setCalendarUrl(
+        `https://jdem-hrat-58da3e527841.herokuapp.com/calendar-feed.ics/${city}/${areal}/${category}/${level}/`
+      );
+      console.log("calendarUrl");
+      console.log(calendarUrl);
+    } else {
+      setCalendarUrl(
+        "https://jdem-hrat-58da3e527841.herokuapp.com/calendar-feed.ics/none/none/none/none/"
+      );
+    }
+  };
+
   return (
     <div className="Calendar--main-content">
       <Calendar
@@ -123,6 +169,23 @@ export default function MyCalendar({ tournamentsData }) {
             <p>Organizátor: {selectedEvent.organizer}</p>
             <p>
               Odkaz: <a href={selectedEvent.link}>{selectedEvent.link}</a>
+            </p>
+          </div>
+        )}
+      </Modal>
+      <button onClick={generateCalendarUrl}>Vygenerovat URL</button>
+      <Modal
+        open={calendarUrl !== null}
+        onClose={() => setCalendarUrl(null)}
+        classNames={{
+          modal: "Calendar--detail-window",
+        }}
+      >
+        {calendarUrl && (
+          <div>
+            <h1>Odkaz na kalendář</h1>
+            <p>
+              Odkaz: <a href={calendarUrl}>{calendarUrl}</a>
             </p>
           </div>
         )}

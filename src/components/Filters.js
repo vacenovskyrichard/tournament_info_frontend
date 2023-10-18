@@ -1,8 +1,9 @@
 import { useForm } from "react-hook-form";
+import { useState } from "react";
 import "../styles/Filters.css";
 import Filter from "./Filter";
 
-export default function Filters({ data, setData, apiUrl }) {
+export default function Filters({ data, setData, apiUrl, setFilterResults }) {
   const { control, handleSubmit } = useForm();
 
   const filter_values = {
@@ -60,6 +61,7 @@ export default function Filters({ data, setData, apiUrl }) {
   });
 
   const saveData = (form_data) => {
+    setFilterResults(form_data);
     console.log("form_data", form_data);
     fetch(`${apiUrl}/filter`, {
       method: "POST",
