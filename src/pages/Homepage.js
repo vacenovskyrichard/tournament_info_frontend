@@ -13,6 +13,7 @@ function Homepage({
   apiUrl,
 }) {
   const [showData, setShowData] = useState(false);
+  const [filterResults, setFilterResults] = useState();
 
   return (
     <>
@@ -26,6 +27,7 @@ function Homepage({
         data={tournamentsData}
         setData={setTournamentsData}
         apiUrl={apiUrl}
+        setFilterResults={setFilterResults}
       />
       <div className="Filters--content-selector">
         <button onClick={() => setShowData(true)}>Tabulka</button>
@@ -34,7 +36,10 @@ function Homepage({
       {showData ? (
         <Data tournamentsData={tournamentsData} />
       ) : (
-        <MyCalendar tournamentsData={tournamentsData} />
+        <MyCalendar
+          tournamentsData={tournamentsData}
+          filterResults={filterResults}
+        />
       )}
     </>
   );
