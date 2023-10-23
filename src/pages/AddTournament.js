@@ -75,6 +75,7 @@ export default function AddTournament({ token, apiUrl }) {
               },
             })}
           />
+          {errors.date && <p>{errors.date?.message}</p>}
         </div>
         <div className="AddTournament--form-element">
           <label>Město</label>
@@ -88,6 +89,7 @@ export default function AddTournament({ token, apiUrl }) {
               },
             })}
           />
+          {errors.city && <p>{errors.city?.message}</p>}
         </div>
         <div className="AddTournament--form-element">
           <label>Název areálu</label>
@@ -101,6 +103,7 @@ export default function AddTournament({ token, apiUrl }) {
               },
             })}
           />
+          {errors.areal && <p>{errors.areal?.message}</p>}
         </div>
         <div className="AddTournament--form-element">
           <label>Kapacita</label>
@@ -168,6 +171,7 @@ export default function AddTournament({ token, apiUrl }) {
               }
             }}
           />
+          {errors.start && <p>{errors.start?.message}</p>}
         </div>
         <div className="AddTournament--form-element">
           <label>Jméno organizátora</label>
