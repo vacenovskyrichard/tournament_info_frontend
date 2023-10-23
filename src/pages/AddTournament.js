@@ -149,7 +149,7 @@ export default function AddTournament({ token, apiUrl }) {
             type="text"
             name="start"
             placeholder="HH:mm"
-            pattern="^(?:[0-9]|1[0-9]|2[0-3]):[0-5][0-9]$"
+            pattern="^([0-1]?[0-9]|2[0-3]):[0-5][0-9]$"
             {...register("start", {
               required: {
                 value: true,
