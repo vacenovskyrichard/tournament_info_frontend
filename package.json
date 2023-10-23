@@ -8,6 +8,7 @@
     "@testing-library/jest-dom": "^5.17.0",
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
+    "antd": "^5.10.2",
     "axios": "^1.5.1",
     "ics": "^3.5.0",
     "jwt-decode": "^3.1.2",
@@ -51,6 +52,7 @@
     ]
   },
   "devDependencies": {
-    "@babel/plugin-proposal-decorators": "^7.23.0"
+    "@babel/plugin-proposal-decorators": "^7.23.0",
+    "@hookform/devtools": "^4.3.1"
   }
 }

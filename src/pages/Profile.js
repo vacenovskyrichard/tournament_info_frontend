@@ -22,10 +22,6 @@ function Profile({
 
   const userId = jwt_decode(token.access_token).sub;
 
-  const userTournaments = tournamentsData.filter(
-    (tournament) => tournament.user_id === userId
-  );
-
   const delete_tournament = (id) => {
     console.log(id);
 
@@ -137,6 +133,12 @@ function Profile({
         setUserData(response);
       }); // eslint-disable-next-line
   }, []);
+
+  // filter user tournaments and show all, if user is admin
+  const userTournaments =
+    userData.role === "admin"
+      ? tournamentsData
+      : tournamentsData.filter((tournament) => tournament.user_id === userId);
 
   const create_random_tournament = () => {
     const generateRandomNumber = (min, max) => {
