@@ -1,3 +1,7 @@
+.Profile--main {
+  margin: 20px;
+}
+
 .Profile--tmp-buttons {
   display: flex;
   align-items: center;
@@ -9,6 +13,6 @@
 }
 
 .Profile--user-data {
-  margin: 80px;
+  margin: 20px;
   font-size: 20px;
 }

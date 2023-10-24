@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import jwt_decode from "jwt-decode";
 import DataTable from "react-data-table-component";
+import Navbar from "../components/Navbar";
 
 function Profile({
   token,
@@ -180,28 +181,39 @@ function Profile({
 
   return (
     <>
-      <h1>Profil</h1>
-      {token && (
-        <div className="Profile--user-data">
-          <p>Jméno: {userData.name}</p>
-          <p>Příjmení: {userData.surname}</p>
-          <p>Email: {userData.email}</p>
-          <p>Role: {userData.role}</p>
+      <Navbar
+        token={token}
+        removeToken={removeToken}
+        setToken={setToken}
+        apiUrl={apiUrl}
+        title={"Profil"}
+      />
+      <div className="Profile--main">
+        <h1>Osobní údaje</h1>
+        {token && (
+          <div className="Profile--user-data">
+            <p>Jméno: {userData.name}</p>
+            <p>Příjmení: {userData.surname}</p>
+            <p>Email: {userData.email}</p>
+            <p>Role: {userData.role}</p>
+          </div>
+        )}
+        <h1>Moje Turnaje</h1>
+        <div className="Data--tournament-table">
+          <DataTable
+            columns={columns}
+            data={userTournaments}
+            pagination
+            customStyles={customStyles}
+          />
         </div>
-      )}
-      <h1>Moje Turnaje</h1>
-      <div className="Data--tournament-table">
-        <DataTable
-          columns={columns}
-          data={userTournaments}
-          pagination
-          customStyles={customStyles}
-        />
-      </div>
-      <div className="Profile--tmp-buttons">
-        <a href="/">Zpět na hlavní stranu</a>
-        <a href="/add_tournament">Přidat turnaj</a>
-        <button onClick={create_random_tournament}>Přidat random turnaj</button>
+        <div className="Profile--tmp-buttons">
+          <a href="/">Zpět na hlavní stranu</a>
+          <a href="/add_tournament">Přidat turnaj</a>
+          <button onClick={create_random_tournament}>
+            Přidat random turnaj
+          </button>
+        </div>
       </div>
     </>
   );
