@@ -88,19 +88,33 @@ function Profile({
     {
       name: "",
       cell: (row) => (
-        <div
+        <img
+          src="./edit.png"
           style={{
-            color: "red",
-            textAlign: "right",
-            width: "100%",
-            boxSizing: "border-box",
+            height: "30px",
+            width: "30px",
             cursor: "pointer",
           }}
-          onClick={() => delete_tournament(row.id)}
-        >
-          Smazat
-        </div>
+          // onClick={() => delete_tournament(row.id)}
+        />
       ),
+      width: "50px",
+    },
+    {
+      name: "",
+      cell: (row) => (
+        <img
+          src="./delete.png"
+          style={{
+            height: "30px",
+            width: "30px",
+            cursor: "pointer",
+            marginRight: "10px",
+          }}
+          onClick={() => delete_tournament(row.id)}
+        />
+      ),
+      width: "60px",
     },
   ];
 
