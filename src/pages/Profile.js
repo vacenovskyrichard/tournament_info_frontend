@@ -46,7 +46,6 @@ function Profile({
         return response;
       })
       .then(() => window.location.reload(false))
-      .then(() => alert("Turnaj byl úspěšně smazán"))
       .catch((error) => {
         console.error("Error:", error);
         // Handle errors here
@@ -171,6 +170,7 @@ function Profile({
       ? tournamentsData
       : tournamentsData.filter((tournament) => tournament.user_id === userId);
 
+  // creates tournament with random data - used for testing
   const create_random_tournament = () => {
     const generateRandomNumber = (min, max) => {
       return Math.floor(Math.random() * (max - min + 1)) + min;

@@ -14,6 +14,9 @@ function Navbar({ token, removeToken, apiUrl, title }) {
       .then((response) => {
         removeToken();
       })
+      .then((response) => {
+        navigate("/");
+      })
       .catch((error) => {
         if (error.response) {
           console.log(error.response);
