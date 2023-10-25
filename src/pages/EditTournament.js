@@ -33,10 +33,8 @@ export default function EditTournament({
   const [editCategory, setEditCategory] = useState(false);
   const [editLevel, setEditLevel] = useState(false);
   const [editLink, setEditLink] = useState(false);
-  const [myId, setmyId] = useState();
 
   // get all tournaments and filter by id the one to be edited
-  console.log();
   useEffect(() => {
     console.log("Rendering...");
     fetch(`${apiUrl}/get`, {
@@ -55,6 +53,7 @@ export default function EditTournament({
       .catch((err) => console.log(err)); // eslint-disable-next-line
   }, []);
 
+  // send data about edited tournament to bakckend
   const onSubmit = (data) => {
     data.user_id = jwt_decode(token.access_token).sub;
     if (data.level) {
@@ -99,6 +98,7 @@ export default function EditTournament({
       />
 
       <div className="EditTournament--main">
+        {/* Tournament name */}
         <div className="EditTournament--form-element">
           <h3>Jméno turnaje</h3>
           {!editName ? (
@@ -124,6 +124,7 @@ export default function EditTournament({
           )}
         </div>
 
+        {/* Tournament date */}
         <div className="EditTournament--form-element">
           <h3>Datum</h3>
           {!editDate ? (
@@ -149,6 +150,7 @@ export default function EditTournament({
           )}
         </div>
 
+        {/* Tournament city */}
         <div className="EditTournament--form-element">
           <h3>Město</h3>
           {!editCity ? (
@@ -174,6 +176,7 @@ export default function EditTournament({
           )}
         </div>
 
+        {/* Tournament areal */}
         <div className="EditTournament--form-element">
           <h3>Areál</h3>
           {!editAreal ? (
@@ -199,6 +202,7 @@ export default function EditTournament({
           )}
         </div>
 
+        {/* Tournament capacity */}
         <div className="EditTournament--form-element">
           <h3>Kapacita</h3>
           {!editCapacity ? (
@@ -229,6 +233,7 @@ export default function EditTournament({
           )}
         </div>
 
+        {/* Tournament price */}
         <div className="EditTournament--form-element">
           <h3>Startovné</h3>
           {!editPrice ? (
@@ -259,6 +264,7 @@ export default function EditTournament({
           )}
         </div>
 
+        {/* Tournament start */}
         <div className="EditTournament--form-element">
           <h3>Začátek</h3>
           {!editStart ? (
@@ -304,6 +310,7 @@ export default function EditTournament({
           )}
         </div>
 
+        {/* Tournament organizer */}
         <div className="EditTournament--form-element">
           <h3>Organizátor</h3>
           {!editOrganizer ? (
@@ -329,6 +336,7 @@ export default function EditTournament({
           )}
         </div>
 
+        {/* Tournament category */}
         <div className="EditTournament--form-element">
           <h3>Kategorie</h3>
           {!editCategory ? (
@@ -369,6 +377,7 @@ export default function EditTournament({
           )}
         </div>
 
+        {/* Tournament level */}
         <div className="EditTournament--form-element">
           <h3>Úroveň</h3>
           {!editLevel ? (
@@ -409,6 +418,7 @@ export default function EditTournament({
           )}
         </div>
 
+        {/* Tournament link */}
         <div className="EditTournament--form-element">
           <h3>Odkaz</h3>
           {!editLink ? (
