@@ -9,6 +9,7 @@ import ForgotPassword from "./pages/ForgotPassword";
 import Profile from "./pages/Profile";
 import useToken from "./components/useToken";
 import { useEffect, useState } from "react";
+import ReactGA from "react-ga";
 
 function App() {
   const { setToken, token, removeToken } = useToken();
@@ -18,6 +19,7 @@ function App() {
   // eslint-disable-next-line
   const production = "https://jdem-hrat-58da3e527841.herokuapp.com";
 
+  ReactGA.initialize("UA-283334900-1");
   const apiUrl = localhost;
   useEffect(() => {
     fetch(`${apiUrl}/get`, {
