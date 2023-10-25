@@ -14,6 +14,7 @@ import ReactGA from "react-ga";
 function App() {
   const { setToken, token, removeToken } = useToken();
   const [tournamentsData, setTournamentsData] = useState([]);
+  const [filterOptions, setFilterOptions] = useState([]);
   const [tournamentToEditId, setTournamentToEditId] = useState();
   const localhost = "http://127.0.0.1:5000";
   // eslint-disable-next-line
@@ -21,7 +22,7 @@ function App() {
 
   ReactGA.initialize("UA-283334900-1");
 
-  const apiUrl = production;
+  const apiUrl = localhost;
   useEffect(() => {
     fetch(`${apiUrl}/get`, {
       method: "GET",
@@ -32,7 +33,10 @@ function App() {
       .then((resp) => {
         return resp.json();
       })
-      .then((resp) => setTournamentsData(resp))
+      .then((resp) => {
+        setTournamentsData(resp);
+        setFilterOptions(resp);
+      })
       .catch((err) => console.log(err)); // eslint-disable-next-line
   }, []);
 
@@ -50,6 +54,7 @@ function App() {
                 tournamentsData={tournamentsData}
                 setTournamentsData={setTournamentsData}
                 apiUrl={apiUrl}
+                filterOptions={filterOptions}
               />
             }
           />

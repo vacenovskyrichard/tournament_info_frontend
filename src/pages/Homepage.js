@@ -11,6 +11,7 @@ function Homepage({
   tournamentsData,
   setTournamentsData,
   apiUrl,
+  filterOptions,
 }) {
   const [showData, setShowData] = useState(true);
   const [filterResults, setFilterResults] = useState();
@@ -29,6 +30,7 @@ function Homepage({
         setData={setTournamentsData}
         apiUrl={apiUrl}
         setFilterResults={setFilterResults}
+        filterOptions={filterOptions}
       />
       {showData ? (
         <Data
