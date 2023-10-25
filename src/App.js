@@ -2,19 +2,24 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Homepage from "./pages/Homepage";
 import Nopage from "./pages/Nopage";
 import AddTournament from "./pages/AddTournament";
+import EditTournament from "./pages/EditTournament";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
 import ForgotPassword from "./pages/ForgotPassword";
 import Profile from "./pages/Profile";
 import useToken from "./components/useToken";
 import { useEffect, useState } from "react";
+import ReactGA from "react-ga";
 
 function App() {
   const { setToken, token, removeToken } = useToken();
   const [tournamentsData, setTournamentsData] = useState([]);
+  const [tournamentToEditId, setTournamentToEditId] = useState();
   const localhost = "http://127.0.0.1:5000";
   // eslint-disable-next-line
   const production = "https://jdem-hrat-58da3e527841.herokuapp.com";
+
+  ReactGA.initialize("UA-283334900-1");
 
   const apiUrl = production;
   useEffect(() => {
@@ -56,6 +61,20 @@ function App() {
                 removeToken={removeToken}
                 setToken={setToken}
                 apiUrl={apiUrl}
+              />
+            }
+          />
+          <Route
+            path="/edit_tournament"
+            element={
+              <EditTournament
+                token={token}
+                removeToken={removeToken}
+                setToken={setToken}
+                apiUrl={apiUrl}
+                tournamentToEditId={tournamentToEditId}
+                tournamentsData={tournamentsData}
+                setTournamentsData={setTournamentsData}
               />
             }
           />
@@ -102,10 +121,21 @@ function App() {
                 tournamentsData={tournamentsData}
                 setTournamentsData={setTournamentsData}
                 apiUrl={apiUrl}
+                setTournamentToEditId={setTournamentToEditId}
               />
             }
           />
-          <Route path="*" element={<Nopage />} />
+          <Route
+            path="*"
+            element={
+              <Nopage
+                token={token}
+                removeToken={removeToken}
+                setToken={setToken}
+                apiUrl={apiUrl}
+              />
+            }
+          />
         </Routes>
       </BrowserRouter>
     </div>

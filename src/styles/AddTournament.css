@@ -1,0 +1,58 @@
+.AddTournament--main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.AddTournament--main > form {
+  width: 500px;
+}
+
+.AddTournament--form-element {
+  display: flex;
+  flex-direction: column;
+  /* margin: 10px; */
+}
+
+.AddTournament--form-element > label {
+  font-family: "Montserrat", sans-serif;
+  font-weight: bold;
+  font-size: 16px;
+  color: #555;
+  line-height: 1.5;
+  margin-right: 5px;
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+.AddTournament--form-element > p {
+  color: red;
+  line-height: 1.5;
+  margin: 0px;
+}
+
+.AddTournament--form-element > input {
+  font-family: "Montserrat", sans-serif;
+  font-size: 18px;
+  width: 100%;
+  background-color: #f7f7f7;
+  border: 1px solid #e6e6e6;
+  height: 40px;
+  border-radius: 10px;
+}
+
+.AddTournament--submit-button {
+  cursor: default;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0 20px;
+  height: 60px;
+  background-color: #333;
+  border-radius: 10px;
+  font-family: "Poppins", sans-serif;
+  font-size: 16px;
+  color: #fff;
+  margin-top: 10px;
+}
+.AddTournament--submit-button:hover {
+  box-shadow: 0 0 11px rgba(33, 33, 33, 0.7);
+}

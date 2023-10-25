@@ -12,7 +12,7 @@ function Homepage({
   setTournamentsData,
   apiUrl,
 }) {
-  const [showData, setShowData] = useState(false);
+  const [showData, setShowData] = useState(true);
   const [filterResults, setFilterResults] = useState();
 
   return (
@@ -22,6 +22,7 @@ function Homepage({
         removeToken={removeToken}
         setToken={setToken}
         apiUrl={apiUrl}
+        title={"Hlavní strana"}
       />
       <Filters
         data={tournamentsData}

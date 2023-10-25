@@ -3,7 +3,7 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import HamburgerMenu from "./HamburgerMenu";
 
-function Navbar({ token, removeToken, apiUrl }) {
+function Navbar({ token, removeToken, apiUrl, title }) {
   const navigate = useNavigate();
 
   function logout() {
@@ -13,6 +13,9 @@ function Navbar({ token, removeToken, apiUrl }) {
     })
       .then((response) => {
         removeToken();
+      })
+      .then((response) => {
+        navigate("/");
       })
       .catch((error) => {
         if (error.response) {
@@ -32,15 +35,12 @@ function Navbar({ token, removeToken, apiUrl }) {
         </a>
       </div>
       <div className="navbar--center">
-        <h1 className="navbar--title">Informace o nadcházejících turnajích</h1>
+        <h1 className="navbar--title">{title}</h1>
       </div>
 
       <div className="navbar--right">
         <div>
           {token ? (
-            // <button onClick={logout} className="Navbar--hamburger-menu">
-            //   Logout
-            // </button>
             <HamburgerMenu logout={logout} />
           ) : (
             <div>

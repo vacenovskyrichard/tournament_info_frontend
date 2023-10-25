@@ -8,6 +8,7 @@
     "@testing-library/jest-dom": "^5.17.0",
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
+    "antd": "^5.10.2",
     "axios": "^1.5.1",
     "ics": "^3.5.0",
     "jwt-decode": "^3.1.2",
@@ -16,6 +17,7 @@
     "react-burger-menu": "^3.0.9",
     "react-data-table-component": "^7.5.4",
     "react-dom": "^18.2.0",
+    "react-ga": "^3.3.1",
     "react-hook-form": "^7.47.0",
     "react-responsive-modal": "^6.4.2",
     "react-router-dom": "^6.16.0",
@@ -51,6 +53,7 @@
     ]
   },
   "devDependencies": {
-    "@babel/plugin-proposal-decorators": "^7.23.0"
+    "@babel/plugin-proposal-decorators": "^7.23.0",
+    "@hookform/devtools": "^4.3.1"
   }
 }

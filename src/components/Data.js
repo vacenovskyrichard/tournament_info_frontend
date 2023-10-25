@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import DataTable from "react-data-table-component";
 
 function Data({ tournamentsData }) {
+  // Expanded component for every tournament in table
   const ExpandedComponent = ({ data }) => {
     const [timeRemainingString, setTimeRemainingString] = useState();
     const targetDateString = `${data.date} ${data.start}`;
@@ -34,6 +35,7 @@ function Data({ tournamentsData }) {
           hours === 1 ? "vteřina" : hours < 5 ? "vteřiny" : "vteřin";
         let remainsWord = days > 1 && days < 5 ? "zbývají" : "zbývá";
 
+        //set time remaining to start of tournament
         setTimeRemainingString(
           `Do turnaje ${remainsWord}:  ${days} ${dayWord}, ${hours} ${hourWord}, ${minutes} ${minutesWord}, ${seconds} ${secondsWord}.`
         );
@@ -62,6 +64,7 @@ function Data({ tournamentsData }) {
     );
   };
 
+  // style react-data-table-component
   const customStyles = {
     headRow: {
       style: {
@@ -78,6 +81,7 @@ function Data({ tournamentsData }) {
     },
   };
 
+  // set comlumns
   const columns = [
     {
       name: "Datum",

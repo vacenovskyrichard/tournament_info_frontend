@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import "../styles/Calendar.css";
 import { Calendar, momentLocalizer } from "react-big-calendar";
 import moment from "moment";
@@ -6,8 +6,6 @@ import "moment/locale/cs";
 import "react-big-calendar/lib/css/react-big-calendar.css";
 import "react-responsive-modal/styles.css";
 import { Modal } from "react-responsive-modal";
-import { useResolvedPath } from "react-router-dom";
-import { set } from "react-hook-form";
 
 export default function MyCalendar({ tournamentsData, filterResults }) {
   // Define custom month names in Czech
@@ -31,6 +29,7 @@ export default function MyCalendar({ tournamentsData, filterResults }) {
     months: customMonthNames,
   });
 
+  // Custom time appearence
   const localizer = momentLocalizer(moment);
   const customFormats = {
     timeGutterFormat: (date, culture, localizer) =>
@@ -40,6 +39,8 @@ export default function MyCalendar({ tournamentsData, filterResults }) {
       " - " +
       localizer.format(end, "HH:mm", culture),
   };
+
+  //Custom calendar labels
   const messages = {
     allDay: "Celý den",
     previous: "<",
@@ -81,13 +82,14 @@ export default function MyCalendar({ tournamentsData, filterResults }) {
     });
   }
 
+  // Handle click on specific event
   const [selectedEvent, setSelectedEvent] = useState(null);
   const handleEventClick = (event) => {
     setSelectedEvent(event);
   };
 
+  // Generate url for calendar export
   const [calendarUrl, setCalendarUrl] = useState(null);
-
   const generateCalendarUrl = () => {
     if (filterResults !== undefined) {
       var city = "none";

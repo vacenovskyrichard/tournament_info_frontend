@@ -1,0 +1,14 @@
+.EditTournament--main {
+  display: flex;
+  flex-direction: column;
+  align-items: left;
+}
+.EditTournament--main > form {
+  width: 500px;
+}
+
+.EditTournament--form-element {
+  display: flex;
+  flex-direction: column;
+  margin-left: 20px;
+}
