@@ -20,6 +20,7 @@ function App() {
   const production = "https://jdem-hrat-58da3e527841.herokuapp.com";
 
   ReactGA.initialize("UA-283334900-1");
+
   const apiUrl = production;
   useEffect(() => {
     fetch(`${apiUrl}/get`, {
