@@ -2,6 +2,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Homepage from "./pages/Homepage";
 import Nopage from "./pages/Nopage";
 import AddTournament from "./pages/AddTournament";
+import EditTournament from "./pages/EditTournament";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
 import ForgotPassword from "./pages/ForgotPassword";
@@ -12,6 +13,7 @@ import { useEffect, useState } from "react";
 function App() {
   const { setToken, token, removeToken } = useToken();
   const [tournamentsData, setTournamentsData] = useState([]);
+  const [tournamentToEditId, setTournamentToEditId] = useState();
   const localhost = "http://127.0.0.1:5000";
   // eslint-disable-next-line
   const production = "https://jdem-hrat-58da3e527841.herokuapp.com";
@@ -60,6 +62,20 @@ function App() {
             }
           />
           <Route
+            path="/edit_tournament"
+            element={
+              <EditTournament
+                token={token}
+                removeToken={removeToken}
+                setToken={setToken}
+                apiUrl={apiUrl}
+                tournamentToEditId={tournamentToEditId}
+                tournamentsData={tournamentsData}
+                setTournamentsData={setTournamentsData}
+              />
+            }
+          />
+          <Route
             path="/login"
             element={
               <Login
@@ -102,6 +118,7 @@ function App() {
                 tournamentsData={tournamentsData}
                 setTournamentsData={setTournamentsData}
                 apiUrl={apiUrl}
+                setTournamentToEditId={setTournamentToEditId}
               />
             }
           />

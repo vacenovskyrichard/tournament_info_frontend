@@ -4,6 +4,7 @@ import axios from "axios";
 import jwt_decode from "jwt-decode";
 import DataTable from "react-data-table-component";
 import Navbar from "../components/Navbar";
+import { useNavigate } from "react-router-dom";
 
 function Profile({
   token,
@@ -12,6 +13,7 @@ function Profile({
   tournamentsData,
   setTournamentsData,
   apiUrl,
+  setTournamentToEditId,
 }) {
   const [userData, setUserData] = useState({
     id: "",
@@ -22,7 +24,7 @@ function Profile({
   });
 
   const userId = jwt_decode(token.access_token).sub;
-
+  const navigate = useNavigate();
   const delete_tournament = (id) => {
     console.log(id);
 
@@ -46,6 +48,13 @@ function Profile({
         console.error("Error:", error);
         // Handle errors here
       });
+  };
+
+  const edit_tournament = (id) => {
+    console.log(id);
+    setTournamentToEditId(id);
+    localStorage.setItem("editId", id);
+    navigate("/edit_tournament");
   };
 
   const customStyles = {
@@ -95,7 +104,7 @@ function Profile({
             width: "30px",
             cursor: "pointer",
           }}
-          // onClick={() => delete_tournament(row.id)}
+          onClick={() => edit_tournament(row.id)}
         />
       ),
       width: "50px",
@@ -170,7 +179,7 @@ function Profile({
         28
       )}`,
       id: generateRandomNumber(50, 150),
-      level: "Hobby/Open",
+      level: "Open",
       link: "https://michalek-beach.rezervuju.cz/training?event_group_id=36",
       name: `Random Torunament Name ${generateRandomNumber(1, 50)}`,
       organizer: "Random Name",
