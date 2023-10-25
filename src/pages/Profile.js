@@ -5,6 +5,7 @@ import jwt_decode from "jwt-decode";
 import DataTable from "react-data-table-component";
 import Navbar from "../components/Navbar";
 import { useNavigate } from "react-router-dom";
+import { Modal } from "react-responsive-modal";
 
 function Profile({
   token,
@@ -25,6 +26,8 @@ function Profile({
 
   const userId = jwt_decode(token.access_token).sub;
   const navigate = useNavigate();
+
+  // send command to delete tournament to backend
   const delete_tournament = (id) => {
     console.log(id);
 
@@ -50,6 +53,7 @@ function Profile({
       });
   };
 
+  // open edit tournament page and set id to local storage
   const edit_tournament = (id) => {
     console.log(id);
     setTournamentToEditId(id);
@@ -120,7 +124,10 @@ function Profile({
             cursor: "pointer",
             marginRight: "10px",
           }}
-          onClick={() => delete_tournament(row.id)}
+          onClick={() => {
+            setDeleteId(row.id);
+            setShowConfirmation(true);
+          }}
         />
       ),
       width: "60px",
@@ -202,6 +209,9 @@ function Profile({
       .catch((error) => console.log(error));
   };
 
+  const [showConfirmation, setShowConfirmation] = useState(false);
+  const [deleteId, setDeleteId] = useState();
+
   return (
     <>
       <Navbar
@@ -237,6 +247,32 @@ function Profile({
             Přidat random turnaj
           </button>
         </div>
+        <Modal
+          open={showConfirmation}
+          onClose={() => setShowConfirmation(false)}
+          classNames={{
+            modal: "Profile--confirm-window",
+          }}
+        >
+          {showConfirmation && (
+            <div>
+              <h1>Opravdu chcete turnaj smazat?</h1>
+              <p>
+                <button
+                  onClick={() => {
+                    delete_tournament(deleteId);
+                    setShowConfirmation(false);
+                  }}
+                >
+                  Ano smazat
+                </button>
+                <button onClick={() => setShowConfirmation(false)}>
+                  Ne, zpět
+                </button>
+              </p>
+            </div>
+          )}
+        </Modal>
       </div>
     </>
   );

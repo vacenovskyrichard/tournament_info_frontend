@@ -303,7 +303,7 @@ export default function AddTournament({
             </button>
           </div>
         </form>
-        <DevTool control={control} />
+        {/* <DevTool control={control} /> */}
       </div>
     </>
   );
