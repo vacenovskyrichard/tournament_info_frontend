@@ -38,9 +38,6 @@ function Navbar({ token, removeToken, apiUrl, title }) {
       <div className="navbar--right">
         <div>
           {token ? (
-            // <button onClick={logout} className="Navbar--hamburger-menu">
-            //   Logout
-            // </button>
             <HamburgerMenu logout={logout} />
           ) : (
             <div>

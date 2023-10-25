@@ -1,4 +1,3 @@
-import { useEffect, useState } from "react";
 import { useForm, Controller } from "react-hook-form";
 import "../styles/AddTournament.css";
 import { useNavigate } from "react-router-dom";
@@ -6,8 +5,6 @@ import jwt_decode from "jwt-decode";
 import Select from "react-select";
 import { DevTool } from "@hookform/devtools";
 import Navbar from "../components/Navbar";
-import dayjs from "dayjs";
-import { TimePicker } from "antd";
 
 export default function AddTournament({
   token,
@@ -19,6 +16,7 @@ export default function AddTournament({
   const { register, control, handleSubmit, formState } = useForm();
   const { errors } = formState;
 
+  // on submit form function sends data to backend about newly created tournament
   const onSubmit = (data) => {
     data.user_id = jwt_decode(token.access_token).sub;
     data.category = data.category.label;
@@ -36,7 +34,6 @@ export default function AddTournament({
       .then(() => navigate("/"));
   };
 
-  // ================================================================
   const categoryOptions = [
     { value: "mix", label: "Mixy" },
     { value: "men", label: "Muži" },
@@ -48,8 +45,6 @@ export default function AddTournament({
     { value: "open", label: "Open" },
     { value: "cvf", label: "CVF (svazový turnaj)" },
   ];
-
-  // ================================================================
 
   return (
     <>
@@ -64,6 +59,7 @@ export default function AddTournament({
       <div className="AddTournament--main">
         <p></p>
         <form onSubmit={handleSubmit(onSubmit)}>
+          {/* Tournament name */}
           <div className="AddTournament--form-element">
             <label>Jméno turnaje</label>
             <input
@@ -78,6 +74,8 @@ export default function AddTournament({
             />
             {errors.name && <p>{errors.name?.message}</p>}
           </div>
+
+          {/* Tournament date */}
           <div className="AddTournament--form-element">
             <label>Datum</label>
             <input
@@ -92,6 +90,8 @@ export default function AddTournament({
             />
             {errors.date && <p>{errors.date?.message}</p>}
           </div>
+
+          {/* Tournament city */}
           <div className="AddTournament--form-element">
             <label>Město</label>
             <input
@@ -106,6 +106,7 @@ export default function AddTournament({
             />
             {errors.city && <p>{errors.city?.message}</p>}
           </div>
+          {/* Tournament areal */}
           <div className="AddTournament--form-element">
             <label>Název areálu</label>
             <input
@@ -120,6 +121,7 @@ export default function AddTournament({
             />
             {errors.areal && <p>{errors.areal?.message}</p>}
           </div>
+          {/* Tournament capacity */}
           <div className="AddTournament--form-element">
             <label>Kapacita</label>
             <input
@@ -139,6 +141,7 @@ export default function AddTournament({
             />
             {errors.capacity && <p>{errors.capacity?.message}</p>}
           </div>
+          {/* Tournament price */}
           <div className="AddTournament--form-element">
             <label>Startovné (za dvojici)</label>
             <input
@@ -158,6 +161,7 @@ export default function AddTournament({
             />
             {errors.price && <p>{errors.price?.message}</p>}
           </div>
+          {/* Tournament start */}
           <div className="AddTournament--form-element">
             <label>Začátek turnaje</label>
             <input
@@ -191,6 +195,8 @@ export default function AddTournament({
             />
             {errors.start && <p>{errors.start?.message}</p>}
           </div>
+
+          {/* Tournament organizer */}
           <div className="AddTournament--form-element">
             <label>Jméno organizátora</label>
             <input
@@ -205,6 +211,8 @@ export default function AddTournament({
             />
             {errors.organizer && <p>{errors.organizer?.message}</p>}
           </div>
+
+          {/* Tournament category */}
           <div className="AddTournament--form-element">
             <label>Kategorie</label>
             <Controller
@@ -236,6 +244,8 @@ export default function AddTournament({
               <p className="error-message">{errors.category.message}</p>
             )}
           </div>
+
+          {/* Tournament level */}
           <div className="AddTournament--form-element">
             <label>Úroveň</label>
             <Controller
@@ -267,6 +277,8 @@ export default function AddTournament({
               <p className="error-message">{errors.level.message}</p>
             )}
           </div>
+
+          {/* Tournament link */}
           <div className="AddTournament--form-element">
             <label>Odkaz na turnaj</label>
             <input
@@ -282,6 +294,7 @@ export default function AddTournament({
             {errors.link && <p>{errors.link?.message}</p>}
           </div>
 
+          {/* Submit button */}
           <div className="AddTournament--form-element">
             <label></label>
 
