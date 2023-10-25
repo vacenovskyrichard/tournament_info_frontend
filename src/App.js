@@ -122,7 +122,17 @@ function App() {
               />
             }
           />
-          <Route path="*" element={<Nopage />} />
+          <Route
+            path="*"
+            element={
+              <Nopage
+                token={token}
+                removeToken={removeToken}
+                setToken={setToken}
+                apiUrl={apiUrl}
+              />
+            }
+          />
         </Routes>
       </BrowserRouter>
     </div>
