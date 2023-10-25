@@ -30,16 +30,18 @@ function Homepage({
         apiUrl={apiUrl}
         setFilterResults={setFilterResults}
       />
-      <div className="Filters--content-selector">
-        <button onClick={() => setShowData(true)}>Tabulka</button>
-        <button onClick={() => setShowData(false)}>Kalendář</button>
-      </div>
       {showData ? (
-        <Data tournamentsData={tournamentsData} />
+        <Data
+          tournamentsData={tournamentsData}
+          setShowData={setShowData}
+          showData={showData}
+        />
       ) : (
         <MyCalendar
           tournamentsData={tournamentsData}
           filterResults={filterResults}
+          setShowData={setShowData}
+          showData={showData}
         />
       )}
     </>

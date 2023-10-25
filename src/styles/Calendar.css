@@ -14,3 +14,23 @@
 .Calendar--detail-window > div > p {
   font-size: 20px;
 }
+
+.Calendar--content-buttons > button {
+  margin: 5px 5px 3px 0px;
+  width: 150px;
+  height: 30px;
+  font-size: 17px;
+  border-radius: 5px;
+}
+
+.Calendar--table-button {
+  background-color: rgb(116, 110, 110);
+
+  color: white;
+}
+
+.Calendar--calendar-button {
+  background-color: black;
+
+  color: white;
+}

@@ -7,7 +7,12 @@ import "react-big-calendar/lib/css/react-big-calendar.css";
 import "react-responsive-modal/styles.css";
 import { Modal } from "react-responsive-modal";
 
-export default function MyCalendar({ tournamentsData, filterResults }) {
+export default function MyCalendar({
+  tournamentsData,
+  filterResults,
+  setShowData,
+  showData,
+}) {
   // Define custom month names in Czech
   const customMonthNames = [
     "Leden",
@@ -134,6 +139,20 @@ export default function MyCalendar({ tournamentsData, filterResults }) {
 
   return (
     <div className="Calendar--main-content">
+      <div className="Calendar--content-buttons">
+        <button
+          className="Calendar--table-button"
+          onClick={() => setShowData(true)}
+        >
+          Tabulka
+        </button>
+        <button
+          className="Calendar--calendar-button"
+          onClick={() => setShowData(false)}
+        >
+          Kalendář
+        </button>
+      </div>
       <Calendar
         localizer={localizer}
         events={myEventsList}

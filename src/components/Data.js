@@ -2,7 +2,7 @@ import "../styles/Data.css";
 import { useEffect, useState } from "react";
 import DataTable from "react-data-table-component";
 
-function Data({ tournamentsData }) {
+function Data({ tournamentsData, setShowData, showData }) {
   // Expanded component for every tournament in table
   const ExpandedComponent = ({ data }) => {
     const [timeRemainingString, setTimeRemainingString] = useState();
@@ -126,6 +126,20 @@ function Data({ tournamentsData }) {
 
   return (
     <div className="Data--tournament-table">
+      <div className="Data--content-buttons">
+        <button
+          className="Data--table-button"
+          onClick={() => setShowData(true)}
+        >
+          Tabulka
+        </button>
+        <button
+          className="Data--calendar-button"
+          onClick={() => setShowData(false)}
+        >
+          Kalendář
+        </button>
+      </div>
       <DataTable
         columns={columns}
         data={tournamentsData}
