@@ -2,9 +2,17 @@ import { useForm } from "react-hook-form";
 import { useState } from "react";
 import "../styles/Filters.css";
 import Filter from "./Filter";
+import { Controller } from "react-hook-form";
+import Select from "react-select";
 
-export default function Filters({ data, setData, apiUrl, setFilterResults }) {
-  const { control, handleSubmit } = useForm();
+export default function Filters({
+  data,
+  setData,
+  apiUrl,
+  setFilterResults,
+  filterOptions,
+}) {
+  const { control, handleSubmit, register, errors } = useForm();
 
   const filter_values = {
     areals: new Set(),
@@ -13,51 +21,39 @@ export default function Filters({ data, setData, apiUrl, setFilterResults }) {
     levels: new Set(),
   };
 
-  data.map((tournament) => filter_values.areals.add(tournament.areal));
+  filterOptions.map((tournament) => filter_values.areals.add(tournament.areal));
   const areals = Array.from(filter_values.areals).map((areal) => {
     return {
       label: areal,
       value: areal,
     };
   });
-  areals.push({
-    label: "Bez filtru",
-    value: "Bez filtru",
-  });
 
-  data.map((tournament) => filter_values.cities.add(tournament.city));
+  filterOptions.map((tournament) => filter_values.cities.add(tournament.city));
   const cities = Array.from(filter_values.cities).map((city) => {
     return {
       label: city,
       value: city,
     };
   });
-  cities.push({
-    label: "Bez filtru",
-    value: "Bez filtru",
-  });
-  data.map((tournament) => filter_values.categories.add(tournament.category));
+
+  filterOptions.map((tournament) =>
+    filter_values.categories.add(tournament.category)
+  );
   const categories = Array.from(filter_values.categories).map((category) => {
     return {
       label: category,
       value: category,
     };
   });
-  categories.push({
-    label: "Bez filtru",
-    value: "Bez filtru",
-  });
-  data.map((tournament) => filter_values.levels.add(tournament.level));
+
+  filterOptions.map((tournament) => filter_values.levels.add(tournament.level));
 
   const levels = Array.from(filter_values.levels).map((level) => {
     return {
       label: level,
       value: level,
     };
-  });
-  levels.push({
-    label: "Bez filtru",
-    value: "Bez filtru",
   });
 
   const saveData = (form_data) => {
@@ -79,19 +75,84 @@ export default function Filters({ data, setData, apiUrl, setFilterResults }) {
       <form className="filters-form" onSubmit={handleSubmit(saveData)}>
         <div>
           <h3>Město</h3>
-          <Filter name="city" data={cities} control={control} />
+          {/* <Filter name="city" data={cities} control={control} /> */}
+
+          <Controller
+            name="city"
+            control={control}
+            defaultValue=""
+            rules={{
+              required: false,
+            }}
+            render={({ field }) => (
+              <Select
+                placeholder="Vyberte"
+                isMulti
+                {...field}
+                options={cities}
+              />
+            )}
+          />
         </div>
         <div>
           <h3>Areál</h3>
-          <Filter name="areal" data={areals} control={control} />
+          {/* <Filter name="areal" data={areals} control={control} /> */}
+          <Controller
+            name="areal"
+            control={control}
+            defaultValue=""
+            rules={{
+              required: false,
+            }}
+            render={({ field }) => (
+              <Select
+                placeholder="Vyberte"
+                isMulti
+                {...field}
+                options={areals}
+              />
+            )}
+          />
         </div>
         <div>
           <h3>Kategorie</h3>
-          <Filter name="category" data={categories} control={control} />
+          {/* <Filter name="category" data={categories} control={control} /> */}
+          <Controller
+            name="category"
+            control={control}
+            defaultValue=""
+            rules={{
+              required: false,
+            }}
+            render={({ field }) => (
+              <Select
+                placeholder="Vyberte"
+                isMulti
+                {...field}
+                options={categories}
+              />
+            )}
+          />
         </div>
         <div>
           <h3>Úroveň</h3>
-          <Filter name="level" data={levels} control={control} />
+          {/* <Filter name="level" data={levels} control={control} /> */}
+          <Controller
+            name="level"
+            control={control}
+            defaultValue=""
+            rules={{
+              required: false,
+            }}
+            render={({ field }) => (
+              <Select
+                placeholder="Vyberte"
+                isMulti
+                {...field}
+                options={levels}
+              />
+            )}
+          />
         </div>
         <div>
           <button className="save-button" type="submit">

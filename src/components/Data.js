@@ -2,7 +2,8 @@ import "../styles/Data.css";
 import { useEffect, useState } from "react";
 import DataTable from "react-data-table-component";
 
-function Data({ tournamentsData }) {
+function Data({ tournamentsData, setShowData, showData }) {
+  console.log(tournamentsData);
   // Expanded component for every tournament in table
   const ExpandedComponent = ({ data }) => {
     const [timeRemainingString, setTimeRemainingString] = useState();
@@ -44,11 +45,16 @@ function Data({ tournamentsData }) {
       return () => clearInterval(secTimer); // eslint-disable-next-line
     }, []);
 
+    // const [last_update_date, last_update_time] = data.last_update.split("T");
+    // const [year, month, day] = last_update_date.split("-");
+    // const [hour, minute, second] = last_update_time.split(":");
+
+    // const last_update = `${day}.${month}.${year} ${hour}:${minute}`;
     return (
       <div className="Data--expanded-data-box">
         <div className="Data--expanded-data">
           <h3>Detail</h3>
-          <p>{`Cena: ${data.price},-`}</p>
+          <p>{`Cena: ${data.price},- (na osobu)`}</p>
           <p>Začátek: {data.start}</p>
           <p>Organizátor: {data.organizer}</p>
           <div>
@@ -56,6 +62,9 @@ function Data({ tournamentsData }) {
               Odkaz: <a href={data.link}>{data.link}</a>
             </p>
           </div>
+          <p style={{ fontStyle: "italic" }}>
+            Naposledy aktualizováno: {data.last_update}
+          </p>
         </div>
         <div className="Data--time-remaining">
           <p>{timeRemainingString}</p>
@@ -126,6 +135,20 @@ function Data({ tournamentsData }) {
 
   return (
     <div className="Data--tournament-table">
+      <div className="Data--content-buttons">
+        <button
+          className="Data--table-button"
+          onClick={() => setShowData(true)}
+        >
+          Tabulka
+        </button>
+        <button
+          className="Data--calendar-button"
+          onClick={() => setShowData(false)}
+        >
+          Kalendář
+        </button>
+      </div>
       <DataTable
         columns={columns}
         data={tournamentsData}

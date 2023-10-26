@@ -20,3 +20,21 @@
   font-size: 18px;
   font-weight: 600;
 }
+
+.Data--content-buttons > button {
+  margin: 5px 0px 3px 0px;
+  width: 150px;
+  height: 30px;
+  font-size: 17px;
+  border-radius: 5px;
+}
+
+.Data--table-button {
+  background-color: black;
+  color: white;
+}
+
+.Data--calendar-button {
+  background-color: rgb(116, 110, 110);
+  color: white;
+}

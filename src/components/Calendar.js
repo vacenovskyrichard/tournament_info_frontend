@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "../styles/Calendar.css";
 import { Calendar, momentLocalizer } from "react-big-calendar";
 import moment from "moment";
@@ -7,7 +7,12 @@ import "react-big-calendar/lib/css/react-big-calendar.css";
 import "react-responsive-modal/styles.css";
 import { Modal } from "react-responsive-modal";
 
-export default function MyCalendar({ tournamentsData, filterResults }) {
+export default function MyCalendar({
+  tournamentsData,
+  filterResults,
+  setShowData,
+  showData,
+}) {
   // Define custom month names in Czech
   const customMonthNames = [
     "Leden",
@@ -78,6 +83,7 @@ export default function MyCalendar({ tournamentsData, filterResults }) {
         price: tournament.price,
         link: tournament.link,
         date: tournament.date,
+        last_update: tournament.last_update,
       };
     });
   }
@@ -93,33 +99,41 @@ export default function MyCalendar({ tournamentsData, filterResults }) {
   const generateCalendarUrl = () => {
     if (filterResults !== undefined) {
       var city = "none";
-      if (
-        filterResults.city !== undefined &&
-        filterResults.city !== "Bez filtru"
-      ) {
-        city = filterResults.city;
+      if (filterResults.city) {
+        city = "";
+        filterResults.city.forEach((c) => {
+          city += c.label + ";";
+        });
+        city = city.slice(0, -1);
       }
+
       var areal = "none";
-      if (
-        filterResults.areal !== undefined &&
-        filterResults.areal !== "Bez filtru"
-      ) {
-        areal = filterResults.areal;
+      if (filterResults.areal) {
+        areal = "";
+        filterResults.areal.forEach((a) => {
+          areal += a.label + ";";
+        });
+        areal = areal.slice(0, -1);
       }
+
       var category = "none";
-      if (
-        filterResults.category !== undefined &&
-        filterResults.category !== "Bez filtru"
-      ) {
-        category = filterResults.category;
+      if (filterResults.category) {
+        category = "";
+        filterResults.category.forEach((c) => {
+          category += c.label + ";";
+        });
+        category = category.slice(0, -1);
       }
+
       var level = "none";
-      if (
-        filterResults.level !== undefined &&
-        filterResults.level !== "Bez filtru"
-      ) {
-        level = filterResults.level;
+      if (filterResults.level) {
+        level = "";
+        filterResults.level.forEach((l) => {
+          level += l.label + ";";
+        });
+        level = level.slice(0, -1);
       }
+
       setCalendarUrl(
         `https://jdem-hrat-58da3e527841.herokuapp.com/ical.feed/${city}/${areal}/${category}/${level}/`
       );
@@ -134,16 +148,36 @@ export default function MyCalendar({ tournamentsData, filterResults }) {
 
   return (
     <div className="Calendar--main-content">
-      <Calendar
-        localizer={localizer}
-        events={myEventsList}
-        formats={customFormats}
-        messages={messages}
-        startAccessor="start"
-        endAccessor="end"
-        style={{ height: 500 }}
-        onSelectEvent={handleEventClick}
-      />
+      <div className="Calendar--content-buttons">
+        <button
+          className="Calendar--table-button"
+          onClick={() => setShowData(true)}
+        >
+          Tabulka
+        </button>
+        <button
+          className="Calendar--calendar-button"
+          onClick={() => setShowData(false)}
+        >
+          Kalendář
+        </button>
+      </div>
+      <div className="Calendar--calendar-box">
+        <Calendar
+          localizer={localizer}
+          events={myEventsList}
+          formats={customFormats}
+          messages={messages}
+          startAccessor="start"
+          endAccessor="end"
+          style={{
+            height: 700,
+            fontSize: 18,
+            backgroundColor: "white",
+          }}
+          onSelectEvent={handleEventClick}
+        />
+      </div>
       <Modal
         open={selectedEvent !== null}
         onClose={() => setSelectedEvent(null)}
@@ -167,15 +201,20 @@ export default function MyCalendar({ tournamentsData, filterResults }) {
             <p>
               Přihlášeno: {selectedEvent.signed}/{selectedEvent.capacity}
             </p>
-            <p>{`Cena: ${selectedEvent.price},-`}</p>
+            <p>{`Cena: ${selectedEvent.price},- (na osobu)`}</p>
             <p>Organizátor: {selectedEvent.organizer}</p>
             <p>
               Odkaz: <a href={selectedEvent.link}>{selectedEvent.link}</a>
             </p>
+            <p style={{ fontStyle: "italic" }}>
+              Naposledy aktualizováno:{selectedEvent.last_update}
+            </p>
           </div>
         )}
       </Modal>
-      <button onClick={generateCalendarUrl}>Vygenerovat URL</button>
+      <div className="Calendar--url-button-box">
+        <button onClick={generateCalendarUrl}>Vygenerovat URL</button>
+      </div>
       <Modal
         open={calendarUrl !== null}
         onClose={() => setCalendarUrl(null)}

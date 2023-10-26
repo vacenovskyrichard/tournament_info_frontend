@@ -9,17 +9,15 @@ import ForgotPassword from "./pages/ForgotPassword";
 import Profile from "./pages/Profile";
 import useToken from "./components/useToken";
 import { useEffect, useState } from "react";
-import ReactGA from "react-ga";
 
 function App() {
   const { setToken, token, removeToken } = useToken();
   const [tournamentsData, setTournamentsData] = useState([]);
+  const [filterOptions, setFilterOptions] = useState([]);
   const [tournamentToEditId, setTournamentToEditId] = useState();
   const localhost = "http://127.0.0.1:5000";
   // eslint-disable-next-line
   const production = "https://jdem-hrat-58da3e527841.herokuapp.com";
-
-  ReactGA.initialize("UA-283334900-1");
 
   const apiUrl = production;
   useEffect(() => {
@@ -32,7 +30,22 @@ function App() {
       .then((resp) => {
         return resp.json();
       })
-      .then((resp) => setTournamentsData(resp))
+      .then((resp) => {
+        // save tournament data to state and format last update time
+        setTournamentsData(
+          resp.map((tournament) => {
+            const [last_update_date, last_update_time] =
+              tournament.last_update.split("T");
+            const [year, month, day] = last_update_date.split("-");
+            const [hour, minute, second] = last_update_time.split(":");
+            return {
+              ...tournament,
+              last_update: `${day}.${month}.${year} ${hour}:${minute}`,
+            };
+          })
+        );
+        setFilterOptions(resp);
+      })
       .catch((err) => console.log(err)); // eslint-disable-next-line
   }, []);
 
@@ -50,6 +63,7 @@ function App() {
                 tournamentsData={tournamentsData}
                 setTournamentsData={setTournamentsData}
                 apiUrl={apiUrl}
+                filterOptions={filterOptions}
               />
             }
           />

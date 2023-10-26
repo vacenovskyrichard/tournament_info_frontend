@@ -14,3 +14,51 @@
 .Calendar--detail-window > div > p {
   font-size: 20px;
 }
+
+.Calendar--content-buttons > button {
+  margin: 5px 0px 3px 0px;
+  width: 150px;
+  height: 30px;
+  font-size: 17px;
+  border-radius: 5px;
+}
+
+.Calendar--table-button {
+  background-color: rgb(116, 110, 110);
+
+  color: white;
+}
+
+.Calendar--calendar-button {
+  background-color: black;
+
+  color: white;
+}
+
+.Calendar--url-button-box {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.Calendar--url-button-box > button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 200px;
+  height: 30px;
+  font-size: 17px;
+  border-radius: 15px;
+  background-color: black;
+  color: white;
+}
+
+.rbc-toolbar > span {
+  font-size: 25px; /* Adjust this value as needed */
+}
+
+.Calendar--calendar-box {
+  border: 2px solid black;
+  border-radius: 8px;
+  padding: 3px;
+}
