@@ -43,12 +43,16 @@ function Data({ tournamentsData, setShowData, showData }) {
 
       return () => clearInterval(secTimer); // eslint-disable-next-line
     }, []);
+    const [last_update_date, last_update_time] = data.last_update.split("T");
+    const [year, month, day] = last_update_date.split("-");
+    const [hour, minute, second] = last_update_time.split(":");
 
+    const last_update = `${day}.${month}.${year} ${hour}:${minute}`;
     return (
       <div className="Data--expanded-data-box">
         <div className="Data--expanded-data">
           <h3>Detail</h3>
-          <p>{`Cena: ${data.price},-`}</p>
+          <p>{`Cena: ${data.price},- (na osobu)`}</p>
           <p>Začátek: {data.start}</p>
           <p>Organizátor: {data.organizer}</p>
           <div>
@@ -56,6 +60,9 @@ function Data({ tournamentsData, setShowData, showData }) {
               Odkaz: <a href={data.link}>{data.link}</a>
             </p>
           </div>
+          <p style={{ fontStyle: "italic" }}>
+            Naposledy aktualizováno: {last_update}
+          </p>
         </div>
         <div className="Data--time-remaining">
           <p>{timeRemainingString}</p>

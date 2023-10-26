@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "../styles/Calendar.css";
 import { Calendar, momentLocalizer } from "react-big-calendar";
 import moment from "moment";
@@ -83,6 +83,7 @@ export default function MyCalendar({
         price: tournament.price,
         link: tournament.link,
         date: tournament.date,
+        last_update: tournament.last_update,
       };
     });
   }
@@ -200,10 +201,16 @@ export default function MyCalendar({
             <p>
               Přihlášeno: {selectedEvent.signed}/{selectedEvent.capacity}
             </p>
-            <p>{`Cena: ${selectedEvent.price},-`}</p>
+            <p>{`Cena: ${selectedEvent.price},- (na osobu)`}</p>
             <p>Organizátor: {selectedEvent.organizer}</p>
             <p>
               Odkaz: <a href={selectedEvent.link}>{selectedEvent.link}</a>
+            </p>
+            <p style={{ fontStyle: "italic" }}>
+              Naposledy aktualizováno:{" "}
+              {`${selectedEvent.last_update.split("T")[0]} ${
+                selectedEvent.last_update.split("T")[1]
+              }`}
             </p>
           </div>
         )}
