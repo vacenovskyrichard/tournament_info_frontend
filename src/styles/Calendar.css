@@ -34,3 +34,31 @@
 
   color: white;
 }
+
+.Calendar--url-button-box {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.Calendar--url-button-box > button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 200px;
+  height: 30px;
+  font-size: 17px;
+  border-radius: 15px;
+  background-color: black;
+  color: white;
+}
+
+.rbc-toolbar > span {
+  font-size: 25px; /* Adjust this value as needed */
+}
+
+.Calendar--calendar-box {
+  border: 2px solid black;
+  border-radius: 8px;
+  padding: 3px;
+}

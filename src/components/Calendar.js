@@ -98,33 +98,41 @@ export default function MyCalendar({
   const generateCalendarUrl = () => {
     if (filterResults !== undefined) {
       var city = "none";
-      if (
-        filterResults.city !== undefined &&
-        filterResults.city !== "Bez filtru"
-      ) {
-        city = filterResults.city;
+      if (filterResults.city) {
+        city = "";
+        filterResults.city.forEach((c) => {
+          city += c.label + ";";
+        });
+        city = city.slice(0, -1);
       }
+
       var areal = "none";
-      if (
-        filterResults.areal !== undefined &&
-        filterResults.areal !== "Bez filtru"
-      ) {
-        areal = filterResults.areal;
+      if (filterResults.areal) {
+        areal = "";
+        filterResults.areal.forEach((a) => {
+          areal += a.label + ";";
+        });
+        areal = areal.slice(0, -1);
       }
+
       var category = "none";
-      if (
-        filterResults.category !== undefined &&
-        filterResults.category !== "Bez filtru"
-      ) {
-        category = filterResults.category;
+      if (filterResults.category) {
+        category = "";
+        filterResults.category.forEach((c) => {
+          category += c.label + ";";
+        });
+        category = category.slice(0, -1);
       }
+
       var level = "none";
-      if (
-        filterResults.level !== undefined &&
-        filterResults.level !== "Bez filtru"
-      ) {
-        level = filterResults.level;
+      if (filterResults.level) {
+        level = "";
+        filterResults.level.forEach((l) => {
+          level += l.label + ";";
+        });
+        level = level.slice(0, -1);
       }
+
       setCalendarUrl(
         `https://jdem-hrat-58da3e527841.herokuapp.com/ical.feed/${city}/${areal}/${category}/${level}/`
       );
@@ -153,16 +161,22 @@ export default function MyCalendar({
           Kalendář
         </button>
       </div>
-      <Calendar
-        localizer={localizer}
-        events={myEventsList}
-        formats={customFormats}
-        messages={messages}
-        startAccessor="start"
-        endAccessor="end"
-        style={{ height: 500 }}
-        onSelectEvent={handleEventClick}
-      />
+      <div className="Calendar--calendar-box">
+        <Calendar
+          localizer={localizer}
+          events={myEventsList}
+          formats={customFormats}
+          messages={messages}
+          startAccessor="start"
+          endAccessor="end"
+          style={{
+            height: 700,
+            fontSize: 18,
+            backgroundColor: "white",
+          }}
+          onSelectEvent={handleEventClick}
+        />
+      </div>
       <Modal
         open={selectedEvent !== null}
         onClose={() => setSelectedEvent(null)}
@@ -194,7 +208,9 @@ export default function MyCalendar({
           </div>
         )}
       </Modal>
-      <button onClick={generateCalendarUrl}>Vygenerovat URL</button>
+      <div className="Calendar--url-button-box">
+        <button onClick={generateCalendarUrl}>Vygenerovat URL</button>
+      </div>
       <Modal
         open={calendarUrl !== null}
         onClose={() => setCalendarUrl(null)}
