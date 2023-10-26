@@ -207,10 +207,7 @@ export default function MyCalendar({
               Odkaz: <a href={selectedEvent.link}>{selectedEvent.link}</a>
             </p>
             <p style={{ fontStyle: "italic" }}>
-              Naposledy aktualizováno:{" "}
-              {`${selectedEvent.last_update.split("T")[0]} ${
-                selectedEvent.last_update.split("T")[1]
-              }`}
+              Naposledy aktualizováno:{selectedEvent.last_update}
             </p>
           </div>
         )}

@@ -9,7 +9,6 @@ import ForgotPassword from "./pages/ForgotPassword";
 import Profile from "./pages/Profile";
 import useToken from "./components/useToken";
 import { useEffect, useState } from "react";
-import ReactGA from "react-ga";
 
 function App() {
   const { setToken, token, removeToken } = useToken();
@@ -20,9 +19,7 @@ function App() {
   // eslint-disable-next-line
   const production = "https://jdem-hrat-58da3e527841.herokuapp.com";
 
-  ReactGA.initialize("UA-283334900-1");
-
-  const apiUrl = localhost;
+  const apiUrl = production;
   useEffect(() => {
     fetch(`${apiUrl}/get`, {
       method: "GET",
@@ -34,7 +31,19 @@ function App() {
         return resp.json();
       })
       .then((resp) => {
-        setTournamentsData(resp);
+        // save tournament data to state and format last update time
+        setTournamentsData(
+          resp.map((tournament) => {
+            const [last_update_date, last_update_time] =
+              tournament.last_update.split("T");
+            const [year, month, day] = last_update_date.split("-");
+            const [hour, minute, second] = last_update_time.split(":");
+            return {
+              ...tournament,
+              last_update: `${day}.${month}.${year} ${hour}:${minute}`,
+            };
+          })
+        );
         setFilterOptions(resp);
       })
       .catch((err) => console.log(err)); // eslint-disable-next-line
