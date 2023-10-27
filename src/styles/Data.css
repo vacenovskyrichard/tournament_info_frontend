@@ -1,5 +1,8 @@
-.Data--tournament-table {
-  margin: 10px 80px 80px;
+.Data--main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 10px;
 }
 
 .Data--expanded-data-box {
@@ -21,12 +24,23 @@
   font-weight: 600;
 }
 
+.Data--content-buttons {
+  width: 75%;
+  display: flex;
+  align-items: left;
+}
+
 .Data--content-buttons > button {
+  font-family: "Frank Ruhl Libre", serif;
+  font-size: 20px;
   margin: 5px 0px 3px 0px;
   width: 150px;
-  height: 30px;
-  font-size: 17px;
-  border-radius: 5px;
+  height: 35px;
+  border-radius: 10px;
+}
+
+.Data--content-buttons > button:hover {
+  cursor: pointer;
 }
 
 .Data--table-button {
@@ -37,4 +51,8 @@
 .Data--calendar-button {
   background-color: rgb(116, 110, 110);
   color: white;
+}
+
+.Data--tournament-table {
+  width: 75%; /* Set the width of the DataTable */
 }

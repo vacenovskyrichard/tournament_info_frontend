@@ -24,7 +24,8 @@ function Profile({
     role: "",
   });
 
-  const userId = jwt_decode(token.access_token).sub;
+  const [logged, setLogged] = useState(true);
+
   const navigate = useNavigate();
 
   // send command to delete tournament to backend
@@ -65,17 +66,16 @@ function Profile({
       style: {
         backgroundColor: "black",
         color: "white",
-        fontSize: "18px",
+        fontSize: "20px",
         fontWeight: "600",
       },
     },
     cells: {
       style: {
-        fontSize: "17px",
+        fontSize: "20px",
       },
     },
   };
-
   const columns = [
     {
       name: "Datum",
@@ -85,9 +85,11 @@ function Profile({
         }`;
       },
     },
+
     {
       name: "Název",
       selector: (row) => row.name,
+      width: "350px",
     },
     {
       name: "Kategorie",
@@ -96,6 +98,7 @@ function Profile({
     {
       name: "Areál",
       selector: (row) => row.areal,
+      width: "350px",
     },
     {
       name: "",
@@ -134,41 +137,52 @@ function Profile({
   ];
 
   useEffect(() => {
-    const user_id = jwt_decode(token.access_token).sub;
-    console.log("user_id");
-    console.log(user_id);
+    console.log("token");
+    console.log(token);
+    const at = token ? token.access_token : "";
     fetch(`${apiUrl}/user_info`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        Authorization: `Bearer ${token.access_token}`,
+        Authorization: `Bearer ${at}`,
       },
-      body: JSON.stringify({ user_id: user_id }),
+      body: JSON.stringify({ user_id: userId }),
     })
       .then((response) => {
+        if (response.status === 401 || response.status === 422) {
+          // Handle the 401 error here, for example:
+          // Redirect the user to a login page or display an error message
+          console.log("Unauthorized: Token expired or invalid");
+          removeToken();
+          setLogged(false);
+        }
         if (response.status === 200) {
           const new_access_token = response.headers.get("new_access_token");
           if (new_access_token !== "None") {
             console.log("new_access_token has been set");
             setToken({ access_token: new_access_token });
           }
-
           return response.json();
-        } else {
-          throw new Error("Failed to send data or fetch response");
         }
       })
       .then((response) => {
         console.log(response);
         setUserData(response);
+      })
+      .catch((error) => {
+        console.log("Other error ocured.");
       }); // eslint-disable-next-line
   }, []);
 
   // filter user tournaments and show all, if user is admin
-  const userTournaments =
-    userData.role === "admin"
-      ? tournamentsData
-      : tournamentsData.filter((tournament) => tournament.user_id === userId);
+  const userId = token ? jwt_decode(token.access_token).sub : "";
+  var userTournaments = "";
+  if (userData) {
+    userTournaments =
+      userData.role === "admin"
+        ? tournamentsData
+        : tournamentsData.filter((tournament) => tournament.user_id === userId);
+  }
 
   // creates tournament with random data - used for testing
   const create_random_tournament = () => {
@@ -221,59 +235,78 @@ function Profile({
         apiUrl={apiUrl}
         title={"Profil"}
       />
-      <div className="Profile--main">
-        <h1>Osobní údaje</h1>
-        {token && (
-          <div className="Profile--user-data">
-            <p>Jméno: {userData.name}</p>
-            <p>Příjmení: {userData.surname}</p>
-            <p>Email: {userData.email}</p>
-            <p>Role: {userData.role}</p>
-          </div>
-        )}
-        <h1>Moje Turnaje</h1>
-        <div className="Data--tournament-table">
-          <DataTable
-            columns={columns}
-            data={userTournaments}
-            pagination
-            customStyles={customStyles}
-          />
-        </div>
-        <div className="Profile--tmp-buttons">
-          <a href="/">Zpět na hlavní stranu</a>
-          <a href="/add_tournament">Přidat turnaj</a>
-          <button onClick={create_random_tournament}>
-            Přidat random turnaj
-          </button>
-        </div>
-        <Modal
-          open={showConfirmation}
-          onClose={() => setShowConfirmation(false)}
-          classNames={{
-            modal: "Profile--confirm-window",
-          }}
-        >
-          {showConfirmation && (
-            <div>
-              <h1>Opravdu chcete turnaj smazat?</h1>
-              <p>
-                <button
-                  onClick={() => {
-                    delete_tournament(deleteId);
-                    setShowConfirmation(false);
-                  }}
-                >
-                  Ano smazat
-                </button>
-                <button onClick={() => setShowConfirmation(false)}>
-                  Ne, zpět
-                </button>
-              </p>
+      {logged ? (
+        <div className="Profile--main">
+          {token && (
+            <div className="Profile--user-data">
+              <h1>Osobní údaje</h1>
+              <div className="Profile--user-data-box">
+                <p className="bold">Jméno:</p>
+                <p>
+                  {userData.name} {userData.surname}{" "}
+                </p>
+              </div>
+              <div className="Profile--user-data-box">
+                <p className="bold">Email:</p>
+                <p>{userData.email}</p>
+              </div>
+              <div className="Profile--user-data-box">
+                <p className="bold">Role:</p>
+                <p>{userData.role}</p>
+              </div>
             </div>
           )}
-        </Modal>
-      </div>
+          <div className="Profile--tournament-table">
+            <h1>Moje Turnaje</h1>
+            {userTournaments && (
+              <DataTable
+                columns={columns}
+                data={userTournaments}
+                pagination
+                customStyles={customStyles}
+              />
+            )}
+          </div>
+          <div className="Profile--tmp-buttons">
+            {userData.role === "admin" && (
+              <a href="/add_tournament">Přidat turnaj</a>
+            )}
+            {userData.role === "admin" && (
+              <button onClick={create_random_tournament}>
+                Přidat random turnaj
+              </button>
+            )}
+          </div>
+          <Modal
+            open={showConfirmation}
+            onClose={() => setShowConfirmation(false)}
+            classNames={{
+              modal: "Profile--confirm-window",
+            }}
+          >
+            {showConfirmation && (
+              <div>
+                <h1>Opravdu chcete turnaj smazat?</h1>
+                <p>
+                  <button
+                    onClick={() => {
+                      delete_tournament(deleteId);
+                      setShowConfirmation(false);
+                    }}
+                  >
+                    Ano smazat
+                  </button>
+                  <button onClick={() => setShowConfirmation(false)}>
+                    Ne, zpět
+                  </button>
+                </p>
+              </div>
+            )}
+          </Modal>
+        </div>
+      ) : (
+        <h1>You are logged out, please log in to continue.</h1>
+      )}
     </>
   );
 }
