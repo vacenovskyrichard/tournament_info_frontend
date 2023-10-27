@@ -4,6 +4,7 @@ import { Calendar, momentLocalizer } from "react-big-calendar";
 import moment from "moment";
 import "moment/locale/cs";
 import "react-big-calendar/lib/css/react-big-calendar.css";
+// import "react-big-calendar/lib/sass/styles";
 import "react-responsive-modal/styles.css";
 import { Modal } from "react-responsive-modal";
 
@@ -172,8 +173,7 @@ export default function MyCalendar({
           endAccessor="end"
           style={{
             height: 700,
-            fontSize: 18,
-            backgroundColor: "white",
+            fontSize: 20,
           }}
           onSelectEvent={handleEventClick}
         />

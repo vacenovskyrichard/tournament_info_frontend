@@ -1,5 +1,8 @@
 .Profile--main {
   margin: 0px 0px 0px 50px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .Profile--tmp-buttons {
@@ -13,10 +16,21 @@
 }
 
 .Profile--user-data {
-  margin: 10px 80px 20px 50px;
+  display: flex;
+  flex-direction: column;
+  width: 75%;
+}
+.Profile--user-data-box {
+  display: flex;
   font-size: 20px;
 }
+.Profile--user-data-box > p {
+  margin: 5px 0px 5px 15px;
+}
 
+.bold {
+  font-weight: 600;
+}
 .Profile--tournament-table {
-  margin: 10px 80px 80px 50px;
+  width: 75%; /* Set the width of the DataTable */
 }

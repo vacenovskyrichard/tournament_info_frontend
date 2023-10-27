@@ -1,6 +1,7 @@
 import "../styles/Data.css";
 import { useEffect, useState } from "react";
 import DataTable from "react-data-table-component";
+import { ReactComponent as CustomIcon } from "../icons/info-circle.svg";
 
 function Data({ tournamentsData, setShowData, showData }) {
   console.log(tournamentsData);
@@ -74,13 +75,13 @@ function Data({ tournamentsData, setShowData, showData }) {
       style: {
         backgroundColor: "black",
         color: "white",
-        fontSize: "18px",
+        fontSize: "20px",
         fontWeight: "600",
       },
     },
     cells: {
       style: {
-        fontSize: "17px",
+        fontSize: "20px",
       },
     },
   };
@@ -94,15 +95,17 @@ function Data({ tournamentsData, setShowData, showData }) {
           row.date.split("-")[0]
         }`;
       },
+      width: "150px",
     },
     {
       name: "Název",
       selector: (row) => row.name,
-      width: "300px",
+      width: "350px",
     },
     {
       name: "Kategorie",
       selector: (row) => row.category,
+      // width: "150px",
     },
     {
       name: "Město",
@@ -111,7 +114,7 @@ function Data({ tournamentsData, setShowData, showData }) {
     {
       name: "Areál",
       selector: (row) => row.areal,
-      width: "300px",
+      width: "350px",
     },
     {
       name: "Kapacita",
@@ -123,15 +126,17 @@ function Data({ tournamentsData, setShowData, showData }) {
         }
         return `${row.signed}/${row.capacity}`;
       },
+      // width: "130px",
     },
     {
       name: "Úroveň",
       selector: (row) => row.level,
+      width: "150px",
     },
   ];
 
   return (
-    <div className="Data--tournament-table">
+    <div className="Data--main">
       <div className="Data--content-buttons">
         <button
           className="Data--table-button"
@@ -146,14 +151,20 @@ function Data({ tournamentsData, setShowData, showData }) {
           Kalendář
         </button>
       </div>
-      <DataTable
-        columns={columns}
-        data={tournamentsData}
-        pagination
-        expandableRows
-        expandableRowsComponent={ExpandedComponent}
-        customStyles={customStyles}
-      />
+      <div className="Data--tournament-table">
+        <DataTable
+          columns={columns}
+          data={tournamentsData}
+          pagination
+          expandableRows
+          expandableRowsComponent={ExpandedComponent}
+          expandableIcon={{
+            collapsed: <CustomIcon />, // Use your custom collapsed icon
+            expanded: <CustomIcon />, // Use your custom expanded icon
+          }}
+          customStyles={customStyles}
+        />
+      </div>
     </div>
   );
 }

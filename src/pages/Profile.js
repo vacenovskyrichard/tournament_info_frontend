@@ -66,17 +66,16 @@ function Profile({
       style: {
         backgroundColor: "black",
         color: "white",
-        fontSize: "18px",
+        fontSize: "20px",
         fontWeight: "600",
       },
     },
     cells: {
       style: {
-        fontSize: "17px",
+        fontSize: "20px",
       },
     },
   };
-
   const columns = [
     {
       name: "Datum",
@@ -86,10 +85,11 @@ function Profile({
         }`;
       },
     },
+
     {
       name: "Název",
       selector: (row) => row.name,
-      width: "300px",
+      width: "350px",
     },
     {
       name: "Kategorie",
@@ -98,7 +98,7 @@ function Profile({
     {
       name: "Areál",
       selector: (row) => row.areal,
-      width: "300px",
+      width: "350px",
     },
     {
       name: "",
@@ -237,17 +237,27 @@ function Profile({
       />
       {logged ? (
         <div className="Profile--main">
-          <h1>Osobní údaje</h1>
           {token && (
             <div className="Profile--user-data">
-              <p>Jméno: {userData.name}</p>
-              <p>Příjmení: {userData.surname}</p>
-              <p>Email: {userData.email}</p>
-              <p>Role: {userData.role}</p>
+              <h1>Osobní údaje</h1>
+              <div className="Profile--user-data-box">
+                <p className="bold">Jméno:</p>
+                <p>
+                  {userData.name} {userData.surname}{" "}
+                </p>
+              </div>
+              <div className="Profile--user-data-box">
+                <p className="bold">Email:</p>
+                <p>{userData.email}</p>
+              </div>
+              <div className="Profile--user-data-box">
+                <p className="bold">Role:</p>
+                <p>{userData.role}</p>
+              </div>
             </div>
           )}
-          <h1>Moje Turnaje</h1>
           <div className="Profile--tournament-table">
+            <h1>Moje Turnaje</h1>
             {userTournaments && (
               <DataTable
                 columns={columns}
