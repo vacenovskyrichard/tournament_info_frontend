@@ -1,5 +1,5 @@
 .Profile--main {
-  margin: 20px;
+  margin: 0px 0px 0px 50px;
 }
 
 .Profile--tmp-buttons {
@@ -13,6 +13,10 @@
 }
 
 .Profile--user-data {
-  margin: 20px;
+  margin: 10px 80px 20px 50px;
   font-size: 20px;
+}
+
+.Profile--tournament-table {
+  margin: 10px 80px 80px 50px;
 }

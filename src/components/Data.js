@@ -45,11 +45,6 @@ function Data({ tournamentsData, setShowData, showData }) {
       return () => clearInterval(secTimer); // eslint-disable-next-line
     }, []);
 
-    // const [last_update_date, last_update_time] = data.last_update.split("T");
-    // const [year, month, day] = last_update_date.split("-");
-    // const [hour, minute, second] = last_update_time.split(":");
-
-    // const last_update = `${day}.${month}.${year} ${hour}:${minute}`;
     return (
       <div className="Data--expanded-data-box">
         <div className="Data--expanded-data">
@@ -103,6 +98,7 @@ function Data({ tournamentsData, setShowData, showData }) {
     {
       name: "Název",
       selector: (row) => row.name,
+      width: "300px",
     },
     {
       name: "Kategorie",
@@ -115,6 +111,7 @@ function Data({ tournamentsData, setShowData, showData }) {
     {
       name: "Areál",
       selector: (row) => row.areal,
+      width: "300px",
     },
     {
       name: "Kapacita",
