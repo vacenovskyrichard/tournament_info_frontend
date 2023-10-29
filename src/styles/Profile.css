@@ -5,14 +5,52 @@
   align-items: center;
 }
 
-.Profile--tmp-buttons {
+.Profile--buttons {
   display: flex;
   align-items: center;
   justify-content: center;
 }
-.Profile--tmp-buttons > a {
+.Profile--buttons > a,
+.Profile--buttons > button {
   display: flex;
+  align-items: center;
+  justify-content: center;
   margin: 10px;
+  width: 200px;
+  height: 30px;
+  font-size: 17px;
+  border-radius: 15px;
+  background-color: black;
+  color: white;
+}
+
+.Profile--request-btn-box {
+  display: flex;
+  justify-content: center;
+}
+
+.Profile--request-btn-box > h3 {
+  margin: 0px;
+}
+.Profile--request-btn-box > button {
+  display: flex;
+  flex: 1;
+  margin: 0px 50px 0px 50px;
+}
+.Profile--request-btn-box > button:hover {
+  cursor: pointer;
+  box-shadow: 0 0 11px rgba(33, 33, 33, 0.7);
+}
+
+.Profile--request-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 10px;
+  width: 200px;
+  height: 30px;
+  font-size: 17px;
+  border-radius: 15px;
 }
 
 .Profile--user-data {
