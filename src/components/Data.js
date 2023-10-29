@@ -4,7 +4,15 @@ import DataTable from "react-data-table-component";
 import { ReactComponent as CustomIcon } from "../icons/info-circle.svg";
 
 function Data({ tournamentsData, setShowData, showData }) {
+  console.log("tournamentsData");
   console.log(tournamentsData);
+  // Function to compare dates in "YYYY-MM-DD" format
+  function compareDates(dateA, dateB) {
+    return dateA.localeCompare(dateB);
+  }
+  // Sort data by date
+  tournamentsData.sort((a, b) => compareDates(a.date, b.date));
+
   // Expanded component for every tournament in table
   const ExpandedComponent = ({ data }) => {
     const [timeRemainingString, setTimeRemainingString] = useState();

@@ -25,6 +25,7 @@ function Profile({
   });
 
   const [logged, setLogged] = useState(true);
+  const [requestSent, setRequestSent] = useState(false);
 
   const navigate = useNavigate();
 
@@ -226,6 +227,28 @@ function Profile({
   const [showConfirmation, setShowConfirmation] = useState(false);
   const [deleteId, setDeleteId] = useState();
 
+  const sendOrganizerRequest = () => {
+    axios({
+      method: "POST",
+      url: `${apiUrl}/request_organizer`,
+      data: {
+        id: userData.id,
+      },
+    })
+      .then((resp) => {
+        if (resp.status === 200) {
+          setRequestSent(true);
+        }
+      })
+      .catch((error) => {
+        if (error.response) {
+          console.log(error.response);
+          console.log(error.response.status);
+          console.log(error.response.headers);
+        }
+      });
+  };
+
   return (
     <>
       <Navbar
@@ -258,7 +281,7 @@ function Profile({
           )}
           <div className="Profile--tournament-table">
             <h1>Moje Turnaje</h1>
-            {userTournaments && (
+            {userTournaments && userData.role !== "basic" && (
               <DataTable
                 columns={columns}
                 data={userTournaments}
@@ -267,15 +290,37 @@ function Profile({
               />
             )}
           </div>
-          <div className="Profile--tmp-buttons">
-            {userData.role === "admin" && (
-              <a href="/add_tournament">Přidat turnaj</a>
+          <div className="Profile--buttons">
+            {(userData.role === "admin" || userData.role === "organizer") && (
+              <button onClick={() => navigate("/add_tournament")}>
+                Přidat turnaj
+              </button>
             )}
             {userData.role === "admin" && (
               <button onClick={create_random_tournament}>
                 Přidat random turnaj
               </button>
             )}
+            {userData.role === "basic" &&
+              (requestSent ? (
+                <h3>Žádost byla úspěšně poslána.</h3>
+              ) : (
+                <div className="Profile--request-box">
+                  <h3>
+                    Jste organizátor/ka a přejete si mít možnost na této
+                    platformě přidávat a spravovat své turnaje?
+                  </h3>
+                  <div className="Profile--request-btn-box">
+                    <h3>Požádajte o roli organizátora: </h3>
+                    <button
+                      onClick={sendOrganizerRequest}
+                      className="Profile--request-btn"
+                    >
+                      Poslat žádost
+                    </button>
+                  </div>
+                </div>
+              ))}
           </div>
           <Modal
             open={showConfirmation}
