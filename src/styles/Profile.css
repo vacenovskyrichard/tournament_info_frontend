@@ -123,3 +123,50 @@ h1 {
 .Profile--tournament-table {
   width: 75%; /* Set the width of the DataTable */
 }
+
+.Profile--confirm-window {
+  background: rgb(216, 216, 216);
+  color: rgb(37, 31, 31);
+  font-family: "Bebas Neue", sans-serif;
+}
+
+.Profile-delete-confirmation {
+  font-family: "Bebas Neue", sans-serif;
+}
+
+.Profile-delete-confirmation > div {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.Profile-delete-confirmation > div > button {
+  margin: 0px 20px;
+  -webkit-transition: all 0.4s;
+  -o-transition: all 0.4s;
+  -moz-transition: all 0.4s;
+  transition: all 0.4s;
+  cursor: default;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0 20px;
+  height: 50px;
+  border-radius: 10px;
+  font-family: "Bebas Neue", sans-serif;
+  font-size: 28px;
+  color: rgb(216, 216, 216);
+  margin-top: 10px;
+  width: 65%;
+}
+
+.Profile-delete-confirmation > div > button:hover {
+  box-shadow: 0 0 11px rgb(37, 31, 31);
+}
+
+.Profile-confirm-delete-btn {
+  background-color: red;
+}
+.Profile-refuse-delete-btn {
+  background-color: rgb(37, 31, 31);
+}

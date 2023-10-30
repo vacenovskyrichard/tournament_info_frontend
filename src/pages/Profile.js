@@ -332,10 +332,11 @@ function Profile({
             }}
           >
             {showConfirmation && (
-              <div>
+              <div className="Profile-delete-confirmation">
                 <h1>Opravdu chcete turnaj smazat?</h1>
-                <p>
+                <div>
                   <button
+                    className="Profile-confirm-delete-btn"
                     onClick={() => {
                       delete_tournament(deleteId);
                       setShowConfirmation(false);
@@ -343,10 +344,13 @@ function Profile({
                   >
                     Ano smazat
                   </button>
-                  <button onClick={() => setShowConfirmation(false)}>
+                  <button
+                    className="Profile-refuse-delete-btn"
+                    onClick={() => setShowConfirmation(false)}
+                  >
                     Ne, zpět
                   </button>
-                </p>
+                </div>
               </div>
             )}
           </Modal>
