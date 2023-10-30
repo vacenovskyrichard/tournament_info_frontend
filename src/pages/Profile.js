@@ -67,13 +67,13 @@ function Profile({
       style: {
         backgroundColor: "black",
         color: "white",
-        fontSize: "20px",
+        fontSize: "23px",
         fontWeight: "600",
       },
     },
     cells: {
       style: {
-        fontSize: "20px",
+        fontSize: "23px",
       },
     },
   };
@@ -303,7 +303,9 @@ function Profile({
             )}
             {userData.role === "basic" &&
               (requestSent ? (
-                <h3>Žádost byla úspěšně poslána.</h3>
+                <h3 className="Profile-request-sent">
+                  Žádost byla úspěšně poslána!
+                </h3>
               ) : (
                 <div className="Profile--request-box">
                   <h3>

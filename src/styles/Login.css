@@ -90,11 +90,26 @@
   border-radius: 10px;
   top: 0;
   left: 0;
-  background: #a64bf4;
-  background: -webkit-linear-gradient(45deg, #00dbde, #fc00ff);
-  background: -o-linear-gradient(45deg, #00dbde, #fc00ff);
-  background: -moz-linear-gradient(45deg, #00dbde, #fc00ff);
-  background: linear-gradient(45deg, #00dbde, #fc00ff);
+  background: -webkit-linear-gradient(
+    45deg,
+    rgba(255, 164, 46, 1),
+    rgba(247, 28, 61, 1)
+  );
+  background: -o-linear-gradient(
+    45deg,
+    rgba(255, 164, 46, 1),
+    rgba(247, 28, 61, 1)
+  );
+  background: -moz-linear-gradient(
+    45deg,
+    rgba(255, 164, 46, 1),
+    rgba(247, 28, 61, 1)
+  );
+  background: linear-gradient(
+    45deg,
+    rgba(255, 164, 46, 1),
+    rgba(247, 28, 61, 1)
+  );
   opacity: 0;
   -webkit-transition: all 0.4s;
   -o-transition: all 0.4s;
@@ -179,8 +194,12 @@
   height: 40px;
   border-radius: 10px;
 }
-
+/* =========================================================== */
 .Login--login-button {
+  -webkit-transition: all 0.4s;
+  -o-transition: all 0.4s;
+  -moz-transition: all 0.4s;
+  transition: all 0.4s;
   cursor: default;
   display: flex;
   justify-content: center;
@@ -196,6 +215,7 @@
 }
 
 .Login--login-button > p {
+  transition: all 0.4s;
   background-image: linear-gradient(
     90deg,
     rgba(255, 164, 46, 1) 0%,
@@ -207,7 +227,7 @@
 }
 
 .Login--login-button:hover {
-  box-shadow: 0 0 11px rgba(33, 33, 33, 0.7);
+  box-shadow: 0 0 11px rgba(255, 255, 255, 0.7);
 }
 
 .Login--register {
@@ -244,8 +264,8 @@
 }
 
 .Login--x-btn:hover {
-  text-shadow: 0 0 11px rgba(33, 33, 33, 0.7);
-  cursor: default;
+  text-shadow: 0 0 25px rgba(247, 28, 61, 1);
+  cursor: pointer;
 }
 
 .Login--registration_succesfull,
