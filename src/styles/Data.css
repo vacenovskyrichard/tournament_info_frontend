@@ -10,18 +10,19 @@
   flex-direction: row;
   align-items: center;
   border-bottom: 1px solid black;
+  background-color: rgb(216, 216, 216);
 }
 
 .Data--expanded-data {
   margin: 10px 25px;
-  font-size: 20px;
+  font-size: 18px;
 }
 
 .Data--time-remaining {
   display: flex;
   justify-content: center;
   flex: 1;
-  font-size: 25px;
+  font-size: 20px;
   font-weight: 600;
 }
 
@@ -49,7 +50,7 @@
 }
 
 .Data--table-button {
-  background-color: black;
+  background-color: rgb(37, 31, 31);
   color: white;
 }
 
@@ -60,4 +61,10 @@
 
 .Data--tournament-table {
   width: 75%; /* Set the width of the DataTable */
+  /* border: 3px solid black; */
+}
+
+.Data--tournament-table .rdt_TableRow,
+.Data--tournament-table .rdt_Pagination {
+  background-color: rgb(216, 216, 216);
 }

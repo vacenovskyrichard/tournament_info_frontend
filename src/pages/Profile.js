@@ -264,17 +264,17 @@ function Profile({
             <div className="Profile--user-data">
               <h1>Osobní údaje</h1>
               <div className="Profile--user-data-box">
-                <p className="bold">Jméno:</p>
+                <p>Jméno:</p>
                 <p>
                   {userData.name} {userData.surname}{" "}
                 </p>
               </div>
               <div className="Profile--user-data-box">
-                <p className="bold">Email:</p>
+                <p>Email:</p>
                 <p>{userData.email}</p>
               </div>
               <div className="Profile--user-data-box">
-                <p className="bold">Role:</p>
+                <p>Role:</p>
                 <p>{userData.role}</p>
               </div>
             </div>

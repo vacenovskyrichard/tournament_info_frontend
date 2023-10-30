@@ -9,6 +9,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  font-family: "Bebas Neue", sans-serif;
 }
 
 .Calendar--detail-window > div > p {
@@ -36,7 +37,6 @@
 }
 .Calendar--table-button {
   background-color: rgb(116, 110, 110);
-
   color: white;
 }
 
@@ -55,17 +55,39 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  margin: 8px;
   width: 200px;
-  height: 30px;
-  font-size: 17px;
+  height: 35px;
+  font-size: 22px;
   border-radius: 15px;
   background-color: black;
+  color: white;
+  font-family: "Bebas Neue", sans-serif;
+}
+
+.Calendar--url-button-box > button:hover {
+  cursor: pointer;
+  box-shadow: 0 0 11px rgba(33, 33, 33, 0.7);
+}
+
+.rbc-toolbar {
+  background-color: rgb(37, 31, 31); /* Adjust this value as needed */
+  font-family: "Bebas Neue", sans-serif;
   color: white;
 }
 
 .rbc-toolbar > span {
-  font-size: 25px; /* Adjust this value as needed */
+  font-size: 35px; /* Adjust this value as needed */
   font-family: "Bebas Neue", sans-serif;
+}
+
+.rbc-toolbar > span > button {
+  font-family: "Bebas Neue", sans-serif;
+  font-size: 25px;
+  color: white;
+}
+.rbc-toolbar > span > button .rbc-active {
+  color: black;
 }
 
 .Calendar--calendar-box {

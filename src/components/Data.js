@@ -81,7 +81,7 @@ function Data({ tournamentsData, setShowData, showData }) {
   const customStyles = {
     headRow: {
       style: {
-        backgroundColor: "black",
+        backgroundColor: "rgb(37, 31, 31);",
         color: "white",
         fontSize: "23px",
         // fontWeight: "600",
@@ -94,6 +94,7 @@ function Data({ tournamentsData, setShowData, showData }) {
         fontFamily: "Bebas Neue",
       },
     },
+    background: "rgb(216, 216, 216);",
   };
 
   // set comlumns

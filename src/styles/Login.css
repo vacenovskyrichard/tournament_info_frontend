@@ -5,12 +5,12 @@
   align-items: center;
   height: 100vh;
   /* background-image: url("../../public/login.jpg"); */
-  /* background-color: black; */
-  background: linear-gradient(
+  background-color: rgb(216, 216, 216);
+  /* background: linear-gradient(
     90deg,
     rgba(255, 164, 46, 1) 0%,
     rgba(247, 28, 61, 1) 100%
-  );
+  ); */
   /* background-color: #ff847c; */
   background-size: cover; /* Cover the entire container */
   background-repeat: no-repeat; /* Prevent image repetition */
@@ -21,9 +21,10 @@
   position: relative;
   display: flex;
   padding: 50px; /* Add some padding for spacing */
-  background-color: white; /* Background color for the login box */
+  background-color: rgb(37, 31, 31); /* Background color for the login box */
   border-radius: 15px;
   justify-content: center;
+  /* color: rgb(216, 216, 216); */
 }
 
 .login-form-title {
@@ -31,7 +32,15 @@
   display: block;
   font-family: "Bebas Neue", sans-serif;
   font-size: 39px;
-  color: #555;
+  /* color: #555; */
+  background-image: linear-gradient(
+    90deg,
+    rgba(255, 164, 46, 1) 0%,
+    rgba(247, 28, 61, 1) 100%
+  );
+  -webkit-background-clip: text; /* For compatibility with some browsers */
+  background-clip: text;
+  color: transparent; /* Hide the actual text color */
   line-height: 1.2;
   text-align: center;
   margin-bottom: 20px;
@@ -131,7 +140,14 @@
   font-family: "Bebas Neue", sans-serif;
   font-weight: bold;
   font-size: 22px;
-  color: #555;
+  background-image: linear-gradient(
+    90deg,
+    rgba(255, 164, 46, 1) 0%,
+    rgba(247, 28, 61, 1) 100%
+  );
+  -webkit-background-clip: text; /* For compatibility with some browsers */
+  background-clip: text;
+  color: transparent; /* Hide the actual text color */
   line-height: 1.5;
   margin-right: 5px;
   margin-top: 5px;
@@ -178,6 +194,18 @@
   color: #fff;
   margin-top: 10px;
 }
+
+.Login--login-button > p {
+  background-image: linear-gradient(
+    90deg,
+    rgba(255, 164, 46, 1) 0%,
+    rgba(247, 28, 61, 1) 100%
+  );
+  -webkit-background-clip: text; /* For compatibility with some browsers */
+  background-clip: text;
+  color: transparent; /* Hide the actual text color */
+}
+
 .Login--login-button:hover {
   box-shadow: 0 0 11px rgba(33, 33, 33, 0.7);
 }
@@ -199,13 +227,19 @@
 }
 
 .Login--x-btn {
-  background-color: white;
   position: absolute;
   top: 2px;
   right: 10px;
   font-family: "Autour One", sans-serif;
   font-size: 35px;
-  color: #555;
+  background-image: linear-gradient(
+    90deg,
+    rgba(255, 164, 46, 1) 0%,
+    rgba(247, 28, 61, 1) 100%
+  );
+  -webkit-background-clip: text; /* For compatibility with some browsers */
+  background-clip: text;
+  color: transparent; /* Hide the actual text color */
   text-align: center;
 }
 

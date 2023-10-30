@@ -70,9 +70,6 @@ h1 {
   margin: 5px 0px 5px 15px;
 }
 
-.bold {
-  font-weight: 600;
-}
 .Profile--tournament-table {
   width: 75%; /* Set the width of the DataTable */
 }
