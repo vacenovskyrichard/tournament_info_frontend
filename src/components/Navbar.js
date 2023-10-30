@@ -28,7 +28,6 @@ function Navbar({ token, removeToken, apiUrl, title }) {
 
   return (
     <div className="navbar">
-      <title>Jdem Hrát</title>
       <div className="navbar--left">
         <a href="/">
           <img

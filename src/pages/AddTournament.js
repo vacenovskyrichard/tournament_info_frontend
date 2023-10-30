@@ -130,7 +130,7 @@ export default function AddTournament({
               {...register("capacity", {
                 required: {
                   value: true,
-                  message: "Zadejte město, kde se turnaj koná",
+                  message: "Zadejte kapacitu turnaje.",
                 },
 
                 pattern: {
@@ -150,7 +150,7 @@ export default function AddTournament({
               {...register("price", {
                 required: {
                   value: true,
-                  message: "Zadejte město, kde se turnaj koná",
+                  message: "Zadejte cenu startovného",
                 },
 
                 pattern: {
