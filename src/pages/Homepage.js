@@ -2,6 +2,7 @@ import Navbar from "../components/Navbar";
 import Data from "../components/Data";
 import MyCalendar from "../components/Calendar";
 import Filters from "../components/Filters";
+import Resources from "../components/Resources";
 import { useState } from "react";
 
 function Homepage({
@@ -47,6 +48,7 @@ function Homepage({
           showData={showData}
         />
       )}
+      <Resources />
     </>
   );
 }
