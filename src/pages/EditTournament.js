@@ -169,7 +169,7 @@ export default function EditTournament({
                   {...register("city", {
                     required: {
                       value: true,
-                      message: "Zadejte jméno turnaje",
+                      message: "Zadejte město, kde se turnaj koná",
                     },
                   })}
                 />
@@ -195,7 +195,7 @@ export default function EditTournament({
                   {...register("areal", {
                     required: {
                       value: true,
-                      message: "Zadejte jméno turnaje",
+                      message: "Zadejte areál",
                     },
                   })}
                 />
@@ -237,7 +237,7 @@ export default function EditTournament({
 
           {/* Tournament number of signed teams */}
           <div className="EditTournament--form-element">
-            <h3>Pořet přihlášených týmů</h3>
+            <h3>Počet přihlášených týmů</h3>
             {!editSigned ? (
               <p>
                 {editedTournament && editedTournament.signed}{" "}
@@ -283,7 +283,7 @@ export default function EditTournament({
                   {...register("price", {
                     required: {
                       value: true,
-                      message: "Zadejte město, kde se turnaj koná",
+                      message: "Zadejte cenu startovného",
                     },
 
                     pattern: {
@@ -360,7 +360,7 @@ export default function EditTournament({
                   {...register("organizer", {
                     required: {
                       value: true,
-                      message: "Zadejte jméno turnaje",
+                      message: "Zadejte jméno organizátora",
                     },
                   })}
                 />
