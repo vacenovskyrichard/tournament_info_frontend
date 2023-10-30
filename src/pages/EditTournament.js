@@ -27,6 +27,7 @@ export default function EditTournament({
   const [editCity, setEditCity] = useState(false);
   const [editAreal, setEditAreal] = useState(false);
   const [editCapacity, setEditCapacity] = useState(false);
+  const [editSigned, setEditSigned] = useState(false);
   const [editPrice, setEditPrice] = useState(false);
   const [editStart, setEditStart] = useState(false);
   const [editOrganizer, setEditOrganizer] = useState(false);
@@ -220,7 +221,38 @@ export default function EditTournament({
                   {...register("capacity", {
                     required: {
                       value: true,
-                      message: "Zadejte město, kde se turnaj koná",
+                      message: "Zadejte kapacitu turnaje.",
+                    },
+
+                    pattern: {
+                      value: /^\d+$/,
+                      message: "Zadaná hodnota není validní",
+                    },
+                  })}
+                />
+                <button type="submit">uložit</button>
+              </form>
+            )}
+          </div>
+
+          {/* Tournament number of signed teams */}
+          <div className="EditTournament--form-element">
+            <h3>Pořet přihlášených týmů</h3>
+            {!editSigned ? (
+              <p>
+                {editedTournament && editedTournament.signed}{" "}
+                <button onClick={() => setEditSigned(true)}>editovat</button>
+              </p>
+            ) : (
+              <form onSubmit={handleSubmit(onSubmit)}>
+                <input
+                  type="text"
+                  name="signed"
+                  defaultValue={editedTournament && editedTournament.signed}
+                  {...register("signed", {
+                    required: {
+                      value: true,
+                      message: "Zadejte počet přihlášených týmů.",
                     },
 
                     pattern: {
