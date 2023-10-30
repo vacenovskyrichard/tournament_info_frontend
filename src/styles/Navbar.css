@@ -9,10 +9,6 @@ body {
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  /* height: 100px; */
-  /* background-color: #2341ae; */
-  /* background-color: #ff5449; */
-  /* background-color: #33cdec; */
   background-color: rgb(37, 31, 31);
   font-family: "Bebas Neue", sans-serif;
   box-shadow: 0px 3px 7px rgba(0, 0, 0, 1);
@@ -55,11 +51,8 @@ body {
 
 .navbar--login-btn {
   transition: box-shadow 0.3s;
-  /* font-family: "Caesar Dressing", sans-serif; */
-  /* font-family: "Lobster", sans-serif; */
   font-family: "Bebas Neue", sans-serif;
-
-  font-size: 22px; /* Set your desired font size */
+  font-size: 22px;
   background-image: linear-gradient(
     90deg,
     rgba(255, 164, 46, 1) 0%,

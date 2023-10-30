@@ -1,3 +1,6 @@
+.filters {
+  margin: 20px;
+}
 .filters-form {
   display: flex;
   justify-content: center;
