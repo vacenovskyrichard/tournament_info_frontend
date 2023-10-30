@@ -67,13 +67,13 @@ function Profile({
       style: {
         backgroundColor: "black",
         color: "white",
-        fontSize: "20px",
+        fontSize: "23px",
         fontWeight: "600",
       },
     },
     cells: {
       style: {
-        fontSize: "20px",
+        fontSize: "23px",
       },
     },
   };
@@ -264,17 +264,17 @@ function Profile({
             <div className="Profile--user-data">
               <h1>Osobní údaje</h1>
               <div className="Profile--user-data-box">
-                <p className="bold">Jméno:</p>
+                <p>Jméno:</p>
                 <p>
                   {userData.name} {userData.surname}{" "}
                 </p>
               </div>
               <div className="Profile--user-data-box">
-                <p className="bold">Email:</p>
+                <p>Email:</p>
                 <p>{userData.email}</p>
               </div>
               <div className="Profile--user-data-box">
-                <p className="bold">Role:</p>
+                <p>Role:</p>
                 <p>{userData.role}</p>
               </div>
             </div>
@@ -303,7 +303,9 @@ function Profile({
             )}
             {userData.role === "basic" &&
               (requestSent ? (
-                <h3>Žádost byla úspěšně poslána.</h3>
+                <h3 className="Profile-request-sent">
+                  Žádost byla úspěšně poslána!
+                </h3>
               ) : (
                 <div className="Profile--request-box">
                   <h3>
@@ -330,10 +332,11 @@ function Profile({
             }}
           >
             {showConfirmation && (
-              <div>
+              <div className="Profile-delete-confirmation">
                 <h1>Opravdu chcete turnaj smazat?</h1>
-                <p>
+                <div>
                   <button
+                    className="Profile-confirm-delete-btn"
                     onClick={() => {
                       delete_tournament(deleteId);
                       setShowConfirmation(false);
@@ -341,10 +344,13 @@ function Profile({
                   >
                     Ano smazat
                   </button>
-                  <button onClick={() => setShowConfirmation(false)}>
+                  <button
+                    className="Profile-refuse-delete-btn"
+                    onClick={() => setShowConfirmation(false)}
+                  >
                     Ne, zpět
                   </button>
-                </p>
+                </div>
               </div>
             )}
           </Modal>

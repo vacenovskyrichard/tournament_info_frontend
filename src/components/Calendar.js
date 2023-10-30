@@ -49,8 +49,8 @@ export default function MyCalendar({
   //Custom calendar labels
   const messages = {
     allDay: "Celý den",
-    previous: "<",
-    next: ">",
+    previous: "minulý měsíc",
+    next: "další měsíc",
     today: "Dnes",
     month: "Měsíc",
     week: "Týden",
@@ -174,6 +174,8 @@ export default function MyCalendar({
           style={{
             height: 700,
             fontSize: 20,
+            fontFamily: "Babas Neue",
+            backgroundColor: "rgb(245, 245, 245)",
           }}
           onSelectEvent={handleEventClick}
         />

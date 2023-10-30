@@ -188,7 +188,7 @@ function Login({ setToken, apiUrl }) {
                 />
               </div>
               <div className="Login--login-button" onClick={login}>
-                Přihlásit
+                <p>Přihlásit</p>
               </div>
             </div>
             <div className="Login--register">

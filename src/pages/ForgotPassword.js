@@ -4,6 +4,8 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
 function ForgotPassword({ apiUrl }) {
+  const [sendFailed, setSendFailed] = useState(false);
+  const [sendSuccess, setSendSuccess] = useState(false);
   const [loginForm, setloginForm] = useState({
     email: "",
     password: "",
@@ -28,7 +30,11 @@ function ForgotPassword({ apiUrl }) {
         password: "",
       },
     })
-      .then(() => {})
+      .then((response) => {
+        if (response.status === 200) {
+          setSendSuccess(true);
+        }
+      })
       .catch((error) => {
         if (error.response) {
           console.log(error.response);
@@ -36,7 +42,7 @@ function ForgotPassword({ apiUrl }) {
           console.log(error.response.headers);
         }
         if (error.response.status === 404) {
-          alert("Uživatel s tímto emailem neexistuje.");
+          setSendFailed(true);
         }
       });
 
@@ -57,6 +63,16 @@ function ForgotPassword({ apiUrl }) {
 
   return (
     <div className="login-page">
+      {sendSuccess && (
+        <div className="Login--registration_succesfull">
+          <span>Nové heslo bylo zasláno na uvedený email.</span>
+        </div>
+      )}
+      {sendFailed && (
+        <div className="Login--registration_failed">
+          <span>Uživatel s tímto emailem neexistuje</span>
+        </div>
+      )}
       <div className="login-box">
         <span className="Login--x-btn" onClick={goToMainPage}>
           x

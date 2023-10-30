@@ -10,13 +10,12 @@
 .AddTournament--form-element {
   display: flex;
   flex-direction: column;
-  /* margin: 10px; */
 }
 
 .AddTournament--form-element > label {
-  font-family: "Montserrat", sans-serif;
+  font-family: "Bebas Neue", sans-serif;
   font-weight: bold;
-  font-size: 16px;
+  font-size: 25px;
   color: #555;
   line-height: 1.5;
   margin-right: 5px;
@@ -39,20 +38,33 @@
   border-radius: 10px;
 }
 
+.AddTournament--submit-button-box {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  flex-direction: column;
+}
+
 .AddTournament--submit-button {
+  -webkit-transition: all 0.4s;
+  -o-transition: all 0.4s;
+  -moz-transition: all 0.4s;
+  transition: all 0.4s;
   cursor: default;
   display: flex;
   justify-content: center;
   align-items: center;
   padding: 0 20px;
   height: 60px;
-  background-color: #333;
+  background-color: rgb(37, 31, 31);
   border-radius: 10px;
-  font-family: "Poppins", sans-serif;
-  font-size: 16px;
-  color: #fff;
-  margin-top: 10px;
+  font-family: "Bebas Neue", sans-serif;
+  font-size: 28px;
+  color: rgb(216, 216, 216);
+  margin: 10px;
+  width: 80%;
 }
+
 .AddTournament--submit-button:hover {
-  box-shadow: 0 0 11px rgba(33, 33, 33, 0.7);
+  box-shadow: 0 0 11px rgb(37, 31, 31);
 }

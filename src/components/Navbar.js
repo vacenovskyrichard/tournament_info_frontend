@@ -31,7 +31,11 @@ function Navbar({ token, removeToken, apiUrl, title }) {
       <title>Jdem Hrát</title>
       <div className="navbar--left">
         <a href="/">
-          <img className="navbar--logo" alt="logo" src="./logo.png" />
+          <img
+            className="navbar--logo"
+            alt="logo"
+            src="./logo/basic/png/logo-no-background.png"
+          />
         </a>
       </div>
       <div className="navbar--center">
@@ -44,12 +48,12 @@ function Navbar({ token, removeToken, apiUrl, title }) {
             <HamburgerMenu logout={logout} />
           ) : (
             <div>
-              <button
-                className="login-button"
+              <p
+                className="navbar--login-btn"
                 onClick={() => navigate("/login")}
               >
                 Přihlásit
-              </button>
+              </p>
             </div>
           )}
         </div>

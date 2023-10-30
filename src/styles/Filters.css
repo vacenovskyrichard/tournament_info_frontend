@@ -5,10 +5,21 @@
   margin-right: 80px;
 }
 
+.filters-form .css-13cymwt-control {
+  background-color: rgb(245, 245, 245);
+  /* border: 2px solid black; */
+}
+
+.filters-form .css-t3ipsp-control {
+  background-color: rgb(245, 245, 245);
+}
+
 .filters-form > div {
   display: flex;
   justify-content: center;
   flex-direction: column;
+  font-family: "Bebas Neue", sans-serif;
+  font-size: 22px;
   margin-left: 10px;
   margin-right: 10px;
 }
@@ -16,12 +27,12 @@
 .save-button {
   display: flex;
   transition: box-shadow 0.3s;
-  font-family: "Frank Ruhl Libre", serif;
-  padding-right: 17px;
-  padding-left: 17px;
-  padding-top: 11px;
-  padding-bottom: 11px;
-  background-color: black;
+  font-size: 22px;
+  font-family: "Bebas Neue", sans-serif;
+  justify-content: center;
+  align-items: center;
+  padding: 5px 15px;
+  background-color: rgb(37, 31, 31);
   color: white;
   border-radius: 50px;
   border-width: 0;
@@ -29,6 +40,7 @@
 }
 
 .save-button:hover {
+  cursor: pointer;
   box-shadow: 0 0 11px rgba(33, 33, 33, 0.7);
 }
 

@@ -5,7 +5,13 @@
   align-items: center;
   height: 100vh;
   /* background-image: url("../../public/login.jpg"); */
-  background-color: #ff847c;
+  background-color: rgb(216, 216, 216);
+  /* background: linear-gradient(
+    90deg,
+    rgba(255, 164, 46, 1) 0%,
+    rgba(247, 28, 61, 1) 100%
+  ); */
+  /* background-color: #ff847c; */
   background-size: cover; /* Cover the entire container */
   background-repeat: no-repeat; /* Prevent image repetition */
   background-position: center; /* Center the image */ /* background-image: "./public/"; */
@@ -15,17 +21,26 @@
   position: relative;
   display: flex;
   padding: 50px; /* Add some padding for spacing */
-  background-color: white; /* Background color for the login box */
+  background-color: rgb(37, 31, 31); /* Background color for the login box */
   border-radius: 15px;
   justify-content: center;
+  /* color: rgb(216, 216, 216); */
 }
 
 .login-form-title {
   width: 100%;
   display: block;
-  font-family: "Montserrat", sans-serif;
+  font-family: "Bebas Neue", sans-serif;
   font-size: 39px;
-  color: #555;
+  /* color: #555; */
+  background-image: linear-gradient(
+    90deg,
+    rgba(255, 164, 46, 1) 0%,
+    rgba(247, 28, 61, 1) 100%
+  );
+  -webkit-background-clip: text; /* For compatibility with some browsers */
+  background-clip: text;
+  color: transparent; /* Hide the actual text color */
   line-height: 1.2;
   text-align: center;
   margin-bottom: 20px;
@@ -75,11 +90,26 @@
   border-radius: 10px;
   top: 0;
   left: 0;
-  background: #a64bf4;
-  background: -webkit-linear-gradient(45deg, #00dbde, #fc00ff);
-  background: -o-linear-gradient(45deg, #00dbde, #fc00ff);
-  background: -moz-linear-gradient(45deg, #00dbde, #fc00ff);
-  background: linear-gradient(45deg, #00dbde, #fc00ff);
+  background: -webkit-linear-gradient(
+    45deg,
+    rgba(255, 164, 46, 1),
+    rgba(247, 28, 61, 1)
+  );
+  background: -o-linear-gradient(
+    45deg,
+    rgba(255, 164, 46, 1),
+    rgba(247, 28, 61, 1)
+  );
+  background: -moz-linear-gradient(
+    45deg,
+    rgba(255, 164, 46, 1),
+    rgba(247, 28, 61, 1)
+  );
+  background: linear-gradient(
+    45deg,
+    rgba(255, 164, 46, 1),
+    rgba(247, 28, 61, 1)
+  );
   opacity: 0;
   -webkit-transition: all 0.4s;
   -o-transition: all 0.4s;
@@ -122,10 +152,17 @@
 }
 
 .Login--label {
-  font-family: "Montserrat", sans-serif;
+  font-family: "Bebas Neue", sans-serif;
   font-weight: bold;
-  font-size: 16px;
-  color: #555;
+  font-size: 22px;
+  background-image: linear-gradient(
+    90deg,
+    rgba(255, 164, 46, 1) 0%,
+    rgba(247, 28, 61, 1) 100%
+  );
+  -webkit-background-clip: text; /* For compatibility with some browsers */
+  background-clip: text;
+  color: transparent; /* Hide the actual text color */
   line-height: 1.5;
   margin-right: 5px;
   margin-top: 5px;
@@ -139,8 +176,8 @@
 }
 
 .Login--tiny-label {
-  font-family: "Poppins", sans-serif;
-  font-size: 14px;
+  font-family: "Bebas Neue", sans-serif;
+  font-size: 22px;
   color: #999;
   line-height: 1.5;
   margin-right: 3px;
@@ -157,8 +194,12 @@
   height: 40px;
   border-radius: 10px;
 }
-
+/* =========================================================== */
 .Login--login-button {
+  -webkit-transition: all 0.4s;
+  -o-transition: all 0.4s;
+  -moz-transition: all 0.4s;
+  transition: all 0.4s;
   cursor: default;
   display: flex;
   justify-content: center;
@@ -167,13 +208,26 @@
   height: 60px;
   background-color: #333;
   border-radius: 10px;
-  font-family: "Poppins", sans-serif;
-  font-size: 16px;
+  font-family: "Bebas Neue", sans-serif;
+  font-size: 22px;
   color: #fff;
   margin-top: 10px;
 }
+
+.Login--login-button > p {
+  transition: all 0.4s;
+  background-image: linear-gradient(
+    90deg,
+    rgba(255, 164, 46, 1) 0%,
+    rgba(247, 28, 61, 1) 100%
+  );
+  -webkit-background-clip: text; /* For compatibility with some browsers */
+  background-clip: text;
+  color: transparent; /* Hide the actual text color */
+}
+
 .Login--login-button:hover {
-  box-shadow: 0 0 11px rgba(33, 33, 33, 0.7);
+  box-shadow: 0 0 11px rgba(255, 255, 255, 0.7);
 }
 
 .Login--register {
@@ -193,19 +247,25 @@
 }
 
 .Login--x-btn {
-  background-color: white;
   position: absolute;
   top: 2px;
   right: 10px;
   font-family: "Autour One", sans-serif;
   font-size: 35px;
-  color: #555;
+  background-image: linear-gradient(
+    90deg,
+    rgba(255, 164, 46, 1) 0%,
+    rgba(247, 28, 61, 1) 100%
+  );
+  -webkit-background-clip: text; /* For compatibility with some browsers */
+  background-clip: text;
+  color: transparent; /* Hide the actual text color */
   text-align: center;
 }
 
 .Login--x-btn:hover {
-  text-shadow: 0 0 11px rgba(33, 33, 33, 0.7);
-  cursor: default;
+  text-shadow: 0 0 25px rgba(247, 28, 61, 1);
+  cursor: pointer;
 }
 
 .Login--registration_succesfull,

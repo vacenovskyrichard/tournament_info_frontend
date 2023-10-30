@@ -297,10 +297,11 @@ export default function AddTournament({
           {/* Submit button */}
           <div className="AddTournament--form-element">
             <label></label>
-
-            <button className="AddTournament--submit-button" type="submit">
-              Přidat turnaj
-            </button>
+            <div className="AddTournament--submit-button-box">
+              <button className="AddTournament--submit-button" type="submit">
+                Přidat turnaj
+              </button>
+            </div>
           </div>
         </form>
         {/* <DevTool control={control} /> */}

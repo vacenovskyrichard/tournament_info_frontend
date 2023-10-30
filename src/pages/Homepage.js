@@ -23,7 +23,8 @@ function Homepage({
         removeToken={removeToken}
         setToken={setToken}
         apiUrl={apiUrl}
-        title={"Hlavní strana"}
+        // title={"Přehled"}
+        title={""}
       />
       <Filters
         data={tournamentsData}

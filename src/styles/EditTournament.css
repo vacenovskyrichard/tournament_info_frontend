@@ -1,14 +1,122 @@
 .EditTournament--main {
   display: flex;
   flex-direction: column;
-  align-items: left;
+  align-items: center;
+  background-color: rgb(216, 216, 216);
+  justify-content: center;
+  font-family: "Bebas Neue", sans-serif;
+  width: 100%;
+  color: rgb(216, 216, 216);
 }
-.EditTournament--main > form {
-  width: 500px;
+
+.EditTournament--form {
+  display: flex;
+  flex-direction: column;
+  margin: 20px;
+  /* border: 2px solid rgb(37, 31, 31);
+  border-radius: 20px; */
+  align-items: center;
 }
 
 .EditTournament--form-element {
   display: flex;
   flex-direction: column;
-  margin-left: 20px;
+  align-items: center;
+  /* justify-content: center; */
+  margin: 20px;
+  border: 2px solid rgb(37, 31, 31);
+  background: rgb(37, 31, 31);
+  border-radius: 20px;
+  font-size: 25px;
+  width: 100%;
+}
+
+.EditTournament--form-element > form {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 80%;
+  margin-bottom: 20px;
+}
+
+.EditTournament--form-element > form > input {
+  font-family: "Montserrat", sans-serif;
+  font-size: 18px;
+  width: 100%;
+  background-color: #f7f7f7;
+  border: 1px solid #e6e6e6;
+  height: 40px;
+  border-radius: 10px;
+}
+
+.EditTournament--form-element > h3 {
+  display: flex;
+  align-items: center;
+  width: 80%;
+  background-image: linear-gradient(
+    90deg,
+    rgba(255, 164, 46, 1) 0%,
+    rgba(247, 28, 61, 1) 100%
+  );
+  -webkit-background-clip: text; /* For compatibility with some browsers */
+  background-clip: text;
+  color: transparent; /* Hide the actual text color */
+  margin: 15px 0px;
+  margin: 15px 0px 0px 0px;
+}
+
+.EditTournament--form-element > p {
+  font-family: "Montserrat", sans-serif;
+  display: flex;
+  flex-direction: column;
+  width: 80%;
+  margin: 15px 0px 0px 0px;
+}
+
+.EditTournament--form-element > p > button,
+.EditTournament--form-element > form > button {
+  font-family: "Bebas Neue", sans-serif;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 10px;
+  /* width: 150px; */
+  height: 40px;
+  font-size: 22px;
+  border-radius: 15px;
+  background-color: rgb(216, 216, 216);
+  color: rgb(37, 31, 31);
+  border-radius: 50px;
+  border-width: 0;
+}
+.EditTournament--form-element > form > button {
+  width: 50%;
+}
+.EditTournament--form-element > p > button:hover {
+  cursor: pointer;
+  box-shadow: 0 0 11px rgb(255, 255, 255);
+}
+
+.EditTournament--finish-button {
+  -webkit-transition: all 0.4s;
+  -o-transition: all 0.4s;
+  -moz-transition: all 0.4s;
+  transition: all 0.4s;
+  cursor: default;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0 20px;
+  height: 60px;
+  background-color: rgb(37, 31, 31);
+  border-radius: 10px;
+  font-family: "Bebas Neue", sans-serif;
+  font-size: 28px;
+  color: rgb(216, 216, 216);
+  margin-top: 10px;
+  width: 65%;
+}
+
+.EditTournament--finish-button:hover {
+  box-shadow: 0 0 11px rgb(37, 31, 31);
 }
