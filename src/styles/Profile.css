@@ -3,8 +3,12 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  font-family: "Bebas Neue", sans-serif;
 }
 
+h1 {
+  font-size: 40px;
+}
 .Profile--buttons {
   display: flex;
   align-items: center;
@@ -60,7 +64,7 @@
 }
 .Profile--user-data-box {
   display: flex;
-  font-size: 20px;
+  font-size: 25px;
 }
 .Profile--user-data-box > p {
   margin: 5px 0px 5px 15px;

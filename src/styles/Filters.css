@@ -9,6 +9,8 @@
   display: flex;
   justify-content: center;
   flex-direction: column;
+  font-family: "Bebas Neue", sans-serif;
+  font-size: 22px;
   margin-left: 10px;
   margin-right: 10px;
 }
@@ -16,11 +18,11 @@
 .save-button {
   display: flex;
   transition: box-shadow 0.3s;
-  font-family: "Frank Ruhl Libre", serif;
-  padding-right: 17px;
-  padding-left: 17px;
-  padding-top: 11px;
-  padding-bottom: 11px;
+  font-size: 22px;
+  font-family: "Bebas Neue", sans-serif;
+  justify-content: center;
+  align-items: center;
+  padding: 5px 15px;
   background-color: black;
   color: white;
   border-radius: 50px;

@@ -22,14 +22,18 @@
 }
 
 .Calendar--content-buttons > button {
-  font-family: "Frank Ruhl Libre", serif;
-  font-size: 20px;
+  /* font-family: "Frank Ruhl Libre", serif; */
+  /* font-family: "Caesar Dressing", sans-serif; */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: "Bebas Neue", sans-serif;
+  font-size: 28px;
   margin: 5px 0px 3px 0px;
   width: 150px;
   height: 35px;
   border-radius: 10px;
 }
-
 .Calendar--table-button {
   background-color: rgb(116, 110, 110);
 
@@ -61,9 +65,11 @@
 
 .rbc-toolbar > span {
   font-size: 25px; /* Adjust this value as needed */
+  font-family: "Bebas Neue", sans-serif;
 }
 
 .Calendar--calendar-box {
   width: 75%;
+  font-family: "Bebas Neue", sans-serif;
   /* font-size: 25px; */
 }

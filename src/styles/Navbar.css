@@ -1,5 +1,6 @@
 body {
-  font-family: "Frank Ruhl Libre", serif;
+  /* font-family: "Frank Ruhl Libre", serif; */
+  font-family: "Ceasar Dresing";
   margin: 0;
 }
 
@@ -8,9 +9,12 @@ body {
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  height: 100px;
-  /* background-color: #7cf7ff; */
-  background-color: #ff5449;
+  /* height: 100px; */
+  /* background-color: #2341ae; */
+  /* background-color: #ff5449; */
+  /* background-color: #33cdec; */
+  background-color: black;
+  font-family: "Bebas Neue", sans-serif;
   color: black;
   box-shadow: 0px 3px 7px rgba(0, 0, 0, 1);
 }
@@ -23,6 +27,7 @@ body {
   display: flex;
   flex: 1;
   justify-content: center;
+  color: white;
 }
 
 .navbar--right {
@@ -32,64 +37,43 @@ body {
   margin-right: 25px;
 }
 
+.navbar--logo {
+  transition: box-shadow 0.3s;
+  margin: 10px 20px;
+  height: 40px;
+  padding: 5px;
+  border-radius: 50px;
+}
+
+.navbar--logo:hover {
+  cursor: pointer;
+  box-shadow: 0 0 20px rgba(247, 28, 61, 1);
+}
+
 .login > input {
   width: 200px;
 }
 
-.login-button {
+.navbar--login-btn {
   transition: box-shadow 0.3s;
-  font-family: "Frank Ruhl Libre", serif;
-  padding-right: 17px;
-  padding-left: 17px;
-  padding-top: 11px;
-  padding-bottom: 11px;
-  background-color: #ff847c;
-  color: black;
-  border-radius: 50px;
-  border-width: 0;
-  margin-left: 3px;
-  margin-right: 3px;
-  margin-top: 2px;
-  margin-bottom: 2px;
+  /* font-family: "Caesar Dressing", sans-serif; */
+  /* font-family: "Lobster", sans-serif; */
+  font-family: "Bebas Neue", sans-serif;
+
+  font-size: 22px; /* Set your desired font size */
+  background-image: linear-gradient(
+    90deg,
+    rgba(255, 164, 46, 1) 0%,
+    rgba(247, 28, 61, 1) 100%
+  );
+  -webkit-background-clip: text; /* For compatibility with some browsers */
+  background-clip: text;
+  color: transparent; /* Hide the actual text color */
+  padding: 3px 10px 3px 10px;
+  border-radius: 20px;
 }
 
-.login-button:hover,
-.register-button:hover {
-  box-shadow: 0 0 11px rgba(33, 33, 33, 0.7);
-}
-
-.navbar--logo {
-  transition: box-shadow 0.3s;
-  margin-left: 20px;
-  margin-right: 20px;
-  height: 80px;
-  border-radius: 50px;
-  /* flex-shrink: 0; */
-}
-
-.navbar--logo:hover {
-  box-shadow: 0 0 11px rgba(33, 33, 33, 0.7);
-}
-
-.login-and-forgot {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: flex-start;
-}
-
-.login-and-forgot > button {
-  display: flex;
-  height: 30px;
-  margin-top: 3px;
-}
-
-.login-and-forgot > p {
-  color: white;
-  margin-top: 8px;
-}
-
-.login-and-forgot > p:hover {
-  text-decoration: underline;
-  cursor: default;
+.navbar--login-btn:hover {
+  box-shadow: 0 0 20px rgba(247, 28, 61, 1);
+  cursor: pointer;
 }

@@ -14,13 +14,14 @@
 
 .Data--expanded-data {
   margin: 10px 25px;
+  font-size: 20px;
 }
 
 .Data--time-remaining {
   display: flex;
   justify-content: center;
   flex: 1;
-  font-size: 18px;
+  font-size: 25px;
   font-weight: 600;
 }
 
@@ -31,8 +32,12 @@
 }
 
 .Data--content-buttons > button {
-  font-family: "Frank Ruhl Libre", serif;
-  font-size: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: "Bebas Neue", sans-serif;
+
+  font-size: 28px;
   margin: 5px 0px 3px 0px;
   width: 150px;
   height: 35px;

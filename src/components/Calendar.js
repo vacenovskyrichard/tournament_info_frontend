@@ -174,6 +174,7 @@ export default function MyCalendar({
           style={{
             height: 700,
             fontSize: 20,
+            fontFamily: "Babas Neue",
           }}
           onSelectEvent={handleEventClick}
         />
