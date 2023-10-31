@@ -3,6 +3,7 @@ import Data from "../components/Data";
 import MyCalendar from "../components/Calendar";
 import Filters from "../components/Filters";
 import Resources from "../components/Resources";
+import Footer from "../components/Footer";
 import { useState } from "react";
 
 function Homepage({
@@ -49,6 +50,7 @@ function Homepage({
         />
       )}
       <Resources />
+      <Footer />
     </>
   );
 }

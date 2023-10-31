@@ -6,6 +6,7 @@ import DataTable from "react-data-table-component";
 import Navbar from "../components/Navbar";
 import { useNavigate } from "react-router-dom";
 import { Modal } from "react-responsive-modal";
+import Footer from "../components/Footer";
 
 function Profile({
   token,
@@ -358,6 +359,7 @@ function Profile({
       ) : (
         <h1>You are logged out, please log in to continue.</h1>
       )}
+      <Footer />
     </>
   );
 }

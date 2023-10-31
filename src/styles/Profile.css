@@ -1,5 +1,5 @@
 .Profile--main {
-  margin: 0px 0px 0px 50px;
+  margin: 0px 0px 500px 0px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -16,17 +16,28 @@ h1 {
 }
 .Profile--buttons > a,
 .Profile--buttons > button {
+  -webkit-transition: all 0.4s;
+  -o-transition: all 0.4s;
+  -moz-transition: all 0.4s;
+  transition: all 0.4s;
+  cursor: default;
   display: flex;
-  align-items: center;
   justify-content: center;
+  align-items: center;
+  padding: 2px 20px;
+  background-color: rgb(37, 31, 31);
+  border-radius: 10px;
+  font-family: "Bebas Neue", sans-serif;
+  font-size: 28px;
+  color: rgb(216, 216, 216);
   margin: 10px;
-  width: 200px;
-  height: 30px;
-  font-size: 17px;
-  border-radius: 15px;
-  background-color: black;
-  color: white;
+  /* width: 80%; */
 }
+.Profile--buttons > a:hover,
+.Profile--buttons > button:hover {
+  box-shadow: 0 0 11px rgb(37, 31, 31);
+}
+
 .Profile--request-box {
   font-size: 25px;
 }
