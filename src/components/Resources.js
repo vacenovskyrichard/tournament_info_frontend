@@ -146,6 +146,16 @@ export default function Resources() {
           >
             <h3>Gutovka</h3>
           </div>
+          <div
+            className="Resources--resource"
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              fontSize: "25px",
+            }}
+          >
+            <h3>Poděbrady</h3>
+          </div>
         </div>
       </div>
     </div>

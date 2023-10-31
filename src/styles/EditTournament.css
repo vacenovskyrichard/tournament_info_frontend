@@ -6,7 +6,6 @@
   justify-content: center;
   font-family: "Bebas Neue", sans-serif;
   width: 100%;
-  color: rgb(216, 216, 216);
 }
 
 .EditTournament--form {
@@ -29,6 +28,9 @@
   border-radius: 20px;
   font-size: 25px;
   width: 100%;
+}
+.EditTournament--form-element > p {
+  color: rgb(216, 216, 216);
 }
 
 .EditTournament--form-element > form {
