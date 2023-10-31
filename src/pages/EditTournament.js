@@ -83,7 +83,7 @@ export default function EditTournament({
     { value: "other", label: "Jiné" },
   ];
   const levelOptions = [
-    { value: "hobby", label: "Hobby/Amatér" },
+    { value: "hobby", label: "Hobby" },
     { value: "open", label: "Open" },
     { value: "cvf", label: "CVF (svazový turnaj)" },
   ];
