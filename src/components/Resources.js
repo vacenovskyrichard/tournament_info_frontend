@@ -1,4 +1,5 @@
 import "../styles/Resources.css";
+import Resource from "./Resource";
 
 export default function Resources() {
   return (
@@ -6,156 +7,56 @@ export default function Resources() {
       <div className="Resources--content">
         <h1>Na naší stránce najdete</h1>
         <div className="Resources--resources">
-          <div className="Resources--resource">
-            <img alt="logo" src="./resource_logos/logo-pankrac.png" />
-          </div>
-          <div className="Resources--resource">
-            <img alt="logo" src="./resource_logos/logo-ladvi.png" />
-          </div>
-          <div className="Resources--resource">
-            <img alt="logo" src="./resource_logos/logo-pbt.gif" />
-          </div>
-          <div className="Resources--resource">
-            <img
-              alt="logo"
-              src="./resource_logos/logo-michalek.webp"
-              style={{ width: "200px" }}
-            />
-          </div>
-          <div className="Resources--resource">
-            <img
-              alt="logo"
-              src="./resource_logos/logo-beachcup.png"
-              style={{ borderRadius: "80px" }}
-            />
-          </div>
+          <Resource
+            isImage={true}
+            imgPath="./resource_logos/logo-pankrac.png"
+          />
+
+          <Resource isImage={true} imgPath="./resource_logos/logo-ladvi.png" />
+
+          <Resource
+            isImage={true}
+            imgPath="./resource_logos/logo-beachcup.png"
+            style={{ borderRadius: "80px" }}
+          />
+
+          <Resource isImage={true} imgPath="./resource_logos/logo-pbt.gif" />
+
+          <Resource
+            isImage={true}
+            imgPath="./resource_logos/logo-michalek.webp"
+            style={{ width: "200px" }}
+          />
+
+          <Resource isImage={true} imgPath="./resource_logos/logo-vitkov.png" />
+
+          <Resource
+            isImage={true}
+            style={{ background: "#bf3235", borderRadius: "20px" }}
+            imgPath="./resource_logos/logo-bvsp.png"
+          />
+
+          <Resource
+            isImage={false}
+            text1="Turnaje s Ladou"
+            text2="o MP oblečení"
+          />
         </div>
+
         <h1>Dále můžete očekávat</h1>
+
         <div className="Resources--resources">
-          <div className="Resources--resource">
-            <img alt="logo" src="./resource_logos/logo-vitkov.png" />
-          </div>
-          <div
-            className="Resources--resource"
-            style={{
-              display: "flex",
-              flexDirection: "column",
-              fontSize: "25px",
-            }}
-          >
-            <h3 style={{ margin: "5px" }}>Turnaje s Ladou </h3>
-            <h3 style={{ margin: "5px" }}>o MP oblečení </h3>
-          </div>{" "}
-          <div
-            className="Resources--resource"
-            style={{
-              display: "flex",
-              flexDirection: "column",
-              fontSize: "25px",
-            }}
-          >
-            <h3>Fidorkové turnaje </h3>
-          </div>
-          <div
-            className="Resources--resource"
-            style={{
-              display: "flex",
-              flexDirection: "column",
-              fontSize: "25px",
-            }}
-          >
-            <h3>BVSP </h3>
-          </div>
-          <div
-            className="Resources--resource"
-            style={{
-              display: "flex",
-              flexDirection: "column",
-              fontSize: "25px",
-            }}
-          >
-            <h3> Radotín </h3>
-          </div>
-          <div
-            className="Resources--resource"
-            style={{
-              display: "flex",
-              flexDirection: "column",
-              fontSize: "25px",
-            }}
-          >
-            <h3>Ústi</h3>
-          </div>
-          <div
-            className="Resources--resource"
-            style={{
-              display: "flex",
-              flexDirection: "column",
-              fontSize: "25px",
-            }}
-          >
-            <h3>Kosmonosy</h3>
-          </div>
-          <div
-            className="Resources--resource"
-            style={{
-              display: "flex",
-              flexDirection: "column",
-              fontSize: "25px",
-            }}
-          >
-            <h3>Liberec</h3>
-          </div>
-          <div
-            className="Resources--resource"
-            style={{
-              display: "flex",
-              flexDirection: "column",
-              fontSize: "25px",
-            }}
-          >
-            <h3>Pardubice</h3>
-          </div>
-          <div
-            className="Resources--resource"
-            style={{
-              display: "flex",
-              flexDirection: "column",
-              fontSize: "25px",
-            }}
-          >
-            <h3>Hradec</h3>
-          </div>
-          <div
-            className="Resources--resource"
-            style={{
-              display: "flex",
-              flexDirection: "column",
-              fontSize: "25px",
-            }}
-          >
-            <h3>ABC Branik</h3>
-          </div>
-          <div
-            className="Resources--resource"
-            style={{
-              display: "flex",
-              flexDirection: "column",
-              fontSize: "25px",
-            }}
-          >
-            <h3>Gutovka</h3>
-          </div>
-          <div
-            className="Resources--resource"
-            style={{
-              display: "flex",
-              flexDirection: "column",
-              fontSize: "25px",
-            }}
-          >
-            <h3>Poděbrady</h3>
-          </div>
+          <Resource isImage={false} text1="Svazové turnaje" />
+          <Resource isImage={false} text1="Fidorka turnaje" />
+          <Resource isImage={false} text1="Radotín" />
+          <Resource isImage={false} text1="Ústi" />
+          <Resource isImage={false} text1="ABC Branik" />
+          <Resource isImage={false} text1="Hradec" />
+          <Resource isImage={false} text1="Pardubice" />
+          <Resource isImage={false} text1="Liberec" />
+          <Resource isImage={false} text1="Kosmonosy" />
+          <Resource isImage={false} text1="Gutovka" />
+          <Resource isImage={false} text1="Poděbrady" />
         </div>
       </div>
     </div>

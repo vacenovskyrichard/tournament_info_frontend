@@ -97,6 +97,41 @@ function Data({ tournamentsData, setShowData, showData }) {
     background: "rgb(216, 216, 216);",
   };
 
+  const conditionalRowStyles = [
+    {
+      when: (row) => row.signed >= row.capacity,
+      style: {
+        backgroundColor: "#ff0026",
+        color: "white",
+        "&:hover": {
+          cursor: "pointer",
+        },
+      },
+    },
+    {
+      when: (row) =>
+        row.signed < row.capacity &&
+        row.signed >= row.capacity - row.capacity / 8,
+      style: {
+        backgroundColor: "orange",
+        color: "white",
+        "&:hover": {
+          cursor: "pointer",
+        },
+      },
+    },
+    // {
+    //   when: (row) => row.signed < row.capacity - row.capacity / 8,
+    //   style: {
+    //     backgroundColor: "#00FF00",
+    //     color: "white",
+    //     "&:hover": {
+    //       cursor: "pointer",
+    //     },
+    //   },
+    // },
+  ];
+
   // set comlumns
   const columns = [
     {
@@ -174,6 +209,7 @@ function Data({ tournamentsData, setShowData, showData }) {
             expanded: <CustomIcon />, // Use your custom expanded icon
           }}
           customStyles={customStyles}
+          conditionalRowStyles={conditionalRowStyles}
         />
       </div>
     </div>
