@@ -357,7 +357,9 @@ function Profile({
           </Modal>
         </div>
       ) : (
-        <h1>You are logged out, please log in to continue.</h1>
+        <h1 style={{ fontFamily: "Bebas Neue, sans-serif" }}>
+          Radši jsme vás odhlásili, přihlašte se prosím znovu
+        </h1>
       )}
       <Footer />
     </>
