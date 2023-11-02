@@ -39,9 +39,10 @@ function App() {
               tournament.last_update.split("T");
             const [year, month, day] = last_update_date.split("-");
             const [hour, minute, second] = last_update_time.split(":");
+            const targetDateString = `${year}-${month}-${day} ${hour}:${minute}`;
             return {
               ...tournament,
-              last_update: `${day}.${month}.${year} ${hour}:${minute}`,
+              last_update: targetDateString,
             };
           })
         );
