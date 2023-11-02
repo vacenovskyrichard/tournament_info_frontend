@@ -66,17 +66,20 @@ function Profile({
   const customStyles = {
     headRow: {
       style: {
-        backgroundColor: "black",
-        color: "white",
+        backgroundColor: "rgb(37, 31, 31);",
+        color: "rgb(245,245,245)",
         fontSize: "23px",
-        fontWeight: "600",
+        // fontWeight: "600",
+        fontFamily: "Bebas Neue",
       },
     },
     cells: {
       style: {
         fontSize: "23px",
+        fontFamily: "Bebas Neue",
       },
     },
+    background: "rgb(216, 216, 216);",
   };
   const columns = [
     {

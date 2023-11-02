@@ -190,27 +190,65 @@ export default function MyCalendar({
         {selectedEvent && (
           <div>
             <h1>{selectedEvent.title}</h1>
-            <p>
-              Datum: {selectedEvent.date.split("-")[2]}.
-              {selectedEvent.date.split("-")[1]}.
-              {selectedEvent.date.split("-")[0]}
-            </p>
-            <p>Areál: {selectedEvent.areal}</p>
-            <p>Město: {selectedEvent.city}</p>
-            <p>Kategorie: {selectedEvent.category}</p>
-            <p>Úroveň: {selectedEvent.level}</p>
-            <p>Začátek: {selectedEvent.startTime}</p>
-            <p>
-              Přihlášeno: {selectedEvent.signed}/{selectedEvent.capacity}
-            </p>
-            <p>{`Cena: ${selectedEvent.price},- (na osobu)`}</p>
-            <p>Organizátor: {selectedEvent.organizer}</p>
-            <p>
-              Odkaz: <a href={selectedEvent.link}>{selectedEvent.link}</a>
-            </p>
-            <p style={{ fontStyle: "italic" }}>
-              Naposledy aktualizováno:{selectedEvent.last_update}
-            </p>
+            <div className="Calendar--detail-window-textbox">
+              <p className="label-text">Datum:</p>
+              <p className="content-text">
+                {selectedEvent.date.split("-")[2]}.
+                {selectedEvent.date.split("-")[1]}.
+                {selectedEvent.date.split("-")[0]}
+              </p>
+            </div>
+            <div className="Calendar--detail-window-textbox">
+              <p className="label-text">Areál:</p>
+              <p className="content-text"> {selectedEvent.areal}</p>
+            </div>
+            <div className="Calendar--detail-window-textbox">
+              <p className="label-text">Město:</p>
+              <p className="content-text"> {selectedEvent.city}</p>
+            </div>
+
+            <div className="Calendar--detail-window-textbox">
+              <p className="label-text">Kategorie:</p>
+              <p className="content-text"> {selectedEvent.category}</p>
+            </div>
+
+            <div className="Calendar--detail-window-textbox">
+              <p className="label-text">Úroveň:</p>{" "}
+              <p className="content-text"> {selectedEvent.level}</p>
+            </div>
+
+            <div className="Calendar--detail-window-textbox">
+              <p className="label-text">Začátek:</p>
+              <p className="content-text"> {selectedEvent.startTime}</p>
+            </div>
+
+            <div className="Calendar--detail-window-textbox">
+              <p className="label-text">Přihlášeno:</p>
+              <p className="content-text">
+                {selectedEvent.signed}/{selectedEvent.capacity}
+              </p>
+            </div>
+
+            <div className="Calendar--detail-window-textbox">
+              <p className="label-text">Cena:</p>
+              <p className="content-text">{`${selectedEvent.price},- (na osobu)`}</p>
+            </div>
+
+            <div className="Calendar--detail-window-textbox">
+              <p className="label-text">Organizátor:</p>
+              <p className="content-text"> {selectedEvent.organizer}</p>
+            </div>
+
+            <div className="Calendar--detail-window-textbox">
+              <p className="label-text"> Odkaz:</p>
+              <p className="content-text">
+                <a href={selectedEvent.link}>{selectedEvent.link}</a>
+              </p>
+            </div>
+
+            <div className="Calendar--detail-window-last-update">
+              <p>Naposledy aktualizováno: {selectedEvent.last_update}</p>
+            </div>
           </div>
         )}
       </Modal>

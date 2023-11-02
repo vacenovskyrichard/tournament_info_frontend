@@ -51,12 +51,12 @@
 
 .Data--table-button {
   background-color: rgb(37, 31, 31);
-  color: white;
+  color: rgb(245, 245, 245);
 }
 
 .Data--calendar-button {
   background-color: rgb(116, 110, 110);
-  color: white;
+  color: rgb(245, 245, 245);
 }
 
 .Data--tournament-table {
