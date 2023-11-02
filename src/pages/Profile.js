@@ -278,6 +278,9 @@ function Profile({
                 <p>Role:</p>
                 <p>{userData.role}</p>
               </div>
+              <div className="Profile--change-passwor-box">
+                <a href="./change_password">Změnit heslo</a>
+              </div>
             </div>
           )}
           <div className="Profile--tournament-table">

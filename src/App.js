@@ -5,6 +5,7 @@ import AddTournament from "./pages/AddTournament";
 import EditTournament from "./pages/EditTournament";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
+import ChangePassword from "./pages/ChangePassword";
 import ForgotPassword from "./pages/ForgotPassword";
 import Profile from "./pages/Profile";
 import useToken from "./components/useToken";
@@ -129,6 +130,20 @@ function App() {
             path="/profile"
             element={
               <Profile
+                token={token}
+                removeToken={removeToken}
+                setToken={setToken}
+                tournamentsData={tournamentsData}
+                setTournamentsData={setTournamentsData}
+                apiUrl={apiUrl}
+                setTournamentToEditId={setTournamentToEditId}
+              />
+            }
+          />
+          <Route
+            path="/change_password"
+            element={
+              <ChangePassword
                 token={token}
                 removeToken={removeToken}
                 setToken={setToken}
