@@ -181,3 +181,14 @@ h1 {
 .Profile-refuse-delete-btn {
   background-color: rgb(37, 31, 31);
 }
+
+.Profile--logged-out {
+  display: flex;
+  justify-content: center;
+  height: 100vh;
+}
+
+.Profile--logged-out > h1 {
+  margin: 50px;
+  font-family: "Bebas Neue", sans-serif;
+}
