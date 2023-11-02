@@ -66,17 +66,20 @@ function Profile({
   const customStyles = {
     headRow: {
       style: {
-        backgroundColor: "black",
-        color: "white",
+        backgroundColor: "rgb(37, 31, 31);",
+        color: "rgb(245,245,245)",
         fontSize: "23px",
-        fontWeight: "600",
+        // fontWeight: "600",
+        fontFamily: "Bebas Neue",
       },
     },
     cells: {
       style: {
         fontSize: "23px",
+        fontFamily: "Bebas Neue",
       },
     },
+    background: "rgb(216, 216, 216);",
   };
   const columns = [
     {
@@ -278,6 +281,9 @@ function Profile({
                 <p>Role:</p>
                 <p>{userData.role}</p>
               </div>
+              <div className="Profile--change-passwor-box">
+                <a href="./change_password">Změnit heslo</a>
+              </div>
             </div>
           )}
           <div className="Profile--tournament-table">
@@ -357,9 +363,9 @@ function Profile({
           </Modal>
         </div>
       ) : (
-        <h1 style={{ fontFamily: "Bebas Neue, sans-serif" }}>
-          Radši jsme vás odhlásili, přihlašte se prosím znovu
-        </h1>
+        <div className="Profile--logged-out">
+          <h1>Radši jsme vás odhlásili, přihlaste se prosím znovu</h1>
+        </div>
       )}
       <Footer />
     </>

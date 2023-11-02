@@ -22,7 +22,7 @@ body {
   display: flex;
   flex: 1;
   justify-content: center;
-  color: white;
+  color: rgb(245, 245, 245);
 }
 
 .navbar--right {

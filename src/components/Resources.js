@@ -43,7 +43,7 @@ export default function Resources() {
           />
         </div>
 
-        <h1>Dále můžete očekávat</h1>
+        <h1 style={{ marginTop: "70px" }}>Dále můžete očekávat</h1>
 
         <div className="Resources--resources">
           <Resource isImage={false} text1="Svazové turnaje" />
