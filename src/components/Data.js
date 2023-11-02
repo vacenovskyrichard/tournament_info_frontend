@@ -16,8 +16,10 @@ function Data({ tournamentsData, setShowData, showData }) {
   // Expanded component for every tournament in table
   const ExpandedComponent = ({ data }) => {
     const [timeRemainingString, setTimeRemainingString] = useState();
+    const [timeOfLastUpdate, setTimeOfLastUpdate] = useState();
     const targetDateString = `${data.date} ${data.start}`;
     const targetDate = new Date(targetDateString);
+    const updateTargetDate = new Date(data.last_update);
 
     useEffect(() => {
       let secTimer = setInterval(() => {
@@ -47,27 +49,75 @@ function Data({ tournamentsData, setShowData, showData }) {
 
         //set time remaining to start of tournament
         setTimeRemainingString(
-          `Do turnaje ${remainsWord}:  ${days} ${dayWord}, ${hours} ${hourWord}, ${minutes} ${minutesWord}, ${seconds} ${secondsWord}.`
+          `Do turnaje ${remainsWord}:  ${days} ${dayWord}, ${hours} ${hourWord}, ${minutes} ${minutesWord}, ${seconds} ${secondsWord}`
+        );
+        console.log("DATA");
+        console.log(updateTargetDate);
+        console.log(currentDate);
+
+        // Calculate the time difference in milliseconds
+        const updateTimeDifference = currentDate - updateTargetDate;
+
+        // Calculate the remaining days, hours, minutes, and seconds
+        const udays = Math.floor(updateTimeDifference / (1000 * 60 * 60 * 24));
+        const uhours = Math.floor(
+          (updateTimeDifference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
+        );
+        const uminutes = Math.floor(
+          (updateTimeDifference % (1000 * 60 * 60)) / (1000 * 60)
+        );
+        const days_str =
+          udays === 0 ? "" : udays === 1 ? "1 dnem, " : `${udays} dny, `;
+        const hours_str =
+          uhours === 0
+            ? ""
+            : uhours === 1
+            ? `1 hodinou, `
+            : `${uhours} hodinami, `;
+        const minutes_str =
+          uminutes === 1 ? `1 minutou` : `${uminutes} minutami`;
+
+        setTimeOfLastUpdate(
+          `Naposledy aktualizováno před: ${days_str}${hours_str}${minutes_str}`
         );
       }, 1000);
 
       return () => clearInterval(secTimer); // eslint-disable-next-line
     }, []);
 
+    function whitespaces(count) {
+      return "\u00A0".repeat(count); // '\u00A0' represents the non-breaking space character
+    }
+
     return (
       <div className="Data--expanded-data-box">
         <div className="Data--expanded-data">
           <h3>Detail</h3>
-          <p>{`Cena: ${data.price},- (na osobu)`}</p>
-          <p>Začátek: {data.start}</p>
-          <p>Organizátor: {data.organizer}</p>
+          <p>
+            {whitespaces(5)}Název:{whitespaces(10)}
+            {data.name}
+          </p>
+          <p>
+            {whitespaces(5)}
+            Cena:{whitespaces(12)}
+            {data.price},- (na osobu)
+          </p>
+          <p>
+            {whitespaces(5)}Start:{whitespaces(9)} {data.start}
+          </p>
+          <p>
+            {whitespaces(5)}Pořádá: {whitespaces(6)}
+            {data.organizer}
+          </p>
           <div>
             <p>
-              Odkaz: <a href={data.link}>{data.link}</a>
+              {whitespaces(5)}
+              Odkaz:{whitespaces(10)}
+              <a href={data.link}>{data.link}</a>
             </p>
           </div>
-          <p style={{ fontStyle: "italic" }}>
-            Naposledy aktualizováno: {data.last_update}
+          <p style={{ fontStyle: "italic", color: "rgb(80, 80, 80)" }}>
+            {timeOfLastUpdate}
           </p>
         </div>
         <div className="Data--time-remaining">
@@ -84,7 +134,6 @@ function Data({ tournamentsData, setShowData, showData }) {
         backgroundColor: "rgb(37, 31, 31);",
         color: "white",
         fontSize: "23px",
-        // fontWeight: "600",
         fontFamily: "Bebas Neue",
       },
     },
