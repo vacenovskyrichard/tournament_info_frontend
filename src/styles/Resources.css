@@ -8,9 +8,17 @@
   margin-bottom: 500px;
 }
 
-.Resources--content {
+.Resources--content,
+.Resources--content-mobile {
   display: flex;
   width: 75%;
+  flex-direction: column;
+  justify-content: left;
+}
+
+.Resources--content-mobile {
+  display: flex;
+  width: 85%;
   flex-direction: column;
   justify-content: left;
 }

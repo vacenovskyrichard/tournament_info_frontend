@@ -11,6 +11,7 @@ export default function Filters({
   apiUrl,
   setFilterResults,
   filterOptions,
+  isTabletOrMobile,
 }) {
   const { control, handleSubmit, register, errors } = useForm();
 
@@ -71,8 +72,11 @@ export default function Filters({
   };
 
   return (
-    <div className="filters">
-      <form className="filters-form" onSubmit={handleSubmit(saveData)}>
+    <div className={isTabletOrMobile ? "filters-mobile" : "filters"}>
+      <form
+        className={isTabletOrMobile ? "filters-form-mobile" : "filters-form"}
+        onSubmit={handleSubmit(saveData)}
+      >
         <div>
           <h3>Město</h3>
           {/* <Filter name="city" data={cities} control={control} /> */}
@@ -155,7 +159,10 @@ export default function Filters({
           />
         </div>
         <div>
-          <button className="save-button" type="submit">
+          <button
+            className={isTabletOrMobile ? "save-button-mobile" : "save-button"}
+            type="submit"
+          >
             Filtrovat
           </button>
         </div>

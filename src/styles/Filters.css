@@ -1,23 +1,33 @@
 .filters {
   margin: 20px;
 }
+.filters-mobile {
+  margin: 30px 150px;
+}
+
 .filters-form {
   display: flex;
   justify-content: center;
-  margin-left: 80px;
-  margin-right: 80px;
 }
 
-.filters-form .css-13cymwt-control {
+.filters-form-mobile {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.filters-form .css-13cymwt-control,
+.filters-form-mobile .css-13cymwt-control {
   background-color: rgb(245, 245, 245);
-  /* border: 2px solid black; */
 }
 
-.filters-form .css-t3ipsp-control {
+.filters-form .css-t3ipsp-control,
+.filters-form-mobile .css-t3ipsp-control {
   background-color: rgb(245, 245, 245);
 }
 
-.filters-form > div {
+.filters-form > div,
+.filters-form-mobile > div {
   display: flex;
   justify-content: center;
   flex-direction: column;
@@ -27,7 +37,18 @@
   margin-right: 10px;
 }
 
-.save-button {
+.filters-form-mobile > div {
+  width: 40%;
+  font-size: 30px;
+}
+
+.filters-form-mobile > div > h3 {
+  margin-top: 30px;
+  margin-bottom: 10px;
+}
+
+.save-button,
+.save-button-mobile {
   display: flex;
   transition: box-shadow 0.3s;
   font-size: 22px;
@@ -42,16 +63,12 @@
   margin-top: auto;
 }
 
+.save-button-mobile {
+  margin: 20px;
+  font-size: 30px;
+}
+
 .save-button:hover {
   cursor: pointer;
   box-shadow: 0 0 11px rgba(33, 33, 33, 0.7);
-}
-
-.Filters--content-selector {
-  margin-top: 20px;
-  margin-left: 80px;
-}
-
-.Filters--content-selector > a {
-  margin: 5px;
 }

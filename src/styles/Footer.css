@@ -1,13 +1,17 @@
-.Footer--main {
+.Footer--main,
+.Footer--main-mobile {
   display: flex;
-  /* height: 80px; */
   background-color: rgb(37, 31, 31);
   color: rgb(216, 216, 216);
   font-family: "Bebas Neue", sans-serif;
   font-size: 20px;
 }
+.Footer--main-mobile {
+  font-size: 30px;
+}
 
-.Footer--main > div {
+.Footer--main > div,
+.Footer--main-mobile > div {
   display: flex;
   flex-direction: column;
   border: 3px solid rgb(216, 216, 216);
@@ -17,10 +21,27 @@
   padding: 15px 20px;
 }
 
+.Footer--main-mobile > div {
+  width: 50%;
+  margin: 40px;
+}
+
 .Footer--main > div > h3 {
   margin: 5px 5px 15px 5px;
+}
+.Footer--main-mobile > div > h3 {
+  margin: 5px 5px 15px 5px;
+  font-size: 35px;
 }
 
 .Footer--main > div > p {
   margin: 5px;
+}
+
+.Footer--main-mobile > div > p {
+  margin: 15px;
+}
+
+.Footer--logo {
+  width: 80%;
 }

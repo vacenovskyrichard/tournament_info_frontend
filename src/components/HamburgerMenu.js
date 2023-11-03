@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import "../styles/HamburgerMenu.css";
 
-const HamburgerMenu = ({ logout }) => {
+const HamburgerMenu = ({ logout, isTabletOrMobile }) => {
   const [isOpen, setIsOpen] = useState(false);
 
   const toggleMenu = () => {
@@ -12,12 +12,36 @@ const HamburgerMenu = ({ logout }) => {
     <div className="hamburger-menu">
       <div>
         <button onClick={toggleMenu} className="hamburger-button">
-          <div className={`line ${isOpen ? "open" : ""}`} />
-          <div className={`line ${isOpen ? "open" : ""}`} />
-          <div className={`line ${isOpen ? "open" : ""}`} />
+          <div
+            className={
+              isTabletOrMobile
+                ? `line-mobile ${isOpen ? "open-mobile" : ""}`
+                : `line ${isOpen ? "open" : ""}`
+            }
+          />
+          <div
+            className={
+              isTabletOrMobile
+                ? `line-mobile ${isOpen ? "open-mobile" : ""}`
+                : `line ${isOpen ? "open" : ""}`
+            }
+          />
+          <div
+            className={
+              isTabletOrMobile
+                ? `line-mobile ${isOpen ? "open-mobile" : ""}`
+                : `line ${isOpen ? "open" : ""}`
+            }
+          />
         </button>
       </div>
-      <div className={`menu ${isOpen ? "open" : ""}`}>
+      <div
+        className={
+          isTabletOrMobile
+            ? `menu-mobile ${isOpen ? "open-mobile" : ""}`
+            : `menu ${isOpen ? "open" : ""}`
+        }
+      >
         <a href="/profile">Profil</a>
         <a href="/about">O nás</a>
         <p className="Hamburger-menu--logout" onClick={logout}>
