@@ -6,13 +6,19 @@
   color: rgb(37, 31, 31);
 }
 
-.Calendar--content-buttons {
+.Calendar--content-buttons,
+.Calendar--content-buttons-mobile {
   width: 75%;
   display: flex;
   align-items: left;
 }
 
-.Calendar--content-buttons > button {
+.Calendar--content-buttons-mobile {
+  width: 85%;
+}
+
+.Calendar--content-buttons > button,
+.Calendar--content-buttons-mobile > button {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -23,6 +29,13 @@
   height: 35px;
   border-radius: 10px;
 }
+
+.Calendar--content-buttons-mobile > button {
+  font-size: 35px;
+  height: 40px;
+  width: 200px;
+}
+
 .Calendar--table-button {
   background-color: rgb(116, 110, 110);
   color: rgb(245, 245, 245);
@@ -39,7 +52,8 @@
   justify-content: center;
 }
 
-.Calendar--url-button-box > button {
+.Calendar--url-button-box > button,
+.Calendar--url-button-box-mobile > button {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -51,6 +65,11 @@
   background-color: black;
   color: rgb(245, 245, 245);
   font-family: "Bebas Neue", sans-serif;
+}
+.Calendar--url-button-box-mobile > button {
+  width: 250px;
+  height: 45px;
+  font-size: 28px;
 }
 
 .Calendar--url-button-box > button:hover {
@@ -84,6 +103,10 @@
   width: 75%;
   font-family: "Bebas Neue", sans-serif;
 }
+.Calendar--calendar-box-mobile {
+  width: 85%;
+  font-family: "Bebas Neue", sans-serif;
+}
 
 .Calendar--detail-window {
   display: flex;
@@ -109,7 +132,7 @@
 }
 
 .content-text {
-  font-style: italic;
+  /* font-style: italic; */
   font-size: 29px;
 }
 
