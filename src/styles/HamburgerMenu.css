@@ -14,7 +14,8 @@
   margin: 10px;
 }
 
-.line {
+.line,
+.line-mobile {
   background: linear-gradient(
     90deg,
     rgba(255, 164, 46, 1) 0%,
@@ -28,13 +29,23 @@
   border-radius: 20px;
 }
 
+.line-mobile {
+  height: 7px;
+  width: 50px;
+  margin: 9px 0;
+}
+
 .open.line {
   width: 42px;
 }
+.open-mobile.line-mobile {
+  width: 60px;
+}
 
-.menu {
+.menu,
+.menu-mobile {
   position: absolute; /* Position the menu absolutely */
-  top: 60px; /* Adjust this as needed to position the menu relative to the button */
+  top: 65px; /* Adjust this as needed to position the menu relative to the button */
   background: #fff;
   display: flex; /* Display as flex */
   flex-direction: column; /* Stack menu items vertically */
@@ -43,8 +54,12 @@
   overflow: hidden; /* Hide overflow content */
   transition: max-height 0.3s ease; /* Add max-height transition */
 }
+.menu-mobile {
+  top: 85px; /* Adjust this as needed to position the menu relative to the button */
+}
 
-.open.menu {
+.open.menu,
+.open-mobile.menu-mobile {
   max-height: 200px; /* Adjust the max-height to show menu items */
   background-color: white;
   z-index: 1;
@@ -52,12 +67,20 @@
 }
 
 .menu > a,
-.menu > p {
+.menu-mobile > a,
+.menu > p,
+.menu-mobile > p {
   display: flex;
   margin: 10px 5px;
   text-decoration: none;
   padding: 1px 15px;
   font-size: 20px;
+}
+
+.menu-mobile > a,
+.menu-mobile > p {
+  margin: 15px 5px;
+  font-size: 30px;
 }
 
 .menu > a:hover,

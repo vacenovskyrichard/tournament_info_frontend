@@ -2,8 +2,9 @@ import "../styles/Data.css";
 import { useEffect, useState } from "react";
 import DataTable from "react-data-table-component";
 import { ReactComponent as CustomIcon } from "../icons/info-circle.svg";
+import { ReactComponent as CustomIconMobile } from "../icons/info-circle-mobile.svg";
 
-function Data({ tournamentsData, setShowData, showData }) {
+function Data({ tournamentsData, setShowData, showData, isTabletOrMobile }) {
   console.log("tournamentsData");
   console.log(tournamentsData);
   // Function to compare dates in "YYYY-MM-DD" format
@@ -128,23 +129,41 @@ function Data({ tournamentsData, setShowData, showData }) {
   };
 
   // style react-data-table-component
-  const customStyles = {
-    headRow: {
-      style: {
-        backgroundColor: "rgb(37, 31, 31);",
-        color: "white",
-        fontSize: "23px",
-        fontFamily: "Bebas Neue",
-      },
-    },
-    cells: {
-      style: {
-        fontSize: "23px",
-        fontFamily: "Bebas Neue",
-      },
-    },
-    background: "rgb(216, 216, 216);",
-  };
+  const customStyles = isTabletOrMobile
+    ? {
+        headRow: {
+          style: {
+            backgroundColor: "rgb(37, 31, 31);",
+            color: "white",
+            fontSize: "30px",
+            fontFamily: "Bebas Neue",
+          },
+        },
+        cells: {
+          style: {
+            fontSize: "30px",
+            fontFamily: "Bebas Neue",
+          },
+        },
+        background: "rgb(216, 216, 216);",
+      }
+    : {
+        headRow: {
+          style: {
+            backgroundColor: "rgb(37, 31, 31);",
+            color: "white",
+            fontSize: "23px",
+            fontFamily: "Bebas Neue",
+          },
+        },
+        cells: {
+          style: {
+            fontSize: "23px",
+            fontFamily: "Bebas Neue",
+          },
+        },
+        background: "rgb(216, 216, 216);",
+      };
 
   // const conditionalRowStyles = [
   //   {
@@ -265,7 +284,13 @@ function Data({ tournamentsData, setShowData, showData }) {
 
   return (
     <div className="Data--main">
-      <div className="Data--content-buttons">
+      <div
+        className={
+          isTabletOrMobile
+            ? "Data--content-buttons-mobile"
+            : "Data--content-buttons"
+        }
+      >
         <button
           className="Data--table-button"
           onClick={() => setShowData(true)}
@@ -279,7 +304,13 @@ function Data({ tournamentsData, setShowData, showData }) {
           Kalendář
         </button>
       </div>
-      <div className="Data--tournament-table">
+      <div
+        className={
+          isTabletOrMobile
+            ? "Data--tournament-table-mobile"
+            : "Data--tournament-table"
+        }
+      >
         <DataTable
           columns={columns}
           data={tournamentsData}
@@ -287,8 +318,8 @@ function Data({ tournamentsData, setShowData, showData }) {
           expandableRows
           expandableRowsComponent={ExpandedComponent}
           expandableIcon={{
-            collapsed: <CustomIcon />, // Use your custom collapsed icon
-            expanded: <CustomIcon />, // Use your custom expanded icon
+            collapsed: isTabletOrMobile ? <CustomIconMobile /> : <CustomIcon />,
+            expanded: isTabletOrMobile ? <CustomIconMobile /> : <CustomIcon />,
           }}
           customStyles={customStyles}
           // conditionalRowStyles={conditionalRowStyles}

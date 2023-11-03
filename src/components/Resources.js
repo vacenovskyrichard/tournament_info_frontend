@@ -1,10 +1,14 @@
 import "../styles/Resources.css";
 import Resource from "./Resource";
 
-export default function Resources() {
+export default function Resources({ isTabletOrMobile }) {
   return (
     <div className="Resources--main">
-      <div className="Resources--content">
+      <div
+        className={
+          isTabletOrMobile ? "Resources--content-mobile" : "Resources--content"
+        }
+      >
         <h1>Na naší stránce najdete</h1>
         <div className="Resources--resources">
           <Resource

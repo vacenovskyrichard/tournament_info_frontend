@@ -14,6 +14,7 @@ function Homepage({
   setTournamentsData,
   apiUrl,
   filterOptions,
+  isTabletOrMobile,
 }) {
   const [showData, setShowData] = useState(true);
   const [filterResults, setFilterResults] = useState();
@@ -27,6 +28,7 @@ function Homepage({
         apiUrl={apiUrl}
         // title={"Přehled"}
         title={""}
+        isTabletOrMobile={isTabletOrMobile}
       />
       <Filters
         data={tournamentsData}
@@ -34,12 +36,14 @@ function Homepage({
         apiUrl={apiUrl}
         setFilterResults={setFilterResults}
         filterOptions={filterOptions}
+        isTabletOrMobile={isTabletOrMobile}
       />
       {showData ? (
         <Data
           tournamentsData={tournamentsData}
           setShowData={setShowData}
           showData={showData}
+          isTabletOrMobile={isTabletOrMobile}
         />
       ) : (
         <MyCalendar
@@ -47,10 +51,11 @@ function Homepage({
           filterResults={filterResults}
           setShowData={setShowData}
           showData={showData}
+          isTabletOrMobile={isTabletOrMobile}
         />
       )}
-      <Resources />
-      <Footer />
+      <Resources isTabletOrMobile={isTabletOrMobile} />
+      <Footer isTabletOrMobile={isTabletOrMobile} />
     </>
   );
 }

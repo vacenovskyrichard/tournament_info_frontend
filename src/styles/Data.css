@@ -27,13 +27,19 @@
   font-weight: 600;
 }
 
-.Data--content-buttons {
+.Data--content-buttons,
+.Data--content-buttons-mobile {
   width: 75%;
   display: flex;
   align-items: left;
 }
 
-.Data--content-buttons > button {
+.Data--content-buttons-mobile {
+  width: 85%;
+}
+
+.Data--content-buttons > button,
+.Data--content-buttons-mobile > button {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -43,6 +49,11 @@
   width: 150px;
   height: 35px;
   border-radius: 10px;
+}
+.Data--content-buttons-mobile > button {
+  font-size: 35px;
+  height: 40px;
+  width: 200px;
 }
 
 .Data--content-buttons > button:hover {
@@ -60,11 +71,20 @@
 }
 
 .Data--tournament-table {
-  width: 75%; /* Set the width of the DataTable */
-  /* border: 3px solid black; */
+  width: 75%;
+}
+
+.Data--tournament-table-mobile {
+  width: 85%;
 }
 
 .Data--tournament-table .rdt_TableRow,
-.Data--tournament-table .rdt_Pagination {
+.Data--tournament-table-mobile .rdt_TableRow,
+.Data--tournament-table .rdt_Pagination,
+.Data--tournament-table-mobile .rdt_Pagination {
   background-color: rgb(216, 216, 216);
+}
+
+.Data--tournament-table-mobile .rdt_Pagination {
+  font-size: 20px;
 }

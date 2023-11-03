@@ -10,6 +10,7 @@ import ForgotPassword from "./pages/ForgotPassword";
 import Profile from "./pages/Profile";
 import useToken from "./components/useToken";
 import { useEffect, useState } from "react";
+import { useMediaQuery } from "react-responsive";
 
 function App() {
   const { setToken, token, removeToken } = useToken();
@@ -51,6 +52,12 @@ function App() {
       .catch((err) => console.log(err)); // eslint-disable-next-line
   }, []);
 
+  const isDesktopOrLaptop = useMediaQuery({
+    query: "(min-width: 1224px)",
+  });
+  const isTabletOrMobile = useMediaQuery({ query: "(max-width: 1224px)" });
+  const isPortrait = useMediaQuery({ query: "(orientation: portrait)" });
+
   return (
     <div>
       <BrowserRouter>
@@ -66,6 +73,7 @@ function App() {
                 setTournamentsData={setTournamentsData}
                 apiUrl={apiUrl}
                 filterOptions={filterOptions}
+                isTabletOrMobile={isTabletOrMobile}
               />
             }
           />
@@ -77,6 +85,7 @@ function App() {
                 removeToken={removeToken}
                 setToken={setToken}
                 apiUrl={apiUrl}
+                isTabletOrMobile={isTabletOrMobile}
               />
             }
           />
@@ -91,6 +100,7 @@ function App() {
                 tournamentToEditId={tournamentToEditId}
                 tournamentsData={tournamentsData}
                 setTournamentsData={setTournamentsData}
+                isTabletOrMobile={isTabletOrMobile}
               />
             }
           />
@@ -102,6 +112,7 @@ function App() {
                 removeToken={removeToken}
                 setToken={setToken}
                 apiUrl={apiUrl}
+                isTabletOrMobile={isTabletOrMobile}
               />
             }
           />
@@ -113,6 +124,7 @@ function App() {
                 removeToken={removeToken}
                 setToken={setToken}
                 apiUrl={apiUrl}
+                isTabletOrMobile={isTabletOrMobile}
               />
             }
           />
@@ -124,6 +136,7 @@ function App() {
                 removeToken={removeToken}
                 setToken={setToken}
                 apiUrl={apiUrl}
+                isTabletOrMobile={isTabletOrMobile}
               />
             }
           />
@@ -138,6 +151,7 @@ function App() {
                 setTournamentsData={setTournamentsData}
                 apiUrl={apiUrl}
                 setTournamentToEditId={setTournamentToEditId}
+                isTabletOrMobile={isTabletOrMobile}
               />
             }
           />
@@ -152,6 +166,7 @@ function App() {
                 setTournamentsData={setTournamentsData}
                 apiUrl={apiUrl}
                 setTournamentToEditId={setTournamentToEditId}
+                isTabletOrMobile={isTabletOrMobile}
               />
             }
           />
@@ -163,6 +178,7 @@ function App() {
                 removeToken={removeToken}
                 setToken={setToken}
                 apiUrl={apiUrl}
+                isTabletOrMobile={isTabletOrMobile}
               />
             }
           />

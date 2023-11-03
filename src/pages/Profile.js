@@ -16,6 +16,7 @@ function Profile({
   setTournamentsData,
   apiUrl,
   setTournamentToEditId,
+  isTabletOrMobile,
 }) {
   const [userData, setUserData] = useState({
     id: "",
@@ -261,6 +262,7 @@ function Profile({
         setToken={setToken}
         apiUrl={apiUrl}
         title={"Profil"}
+        isTabletOrMobile={isTabletOrMobile}
       />
       {logged ? (
         <div className="Profile--main">
