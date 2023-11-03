@@ -13,6 +13,7 @@ export default function MyCalendar({
   filterResults,
   setShowData,
   showData,
+  isTabletOrMobile,
 }) {
   // Define custom month names in Czech
   const customMonthNames = [
@@ -146,10 +147,18 @@ export default function MyCalendar({
       );
     }
   };
-
+  function whitespaces(count) {
+    return "\u00A0".repeat(count); // '\u00A0' represents the non-breaking space character
+  }
   return (
     <div className="Calendar--main-content">
-      <div className="Calendar--content-buttons">
+      <div
+        className={
+          isTabletOrMobile
+            ? "Calendar--content-buttons-mobile"
+            : "Calendar--content-buttons"
+        }
+      >
         <button
           className="Calendar--table-button"
           onClick={() => setShowData(true)}
@@ -163,7 +172,13 @@ export default function MyCalendar({
           Kalendář
         </button>
       </div>
-      <div className="Calendar--calendar-box">
+      <div
+        className={
+          isTabletOrMobile
+            ? "Calendar--calendar-box-mobile"
+            : "Calendar--calendar-box"
+        }
+      >
         <Calendar
           localizer={localizer}
           events={myEventsList}
@@ -191,7 +206,7 @@ export default function MyCalendar({
           <div>
             <h1>{selectedEvent.title}</h1>
             <div className="Calendar--detail-window-textbox">
-              <p className="label-text">Datum:</p>
+              <p className="label-text">Datum:{whitespaces(9)}</p>
               <p className="content-text">
                 {selectedEvent.date.split("-")[2]}.
                 {selectedEvent.date.split("-")[1]}.
@@ -199,48 +214,48 @@ export default function MyCalendar({
               </p>
             </div>
             <div className="Calendar--detail-window-textbox">
-              <p className="label-text">Areál:</p>
+              <p className="label-text">Areál:{whitespaces(10)}</p>
               <p className="content-text"> {selectedEvent.areal}</p>
             </div>
             <div className="Calendar--detail-window-textbox">
-              <p className="label-text">Město:</p>
+              <p className="label-text">Město:{whitespaces(9)}</p>
               <p className="content-text"> {selectedEvent.city}</p>
             </div>
 
             <div className="Calendar--detail-window-textbox">
-              <p className="label-text">Kategorie:</p>
+              <p className="label-text">Kategorie:{whitespaces(2)}</p>
               <p className="content-text"> {selectedEvent.category}</p>
             </div>
 
             <div className="Calendar--detail-window-textbox">
-              <p className="label-text">Úroveň:</p>{" "}
+              <p className="label-text">Úroveň:{whitespaces(7)}</p>
               <p className="content-text"> {selectedEvent.level}</p>
             </div>
 
             <div className="Calendar--detail-window-textbox">
-              <p className="label-text">Začátek:</p>
+              <p className="label-text">Začátek:{whitespaces(5)}</p>
               <p className="content-text"> {selectedEvent.startTime}</p>
             </div>
 
             <div className="Calendar--detail-window-textbox">
-              <p className="label-text">Přihlášeno:</p>
+              <p className="label-text">Týmy:{whitespaces(12)}</p>
               <p className="content-text">
                 {selectedEvent.signed}/{selectedEvent.capacity}
               </p>
             </div>
 
             <div className="Calendar--detail-window-textbox">
-              <p className="label-text">Cena:</p>
+              <p className="label-text">Cena:{whitespaces(12)}</p>
               <p className="content-text">{`${selectedEvent.price},- (na osobu)`}</p>
             </div>
 
             <div className="Calendar--detail-window-textbox">
-              <p className="label-text">Organizátor:</p>
+              <p className="label-text">Pořádá:{whitespaces(7)}</p>
               <p className="content-text"> {selectedEvent.organizer}</p>
             </div>
 
             <div className="Calendar--detail-window-textbox">
-              <p className="label-text"> Odkaz:</p>
+              <p className="label-text"> Odkaz:{whitespaces(10)}</p>
               <p className="content-text">
                 <a href={selectedEvent.link}>{selectedEvent.link}</a>
               </p>
@@ -252,7 +267,13 @@ export default function MyCalendar({
           </div>
         )}
       </Modal>
-      <div className="Calendar--url-button-box">
+      <div
+        className={
+          isTabletOrMobile
+            ? "Calendar--url-button-box-mobile "
+            : "Calendar--url-button-box"
+        }
+      >
         <button onClick={generateCalendarUrl}>Vygenerovat URL</button>
       </div>
       <Modal
