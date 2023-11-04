@@ -19,6 +19,8 @@ function Data({ tournamentsData, setShowData, showData, isTabletOrMobile }) {
     const targetDateString = `${data.date} ${data.start}`;
     const targetDate = new Date(targetDateString);
     const updateTargetDate = new Date(data.last_update);
+    console.log("data.registration_enabled");
+    console.log(data.registration_enabled);
 
     useEffect(() => {
       let secTimer = setInterval(() => {

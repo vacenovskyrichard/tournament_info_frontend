@@ -21,6 +21,7 @@ export default function AddTournament({
     data.user_id = jwt_decode(token.access_token).sub;
     data.category = data.category.label;
     data.level = data.level.label;
+    data.registration_enabled = false;
     console.log(data);
     fetch(`${apiUrl}/post`, {
       method: "POST",

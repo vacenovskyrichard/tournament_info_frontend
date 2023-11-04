@@ -30,7 +30,7 @@ function ForgotPassword({ apiUrl, isTabletOrMobile }) {
       data: {
         email: loginForm.email,
         password: "",
-        isPlayer: false,
+        isPlayer: isPlayer,
       },
     })
       .then((response) => {

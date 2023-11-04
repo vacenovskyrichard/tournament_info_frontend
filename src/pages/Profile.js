@@ -214,6 +214,7 @@ function Profile({
       price: 400,
       start: "10:00",
       user_id: jwt_decode(token.access_token).sub,
+      registration_enabled: false,
     };
 
     fetch(`${apiUrl}/post`, {
