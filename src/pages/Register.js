@@ -3,7 +3,7 @@ import { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
-function Register({ apiUrl }) {
+function Register({ apiUrl, isTabletOrMobile }) {
   const [loginForm, setloginForm] = useState({
     email: "",
     password: "",
@@ -12,6 +12,7 @@ function Register({ apiUrl }) {
   });
   const [registrationSuccesful, setRegistrationSuccesful] = useState(false);
   const [registrationFailed, setRegistrationFailed] = useState(false);
+  const [isPlayer, setIsPlayer] = useState(true);
 
   const navigate = useNavigate();
 
@@ -24,6 +25,7 @@ function Register({ apiUrl }) {
         password: loginForm.password,
         name: loginForm.name,
         surname: loginForm.surname,
+        isPlayer: isPlayer,
       },
     })
       .then((resp) => {
@@ -79,7 +81,26 @@ function Register({ apiUrl }) {
             <span>Uživatel s tímto emailem již existuje</span>
           </div>
         )}
-
+        <div
+          className={
+            isTabletOrMobile
+              ? "Login--organizer-player-switch-mobile"
+              : "Login--organizer-player-switch"
+          }
+        >
+          <button
+            className={`Login--player-btn ${isPlayer ? "chosen" : ""}`}
+            onClick={() => setIsPlayer(true)}
+          >
+            Hráč
+          </button>
+          <button
+            className={`Login--organizer-btn ${isPlayer ? "" : "chosen"}`}
+            onClick={() => setIsPlayer(false)}
+          >
+            Organizátor
+          </button>
+        </div>
         <div className="login-box">
           <span className="Login--x-btn" onClick={goToMainPage}>
             x

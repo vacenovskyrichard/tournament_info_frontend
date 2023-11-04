@@ -3,9 +3,11 @@ import { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
-function ForgotPassword({ apiUrl }) {
+function ForgotPassword({ apiUrl, isTabletOrMobile }) {
   const [sendFailed, setSendFailed] = useState(false);
   const [sendSuccess, setSendSuccess] = useState(false);
+  const [isPlayer, setIsPlayer] = useState(true);
+
   const [loginForm, setloginForm] = useState({
     email: "",
     password: "",
@@ -28,6 +30,7 @@ function ForgotPassword({ apiUrl }) {
       data: {
         email: loginForm.email,
         password: "",
+        isPlayer: false,
       },
     })
       .then((response) => {
@@ -73,6 +76,26 @@ function ForgotPassword({ apiUrl }) {
           <span>Uživatel s tímto emailem neexistuje</span>
         </div>
       )}
+      <div
+        className={
+          isTabletOrMobile
+            ? "Login--organizer-player-switch-mobile"
+            : "Login--organizer-player-switch"
+        }
+      >
+        <button
+          className={`Login--player-btn ${isPlayer ? "chosen" : ""}`}
+          onClick={() => setIsPlayer(true)}
+        >
+          Hráč
+        </button>
+        <button
+          className={`Login--organizer-btn ${isPlayer ? "" : "chosen"}`}
+          onClick={() => setIsPlayer(false)}
+        >
+          Organizátor
+        </button>
+      </div>
       <div className="login-box">
         <span className="Login--x-btn" onClick={goToMainPage}>
           x

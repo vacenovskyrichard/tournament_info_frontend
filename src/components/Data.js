@@ -5,8 +5,6 @@ import { ReactComponent as CustomIcon } from "../icons/info-circle.svg";
 import { ReactComponent as CustomIconMobile } from "../icons/info-circle-mobile.svg";
 
 function Data({ tournamentsData, setShowData, showData, isTabletOrMobile }) {
-  console.log("tournamentsData");
-  console.log(tournamentsData);
   // Function to compare dates in "YYYY-MM-DD" format
   function compareDates(dateA, dateB) {
     return dateA.localeCompare(dateB);

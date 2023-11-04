@@ -4,12 +4,13 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { useGoogleLogin } from "@react-oauth/google";
 
-function Login({ setToken, apiUrl }) {
+function Login({ setToken, apiUrl, isTabletOrMobile }) {
   const [loginForm, setloginForm] = useState({
     email: "",
     password: "",
   });
   const [registrationFailed, setRegistrationFailed] = useState(false);
+  const [isPlayer, setIsPlayer] = useState(true);
   const navigate = useNavigate();
 
   const google_login = useGoogleLogin({
@@ -45,10 +46,12 @@ function Login({ setToken, apiUrl }) {
       data: {
         email: loginForm.email,
         password: loginForm.password,
+        isPlayer: isPlayer,
       },
     })
       .then((response) => {
         setToken(response.data);
+        localStorage.setItem("isPlayer", isPlayer);
         navigate("/");
       })
       .catch((error) => {
@@ -79,6 +82,7 @@ function Login({ setToken, apiUrl }) {
         password: googleLoginCred.password,
         name: googleLoginCred.name,
         surname: googleLoginCred.surname,
+        isPlayer: isPlayer,
       },
     })
       .then((response) => {
@@ -122,6 +126,26 @@ function Login({ setToken, apiUrl }) {
             <span>Neplatný email nebo heslo</span>
           </div>
         )}
+        <div
+          className={
+            isTabletOrMobile
+              ? "Login--organizer-player-switch-mobile"
+              : "Login--organizer-player-switch"
+          }
+        >
+          <button
+            className={`Login--player-btn ${isPlayer ? "chosen" : ""}`}
+            onClick={() => setIsPlayer(true)}
+          >
+            Hráč
+          </button>
+          <button
+            className={`Login--organizer-btn ${isPlayer ? "" : "chosen"}`}
+            onClick={() => setIsPlayer(false)}
+          >
+            Organizátor
+          </button>
+        </div>
         <div className="login-box">
           <span className="Login--x-btn" onClick={goToMainPage}>
             x
@@ -146,16 +170,6 @@ function Login({ setToken, apiUrl }) {
                 />
                 Google
               </div>
-
-              {/* <GoogleLogin
-              onSuccess={(response) => {
-                console.log("Login with google succesful.");
-                // loginWithGoogle(jwt_decode(response.credential));
-                console.log(response.credential);
-                console.log(jwt_decode(response.credential));
-              }}
-              onError={(error) => console.log("Login failed")}
-            /> */}
             </div>
 
             <div className="Login--main-form">

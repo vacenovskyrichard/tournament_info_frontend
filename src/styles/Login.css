@@ -22,7 +22,8 @@
   display: flex;
   padding: 50px; /* Add some padding for spacing */
   background-color: rgb(37, 31, 31); /* Background color for the login box */
-  border-radius: 15px;
+  border-bottom-left-radius: 15px;
+  border-bottom-right-radius: 15px;
   justify-content: center;
   /* color: rgb(216, 216, 216); */
 }
@@ -283,4 +284,24 @@
 
 .Login--registration_failed {
   background-color: rgb(255, 0, 0);
+}
+
+.Login--organizer-player-switch,
+.Login--organizer-player-switch-mobile {
+  width: 600px;
+}
+
+.Login--player-btn,
+.Login--organizer-btn {
+  font-family: "Bebas Neue", sans-serif;
+  font-size: 28px;
+  border-top-right-radius: 20px;
+  border-top-left-radius: 10px;
+  color: rgb(245, 245, 245);
+  background-color: rgb(131, 110, 110);
+  width: 50%;
+}
+
+.chosen {
+  background-color: rgb(37, 31, 31);
 }
