@@ -1,17 +1,63 @@
 import "../styles/Data.css";
+import { useForm, Controller } from "react-hook-form";
 import { useEffect, useState } from "react";
 import DataTable from "react-data-table-component";
 import { ReactComponent as CustomIcon } from "../icons/info-circle.svg";
 import { ReactComponent as CustomIconMobile } from "../icons/info-circle-mobile.svg";
+import jwt_decode from "jwt-decode";
+import axios from "axios";
 
-function Data({ tournamentsData, setShowData, showData, isTabletOrMobile }) {
+function Data({
+  tournamentsData,
+  setShowData,
+  showData,
+  isTabletOrMobile,
+  token,
+  apiUrl,
+}) {
   // Function to compare dates in "YYYY-MM-DD" format
   function compareDates(dateA, dateB) {
     return dateA.localeCompare(dateB);
   }
   // Sort data by date
   tournamentsData.sort((a, b) => compareDates(a.date, b.date));
+  const { register, control, handleSubmit, formState } = useForm();
+  const { errors } = formState;
+  const [showTemmateForm, setShowTemmateForm] = useState(false);
+  const [tournamentToSignId, setTournamentToSignId] = useState("");
 
+  const onSubmit = (data) => {
+    console.log("SUMBMITED");
+
+    signToTournament(data.name, data.surname);
+  };
+  const signToTournament = (teammate_name, teammate_surname) => {
+    const user_id = jwt_decode(token.access_token).sub;
+
+    axios({
+      method: "POST",
+      url: `${apiUrl}/create_team`,
+      data: {
+        player_id: user_id,
+        tournament_id: tournamentToSignId,
+        teammate_name: teammate_name,
+        teammate_surname: teammate_surname,
+      },
+    })
+      .then((response) => {
+        if (response.status === 200) {
+          alert("Dvojice byla uspěšně přihlášena");
+        }
+      })
+      .catch((error) => {
+        if (error.response) {
+          alert("Něco se nepovedlo");
+          console.log(error.response);
+          console.log(error.response.status);
+          console.log(error.response.headers);
+        }
+      });
+  };
   // Expanded component for every tournament in table
   const ExpandedComponent = ({ data }) => {
     const [timeRemainingString, setTimeRemainingString] = useState();
@@ -19,8 +65,6 @@ function Data({ tournamentsData, setShowData, showData, isTabletOrMobile }) {
     const targetDateString = `${data.date} ${data.start}`;
     const targetDate = new Date(targetDateString);
     const updateTargetDate = new Date(data.last_update);
-    console.log("data.registration_enabled");
-    console.log(data.registration_enabled);
 
     useEffect(() => {
       let secTimer = setInterval(() => {
@@ -52,9 +96,6 @@ function Data({ tournamentsData, setShowData, showData, isTabletOrMobile }) {
         setTimeRemainingString(
           `Do turnaje ${remainsWord}:  ${days} ${dayWord}, ${hours} ${hourWord}, ${minutes} ${minutesWord}, ${seconds} ${secondsWord}`
         );
-        console.log("DATA");
-        console.log(updateTargetDate);
-        console.log(currentDate);
 
         // Calculate the time difference in milliseconds
         const updateTimeDifference = currentDate - updateTargetDate;
@@ -117,10 +158,71 @@ function Data({ tournamentsData, setShowData, showData, isTabletOrMobile }) {
               <a href={data.link}>{data.link}</a>
             </p>
           </div>
+          {data.registration_enabled &&
+            localStorage.getItem("isPlayer") === "true" && (
+              <>
+                {showTemmateForm && (
+                  <form onSubmit={handleSubmit(onSubmit)}>
+                    <div className="">
+                      <label>Jméno spoluhráče</label>
+                      <input
+                        type="text"
+                        name="name"
+                        {...register("name", {
+                          required: {
+                            value: true,
+                            message: "Zadejte jméno spoluhráče",
+                          },
+                        })}
+                      />
+                      {errors.name && <p>{errors.name?.message}</p>}
+                    </div>
+                    <div className="">
+                      <label>Příjmení spoluhráče</label>
+                      <input
+                        type="text"
+                        name="name"
+                        {...register("surname", {
+                          required: {
+                            value: true,
+                            message: "Zadejte jméno spoluhráče",
+                          },
+                        })}
+                      />
+                      {errors.name && <p>{errors.name?.message}</p>}
+                    </div>
+
+                    <button
+                      className="Data--login-to-tournament-btn"
+                      onClick={() => {
+                        setTournamentToSignId(data.id);
+                        setShowTemmateForm(true);
+                      }}
+                      type="submit"
+                    >
+                      Přihlásit
+                    </button>
+                  </form>
+                )}
+
+                {!showTemmateForm && (
+                  <div
+                    className="Data--login-to-tournament-btn"
+                    onClick={() => {
+                      setTournamentToSignId(data.id);
+                      setShowTemmateForm(true);
+                    }}
+                  >
+                    Přihlásit
+                  </div>
+                )}
+              </>
+            )}
           <p style={{ fontStyle: "italic", color: "rgb(80, 80, 80)" }}>
             {timeOfLastUpdate}
           </p>
         </div>
+
         <div className="Data--time-remaining">
           <p>{timeRemainingString}</p>
         </div>

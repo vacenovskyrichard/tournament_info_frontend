@@ -88,3 +88,25 @@
 .Data--tournament-table-mobile .rdt_Pagination {
   font-size: 20px;
 }
+
+.Data--login-to-tournament-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-image: linear-gradient(
+    90deg,
+    rgba(255, 164, 46, 1) 0%,
+    rgba(247, 28, 61, 1) 100%
+  );
+  transition: box-shadow 0.3s;
+  font-size: 22px;
+  font-family: "Bebas Neue", sans-serif;
+  font-style: italic;
+  color: rgb(245, 245, 245);
+  border-radius: 20px;
+  height: 30px;
+}
+.Data--login-to-tournament-btn:hover {
+  cursor: pointer;
+  box-shadow: 0 0 11px rgba(33, 33, 33, 0.7);
+}
