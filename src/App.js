@@ -17,11 +17,12 @@ function App() {
   const [tournamentsData, setTournamentsData] = useState([]);
   const [filterOptions, setFilterOptions] = useState([]);
   const [tournamentToEditId, setTournamentToEditId] = useState();
+  const [loadingMainTable, setLoadingMainTable] = useState(true);
   const localhost = "http://127.0.0.1:5000";
   // eslint-disable-next-line
   const production = "https://jdem-hrat-58da3e527841.herokuapp.com";
 
-  const apiUrl = production;
+  const apiUrl = localhost;
   useEffect(() => {
     fetch(`${apiUrl}/get`, {
       method: "GET",
@@ -49,7 +50,11 @@ function App() {
         );
         setFilterOptions(resp);
       })
-      .catch((err) => console.log(err)); // eslint-disable-next-line
+      .then(() => setLoadingMainTable(false))
+      .catch((err) => {
+        console.log(err);
+        setLoadingMainTable(false);
+      }); // eslint-disable-next-line
   }, []);
 
   // eslint-disable-next-line
@@ -78,6 +83,7 @@ function App() {
                 apiUrl={apiUrl}
                 filterOptions={filterOptions}
                 isTabletOrMobile={isTabletOrMobile}
+                loadingMainTable={loadingMainTable}
               />
             }
           />
@@ -156,6 +162,7 @@ function App() {
                 apiUrl={apiUrl}
                 setTournamentToEditId={setTournamentToEditId}
                 isTabletOrMobile={isTabletOrMobile}
+                loadingMainTable={loadingMainTable}
               />
             }
           />

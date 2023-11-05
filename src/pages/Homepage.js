@@ -15,6 +15,7 @@ function Homepage({
   apiUrl,
   filterOptions,
   isTabletOrMobile,
+  loadingMainTable,
 }) {
   const [showData, setShowData] = useState(true);
   const [filterResults, setFilterResults] = useState();
@@ -46,6 +47,7 @@ function Homepage({
           isTabletOrMobile={isTabletOrMobile}
           token={token}
           apiUrl={apiUrl}
+          loadingMainTable={loadingMainTable}
         />
       ) : (
         <MyCalendar

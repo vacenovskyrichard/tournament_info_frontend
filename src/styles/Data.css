@@ -133,3 +133,7 @@
   cursor: pointer;
   box-shadow: 0 0 11px rgba(33, 33, 33, 0.7);
 }
+
+.custom-no-data-background > div > div > div {
+  background-color: rgb(216, 216, 216);
+}
