@@ -6,6 +6,7 @@ import HamburgerMenu from "./HamburgerMenu";
 function Navbar({ token, removeToken, apiUrl, title, isTabletOrMobile }) {
   const navigate = useNavigate();
 
+  // logout user
   function logout() {
     axios({
       method: "POST",
