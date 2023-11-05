@@ -1,5 +1,6 @@
-import { useForm, Controller } from "react-hook-form";
 import "../styles/AddTournament.css";
+import "../styles/Common.css";
+import { useForm, Controller } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import jwt_decode from "jwt-decode";
 import Select from "react-select";
@@ -21,7 +22,6 @@ export default function AddTournament({
     data.user_id = jwt_decode(token.access_token).sub;
     data.category = data.category.label;
     data.level = data.level.label;
-    data.registration_enabled = false;
     console.log(data);
     fetch(`${apiUrl}/post`, {
       method: "POST",
@@ -315,6 +315,17 @@ export default function AddTournament({
             {errors.link && (
               <p className="error-message">{errors.link?.message}</p>
             )}
+          </div>
+
+          {/* Enable logging with turnajky.cz */}
+          <div className="AddTournament--form-element-checkbox">
+            <label>Povolit přihlašování přes turnajky.cz</label>
+
+            <input
+              type="checkbox"
+              name="registration_enabled"
+              {...register("registration_enabled")}
+            />
           </div>
 
           {/* Submit button */}
