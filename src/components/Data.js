@@ -26,9 +26,40 @@ function Data({
   const [showTemmateForm, setShowTemmateForm] = useState(false);
   const [tournamentToSignId, setTournamentToSignId] = useState("");
 
-  const onSubmit = (data) => {
-    console.log("SUMBMITED");
+  // const signedTeamsArray = tournamentsData.map((tournament) => {
+  //   if (tournament.registration_enabled) {
+  //     console.log("HERE");
+  //     var res;
+  //     axios({
+  //       method: "GET",
+  //       url: `${apiUrl}/get_teams/${tournament.id}`,
+  //     })
+  //       .then((response) => {
+  //         if (response.status === 200) {
+  //           res = { id: tournament.id, teams: response.data };
+  //         }
+  //       })
+  //       .catch((error) => {
+  //         if (error.response) {
+  //           // alert("Něco se nepovedlo");
+  //           console.log(error.response);
+  //           console.log(error.response.status);
+  //           console.log(error.response.headers);
+  //         }
+  //       });
+  //     console.log("res");
+  //     console.log(res);
+  //     return res;
+  //   } else {
+  //     return { id: tournament.id, teams: [] };
+  //   }
+  // });
 
+  function whitespaces(count) {
+    return "\u00A0".repeat(count); // '\u00A0' represents the non-breaking space character
+  }
+
+  const onSubmit = (data) => {
     signToTournament(data.name, data.surname);
   };
   const signToTournament = (teammate_name, teammate_surname) => {
@@ -127,13 +158,9 @@ function Data({
       return () => clearInterval(secTimer); // eslint-disable-next-line
     }, []);
 
-    function whitespaces(count) {
-      return "\u00A0".repeat(count); // '\u00A0' represents the non-breaking space character
-    }
-
     return (
       <div className="Data--expanded-data-box">
-        <div className="Data--expanded-data">
+        <div className="Data--expanded-left">
           <h3>Detail</h3>
           <p>
             {whitespaces(5)}Název:{whitespaces(10)}
@@ -202,6 +229,14 @@ function Data({
                     >
                       Přihlásit
                     </button>
+                    <button
+                      className=""
+                      onClick={() => {
+                        setShowTemmateForm(false);
+                      }}
+                    >
+                      Skrýt
+                    </button>
                   </form>
                 )}
 
@@ -223,7 +258,14 @@ function Data({
           </p>
         </div>
 
-        <div className="Data--time-remaining">
+        <div className="Data--expanded-right">
+          {/* <div>
+            <h3>Přihlášené týmy</h3>
+            {getSignedTeams(data.id) &&
+              getSignedTeams(data.id).map((team) => {
+                return <p>{team.player1_name}</p>;
+              })}
+          </div>*/}
           <p>{timeRemainingString}</p>
         </div>
       </div>
@@ -311,7 +353,7 @@ function Data({
           row.date.split("-")[0]
         }`;
       },
-      width: "150px",
+      width: "140px",
     },
     {
       name: "Název",
