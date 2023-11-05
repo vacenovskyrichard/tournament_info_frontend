@@ -21,7 +21,7 @@ function App() {
   // eslint-disable-next-line
   const production = "https://jdem-hrat-58da3e527841.herokuapp.com";
 
-  const apiUrl = localhost;
+  const apiUrl = production;
   useEffect(() => {
     fetch(`${apiUrl}/get`, {
       method: "GET",
