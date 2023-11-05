@@ -144,7 +144,7 @@ export default function AddTournament({
           </div>
           {/* Tournament price */}
           <div className="AddTournament--form-element">
-            <label>Startovné (za dvojici)</label>
+            <label>Startovné (za osobu)</label>
             <input
               type="text"
               name="price"
