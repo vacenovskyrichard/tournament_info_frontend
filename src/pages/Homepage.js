@@ -44,6 +44,8 @@ function Homepage({
           setShowData={setShowData}
           showData={showData}
           isTabletOrMobile={isTabletOrMobile}
+          token={token}
+          apiUrl={apiUrl}
         />
       ) : (
         <MyCalendar

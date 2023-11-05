@@ -21,7 +21,7 @@ function App() {
   // eslint-disable-next-line
   const production = "https://jdem-hrat-58da3e527841.herokuapp.com";
 
-  const apiUrl = production;
+  const apiUrl = localhost;
   useEffect(() => {
     fetch(`${apiUrl}/get`, {
       method: "GET",
@@ -52,11 +52,15 @@ function App() {
       .catch((err) => console.log(err)); // eslint-disable-next-line
   }, []);
 
+  // eslint-disable-next-line
   const isDesktopOrLaptop = useMediaQuery({
     query: "(min-width: 1224px)",
   });
-  const isTabletOrMobile = useMediaQuery({ query: "(max-width: 1224px)" });
+
+  // eslint-disable-next-line
   const isPortrait = useMediaQuery({ query: "(orientation: portrait)" });
+
+  const isTabletOrMobile = useMediaQuery({ query: "(max-width: 1224px)" });
 
   return (
     <div>

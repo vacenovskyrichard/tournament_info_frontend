@@ -1,98 +1,193 @@
 import "../styles/Data.css";
+import { useForm, Controller } from "react-hook-form";
 import { useEffect, useState } from "react";
 import DataTable from "react-data-table-component";
 import { ReactComponent as CustomIcon } from "../icons/info-circle.svg";
 import { ReactComponent as CustomIconMobile } from "../icons/info-circle-mobile.svg";
+import jwt_decode from "jwt-decode";
+import axios from "axios";
 
-function Data({ tournamentsData, setShowData, showData, isTabletOrMobile }) {
-  console.log("tournamentsData");
-  console.log(tournamentsData);
+function Data({
+  tournamentsData,
+  setShowData,
+  isTabletOrMobile,
+  token,
+  apiUrl,
+}) {
+  // initialize variables and states
+  const { register, control, handleSubmit, formState } = useForm();
+  const [loading, setLoading] = useState(true); // used for loading of teams
+  const [statusChanged, setStatusChanged] = useState(false); // used to trigger rerender after sign in/out from tournament
+  const { errors } = formState;
+
+  const [signedTeams, setSignedTeams] = useState({});
+
+  useEffect(() => {
+    const userId = jwt_decode(token.access_token).sub;
+    const at = token ? token.access_token : "";
+    fetch(`${apiUrl}/get_teams`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${at}`,
+      },
+      body: JSON.stringify({ userId: userId }),
+    })
+      .then((resp) => {
+        return resp.json();
+      })
+      .then((response) => {
+        console.log("response");
+        console.log(response);
+        setSignedTeams(response);
+      })
+      .then(() => {
+        setLoading(false);
+      })
+      .catch((error) => {
+        if (error.response) {
+          alert("Něco se nepovedlo");
+          console.log(error.response);
+          console.log(error.response.status);
+          console.log(error.response.headers);
+        }
+      });
+  }, [statusChanged]);
+
+  // creates whitespaces in jsx
+  function whitespaces(count) {
+    return "\u00A0".repeat(count); // '\u00A0' represents the non-breaking space character
+  }
+
   // Function to compare dates in "YYYY-MM-DD" format
   function compareDates(dateA, dateB) {
     return dateA.localeCompare(dateB);
   }
+
   // Sort data by date
   tournamentsData.sort((a, b) => compareDates(a.date, b.date));
 
   // Expanded component for every tournament in table
   const ExpandedComponent = ({ data }) => {
-    const [timeRemainingString, setTimeRemainingString] = useState();
     const [timeOfLastUpdate, setTimeOfLastUpdate] = useState();
-    const targetDateString = `${data.date} ${data.start}`;
-    const targetDate = new Date(targetDateString);
     const updateTargetDate = new Date(data.last_update);
 
+    const isSigned = loading ? "" : signedTeams[data.id]["isSigned"];
+    const teams = loading ? "" : signedTeams[data.id]["teams"];
+
+    const [showTemmateForm, setShowTemmateForm] = useState(false);
+    // const [signed, setSigned] = useState(false);
+
+    // calculate time from last update
     useEffect(() => {
-      let secTimer = setInterval(() => {
-        // Get the current date and time
-        const currentDate = new Date();
+      // Get the current date and time
+      const currentDate = new Date();
 
-        // Calculate the time difference in milliseconds
-        const timeDifference = targetDate - currentDate;
+      // Calculate the time difference in milliseconds
+      const updateTimeDifference = currentDate - updateTargetDate;
 
-        // Calculate the remaining days, hours, minutes, and seconds
-        const days = Math.floor(timeDifference / (1000 * 60 * 60 * 24));
-        const hours = Math.floor(
-          (timeDifference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
-        );
-        const minutes = Math.floor(
-          (timeDifference % (1000 * 60 * 60)) / (1000 * 60)
-        );
-        const seconds = Math.floor((timeDifference % (1000 * 60)) / 1000);
+      // Calculate the remaining days, hours, minutes, and seconds
+      const udays = Math.floor(updateTimeDifference / (1000 * 60 * 60 * 24));
+      const uhours = Math.floor(
+        (updateTimeDifference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
+      );
+      const uminutes = Math.floor(
+        (updateTimeDifference % (1000 * 60 * 60)) / (1000 * 60)
+      );
+      const days_str =
+        udays === 0 ? "" : udays === 1 ? "1 dnem, " : `${udays} dny, `;
+      const hours_str =
+        uhours === 0
+          ? ""
+          : uhours === 1
+          ? `1 hodinou, `
+          : `${uhours} hodinami, `;
+      const minutes_str = uminutes === 1 ? `1 minutou` : `${uminutes} minutami`;
 
-        let dayWord = days === 1 ? "den" : days < 5 ? "dny" : "dní";
-        let hourWord = hours === 1 ? "hodina" : hours < 5 ? "hodiny" : "hodin";
-        let minutesWord =
-          hours === 1 ? "minuta" : hours < 5 ? "minuty" : "minut";
-        let secondsWord =
-          hours === 1 ? "vteřina" : hours < 5 ? "vteřiny" : "vteřin";
-        let remainsWord = days > 1 && days < 5 ? "zbývají" : "zbývá";
-
-        //set time remaining to start of tournament
-        setTimeRemainingString(
-          `Do turnaje ${remainsWord}:  ${days} ${dayWord}, ${hours} ${hourWord}, ${minutes} ${minutesWord}, ${seconds} ${secondsWord}`
-        );
-        console.log("DATA");
-        console.log(updateTargetDate);
-        console.log(currentDate);
-
-        // Calculate the time difference in milliseconds
-        const updateTimeDifference = currentDate - updateTargetDate;
-
-        // Calculate the remaining days, hours, minutes, and seconds
-        const udays = Math.floor(updateTimeDifference / (1000 * 60 * 60 * 24));
-        const uhours = Math.floor(
-          (updateTimeDifference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
-        );
-        const uminutes = Math.floor(
-          (updateTimeDifference % (1000 * 60 * 60)) / (1000 * 60)
-        );
-        const days_str =
-          udays === 0 ? "" : udays === 1 ? "1 dnem, " : `${udays} dny, `;
-        const hours_str =
-          uhours === 0
-            ? ""
-            : uhours === 1
-            ? `1 hodinou, `
-            : `${uhours} hodinami, `;
-        const minutes_str =
-          uminutes === 1 ? `1 minutou` : `${uminutes} minutami`;
-
-        setTimeOfLastUpdate(
-          `Naposledy aktualizováno před: ${days_str}${hours_str}${minutes_str}`
-        );
-      }, 1000);
-
-      return () => clearInterval(secTimer); // eslint-disable-next-line
+      setTimeOfLastUpdate(
+        `Naposledy aktualizováno před: ${days_str}${hours_str}${minutes_str}`
+      );
     }, []);
 
-    function whitespaces(count) {
-      return "\u00A0".repeat(count); // '\u00A0' represents the non-breaking space character
-    }
+    // sign to tournament function
+    const signToTournament = (credentials) => {
+      const user_id = jwt_decode(token.access_token).sub;
+      axios({
+        method: "POST",
+        url: `${apiUrl}/create_team`,
+        data: {
+          player_id: user_id,
+          tournament_id: credentials.tournamentId,
+          teammate_name: credentials.name,
+          teammate_surname: credentials.surname,
+        },
+      })
+        .then((response) => {
+          if (response.status === 200) {
+            alert("Dvojice byla uspěšně přihlášena");
+            setStatusChanged(!statusChanged);
+          }
+        })
+        .catch((error) => {
+          if (error.response) {
+            alert("Něco se nepovedlo");
+            console.log(error.response);
+            console.log(error.response.status);
+            console.log(error.response.headers);
+          }
+        });
+      if (data.signed == null) {
+        data.signed = 0;
+      }
+      fetch(`${apiUrl}/update/${data.id}/`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ signed: data.signed + 1 }),
+      }).then((resp) => resp.json());
+    };
 
+    // sign out from tournament function
+    const signOutTorunament = (tournament_id) => {
+      const user_id = jwt_decode(token.access_token).sub;
+
+      axios({
+        method: "DELETE",
+        url: `${apiUrl}/delete_team`,
+        data: {
+          player_id: user_id,
+          tournament_id: tournament_id,
+        },
+      })
+        .then((response) => {
+          if (response.status === 200) {
+            alert("Dvojice byla uspěšně odhlášena");
+            setStatusChanged(!statusChanged);
+          }
+        })
+        .catch((error) => {
+          if (error.response) {
+            alert("Něco se nepovedlo");
+            console.log(error.response);
+            console.log(error.response.status);
+            console.log(error.response.headers);
+          }
+        });
+
+      fetch(`${apiUrl}/update/${tournament_id}/`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ signed: data.signed - 1 }),
+      }).then((resp) => resp.json());
+    };
+
+    // return component for expandable row
     return (
       <div className="Data--expanded-data-box">
-        <div className="Data--expanded-data">
+        <div className="Data--expanded-left">
           <h3>Detail</h3>
           <p>
             {whitespaces(5)}Název:{whitespaces(10)}
@@ -117,88 +212,130 @@ function Data({ tournamentsData, setShowData, showData, isTabletOrMobile }) {
               <a href={data.link}>{data.link}</a>
             </p>
           </div>
+          {data.registration_enabled &&
+            localStorage.getItem("isPlayer") === "true" && (
+              <>
+                {showTemmateForm && (
+                  <form onSubmit={handleSubmit(signToTournament)}>
+                    <div className="">
+                      <label>Jméno spoluhráče</label>
+                      <input
+                        type="text"
+                        name="name"
+                        {...register("name", {
+                          required: {
+                            value: true,
+                            message: "Zadejte jméno spoluhráče",
+                          },
+                        })}
+                      />
+                      {errors.name && <p>{errors.name?.message}</p>}
+                    </div>
+                    <div className="">
+                      <label>Příjmení spoluhráče</label>
+                      <input
+                        type="text"
+                        name="name"
+                        {...register("surname", {
+                          required: {
+                            value: true,
+                            message: "Zadejte jméno spoluhráče",
+                          },
+                        })}
+                      />
+                      {errors.name && <p>{errors.name?.message}</p>}
+                    </div>
+                    <input
+                      type="hidden"
+                      value={data.id}
+                      name="tournamentId"
+                      {...register("tournamentId")}
+                    />
+
+                    <button
+                      className="Data--login-to-tournament-btn"
+                      type="submit"
+                    >
+                      Přihlásit
+                    </button>
+                    <button
+                      className=""
+                      onClick={() => {
+                        setShowTemmateForm(false);
+                      }}
+                    >
+                      Skrýt
+                    </button>
+                  </form>
+                )}
+
+                {!showTemmateForm && !isSigned && !loading && (
+                  <div
+                    className="Data--login-to-tournament-btn"
+                    onClick={() => {
+                      setShowTemmateForm(true);
+                    }}
+                  >
+                    Přihlásit
+                  </div>
+                )}
+                {!showTemmateForm && isSigned && !loading && (
+                  <div
+                    className="Data--logout-from-tournament-btn"
+                    onClick={() => {
+                      signOutTorunament(data.id);
+                    }}
+                  >
+                    Odhlásit
+                  </div>
+                )}
+              </>
+            )}
           <p style={{ fontStyle: "italic", color: "rgb(80, 80, 80)" }}>
             {timeOfLastUpdate}
           </p>
         </div>
-        <div className="Data--time-remaining">
-          <p>{timeRemainingString}</p>
-        </div>
+        {data.registration_enabled && (
+          <div className="Data--expanded-right">
+            {loading ? (
+              <h3>Loading...</h3>
+            ) : (
+              <div>
+                <h3>Přihlášené týmy</h3>
+                {teams &&
+                  teams.map((team, index) => (
+                    <p key={index}>
+                      {index + 1}. {team.player1_name} {team.player1_surname} /{" "}
+                      {team.player2_name} {team.player2_surname}
+                    </p>
+                  ))}
+              </div>
+            )}
+          </div>
+        )}
       </div>
     );
   };
 
-  // style react-data-table-component
-  const customStyles = isTabletOrMobile
-    ? {
-        headRow: {
-          style: {
-            backgroundColor: "rgb(37, 31, 31);",
-            color: "white",
-            fontSize: "30px",
-            fontFamily: "Bebas Neue",
-          },
-        },
-        cells: {
-          style: {
-            fontSize: "30px",
-            fontFamily: "Bebas Neue",
-          },
-        },
-        background: "rgb(216, 216, 216);",
-      }
-    : {
-        headRow: {
-          style: {
-            backgroundColor: "rgb(37, 31, 31);",
-            color: "white",
-            fontSize: "23px",
-            fontFamily: "Bebas Neue",
-          },
-        },
-        cells: {
-          style: {
-            fontSize: "23px",
-            fontFamily: "Bebas Neue",
-          },
-        },
-        background: "rgb(216, 216, 216);",
-      };
-
-  // const conditionalRowStyles = [
-  //   {
-  //     when: (row) => row.signed >= row.capacity,
-  //     style: {
-  //       backgroundColor: "rgb(216, 216, 216)",
-  //       color: "#AAAAAA",
-  //       "&:hover": {
-  //         cursor: "pointer",
-  //       },
-  //     },
-  //   },
-  // {
-  //   when: (row) =>
-  //     row.signed < row.capacity &&
-  //     row.signed >= row.capacity - row.capacity / 8,
-  //   style: {
-  //     backgroundColor: "orange",
-  //     color: "white",
-  //     "&:hover": {
-  //       cursor: "pointer",
-  //     },
-  //   },
-  // },
-  // {
-  //   when: (row) => row.signed < row.capacity - row.capacity / 8,
-  //   style: {
-  //     backgroundColor: "#00FF00",
-  //     color: "white",
-  //     "&:hover": {
-  //       cursor: "pointer",
-  //     },
-  //   },
-  // },
-  // ];
+  // custom styles of data table
+  const tableFontSize = isTabletOrMobile ? "30px" : "23px";
+  const customStyles = {
+    headRow: {
+      style: {
+        backgroundColor: "rgb(37, 31, 31);",
+        color: "white",
+        fontSize: tableFontSize,
+        fontFamily: "Bebas Neue",
+      },
+    },
+    cells: {
+      style: {
+        fontSize: tableFontSize,
+        fontFamily: "Bebas Neue",
+      },
+    },
+    background: "rgb(216, 216, 216);",
+  };
 
   // set comlumns
   const columns = [
@@ -209,7 +346,7 @@ function Data({ tournamentsData, setShowData, showData, isTabletOrMobile }) {
           row.date.split("-")[0]
         }`;
       },
-      width: "150px",
+      width: "140px",
     },
     {
       name: "Název",
@@ -241,6 +378,7 @@ function Data({ tournamentsData, setShowData, showData, isTabletOrMobile }) {
         return `${row.signed}/${row.capacity}`;
       },
 
+      // conditional style of capacity based on number of teams
       conditionalCellStyles: [
         {
           when: (row) => row.signed >= row.capacity,
@@ -322,7 +460,6 @@ function Data({ tournamentsData, setShowData, showData, isTabletOrMobile }) {
             expanded: isTabletOrMobile ? <CustomIconMobile /> : <CustomIcon />,
           }}
           customStyles={customStyles}
-          // conditionalRowStyles={conditionalRowStyles}
         />
       </div>
     </div>

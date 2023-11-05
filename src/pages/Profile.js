@@ -145,6 +145,7 @@ function Profile({
   useEffect(() => {
     console.log("token");
     console.log(token);
+    const isPlayer = localStorage.getItem("isPlayer") === "true";
     const at = token ? token.access_token : "";
     fetch(`${apiUrl}/user_info`, {
       method: "POST",
@@ -152,7 +153,7 @@ function Profile({
         "Content-Type": "application/json",
         Authorization: `Bearer ${at}`,
       },
-      body: JSON.stringify({ user_id: userId }),
+      body: JSON.stringify({ user_id: userId, isPlayer: isPlayer }),
     })
       .then((response) => {
         if (response.status === 401 || response.status === 422) {
@@ -213,6 +214,7 @@ function Profile({
       price: 400,
       start: "10:00",
       user_id: jwt_decode(token.access_token).sub,
+      registration_enabled: false,
     };
 
     fetch(`${apiUrl}/post`, {

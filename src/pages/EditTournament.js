@@ -268,7 +268,7 @@ export default function EditTournament({
 
           {/* Tournament price */}
           <div className="EditTournament--form-element">
-            <h3>Startovné</h3>
+            <h3>Startovné (za osobu)</h3>
             {!editPrice ? (
               <p>
                 {editedTournament && editedTournament.price}{" "}

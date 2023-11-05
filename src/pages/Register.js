@@ -1,29 +1,29 @@
+import { useForm, Controller } from "react-hook-form";
 import "../styles/Login.css";
 import { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
-function Register({ apiUrl }) {
-  const [loginForm, setloginForm] = useState({
-    email: "",
-    password: "",
-    name: "",
-    surname: "",
-  });
+function Register({ apiUrl, isTabletOrMobile }) {
+  const { register, control, handleSubmit, formState } = useForm();
+  const { errors } = formState;
   const [registrationSuccesful, setRegistrationSuccesful] = useState(false);
   const [registrationFailed, setRegistrationFailed] = useState(false);
+  const [isPlayer, setIsPlayer] = useState(true);
 
   const navigate = useNavigate();
 
-  function register(event) {
+  // function to register user (player or organizer based on flag isPlayer) in database
+  function register_user(credentials) {
     axios({
       method: "POST",
       url: `${apiUrl}/register`,
       data: {
-        email: loginForm.email,
-        password: loginForm.password,
-        name: loginForm.name,
-        surname: loginForm.surname,
+        email: credentials.email,
+        password: credentials.password,
+        name: credentials.name,
+        surname: credentials.surname,
+        isPlayer: isPlayer,
       },
     })
       .then((resp) => {
@@ -41,31 +41,8 @@ function Register({ apiUrl }) {
           setRegistrationFailed(true);
         }
       });
-
-    setloginForm({
-      email: "",
-      password: "",
-      name: "",
-      surname: "",
-    });
-
-    event.preventDefault();
   }
 
-  function handleChange(event) {
-    const { value, name } = event.target;
-    setloginForm((prevNote) => ({
-      ...prevNote,
-      [name]: value,
-    }));
-  }
-
-  const goToMainPage = () => {
-    navigate("/");
-  };
-  const goToLogin = () => {
-    navigate("/login");
-  };
   return (
     <>
       <div className="login-page">
@@ -79,61 +56,115 @@ function Register({ apiUrl }) {
             <span>Uživatel s tímto emailem již existuje</span>
           </div>
         )}
-
+        <div
+          className={
+            isTabletOrMobile
+              ? "Login--organizer-player-switch-mobile"
+              : "Login--organizer-player-switch"
+          }
+        >
+          <button
+            className={`Login--player-btn ${isPlayer ? "chosen" : ""}`}
+            onClick={() => setIsPlayer(true)}
+          >
+            Hráč
+          </button>
+          <button
+            className={`Login--organizer-btn ${isPlayer ? "" : "chosen"}`}
+            onClick={() => setIsPlayer(false)}
+          >
+            Organizátor
+          </button>
+        </div>
         <div className="login-box">
-          <span className="Login--x-btn" onClick={goToMainPage}>
+          <span className="Login--x-btn" onClick={() => navigate("/")}>
             x
           </span>
-          <form className="login-form">
+          <form onSubmit={handleSubmit(register_user)} className="login-form">
             <span className="login-form-title">Registrace</span>
 
             <div className="Login--main-form">
               <p className="Login--label">Jméno</p>
               <div className="wrap-input">
                 <input
-                  onChange={handleChange}
                   type="name"
-                  text={loginForm.name}
                   name="name"
-                  value={loginForm.name}
+                  {...register("name", {
+                    required: {
+                      value: true,
+                      message: "Zadejte jméno",
+                    },
+                  })}
                 />
+                {errors.name && (
+                  <p style={{ fontSize: "20px", color: "red" }}>
+                    {errors.name?.message}
+                  </p>
+                )}{" "}
               </div>
               <p className="Login--label">Příjmení</p>
               <div className="wrap-input">
                 <input
-                  onChange={handleChange}
                   type="surname"
-                  text={loginForm.surname}
                   name="surname"
-                  value={loginForm.surname}
+                  {...register("surname", {
+                    required: {
+                      value: true,
+                      message: "Zadejte příjmení",
+                    },
+                  })}
                 />
+                {errors.surname && (
+                  <p style={{ fontSize: "20px", color: "red" }}>
+                    {errors.surname?.message}
+                  </p>
+                )}
               </div>
               <p className="Login--label">Email</p>
               <div className="wrap-input">
                 <input
-                  onChange={handleChange}
                   type="email"
-                  text={loginForm.email}
                   name="email"
-                  value={loginForm.email}
+                  {...register("email", {
+                    required: {
+                      value: true,
+                      message: "Zadejte email",
+                    },
+                  })}
                 />
+                {errors.email && (
+                  <p style={{ fontSize: "20px", color: "red" }}>
+                    {errors.email?.message}
+                  </p>
+                )}
               </div>
               <p className="Login--label">Heslo</p>
               <div className="wrap-input">
                 <input
-                  onChange={handleChange}
                   type="password"
-                  text={loginForm.password}
                   name="password"
-                  value={loginForm.password}
+                  {...register("password", {
+                    required: {
+                      value: true,
+                      message: "Zadejte heslo",
+                    },
+                  })}
                 />
+                {errors.password && (
+                  <p style={{ fontSize: "20px", color: "red" }}>
+                    {errors.password?.message}
+                  </p>
+                )}
               </div>
-              <div className="Login--login-button" onClick={register}>
-                Registrovat
-              </div>
+              <button className="Login--login-button" type="submit">
+                <p>Registrovat</p>
+              </button>
             </div>
             <div className="Login--register">
-              <p onClick={goToLogin} className="Login--tiny-label clickable">
+              <p
+                onClick={() => navigate("/login")}
+                className="Login--tiny-label clickable"
+              >
                 Zpět na přihlášení
               </p>
             </div>
