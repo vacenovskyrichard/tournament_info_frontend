@@ -23,7 +23,7 @@ function Data({
   const [signedTeams, setSignedTeams] = useState({});
 
   useEffect(() => {
-    const userId = jwt_decode(token.access_token).sub;
+    const userId = token ? jwt_decode(token.access_token).sub : "";
     const at = token ? token.access_token : "";
     fetch(`${apiUrl}/get_teams`, {
       method: "POST",
