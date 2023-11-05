@@ -1,3 +1,4 @@
+import { useForm, Controller } from "react-hook-form";
 import "../styles/Login.css";
 import { useState } from "react";
 import axios from "axios";
@@ -5,14 +6,41 @@ import { useNavigate } from "react-router-dom";
 import { useGoogleLogin } from "@react-oauth/google";
 
 function Login({ setToken, apiUrl, isTabletOrMobile }) {
-  const [loginForm, setloginForm] = useState({
-    email: "",
-    password: "",
-  });
   const [registrationFailed, setRegistrationFailed] = useState(false);
   const [isPlayer, setIsPlayer] = useState(true);
   const navigate = useNavigate();
+  const { register, control, handleSubmit, formState } = useForm();
+  const { errors } = formState;
 
+  // Normal login function
+  function login(credentials) {
+    axios({
+      method: "POST",
+      url: `${apiUrl}/login`,
+      data: {
+        email: credentials.email,
+        password: credentials.password,
+        isPlayer: isPlayer,
+      },
+    })
+      .then((response) => {
+        setToken(response.data);
+        localStorage.setItem("isPlayer", isPlayer);
+        navigate("/");
+      })
+      .catch((error) => {
+        if (error.response) {
+          console.log(error.response);
+          console.log(error.response.status);
+          console.log(error.response.headers);
+        }
+        if (error.response.status === 401) {
+          setRegistrationFailed(true);
+        }
+      });
+  }
+
+  // Google login function to get user data from Google API and call login function
   const google_login = useGoogleLogin({
     onSuccess: async (response) => {
       const at = response.access_token;
@@ -39,40 +67,7 @@ function Login({ setToken, apiUrl, isTabletOrMobile }) {
     },
   });
 
-  function login(event) {
-    axios({
-      method: "POST",
-      url: `${apiUrl}/login`,
-      data: {
-        email: loginForm.email,
-        password: loginForm.password,
-        isPlayer: isPlayer,
-      },
-    })
-      .then((response) => {
-        setToken(response.data);
-        localStorage.setItem("isPlayer", isPlayer);
-        navigate("/");
-      })
-      .catch((error) => {
-        if (error.response) {
-          console.log(error.response);
-          console.log(error.response.status);
-          console.log(error.response.headers);
-        }
-        if (error.response.status === 401) {
-          setRegistrationFailed(true);
-        }
-      });
-
-    setloginForm({
-      email: "",
-      password: "",
-    });
-
-    event.preventDefault();
-  }
-
+  // Google login function
   function loginWithGoogle(googleLoginCred) {
     axios({
       method: "POST",
@@ -99,24 +94,6 @@ function Login({ setToken, apiUrl, isTabletOrMobile }) {
         }
       });
   }
-
-  function handleChange(event) {
-    const { value, name } = event.target;
-    setloginForm((prevNote) => ({
-      ...prevNote,
-      [name]: value,
-    }));
-  }
-
-  const goToMainPage = () => {
-    navigate("/");
-  };
-  const goToRegistration = () => {
-    navigate("/register");
-  };
-  const goToForgotPassword = () => {
-    navigate("/forgot_password");
-  };
 
   return (
     <>
@@ -147,10 +124,11 @@ function Login({ setToken, apiUrl, isTabletOrMobile }) {
           </button>
         </div>
         <div className="login-box">
-          <span className="Login--x-btn" onClick={goToMainPage}>
+          <span className="Login--x-btn" onClick={() => navigate("/")}>
             x
           </span>
-          <form className="login-form">
+          <form onSubmit={handleSubmit(login)} className="login-form">
+            {/* <form className="login-form"> */}
             <span className="login-form-title">Přihlášení</span>
             <div className="socials-buttons">
               <div className="facebook-button">
@@ -176,17 +154,25 @@ function Login({ setToken, apiUrl, isTabletOrMobile }) {
               <p className="Login--label">Email</p>
               <div className="wrap-input">
                 <input
-                  onChange={handleChange}
                   type="email"
-                  text={loginForm.email}
                   name="email"
-                  value={loginForm.email}
+                  {...register("email", {
+                    required: {
+                      value: true,
+                      message: "Zadejte email",
+                    },
+                  })}
                 />
+                {errors.email && (
+                  <p style={{ fontSize: "20px", color: "red" }}>
+                    {errors.email?.message}
+                  </p>
+                )}
               </div>
               <div className="Login--password-label-box">
                 <p className="Login--label">Heslo</p>
                 <p
-                  onClick={goToForgotPassword}
+                  onClick={() => navigate("/forgot_password")}
                   className="Login--tiny-label clickable"
                 >
                   Zapomněli jste?
@@ -194,21 +180,29 @@ function Login({ setToken, apiUrl, isTabletOrMobile }) {
               </div>
               <div className="wrap-input">
                 <input
-                  onChange={handleChange}
                   type="password"
-                  text={loginForm.password}
                   name="password"
-                  value={loginForm.password}
+                  {...register("password", {
+                    required: {
+                      value: true,
+                      message: "Zadejte heslo",
+                    },
+                  })}
                 />
+                {errors.password && (
+                  <p style={{ fontSize: "20px", color: "red" }}>
+                    {errors.password?.message}
+                  </p>
+                )}
               </div>
-              <div className="Login--login-button" onClick={login}>
+              <button className="Login--login-button" type="submit">
                 <p>Přihlásit</p>
-              </div>
+              </button>
             </div>
             <div className="Login--register">
               <p className="Login--tiny-label">Nemáte účet?</p>
               <p
-                onClick={goToRegistration}
+                onClick={() => navigate("/register")}
                 className="Login--tiny-label clickable"
               >
                 Registrovat

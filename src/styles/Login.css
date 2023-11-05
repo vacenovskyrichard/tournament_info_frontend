@@ -213,6 +213,8 @@
   font-size: 22px;
   color: #fff;
   margin-top: 10px;
+  width: 100%;
+  border: 0;
 }
 
 .Login--login-button > p {

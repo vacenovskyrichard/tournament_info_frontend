@@ -1,4 +1,5 @@
 import "../styles/Login.css";
+import { useForm, Controller } from "react-hook-form";
 import { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
@@ -7,29 +8,17 @@ function ForgotPassword({ apiUrl, isTabletOrMobile }) {
   const [sendFailed, setSendFailed] = useState(false);
   const [sendSuccess, setSendSuccess] = useState(false);
   const [isPlayer, setIsPlayer] = useState(true);
-
-  const [loginForm, setloginForm] = useState({
-    email: "",
-    password: "",
-  });
-
+  const { register, control, handleSubmit, formState } = useForm();
+  const { errors } = formState;
   const navigate = useNavigate();
 
-  function handleChange(event) {
-    const { value, name } = event.target;
-    setloginForm((prevNote) => ({
-      ...prevNote,
-      [name]: value,
-    }));
-  }
-
-  function forgot_password(event) {
+  // generate new password and send it to users email
+  function create_new_password(credentials) {
     axios({
       method: "POST",
       url: `${apiUrl}/reset`,
       data: {
-        email: loginForm.email,
-        password: "",
+        email: credentials.email,
         isPlayer: isPlayer,
       },
     })
@@ -48,21 +37,7 @@ function ForgotPassword({ apiUrl, isTabletOrMobile }) {
           setSendFailed(true);
         }
       });
-
-    setloginForm({
-      email: "",
-      password: "",
-    });
-
-    event.preventDefault();
   }
-
-  const goToMainPage = () => {
-    navigate("/");
-  };
-  const goToLogin = () => {
-    navigate("/login");
-  };
 
   return (
     <div className="login-page">
@@ -97,30 +72,46 @@ function ForgotPassword({ apiUrl, isTabletOrMobile }) {
         </button>
       </div>
       <div className="login-box">
-        <span className="Login--x-btn" onClick={goToMainPage}>
+        <span className="Login--x-btn" onClick={() => navigate("/")}>
           x
         </span>
-        <form className="login-form">
+        <form
+          onSubmit={handleSubmit(create_new_password)}
+          className="login-form"
+        >
           <span className="login-form-title">Zapomenuté heslo</span>
 
           <div className="Login--main-form">
             <p className="Login--label">Email</p>
             <div className="wrap-input">
               <input
-                onChange={handleChange}
                 type="email"
-                text={loginForm.email}
                 name="email"
-                value={loginForm.email}
+                {...register("email", {
+                  required: {
+                    value: true,
+                    message: "Zadejte email",
+                  },
+                })}
               />
+              {errors.email && (
+                <p style={{ fontSize: "20px", color: "red" }}>
+                  {errors.email?.message}
+                </p>
+              )}
             </div>
-            <div className="Login--login-button" onClick={forgot_password}>
-              Odeslat heslo
-            </div>
+            <button className="Login--login-button" type="submit">
+              <p>Vygenerovat nové heslo</p>
+            </button>
           </div>
-          <p onClick={goToLogin} className="Login--tiny-label clickable">
-            Zpět na přihlášení
-          </p>
+          <div className="Login--register">
+            <p
+              onClick={() => navigate("/login")}
+              className="Login--tiny-label clickable"
+            >
+              Zpět na přihlášení
+            </p>
+          </div>
         </form>
       </div>
     </div>
