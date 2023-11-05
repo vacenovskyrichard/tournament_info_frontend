@@ -184,13 +184,21 @@ function Profile({
 
   // filter user tournaments and show all, if user is admin
   const userId = token ? jwt_decode(token.access_token).sub : "";
-  var userTournaments = "";
+  var userTournaments = [];
   if (userData) {
     userTournaments =
       userData.role === "admin"
         ? tournamentsData
         : tournamentsData.filter((tournament) => tournament.user_id === userId);
   }
+
+  // Function to compare dates in "YYYY-MM-DD" format
+  function compareDates(dateA, dateB) {
+    return dateA.localeCompare(dateB);
+  }
+
+  // Sort data by date
+  userTournaments.sort((a, b) => compareDates(a.date, b.date));
 
   // creates tournament with random data - used for testing
   const create_random_tournament = () => {

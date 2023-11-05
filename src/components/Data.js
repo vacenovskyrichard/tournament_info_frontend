@@ -1,5 +1,5 @@
 import "../styles/Data.css";
-import { useForm, Controller } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import { useEffect, useState } from "react";
 import DataTable from "react-data-table-component";
 import { ReactComponent as CustomIcon } from "../icons/info-circle.svg";
@@ -218,9 +218,6 @@ function Data({
               statusChanged={statusChanged}
               apiUrl={apiUrl}
               whitespaces={whitespaces}
-              register={register}
-              errors={errors}
-              handleSubmit={handleSubmit}
             />
           )}
           expandableIcon={{

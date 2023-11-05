@@ -1,0 +1,13 @@
+.ExpandedRow--sign-form {
+  display: flex;
+  flex-direction: column;
+}
+
+.ExpandedRow-form-box {
+  margin-bottom: 20px;
+  border-radius: 20px;
+}
+.ExpandedRow-form-box > input {
+  border-radius: 20px;
+  font-size: 23px;
+}

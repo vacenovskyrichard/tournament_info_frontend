@@ -1,7 +1,10 @@
 import "../styles/Data.css";
+import "../styles/ExpandedRow.css";
+import "../styles/Common.css";
 import { useEffect, useState } from "react";
 import jwt_decode from "jwt-decode";
 import axios from "axios";
+import { useForm } from "react-hook-form";
 
 // Expanded component for every tournament in table
 export default function ExpandedComponent({
@@ -12,15 +15,14 @@ export default function ExpandedComponent({
   statusChanged,
   apiUrl,
   whitespaces,
-  register,
-  errors,
   data,
-  handleSubmit,
 }) {
   data = data.data;
 
-  const [timeOfLastUpdate, setTimeOfLastUpdate] = useState();
-  const updateTargetDate = new Date(data.last_update);
+  const [timeOfLastUpdate, setTimeOfLastUpdate] = useState(); //stores string containing time from last update
+  const lastUpdateDate = new Date(data.last_update);
+  const { register, control, handleSubmit, formState } = useForm();
+  const { errors } = formState;
 
   const isSigned =
     loading || signedTeams === "Unauthorized"
@@ -31,49 +33,39 @@ export default function ExpandedComponent({
     loading || signedTeams === "Unauthorized"
       ? []
       : signedTeams[data.id]["teams"];
-  console.log("teams");
-  console.log(loading);
-  console.log(signedTeams);
-  console.log(teams);
-  const [showTemmateForm, setShowTemmateForm] = useState(false);
-  // const [signed, setSigned] = useState(false);
 
-  // calculate time from last update
+  // calculate time from last update every
   useEffect(() => {
-    // Get the current date and time
-    const currentDate = new Date();
-
-    // Calculate the time difference in milliseconds
-    const updateTimeDifference = currentDate - updateTargetDate;
+    const currentDate = new Date(); // Get the current date and time
+    const updateTimeDifference = currentDate - lastUpdateDate; // Calculate the time difference in milliseconds
 
     // Calculate the remaining days, hours, minutes, and seconds
-    const udays = Math.floor(updateTimeDifference / (1000 * 60 * 60 * 24));
-    const uhours = Math.floor(
+    const days = Math.floor(updateTimeDifference / (1000 * 60 * 60 * 24));
+    const hours = Math.floor(
       (updateTimeDifference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
     );
-    const uminutes = Math.floor(
+    const minutes = Math.floor(
       (updateTimeDifference % (1000 * 60 * 60)) / (1000 * 60)
     );
-    const days_str =
-      udays === 0 ? "" : udays === 1 ? "1 dnem, " : `${udays} dny, `;
-    const hours_str =
-      uhours === 0 ? "" : uhours === 1 ? `1 hodinou, ` : `${uhours} hodinami, `;
-    const minutes_str = uminutes === 1 ? `1 minutou` : `${uminutes} minutami`;
+
+    const daysStr = days === 0 ? "" : days === 1 ? "1 dnem, " : `${days} dny, `;
+    const hoursStr =
+      hours === 0 ? "" : hours === 1 ? `1 hodinou, ` : `${hours} hodinami, `;
+    const minutesStr = minutes === 1 ? `1 minutou` : `${minutes} minutami`;
 
     setTimeOfLastUpdate(
-      `Naposledy aktualizováno před: ${days_str}${hours_str}${minutes_str}`
+      `Naposledy aktualizováno před: ${daysStr}${hoursStr}${minutesStr}`
     );
   }, []);
 
   // sign to tournament function
   const signToTournament = (credentials) => {
-    const user_id = jwt_decode(token.access_token).sub;
     axios({
       method: "POST",
       url: `${apiUrl}/create_team`,
       data: {
-        player_id: user_id,
-        tournament_id: credentials.tournamentId,
+        player_id: jwt_decode(token.access_token).sub,
+        tournament_id: data.id,
         teammate_name: credentials.name,
         teammate_surname: credentials.surname,
       },
@@ -105,15 +97,13 @@ export default function ExpandedComponent({
   };
 
   // sign out from tournament function
-  const signOutTorunament = (tournament_id) => {
-    const user_id = jwt_decode(token.access_token).sub;
-
+  const signOutTorunament = () => {
     axios({
       method: "DELETE",
       url: `${apiUrl}/delete_team`,
       data: {
-        player_id: user_id,
-        tournament_id: tournament_id,
+        player_id: jwt_decode(token.access_token).sub,
+        tournament_id: data.id,
       },
     })
       .then((response) => {
@@ -131,7 +121,7 @@ export default function ExpandedComponent({
         }
       });
 
-    fetch(`${apiUrl}/update/${tournament_id}/`, {
+    fetch(`${apiUrl}/update/${data.id}/`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
@@ -172,10 +162,16 @@ export default function ExpandedComponent({
           localStorage.getItem("isPlayer") === "true" &&
           token && (
             <>
-              {showTemmateForm && (
-                <form onSubmit={handleSubmit(signToTournament)}>
-                  <div className="">
-                    <label>Jméno spoluhráče</label>
+              {!isSigned && (
+                <form
+                  className="ExpandedRow--sign-form"
+                  onSubmit={handleSubmit(signToTournament)}
+                >
+                  <h3>Přihlášení</h3>
+                  <div className="ExpandedRow-form-box">
+                    <label>
+                      {whitespaces(5)}Jméno spoluhráče:{whitespaces(7)}
+                    </label>
                     <input
                       type="text"
                       name="name"
@@ -186,47 +182,45 @@ export default function ExpandedComponent({
                         },
                       })}
                     />
-                    {errors.name && <p>{errors.name?.message}</p>}
+                    {errors.name && (
+                      <p className="error-message">
+                        {whitespaces(10)}
+                        {errors.name?.message}
+                      </p>
+                    )}
                   </div>
-                  <div className="">
-                    <label>Příjmení spoluhráče</label>
+                  <div className="ExpandedRow-form-box">
+                    <label>
+                      {whitespaces(5)}Příjmení spoluhráče:{whitespaces(2)}
+                    </label>
                     <input
                       type="text"
-                      name="name"
+                      name="surname"
                       {...register("surname", {
                         required: {
                           value: true,
-                          message: "Zadejte jméno spoluhráče",
+                          message: "Zadejte příjmení spoluhráče",
                         },
                       })}
                     />
-                    {errors.name && <p>{errors.name?.message}</p>}
+                    {errors.surname && (
+                      <p className="error-message">
+                        {" "}
+                        {whitespaces(10)}
+                        {errors.surname?.message}
+                      </p>
+                    )}
                   </div>
-                  <input
-                    type="hidden"
-                    value={data.id}
-                    name="tournamentId"
-                    {...register("tournamentId")}
-                  />
-
                   <button
                     className="Data--login-to-tournament-btn"
                     type="submit"
                   >
                     Přihlásit
                   </button>
-                  <button
-                    className=""
-                    onClick={() => {
-                      setShowTemmateForm(false);
-                    }}
-                  >
-                    Skrýt
-                  </button>
                 </form>
               )}
 
-              {!showTemmateForm && !isSigned && !loading && (
+              {/* {!showTemmateForm && !isSigned && !loading && (
                 <div
                   className="Data--login-to-tournament-btn"
                   onClick={() => {
@@ -235,13 +229,11 @@ export default function ExpandedComponent({
                 >
                   Přihlásit
                 </div>
-              )}
-              {!showTemmateForm && isSigned && !loading && (
+              )} */}
+              {isSigned && !loading && (
                 <div
                   className="Data--logout-from-tournament-btn"
-                  onClick={() => {
-                    signOutTorunament(data.id);
-                  }}
+                  onClick={signOutTorunament}
                 >
                   Odhlásit
                 </div>
@@ -252,6 +244,7 @@ export default function ExpandedComponent({
           {timeOfLastUpdate}
         </p>
       </div>
+
       {data.registration_enabled && (
         <div className="Data--expanded-right">
           {loading ? (

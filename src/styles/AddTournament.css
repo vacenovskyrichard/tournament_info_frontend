@@ -22,11 +22,6 @@
   margin-top: 5px;
   margin-bottom: 5px;
 }
-.AddTournament--form-element > p {
-  color: red;
-  line-height: 1.5;
-  margin: 0px;
-}
 
 .AddTournament--form-element > input {
   font-family: "Montserrat", sans-serif;
