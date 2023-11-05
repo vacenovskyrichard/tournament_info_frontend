@@ -17,6 +17,7 @@ function Profile({
   apiUrl,
   setTournamentToEditId,
   isTabletOrMobile,
+  loadingMainTable,
 }) {
   const [userData, setUserData] = useState({
     id: "",
@@ -298,6 +299,22 @@ function Profile({
                 data={userTournaments}
                 pagination
                 customStyles={customStyles}
+                noDataComponent={
+                  loadingMainTable ? (
+                    <h3 style={{ fontSize: "30px" }}>Data se načítají...</h3>
+                  ) : localStorage.getItem("isPlayer") === "true" ? (
+                    <h3 style={{ fontSize: "30px" }}>
+                      Nejste přihlášeni na žádný turnaj
+                    </h3>
+                  ) : (
+                    <h3 style={{ fontSize: "30px" }}>Nemáte žádné turnaje</h3>
+                  )
+                }
+                className={
+                  userTournaments.length === 0
+                    ? "custom-no-data-background"
+                    : ""
+                }
               />
             )}
           </div>

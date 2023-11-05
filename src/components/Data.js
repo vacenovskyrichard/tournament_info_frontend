@@ -13,6 +13,7 @@ function Data({
   isTabletOrMobile,
   token,
   apiUrl,
+  loadingMainTable,
 }) {
   // initialize variables and states
   const { register, control, handleSubmit, formState } = useForm();
@@ -460,6 +461,16 @@ function Data({
             expanded: isTabletOrMobile ? <CustomIconMobile /> : <CustomIcon />,
           }}
           customStyles={customStyles}
+          noDataComponent={
+            loadingMainTable ? (
+              <h3>Data se načítají...</h3>
+            ) : (
+              <h3>Žádná data nejsou k dispozici</h3>
+            )
+          }
+          className={
+            tournamentsData.length === 0 ? "custom-no-data-background" : ""
+          }
         />
       </div>
     </div>
