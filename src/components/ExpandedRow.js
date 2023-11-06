@@ -41,6 +41,9 @@ export default function ExpandedComponent({
       ? []
       : signedTeams[data.id]["teams"];
 
+  // sort teams by time they signed
+  teams.sort((a, b) => new Date(a.date_signed) - new Date(b.date_signed));
+
   const [mainTeams, subTeams] =
     teams.length > data.capacity
       ? splitArray(teams, data.capacity)
@@ -72,6 +75,7 @@ export default function ExpandedComponent({
 
   // sign to tournament function
   const signToTournament = (credentials) => {
+    const signDate = new Date();
     axios({
       method: "POST",
       url: `${apiUrl}/create_team`,
@@ -80,6 +84,7 @@ export default function ExpandedComponent({
         tournament_id: data.id,
         teammate_name: credentials.name,
         teammate_surname: credentials.surname,
+        date_signed: signDate,
       },
     })
       .then((response) => {
