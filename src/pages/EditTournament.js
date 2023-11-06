@@ -22,6 +22,7 @@ export default function EditTournament({
   const { register, control, handleSubmit, formState } = useForm();
   const { errors } = formState;
   const [editedTournament, setEditedTournament] = useState();
+  const [checked, setChecked] = useState(false);
   const [editName, setEditName] = useState(false);
   const [editDate, setEditDate] = useState(false);
   const [editCity, setEditCity] = useState(false);
@@ -50,6 +51,9 @@ export default function EditTournament({
       .then((resp) => {
         const editId = localStorage.getItem("editId");
         setEditedTournament(resp.find((item) => item.id === editId));
+        setChecked(
+          resp.find((item) => item.id === editId).registration_enabled
+        );
       })
       .catch((err) => console.log(err)); // eslint-disable-next-line
   }, []);
@@ -63,6 +67,7 @@ export default function EditTournament({
     if (data.category) {
       data.category = data.category.label;
     }
+    data.registration_enabled = checked;
 
     fetch(`${apiUrl}/update/${localStorage.getItem("editId")}/`, {
       method: "PUT",
@@ -478,6 +483,21 @@ export default function EditTournament({
                 <button type="submit">uložit</button>
               </form>
             )}
+          </div>
+
+          {/* Tournament signing enabled */}
+          <div className="EditTournament--form-element">
+            <h3>Povolit přihlašování přes turnajky.cz</h3>
+            <form onSubmit={handleSubmit(onSubmit)}>
+              <input
+                type="checkbox"
+                name="registration_enabled"
+                checked={checked}
+                onChange={() => setChecked(!checked)}
+              />
+
+              <button type="submit">uložit</button>
+            </form>
           </div>
           <div
             className="EditTournament--finish-button"
