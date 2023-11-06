@@ -91,65 +91,91 @@ function Profile({
     },
     background: "rgb(216, 216, 216);",
   };
-  const columns = [
-    {
-      name: "Datum",
-      selector: (row) => {
-        return `${row.date.split("-")[2]}.${row.date.split("-")[1]}.${
-          row.date.split("-")[0]
-        }`;
-      },
-    },
+  const columns =
+    localStorage.getItem("isPlayer") === "true"
+      ? [
+          {
+            name: "Datum",
+            selector: (row) => {
+              return `${row.date.split("-")[2]}.${row.date.split("-")[1]}.${
+                row.date.split("-")[0]
+              }`;
+            },
+          },
+          {
+            name: "Název",
+            selector: (row) => row.name,
+            width: "350px",
+          },
+          {
+            name: "Kategorie",
+            selector: (row) => row.category,
+          },
+          {
+            name: "Areál",
+            selector: (row) => row.areal,
+            width: "350px",
+          },
+        ]
+      : [
+          {
+            name: "Datum",
+            selector: (row) => {
+              return `${row.date.split("-")[2]}.${row.date.split("-")[1]}.${
+                row.date.split("-")[0]
+              }`;
+            },
+          },
 
-    {
-      name: "Název",
-      selector: (row) => row.name,
-      width: "350px",
-    },
-    {
-      name: "Kategorie",
-      selector: (row) => row.category,
-    },
-    {
-      name: "Areál",
-      selector: (row) => row.areal,
-      width: "350px",
-    },
-    {
-      name: "",
-      cell: (row) => (
-        <img
-          src="./edit.png"
-          style={{
-            height: "30px",
-            width: "30px",
-            cursor: "pointer",
-          }}
-          onClick={() => edit_tournament(row.id)}
-        />
-      ),
-      width: "50px",
-    },
-    {
-      name: "",
-      cell: (row) => (
-        <img
-          src="./delete.png"
-          style={{
-            height: "30px",
-            width: "30px",
-            cursor: "pointer",
-            marginRight: "10px",
-          }}
-          onClick={() => {
-            setDeleteId(row.id);
-            setShowConfirmation(true);
-          }}
-        />
-      ),
-      width: "60px",
-    },
-  ];
+          {
+            name: "Název",
+            selector: (row) => row.name,
+            width: "350px",
+          },
+          {
+            name: "Kategorie",
+            selector: (row) => row.category,
+          },
+          {
+            name: "Areál",
+            selector: (row) => row.areal,
+            width: "350px",
+          },
+          {
+            name: "",
+            cell: (row) => (
+              <img
+                src="./edit.png"
+                style={{
+                  height: "30px",
+                  width: "30px",
+                  cursor: "pointer",
+                }}
+                onClick={() => edit_tournament(row.id)}
+              />
+            ),
+            width: "50px",
+          },
+          {
+            name: "",
+            cell: (row) => (
+              <img
+                src="./delete.png"
+                style={{
+                  height: "30px",
+                  width: "30px",
+                  cursor: "pointer",
+                  marginRight: "10px",
+                }}
+                onClick={() => {
+                  setDeleteId(row.id);
+                  setShowConfirmation(true);
+                }}
+              />
+            ),
+            width: "60px",
+          },
+        ];
 
   useEffect(() => {
     console.log("token");
@@ -192,13 +218,63 @@ function Profile({
 
   // filter user tournaments and show all, if user is admin
   const userId = token ? jwt_decode(token.access_token).sub : "";
-  var userTournaments = [];
-  if (userData) {
-    userTournaments =
-      userData.role === "admin"
-        ? tournamentsData
-        : tournamentsData.filter((tournament) => tournament.user_id === userId);
-  }
+  const [userTournaments, setUserTournaments] = useState([]);
+
+  useEffect(() => {
+    if (userData && tournamentsData.length > 0) {
+      console.log("tournamentsData");
+      console.log(tournamentsData);
+      if (localStorage.getItem("isPlayer") === "true") {
+        const at = token ? token.access_token : "";
+        fetch(`${apiUrl}/get_teams`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${at}`,
+          },
+          body: JSON.stringify({ userId: userId }),
+        })
+          .then((resp) => {
+            if (resp.status === 200) {
+              return resp.json();
+            } else {
+              return "Unauthorized";
+            }
+          })
+          .then((response) => {
+            return Object.keys(response).filter(
+              (key) => response[key].isSigned === true
+            );
+          })
+          .then((tournament_ids) => {
+            return tournamentsData.filter((tournament) =>
+              tournament_ids.includes(tournament.id)
+            );
+          })
+          .then((tournaments) => {
+            console.log("TOURNAMENRS!!!");
+            console.log(tournaments);
+            setUserTournaments(tournaments);
+          })
+
+          .catch((error) => {
+            if (error.response) {
+              console.log(error.response);
+              console.log(error.response.status);
+              console.log(error.response.headers);
+            }
+          });
+      } else {
+        setUserTournaments(
+          userData.role === "admin"
+            ? tournamentsData
+            : tournamentsData.filter(
+                (tournament) => tournament.user_id === userId
+              )
+        );
+      }
+    }
+  }, [loadingMainTable, tournamentsData, userData]);
 
   // Function to compare dates in "YYYY-MM-DD" format
   function compareDates(dateA, dateB) {
