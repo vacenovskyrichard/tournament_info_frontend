@@ -74,26 +74,34 @@ export default function ExpandedComponent({
         if (response.status === 200) {
           alert("Dvojice byla uspěšně přihlášena");
           setStatusChanged(!statusChanged);
+          fetch(`${apiUrl}/update/${data.id}/`, {
+            method: "PUT",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ signed: data.signed + 1 }),
+          })
+            .then((resp) => {
+              if (resp.status === 200) {
+                console.log("Signed increased succesfully");
+              }
+            })
+            .catch((error) => {
+              if (error.response) {
+                console.log(error.response);
+                console.log(error.response.status);
+                console.log(error.response.headers);
+              }
+            });
         }
       })
       .catch((error) => {
         if (error.response) {
-          alert("Něco se nepovedlo");
           console.log(error.response);
           console.log(error.response.status);
           console.log(error.response.headers);
         }
       });
-    if (data.signed == null) {
-      data.signed = 0;
-    }
-    fetch(`${apiUrl}/update/${data.id}/`, {
-      method: "PUT",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ signed: data.signed + 1 }),
-    }).then((resp) => resp.json());
   };
 
   // sign out from tournament function
@@ -110,24 +118,34 @@ export default function ExpandedComponent({
         if (response.status === 200) {
           alert("Dvojice byla uspěšně odhlášena");
           setStatusChanged(!statusChanged);
+          fetch(`${apiUrl}/update/${data.id}/`, {
+            method: "PUT",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ signed: data.signed - 1 }),
+          })
+            .then((resp) => {
+              if (resp.status === 200) {
+                console.log("Signed decreased succesfully");
+              }
+            })
+            .catch((error) => {
+              if (error.response) {
+                console.log(error.response);
+                console.log(error.response.status);
+                console.log(error.response.headers);
+              }
+            });
         }
       })
       .catch((error) => {
         if (error.response) {
-          alert("Něco se nepovedlo");
           console.log(error.response);
           console.log(error.response.status);
           console.log(error.response.headers);
         }
       });
-
-    fetch(`${apiUrl}/update/${data.id}/`, {
-      method: "PUT",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ signed: data.signed - 1 }),
-    }).then((resp) => resp.json());
   };
 
   // return component for expandable row

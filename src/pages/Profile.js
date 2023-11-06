@@ -43,16 +43,24 @@ function Profile({
         },
       })
       .then((response) => {
-        const new_access_token = response.headers.get("new_access_token");
-        if (new_access_token !== "None") {
-          console.log("new_access_token has been set");
-          setToken({ access_token: new_access_token });
+        if (response.status === 200) {
+          const new_access_token = response.headers.get("new_access_token");
+          if (new_access_token !== "None") {
+            console.log("new_access_token has been set");
+            setToken({ access_token: new_access_token });
+          }
+          return response;
+        } else {
+          alert("Turnaj se nepodařilo smazat.");
         }
-        return response;
       })
       .then(() => window.location.reload(false))
       .catch((error) => {
         console.error("Error:", error);
+        alert(
+          "Turnaj se nepodařilo smazat (na turnaj nesmí být přihlášeny žádné dvojice)."
+        );
+
         // Handle errors here
       });
   };
