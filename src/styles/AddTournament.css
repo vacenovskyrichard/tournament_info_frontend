@@ -10,6 +10,14 @@
 .AddTournament--form-element {
   display: flex;
   flex-direction: column;
+  margin: 15px;
+}
+
+.AddTournament--form-element-checkbox {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 15px;
 }
 
 .AddTournament--form-element > label {
@@ -17,18 +25,24 @@
   font-weight: bold;
   font-size: 25px;
   color: #555;
-  line-height: 1.5;
   margin-right: 5px;
   margin-top: 5px;
   margin-bottom: 5px;
 }
-.AddTournament--form-element > p {
-  color: red;
+
+.AddTournament--form-element-checkbox > label {
+  margin-right: 5px;
+  margin-top: 5px;
+  margin-bottom: 5px;
+  font-size: 25px;
+  color: #555;
+  font-weight: bold;
   line-height: 1.5;
-  margin: 0px;
+  font-family: "Bebas Neue", sans-serif;
 }
 
-.AddTournament--form-element > input {
+.AddTournament--form-element > input,
+.AddTournament--form-element-checkbox > input {
   font-family: "Montserrat", sans-serif;
   font-size: 18px;
   width: 100%;
@@ -36,6 +50,10 @@
   border: 1px solid #e6e6e6;
   height: 40px;
   border-radius: 10px;
+}
+
+.AddTournament--form-element-checkbox > input {
+  width: 25px;
 }
 
 .AddTournament--submit-button-box {

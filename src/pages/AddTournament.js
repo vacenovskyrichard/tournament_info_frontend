@@ -1,5 +1,6 @@
-import { useForm, Controller } from "react-hook-form";
 import "../styles/AddTournament.css";
+import "../styles/Common.css";
+import { useForm, Controller } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import jwt_decode from "jwt-decode";
 import Select from "react-select";
@@ -21,7 +22,6 @@ export default function AddTournament({
     data.user_id = jwt_decode(token.access_token).sub;
     data.category = data.category.label;
     data.level = data.level.label;
-    data.registration_enabled = false;
     console.log(data);
     fetch(`${apiUrl}/post`, {
       method: "POST",
@@ -73,7 +73,9 @@ export default function AddTournament({
                 },
               })}
             />
-            {errors.name && <p>{errors.name?.message}</p>}
+            {errors.name && (
+              <p className="error-message">{errors.name?.message}</p>
+            )}
           </div>
 
           {/* Tournament date */}
@@ -89,7 +91,9 @@ export default function AddTournament({
                 },
               })}
             />
-            {errors.date && <p>{errors.date?.message}</p>}
+            {errors.date && (
+              <p className="error-message">{errors.date?.message}</p>
+            )}
           </div>
 
           {/* Tournament city */}
@@ -105,8 +109,11 @@ export default function AddTournament({
                 },
               })}
             />
-            {errors.city && <p>{errors.city?.message}</p>}
+            {errors.city && (
+              <p className="error-message">{errors.city?.message}</p>
+            )}
           </div>
+
           {/* Tournament areal */}
           <div className="AddTournament--form-element">
             <label>Název areálu</label>
@@ -120,8 +127,11 @@ export default function AddTournament({
                 },
               })}
             />
-            {errors.areal && <p>{errors.areal?.message}</p>}
+            {errors.areal && (
+              <p className="error-message"> {errors.areal?.message}</p>
+            )}
           </div>
+
           {/* Tournament capacity */}
           <div className="AddTournament--form-element">
             <label>Kapacita</label>
@@ -140,8 +150,11 @@ export default function AddTournament({
                 },
               })}
             />
-            {errors.capacity && <p>{errors.capacity?.message}</p>}
+            {errors.capacity && (
+              <p className="error-message">{errors.capacity?.message}</p>
+            )}
           </div>
+
           {/* Tournament price */}
           <div className="AddTournament--form-element">
             <label>Startovné (za osobu)</label>
@@ -160,8 +173,11 @@ export default function AddTournament({
                 },
               })}
             />
-            {errors.price && <p>{errors.price?.message}</p>}
+            {errors.price && (
+              <p className="error-message">{errors.price?.message}</p>
+            )}
           </div>
+
           {/* Tournament start */}
           <div className="AddTournament--form-element">
             <label>Začátek turnaje</label>
@@ -194,7 +210,9 @@ export default function AddTournament({
                 }
               }}
             />
-            {errors.start && <p>{errors.start?.message}</p>}
+            {errors.start && (
+              <p className="error-message">{errors.start?.message}</p>
+            )}
           </div>
 
           {/* Tournament organizer */}
@@ -210,7 +228,9 @@ export default function AddTournament({
                 },
               })}
             />
-            {errors.organizer && <p>{errors.organizer?.message}</p>}
+            {errors.organizer && (
+              <p className="error-message">{errors.organizer?.message}</p>
+            )}
           </div>
 
           {/* Tournament category */}
@@ -292,7 +312,20 @@ export default function AddTournament({
                 },
               })}
             />
-            {errors.link && <p>{errors.link?.message}</p>}
+            {errors.link && (
+              <p className="error-message">{errors.link?.message}</p>
+            )}
+          </div>
+
+          {/* Enable logging with turnajky.cz */}
+          <div className="AddTournament--form-element-checkbox">
+            <label>Povolit přihlašování přes turnajky.cz</label>
+
+            <input
+              type="checkbox"
+              name="registration_enabled"
+              {...register("registration_enabled")}
+            />
           </div>
 
           {/* Submit button */}

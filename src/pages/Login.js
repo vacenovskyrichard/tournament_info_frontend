@@ -83,6 +83,7 @@ function Login({ setToken, apiUrl, isTabletOrMobile }) {
       .then((response) => {
         console.log("STATUS CODE:" + response.status);
         setToken(response.data);
+        localStorage.setItem("isPlayer", isPlayer);
         console.log(response.data);
         navigate("/");
       })

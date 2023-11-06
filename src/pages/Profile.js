@@ -43,16 +43,24 @@ function Profile({
         },
       })
       .then((response) => {
-        const new_access_token = response.headers.get("new_access_token");
-        if (new_access_token !== "None") {
-          console.log("new_access_token has been set");
-          setToken({ access_token: new_access_token });
+        if (response.status === 200) {
+          const new_access_token = response.headers.get("new_access_token");
+          if (new_access_token !== "None") {
+            console.log("new_access_token has been set");
+            setToken({ access_token: new_access_token });
+          }
+          return response;
+        } else {
+          alert("Turnaj se nepodařilo smazat.");
         }
-        return response;
       })
       .then(() => window.location.reload(false))
       .catch((error) => {
         console.error("Error:", error);
+        alert(
+          "Turnaj se nepodařilo smazat (na turnaj nesmí být přihlášeny žádné dvojice)."
+        );
+
         // Handle errors here
       });
   };
@@ -184,13 +192,21 @@ function Profile({
 
   // filter user tournaments and show all, if user is admin
   const userId = token ? jwt_decode(token.access_token).sub : "";
-  var userTournaments = "";
+  var userTournaments = [];
   if (userData) {
     userTournaments =
       userData.role === "admin"
         ? tournamentsData
         : tournamentsData.filter((tournament) => tournament.user_id === userId);
   }
+
+  // Function to compare dates in "YYYY-MM-DD" format
+  function compareDates(dateA, dateB) {
+    return dateA.localeCompare(dateB);
+  }
+
+  // Sort data by date
+  userTournaments.sort((a, b) => compareDates(a.date, b.date));
 
   // creates tournament with random data - used for testing
   const create_random_tournament = () => {
