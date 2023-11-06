@@ -267,7 +267,7 @@ export default function MyCalendar({
           </div>
         )}
       </Modal>
-      <div
+      {/* <div
         className={
           isTabletOrMobile
             ? "Calendar--url-button-box-mobile "
@@ -275,8 +275,8 @@ export default function MyCalendar({
         }
       >
         <button onClick={generateCalendarUrl}>Vygenerovat URL</button>
-      </div>
-      <Modal
+      </div> */}
+      {/* <Modal
         open={calendarUrl !== null}
         onClose={() => setCalendarUrl(null)}
         classNames={{
@@ -291,7 +291,7 @@ export default function MyCalendar({
             </p>
           </div>
         )}
-      </Modal>
+      </Modal> */}
     </div>
   );
 }
