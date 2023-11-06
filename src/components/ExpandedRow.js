@@ -24,6 +24,13 @@ export default function ExpandedComponent({
   const { register, control, handleSubmit, formState } = useForm();
   const { errors } = formState;
 
+  const splitArray = (arr, index) => {
+    const firstPart = arr.slice(0, index);
+    const secondPart = arr.slice(index);
+
+    return [firstPart, secondPart];
+  };
+
   const isSigned =
     loading || signedTeams === "Unauthorized"
       ? ""
@@ -33,6 +40,11 @@ export default function ExpandedComponent({
     loading || signedTeams === "Unauthorized"
       ? []
       : signedTeams[data.id]["teams"];
+
+  const [mainTeams, subTeams] =
+    teams.length > data.capacity
+      ? splitArray(teams, data.capacity)
+      : [teams, []];
 
   // calculate time from last update every
   useEffect(() => {
@@ -238,16 +250,6 @@ export default function ExpandedComponent({
                 </form>
               )}
 
-              {/* {!showTemmateForm && !isSigned && !loading && (
-                <div
-                  className="Data--login-to-tournament-btn"
-                  onClick={() => {
-                    setShowTemmateForm(true);
-                  }}
-                >
-                  Přihlásit
-                </div>
-              )} */}
               {isSigned && !loading && (
                 <div
                   className="Data--logout-from-tournament-btn"
@@ -270,13 +272,25 @@ export default function ExpandedComponent({
           ) : (
             <div>
               <h3>Přihlášené týmy</h3>
-              {teams &&
-                teams.map((team, index) => (
+              {mainTeams &&
+                mainTeams.map((team, index) => (
                   <p key={index}>
                     {index + 1}. {team.player1_name} {team.player1_surname} /{" "}
                     {team.player2_name} {team.player2_surname}
                   </p>
                 ))}
+
+              {subTeams.length > 0 && (
+                <>
+                  <h3>Náhradníci</h3>
+                  {subTeams.map((team, index) => (
+                    <p key={index}>
+                      {index + 1}. {team.player1_name} {team.player1_surname} /{" "}
+                      {team.player2_name} {team.player2_surname}
+                    </p>
+                  ))}
+                </>
+              )}
             </div>
           )}
         </div>

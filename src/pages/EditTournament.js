@@ -236,35 +236,37 @@ export default function EditTournament({
           </div>
 
           {/* Tournament number of signed teams */}
-          <div className="EditTournament--form-element">
-            <h3>Počet přihlášených týmů</h3>
-            {!editSigned ? (
-              <p>
-                {editedTournament && editedTournament.signed}{" "}
-                <button onClick={() => setEditSigned(true)}>editovat</button>
-              </p>
-            ) : (
-              <form onSubmit={handleSubmit(onSubmit)}>
-                <input
-                  type="text"
-                  name="signed"
-                  defaultValue={editedTournament && editedTournament.signed}
-                  {...register("signed", {
-                    required: {
-                      value: true,
-                      message: "Zadejte počet přihlášených týmů.",
-                    },
+          {editedTournament && !editedTournament.registration_enabled && (
+            <div className="EditTournament--form-element">
+              <h3>Počet přihlášených týmů</h3>
+              {!editSigned ? (
+                <p>
+                  {editedTournament && editedTournament.signed}{" "}
+                  <button onClick={() => setEditSigned(true)}>editovat</button>
+                </p>
+              ) : (
+                <form onSubmit={handleSubmit(onSubmit)}>
+                  <input
+                    type="text"
+                    name="signed"
+                    defaultValue={editedTournament && editedTournament.signed}
+                    {...register("signed", {
+                      required: {
+                        value: true,
+                        message: "Zadejte počet přihlášených týmů.",
+                      },
 
-                    pattern: {
-                      value: /^\d+$/,
-                      message: "Zadaná hodnota není validní",
-                    },
-                  })}
-                />
-                <button type="submit">uložit</button>
-              </form>
-            )}
-          </div>
+                      pattern: {
+                        value: /^\d+$/,
+                        message: "Zadaná hodnota není validní",
+                      },
+                    })}
+                  />
+                  <button type="submit">uložit</button>
+                </form>
+              )}
+            </div>
+          )}
 
           {/* Tournament price */}
           <div className="EditTournament--form-element">
