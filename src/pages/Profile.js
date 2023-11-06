@@ -17,7 +17,6 @@ function Profile({
   apiUrl,
   setTournamentToEditId,
   isTabletOrMobile,
-  loadingMainTable,
 }) {
   const [userData, setUserData] = useState({
     id: "",
@@ -29,6 +28,7 @@ function Profile({
 
   const [logged, setLogged] = useState(true);
   const [requestSent, setRequestSent] = useState(false);
+  const [loading, setLoading] = useState(true);
 
   const navigate = useNavigate();
 
@@ -221,60 +221,38 @@ function Profile({
   const [userTournaments, setUserTournaments] = useState([]);
 
   useEffect(() => {
-    if (userData && tournamentsData.length > 0) {
-      console.log("tournamentsData");
-      console.log(tournamentsData);
-      if (localStorage.getItem("isPlayer") === "true") {
-        const at = token ? token.access_token : "";
-        fetch(`${apiUrl}/get_teams`, {
-          method: "POST",
+    if (localStorage.getItem("isPlayer") === "true") {
+      if (userId != "") {
+        fetch(`${apiUrl}/get_players_tournaments/${userId}/`, {
+          method: "GET",
           headers: {
             "Content-Type": "application/json",
-            Authorization: `Bearer ${at}`,
           },
-          body: JSON.stringify({ userId: userId }),
         })
           .then((resp) => {
-            if (resp.status === 200) {
-              return resp.json();
-            } else {
-              return "Unauthorized";
-            }
+            return resp.json();
           })
-          .then((response) => {
-            return Object.keys(response).filter(
-              (key) => response[key].isSigned === true
-            );
+          .then((resp) => {
+            console.log("resp");
+            console.log(resp);
+            setUserTournaments(resp);
+            setLoading(false);
           })
-          .then((tournament_ids) => {
-            return tournamentsData.filter((tournament) =>
-              tournament_ids.includes(tournament.id)
-            );
-          })
-          .then((tournaments) => {
-            console.log("TOURNAMENRS!!!");
-            console.log(tournaments);
-            setUserTournaments(tournaments);
-          })
-
           .catch((error) => {
-            if (error.response) {
-              console.log(error.response);
-              console.log(error.response.status);
-              console.log(error.response.headers);
-            }
+            console.error("Error:", error);
           });
-      } else {
-        setUserTournaments(
-          userData.role === "admin"
-            ? tournamentsData
-            : tournamentsData.filter(
-                (tournament) => tournament.user_id === userId
-              )
-        );
       }
+    } else {
+      setUserTournaments(
+        userData.role === "admin"
+          ? tournamentsData
+          : tournamentsData.filter(
+              (tournament) => tournament.user_id === userId
+            )
+      );
+      setLoading(false);
     }
-  }, [loadingMainTable, tournamentsData, userData]);
+  }, [userData, token]);
 
   // Function to compare dates in "YYYY-MM-DD" format
   function compareDates(dateA, dateB) {
@@ -392,7 +370,7 @@ function Profile({
                 pagination
                 customStyles={customStyles}
                 noDataComponent={
-                  loadingMainTable ? (
+                  loading ? (
                     <h3 style={{ fontSize: "30px" }}>Data se načítají...</h3>
                   ) : localStorage.getItem("isPlayer") === "true" ? (
                     <h3 style={{ fontSize: "30px" }}>
