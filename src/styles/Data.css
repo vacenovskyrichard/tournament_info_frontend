@@ -5,34 +5,6 @@
   /* margin: 10px; */
 }
 
-.Data--expanded-data-box {
-  display: flex;
-  flex-direction: row;
-  align-items: start;
-  border-bottom: 1px solid black;
-  background-color: rgb(216, 216, 216);
-  /* font-family: "Bebas Neue", sans-serif; */
-  font-family: "PT Serif", serif;
-  /* font-family: "Montserrat, sans-serif"; */
-  width: 100%;
-}
-
-.Data--expanded-left {
-  margin: 10px 25px;
-  font-size: 23px;
-  width: 55%;
-}
-
-.Data--expanded-right {
-  display: flex;
-  margin: 10px 25px;
-  width: 50%;
-  flex-direction: column;
-  justify-content: start;
-  align-items: center;
-  font-size: 23px;
-}
-
 .Data--content-buttons,
 .Data--content-buttons-mobile {
   width: 75%;
@@ -94,49 +66,6 @@
 
 .Data--tournament-table-mobile .rdt_Pagination {
   font-size: 20px;
-}
-
-.Data--login-to-tournament-btn {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background-image: linear-gradient(
-    90deg,
-    rgba(255, 164, 46, 1) 0%,
-    rgba(247, 28, 61, 1) 100%
-  );
-  transition: box-shadow 0.3s;
-  font-size: 22px;
-  font-family: "PT Serif", serif;
-  /* font-family: "Bebas Neue", sans-serif; */
-  font-style: italic;
-  color: rgb(245, 245, 245);
-  border-radius: 20px;
-  height: 30px;
-  width: 50%;
-  margin-left: 15px;
-}
-.Data--logout-from-tournament-btn {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background-color: red;
-  transition: box-shadow 0.3s;
-  font-size: 22px;
-  font-family: "PT Serif", serif;
-  /* font-family: "Bebas Neue", sans-serif; */
-  font-style: italic;
-  color: rgb(245, 245, 245);
-  border-radius: 20px;
-  height: 30px;
-  width: 50%;
-  margin-left: 15px;
-}
-
-.Data--login-to-tournament-btn:hover,
-.Data--logout-from-tournament-btn:hover {
-  cursor: pointer;
-  box-shadow: 0 0 11px rgba(33, 33, 33, 0.7);
 }
 
 .custom-no-data-background > div > div > div {

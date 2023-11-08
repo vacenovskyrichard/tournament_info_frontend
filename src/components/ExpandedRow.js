@@ -169,84 +169,85 @@ export default function ExpandedComponent({
 
   // return component for expandable row
   return (
-    <div className="Data--expanded-data-box">
-      <div className="Data--expanded-left">
-        <h3>Detail</h3>
-        <p>
-          {whitespaces(5)}Název:{whitespaces(10)}
-          {data.name}
-        </p>
-        <p>
-          {whitespaces(5)}
-          Cena:{whitespaces(12)}
-          {data.price},- (na osobu)
-        </p>
-        <p>
-          {whitespaces(5)}Start:{whitespaces(9)} {data.start}
-        </p>
-        <p>
-          {whitespaces(5)}Pořádá: {whitespaces(6)}
-          {data.organizer}
-        </p>
-        <div>
-          <p>
-            {whitespaces(5)}
-            Odkaz:{whitespaces(10)}
+    <div className="ExpandedRow--main">
+      <div className="ExpandedRow--left">
+        <h3 className="ExpandedRow--title">Detail</h3>
+        <div className="ExpandedRow--details">
+          <div className="ExpandedRow--details-labels">
+            <p>Název:</p>
+            <p>Cena:</p>
+            <p>Start:</p>
+            <p>Pořádá:</p>
+            <p>Odkaz:</p>
+          </div>
+          <div className="ExpandedRow--details-data">
+            <p>{data.name} </p>
+            <p>{data.price},- (na osobu)</p>
+            <p>{data.start}</p>
+            <p>{data.organizer}</p>
             <a href={data.link}>{data.link}</a>
-          </p>
+          </div>
         </div>
+
         {data.registration_enabled && token.role === "player" && token && (
           <>
+            <h3 className="ExpandedRow--title">Přihlášení</h3>
             {!isSigned && (
               <form
                 className="ExpandedRow--sign-form"
                 onSubmit={handleSubmit(signToTournament)}
               >
-                <h3>Přihlášení</h3>
-                <div className="ExpandedRow-form-box">
-                  <label>
-                    {whitespaces(5)}Jméno spoluhráče:{whitespaces(7)}
-                  </label>
-                  <input
-                    type="text"
-                    name="name"
-                    {...register("name", {
-                      required: {
-                        value: true,
-                        message: "Zadejte jméno spoluhráče",
-                      },
-                    })}
-                  />
-                  {errors.name && (
-                    <p className="error-message">
-                      {whitespaces(10)}
-                      {errors.name?.message}
+                <div className="ExpandedRow--sign-form-main">
+                  <div className="ExpandedRow--details-labels">
+                    <p>Jméno spoluhráče:</p>
+                    <p>Příjmení spoluhráče:</p>
+                  </div>
+
+                  <div className="ExpandedRow--details-data">
+                    <p className="ExpandedRow-form-box">
+                      <input
+                        type="text"
+                        name="name"
+                        {...register("name", {
+                          required: {
+                            value: true,
+                            message: "Zadejte jméno spoluhráče",
+                          },
+                        })}
+                      />
+                      {errors.name && (
+                        <p className="error-message">
+                          {whitespaces(10)}
+                          {errors.name?.message}
+                        </p>
+                      )}
                     </p>
-                  )}
-                </div>
-                <div className="ExpandedRow-form-box">
-                  <label>
-                    {whitespaces(5)}Příjmení spoluhráče:{whitespaces(2)}
-                  </label>
-                  <input
-                    type="text"
-                    name="surname"
-                    {...register("surname", {
-                      required: {
-                        value: true,
-                        message: "Zadejte příjmení spoluhráče",
-                      },
-                    })}
-                  />
-                  {errors.surname && (
-                    <p className="error-message">
-                      {" "}
-                      {whitespaces(10)}
-                      {errors.surname?.message}
+                    <p className="ExpandedRow-form-box">
+                      <input
+                        type="text"
+                        name="surname"
+                        {...register("surname", {
+                          required: {
+                            value: true,
+                            message: "Zadejte příjmení spoluhráče",
+                          },
+                        })}
+                      />
+                      {errors.surname && (
+                        <p className="error-message">
+                          {" "}
+                          {whitespaces(10)}
+                          {errors.surname?.message}
+                        </p>
+                      )}
                     </p>
-                  )}
+                  </div>
                 </div>
-                <button className="Data--login-to-tournament-btn" type="submit">
+
+                <button
+                  className="ExpandedRow--login-to-tournament-btn"
+                  type="submit"
+                >
                   Přihlásit
                 </button>
               </form>
@@ -254,7 +255,7 @@ export default function ExpandedComponent({
 
             {isSigned && !loading && (
               <div
-                className="Data--logout-from-tournament-btn"
+                className="ExpandedRow--logout-from-tournament-btn"
                 onClick={signOutTorunament}
               >
                 Odhlásit
@@ -268,12 +269,12 @@ export default function ExpandedComponent({
       </div>
 
       {data.registration_enabled && (
-        <div className="Data--expanded-right">
+        <div className="ExpandedRow--right">
+          <h3 className="ExpandedRow--title">Přihlášené týmy</h3>
           {loading ? (
             <h3>Loading...</h3>
           ) : (
             <div>
-              <h3>Přihlášené týmy</h3>
               {mainTeams &&
                 mainTeams.map((team, index) => (
                   <p key={index}>
@@ -282,17 +283,14 @@ export default function ExpandedComponent({
                   </p>
                 ))}
 
-              {subTeams.length > 0 && (
-                <>
-                  <h3>Náhradníci</h3>
-                  {subTeams.map((team, index) => (
-                    <p key={index}>
-                      {index + 1}. {team.player1_name} {team.player1_surname} /{" "}
-                      {team.player2_name} {team.player2_surname}
-                    </p>
-                  ))}
-                </>
-              )}
+              <h3 className="ExpandedRow--title">Náhradníci</h3>
+              {subTeams.length > 0 &&
+                subTeams.map((team, index) => (
+                  <p key={index}>
+                    {index + 1}. {team.player1_name} {team.player1_surname} /{" "}
+                    {team.player2_name} {team.player2_surname}
+                  </p>
+                ))}
             </div>
           )}
         </div>
