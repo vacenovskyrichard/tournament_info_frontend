@@ -4,8 +4,16 @@ import { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { useGoogleLogin } from "@react-oauth/google";
+import useToken from "../components/useToken";
+import { useRecoilValue } from "recoil";
+import { apiUrlState } from "../state/atoms/ApiUrlState";
 
-function Login({ setToken, apiUrl, isTabletOrMobile }) {
+function Login({ isTabletOrMobile }) {
+  const apiUrl = useRecoilValue(apiUrlState);
+  const { setToken, token } = useToken();
+  console.log("token");
+  console.log(token);
+
   const [registrationFailed, setRegistrationFailed] = useState(false);
   const [isPlayer, setIsPlayer] = useState(true);
   const navigate = useNavigate();
@@ -25,7 +33,6 @@ function Login({ setToken, apiUrl, isTabletOrMobile }) {
     })
       .then((response) => {
         setToken(response.data);
-        localStorage.setItem("isPlayer", isPlayer);
         navigate("/");
       })
       .catch((error) => {
@@ -83,7 +90,6 @@ function Login({ setToken, apiUrl, isTabletOrMobile }) {
       .then((response) => {
         console.log("STATUS CODE:" + response.status);
         setToken(response.data);
-        localStorage.setItem("isPlayer", isPlayer);
         console.log(response.data);
         navigate("/");
       })

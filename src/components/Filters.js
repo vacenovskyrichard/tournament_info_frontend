@@ -4,17 +4,19 @@ import "../styles/Filters.css";
 import Filter from "./Filter";
 import { Controller } from "react-hook-form";
 import Select from "react-select";
+import { useRecoilValue } from "recoil";
+import { apiUrlState } from "../state/atoms/ApiUrlState";
 
 export default function Filters({
   data,
   setData,
-  apiUrl,
   setFilterResults,
   filterOptions,
   isTabletOrMobile,
 }) {
   const { control, handleSubmit, register, errors } = useForm();
 
+  const apiUrl = useRecoilValue(apiUrlState);
   const filter_values = {
     areals: new Set(),
     cities: new Set(),

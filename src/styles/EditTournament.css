@@ -4,7 +4,8 @@
   align-items: center;
   background-color: rgb(216, 216, 216);
   justify-content: center;
-  font-family: "Bebas Neue", sans-serif;
+  /* font-family: "Bebas Neue", sans-serif; */
+  font-family: "PT Serif", serif;
   width: 100%;
 }
 
@@ -77,7 +78,8 @@
 
 .EditTournament--form-element > p > button,
 .EditTournament--form-element > form > button {
-  font-family: "Bebas Neue", sans-serif;
+  /* font-family: "Bebas Neue", sans-serif; */
+  font-family: "PT Serif", serif;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -112,7 +114,8 @@
   height: 60px;
   background-color: rgb(37, 31, 31);
   border-radius: 10px;
-  font-family: "Bebas Neue", sans-serif;
+  /* font-family: "Bebas Neue", sans-serif; */
+  font-family: "PT Serif", serif;
   font-size: 28px;
   color: rgb(216, 216, 216);
   margin-top: 10px;

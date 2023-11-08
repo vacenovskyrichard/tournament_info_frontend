@@ -8,21 +8,26 @@ import Register from "./pages/Register";
 import ChangePassword from "./pages/ChangePassword";
 import ForgotPassword from "./pages/ForgotPassword";
 import Profile from "./pages/Profile";
-import useToken from "./components/useToken";
 import { useEffect, useState } from "react";
 import { useMediaQuery } from "react-responsive";
+import { useRecoilState, useSetRecoilState } from "recoil";
+import { tournamentsState } from "./state/atoms/TournamentsState";
+import { apiUrlState } from "./state/atoms/ApiUrlState";
 
 function App() {
-  const { setToken, token, removeToken } = useToken();
-  const [tournamentsData, setTournamentsData] = useState([]);
+  const setTournaments = useSetRecoilState(tournamentsState);
+  const [apiUrl, setApiUrl] = useRecoilState(apiUrlState);
   const [filterOptions, setFilterOptions] = useState([]);
   const [tournamentToEditId, setTournamentToEditId] = useState();
   const [loadingMainTable, setLoadingMainTable] = useState(true);
+
+  // eslint-disable-next-line
   const localhost = "http://127.0.0.1:5000";
   // eslint-disable-next-line
   const production = "https://jdem-hrat-58da3e527841.herokuapp.com";
 
-  const apiUrl = production;
+  setApiUrl(localhost);
+
   useEffect(() => {
     fetch(`${apiUrl}/get`, {
       method: "GET",
@@ -35,7 +40,7 @@ function App() {
       })
       .then((resp) => {
         // save tournament data to state and format last update time
-        setTournamentsData(
+        setTournaments(
           resp.map((tournament) => {
             const [last_update_date, last_update_time] =
               tournament.last_update.split("T");
@@ -64,7 +69,6 @@ function App() {
 
   // eslint-disable-next-line
   const isPortrait = useMediaQuery({ query: "(orientation: portrait)" });
-
   const isTabletOrMobile = useMediaQuery({ query: "(max-width: 1224px)" });
 
   return (
@@ -75,12 +79,6 @@ function App() {
             index
             element={
               <Homepage
-                token={token}
-                removeToken={removeToken}
-                setToken={setToken}
-                tournamentsData={tournamentsData}
-                setTournamentsData={setTournamentsData}
-                apiUrl={apiUrl}
                 filterOptions={filterOptions}
                 isTabletOrMobile={isTabletOrMobile}
                 loadingMainTable={loadingMainTable}
@@ -89,77 +87,33 @@ function App() {
           />
           <Route
             path="/add_tournament"
-            element={
-              <AddTournament
-                token={token}
-                removeToken={removeToken}
-                setToken={setToken}
-                apiUrl={apiUrl}
-                isTabletOrMobile={isTabletOrMobile}
-              />
-            }
+            element={<AddTournament isTabletOrMobile={isTabletOrMobile} />}
           />
           <Route
             path="/edit_tournament"
             element={
               <EditTournament
-                token={token}
-                removeToken={removeToken}
-                setToken={setToken}
-                apiUrl={apiUrl}
                 tournamentToEditId={tournamentToEditId}
-                tournamentsData={tournamentsData}
-                setTournamentsData={setTournamentsData}
                 isTabletOrMobile={isTabletOrMobile}
               />
             }
           />
           <Route
             path="/login"
-            element={
-              <Login
-                token={token}
-                removeToken={removeToken}
-                setToken={setToken}
-                apiUrl={apiUrl}
-                isTabletOrMobile={isTabletOrMobile}
-              />
-            }
+            element={<Login isTabletOrMobile={isTabletOrMobile} />}
           />
           <Route
             path="/register"
-            element={
-              <Register
-                token={token}
-                removeToken={removeToken}
-                setToken={setToken}
-                apiUrl={apiUrl}
-                isTabletOrMobile={isTabletOrMobile}
-              />
-            }
+            element={<Register isTabletOrMobile={isTabletOrMobile} />}
           />
           <Route
             path="/forgot_password"
-            element={
-              <ForgotPassword
-                token={token}
-                removeToken={removeToken}
-                setToken={setToken}
-                apiUrl={apiUrl}
-                isTabletOrMobile={isTabletOrMobile}
-              />
-            }
+            element={<ForgotPassword isTabletOrMobile={isTabletOrMobile} />}
           />
           <Route
             path="/profile"
             element={
               <Profile
-                token={token}
-                removeToken={removeToken}
-                setToken={setToken}
-                tournamentsData={tournamentsData}
-                setTournamentsData={setTournamentsData}
-                apiUrl={apiUrl}
                 setTournamentToEditId={setTournamentToEditId}
                 isTabletOrMobile={isTabletOrMobile}
                 loadingMainTable={loadingMainTable}
@@ -170,12 +124,6 @@ function App() {
             path="/change_password"
             element={
               <ChangePassword
-                token={token}
-                removeToken={removeToken}
-                setToken={setToken}
-                tournamentsData={tournamentsData}
-                setTournamentsData={setTournamentsData}
-                apiUrl={apiUrl}
                 setTournamentToEditId={setTournamentToEditId}
                 isTabletOrMobile={isTabletOrMobile}
               />
@@ -183,15 +131,7 @@ function App() {
           />
           <Route
             path="*"
-            element={
-              <Nopage
-                token={token}
-                removeToken={removeToken}
-                setToken={setToken}
-                apiUrl={apiUrl}
-                isTabletOrMobile={isTabletOrMobile}
-              />
-            }
+            element={<Nopage isTabletOrMobile={isTabletOrMobile} />}
           />
         </Routes>
       </BrowserRouter>

@@ -7,24 +7,15 @@ import Navbar from "../components/Navbar";
 import { useNavigate } from "react-router-dom";
 import { Modal } from "react-responsive-modal";
 import Footer from "../components/Footer";
+import { sortedTorunamentsState } from "../state/selectors/SortedTournaments";
+import useToken from "../components/useToken";
+import { useRecoilValue } from "recoil";
+import { apiUrlState } from "../state/atoms/ApiUrlState";
 
-function Profile({
-  token,
-  removeToken,
-  setToken,
-  tournamentsData,
-  setTournamentsData,
-  apiUrl,
-  setTournamentToEditId,
-  isTabletOrMobile,
-}) {
-  const [userData, setUserData] = useState({
-    id: "",
-    name: "",
-    surname: "",
-    email: "",
-    role: "",
-  });
+function Profile({ setTournamentToEditId, isTabletOrMobile }) {
+  const apiUrl = useRecoilValue(apiUrlState);
+  const { setToken, token, removeToken } = useToken();
+  const tournaments = useRecoilValue(sortedTorunamentsState);
 
   const [logged, setLogged] = useState(true);
   const [requestSent, setRequestSent] = useState(false);
@@ -39,20 +30,8 @@ function Profile({
     axios
       .delete(`${apiUrl}/delete/${id}/`, {
         headers: {
-          Authorization: `Bearer ${token.access_token}`,
+          Authorization: `Bearer ${token.accessToken}`,
         },
-      })
-      .then((response) => {
-        if (response.status === 200) {
-          const new_access_token = response.headers.get("new_access_token");
-          if (new_access_token !== "None") {
-            console.log("new_access_token has been set");
-            setToken({ access_token: new_access_token });
-          }
-          return response;
-        } else {
-          alert("Turnaj se nepodařilo smazat.");
-        }
       })
       .then(() => window.location.reload(false))
       .catch((error) => {
@@ -80,19 +59,21 @@ function Profile({
         color: "rgb(245,245,245)",
         fontSize: "23px",
         // fontWeight: "600",
-        fontFamily: "Bebas Neue",
+        // fontFamily: "Bebas Neue",
+        fontFamily: "PT Serif, serif",
       },
     },
     cells: {
       style: {
         fontSize: "23px",
-        fontFamily: "Bebas Neue",
+        // fontFamily: "Bebas Neue",
+        fontFamily: "PT Serif, serif",
       },
     },
     background: "rgb(216, 216, 216);",
   };
   const columns =
-    localStorage.getItem("isPlayer") === "true"
+    token.role === "player"
       ? [
           {
             name: "Datum",
@@ -177,53 +158,13 @@ function Profile({
           },
         ];
 
-  useEffect(() => {
-    console.log("token");
-    console.log(token);
-    const isPlayer = localStorage.getItem("isPlayer") === "true";
-    const at = token ? token.access_token : "";
-    fetch(`${apiUrl}/user_info`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${at}`,
-      },
-      body: JSON.stringify({ user_id: userId, isPlayer: isPlayer }),
-    })
-      .then((response) => {
-        if (response.status === 401 || response.status === 422) {
-          // Handle the 401 error here, for example:
-          // Redirect the user to a login page or display an error message
-          console.log("Unauthorized: Token expired or invalid");
-          removeToken();
-          setLogged(false);
-        }
-        if (response.status === 200) {
-          const new_access_token = response.headers.get("new_access_token");
-          if (new_access_token !== "None") {
-            console.log("new_access_token has been set");
-            setToken({ access_token: new_access_token });
-          }
-          return response.json();
-        }
-      })
-      .then((response) => {
-        console.log(response);
-        setUserData(response);
-      })
-      .catch((error) => {
-        console.log("Other error ocured.");
-      }); // eslint-disable-next-line
-  }, []);
-
   // filter user tournaments and show all, if user is admin
-  const userId = token ? jwt_decode(token.access_token).sub : "";
   const [userTournaments, setUserTournaments] = useState([]);
 
   useEffect(() => {
-    if (localStorage.getItem("isPlayer") === "true") {
-      if (userId != "") {
-        fetch(`${apiUrl}/get_players_tournaments/${userId}/`, {
+    if (token.role === "player") {
+      if (token.id != "") {
+        fetch(`${apiUrl}/get_players_tournaments/${token.id}/`, {
           method: "GET",
           headers: {
             "Content-Type": "application/json",
@@ -244,23 +185,13 @@ function Profile({
       }
     } else {
       setUserTournaments(
-        userData.role === "admin"
-          ? tournamentsData
-          : tournamentsData.filter(
-              (tournament) => tournament.user_id === userId
-            )
+        token.role === "admin"
+          ? tournaments
+          : tournaments.filter((tournament) => tournament.user_id === token.id)
       );
       setLoading(false);
     }
-  }, [userData, token]);
-
-  // Function to compare dates in "YYYY-MM-DD" format
-  function compareDates(dateA, dateB) {
-    return dateA.localeCompare(dateB);
-  }
-
-  // Sort data by date
-  userTournaments.sort((a, b) => compareDates(a.date, b.date));
+  }, [token]);
 
   // creates tournament with random data - used for testing
   const create_random_tournament = () => {
@@ -284,7 +215,7 @@ function Profile({
       organizer: "Random Name",
       price: 400,
       start: "10:00",
-      user_id: jwt_decode(token.access_token).sub,
+      user_id: jwt_decode(token.accessToken).sub,
       registration_enabled: false,
     };
 
@@ -292,7 +223,7 @@ function Profile({
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        Authorization: `Bearer ${token.access_token}`,
+        Authorization: `Bearer ${token.accessToken}`,
       },
       body: JSON.stringify(data),
     })
@@ -310,7 +241,7 @@ function Profile({
       method: "POST",
       url: `${apiUrl}/request_organizer`,
       data: {
-        id: userData.id,
+        id: token.id,
       },
     })
       .then((resp) => {
@@ -329,14 +260,7 @@ function Profile({
 
   return (
     <>
-      <Navbar
-        token={token}
-        removeToken={removeToken}
-        setToken={setToken}
-        apiUrl={apiUrl}
-        title={"Profil"}
-        isTabletOrMobile={isTabletOrMobile}
-      />
+      <Navbar title={"Profil"} isTabletOrMobile={isTabletOrMobile} />
       {logged ? (
         <div className="Profile--main">
           {token && (
@@ -345,16 +269,16 @@ function Profile({
               <div className="Profile--user-data-box">
                 <p>Jméno:</p>
                 <p>
-                  {userData.name} {userData.surname}{" "}
+                  {token.name} {token.surname}{" "}
                 </p>
               </div>
               <div className="Profile--user-data-box">
                 <p>Email:</p>
-                <p>{userData.email}</p>
+                <p>{token.email}</p>
               </div>
               <div className="Profile--user-data-box">
                 <p>Role:</p>
-                <p>{userData.role}</p>
+                <p>{token.role}</p>
               </div>
               <div className="Profile--change-passwor-box">
                 <a href="./change_password">Změnit heslo</a>
@@ -363,7 +287,7 @@ function Profile({
           )}
           <div className="Profile--tournament-table">
             <h1>Moje Turnaje</h1>
-            {userTournaments && userData.role !== "basic" && (
+            {userTournaments && token.role !== "basic" && (
               <DataTable
                 columns={columns}
                 data={userTournaments}
@@ -372,7 +296,7 @@ function Profile({
                 noDataComponent={
                   loading ? (
                     <h3 style={{ fontSize: "30px" }}>Data se načítají...</h3>
-                  ) : localStorage.getItem("isPlayer") === "true" ? (
+                  ) : token.role === "player" ? (
                     <h3 style={{ fontSize: "30px" }}>
                       Nejste přihlášeni na žádný turnaj
                     </h3>
@@ -389,17 +313,17 @@ function Profile({
             )}
           </div>
           <div className="Profile--buttons">
-            {(userData.role === "admin" || userData.role === "organizer") && (
+            {(token.role === "admin" || token.role === "organizer") && (
               <button onClick={() => navigate("/add_tournament")}>
                 Přidat turnaj
               </button>
             )}
-            {userData.role === "admin" && (
+            {token.role === "admin" && (
               <button onClick={create_random_tournament}>
                 Přidat random turnaj
               </button>
             )}
-            {userData.role === "basic" &&
+            {token.role === "basic" &&
               (requestSent ? (
                 <h3 className="Profile-request-sent">
                   Žádost byla úspěšně poslána!

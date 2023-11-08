@@ -31,7 +31,8 @@
 .login-form-title {
   width: 100%;
   display: block;
-  font-family: "Bebas Neue", sans-serif;
+  /* font-family: "Bebas Neue", sans-serif; */
+  font-family: "PT Serif", serif;
   font-size: 39px;
   /* color: #555; */
   background-image: linear-gradient(
@@ -153,7 +154,8 @@
 }
 
 .Login--label {
-  font-family: "Bebas Neue", sans-serif;
+  /* font-family: "Bebas Neue", sans-serif; */
+  font-family: "PT Serif", serif;
   font-weight: bold;
   font-size: 22px;
   background-image: linear-gradient(
@@ -177,7 +179,8 @@
 }
 
 .Login--tiny-label {
-  font-family: "Bebas Neue", sans-serif;
+  /* font-family: "Bebas Neue", sans-serif; */
+  font-family: "PT Serif", serif;
   font-size: 22px;
   color: #999;
   line-height: 1.5;
@@ -209,7 +212,8 @@
   height: 60px;
   background-color: #333;
   border-radius: 10px;
-  font-family: "Bebas Neue", sans-serif;
+  /* font-family: "Bebas Neue", sans-serif; */
+  font-family: "PT Serif", serif;
   font-size: 22px;
   color: #fff;
   margin-top: 10px;
@@ -295,7 +299,8 @@
 
 .Login--player-btn,
 .Login--organizer-btn {
-  font-family: "Bebas Neue", sans-serif;
+  /* font-family: "Bebas Neue", sans-serif; */
+  font-family: "PT Serif", serif;
   font-size: 28px;
   border-top-right-radius: 20px;
   border-top-left-radius: 10px;

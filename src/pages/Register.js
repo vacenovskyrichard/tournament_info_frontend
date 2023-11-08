@@ -3,8 +3,11 @@ import "../styles/Login.css";
 import { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { useRecoilValue } from "recoil";
+import { apiUrlState } from "../state/atoms/ApiUrlState";
 
-function Register({ apiUrl, isTabletOrMobile }) {
+function Register({ isTabletOrMobile }) {
+  const apiUrl = useRecoilValue(apiUrlState);
   const { register, control, handleSubmit, formState } = useForm();
   const { errors } = formState;
   const [registrationSuccesful, setRegistrationSuccesful] = useState(false);

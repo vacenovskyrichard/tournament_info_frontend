@@ -5,20 +5,22 @@ import { useEffect, useState } from "react";
 import jwt_decode from "jwt-decode";
 import axios from "axios";
 import { useForm } from "react-hook-form";
+import useToken from "../components/useToken";
+import { useRecoilValue } from "recoil";
+import { apiUrlState } from "../state/atoms/ApiUrlState";
 
 // Expanded component for every tournament in table
 export default function ExpandedComponent({
   loading,
   signedTeams,
-  token,
   setStatusChanged,
   statusChanged,
-  apiUrl,
   whitespaces,
   data,
 }) {
   data = data.data;
-
+  const apiUrl = useRecoilValue(apiUrlState);
+  const { token } = useToken();
   const [timeOfLastUpdate, setTimeOfLastUpdate] = useState(); //stores string containing time from last update
   const lastUpdateDate = new Date(data.last_update);
   const { register, control, handleSubmit, formState } = useForm();
@@ -80,7 +82,7 @@ export default function ExpandedComponent({
       method: "POST",
       url: `${apiUrl}/create_team`,
       data: {
-        player_id: jwt_decode(token.access_token).sub,
+        player_id: jwt_decode(token.accessToken).sub,
         tournament_id: data.id,
         teammate_name: credentials.name,
         teammate_surname: credentials.surname,
@@ -127,7 +129,7 @@ export default function ExpandedComponent({
       method: "DELETE",
       url: `${apiUrl}/delete_team`,
       data: {
-        player_id: jwt_decode(token.access_token).sub,
+        player_id: jwt_decode(token.accessToken).sub,
         tournament_id: data.id,
       },
     })
@@ -193,78 +195,73 @@ export default function ExpandedComponent({
             <a href={data.link}>{data.link}</a>
           </p>
         </div>
-        {data.registration_enabled &&
-          localStorage.getItem("isPlayer") === "true" &&
-          token && (
-            <>
-              {!isSigned && (
-                <form
-                  className="ExpandedRow--sign-form"
-                  onSubmit={handleSubmit(signToTournament)}
-                >
-                  <h3>Přihlášení</h3>
-                  <div className="ExpandedRow-form-box">
-                    <label>
-                      {whitespaces(5)}Jméno spoluhráče:{whitespaces(7)}
-                    </label>
-                    <input
-                      type="text"
-                      name="name"
-                      {...register("name", {
-                        required: {
-                          value: true,
-                          message: "Zadejte jméno spoluhráče",
-                        },
-                      })}
-                    />
-                    {errors.name && (
-                      <p className="error-message">
-                        {whitespaces(10)}
-                        {errors.name?.message}
-                      </p>
-                    )}
-                  </div>
-                  <div className="ExpandedRow-form-box">
-                    <label>
-                      {whitespaces(5)}Příjmení spoluhráče:{whitespaces(2)}
-                    </label>
-                    <input
-                      type="text"
-                      name="surname"
-                      {...register("surname", {
-                        required: {
-                          value: true,
-                          message: "Zadejte příjmení spoluhráče",
-                        },
-                      })}
-                    />
-                    {errors.surname && (
-                      <p className="error-message">
-                        {" "}
-                        {whitespaces(10)}
-                        {errors.surname?.message}
-                      </p>
-                    )}
-                  </div>
-                  <button
-                    className="Data--login-to-tournament-btn"
-                    type="submit"
-                  >
-                    Přihlásit
-                  </button>
-                </form>
-              )}
-
-              {isSigned && !loading && (
-                <div
-                  className="Data--logout-from-tournament-btn"
-                  onClick={signOutTorunament}
-                >
-                  Odhlásit
+        {data.registration_enabled && token.role === "player" && token && (
+          <>
+            {!isSigned && (
+              <form
+                className="ExpandedRow--sign-form"
+                onSubmit={handleSubmit(signToTournament)}
+              >
+                <h3>Přihlášení</h3>
+                <div className="ExpandedRow-form-box">
+                  <label>
+                    {whitespaces(5)}Jméno spoluhráče:{whitespaces(7)}
+                  </label>
+                  <input
+                    type="text"
+                    name="name"
+                    {...register("name", {
+                      required: {
+                        value: true,
+                        message: "Zadejte jméno spoluhráče",
+                      },
+                    })}
+                  />
+                  {errors.name && (
+                    <p className="error-message">
+                      {whitespaces(10)}
+                      {errors.name?.message}
+                    </p>
+                  )}
                 </div>
-              )}
-            </>
-          )}
+                <div className="ExpandedRow-form-box">
+                  <label>
+                    {whitespaces(5)}Příjmení spoluhráče:{whitespaces(2)}
+                  </label>
+                  <input
+                    type="text"
+                    name="surname"
+                    {...register("surname", {
+                      required: {
+                        value: true,
+                        message: "Zadejte příjmení spoluhráče",
+                      },
+                    })}
+                  />
+                  {errors.surname && (
+                    <p className="error-message">
+                      {" "}
+                      {whitespaces(10)}
+                      {errors.surname?.message}
+                    </p>
+                  )}
+                </div>
+                <button className="Data--login-to-tournament-btn" type="submit">
+                  Přihlásit
+                </button>
+              </form>
+            )}
+
+            {isSigned && !loading && (
+              <div
+                className="Data--logout-from-tournament-btn"
+                onClick={signOutTorunament}
+              >
+                Odhlásit
+              </div>
+            )}
+          </>
+        )}
         <p style={{ fontStyle: "italic", color: "rgb(80, 80, 80)" }}>
           {timeOfLastUpdate}
         </p>

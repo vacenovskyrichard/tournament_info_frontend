@@ -3,8 +3,11 @@ import { useForm, Controller } from "react-hook-form";
 import { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { useRecoilValue } from "recoil";
+import { apiUrlState } from "../state/atoms/ApiUrlState";
 
-function ForgotPassword({ apiUrl, isTabletOrMobile }) {
+function ForgotPassword({ isTabletOrMobile }) {
+  const apiUrl = useRecoilValue(apiUrlState);
   const [sendFailed, setSendFailed] = useState(false);
   const [sendSuccess, setSendSuccess] = useState(false);
   const [isPlayer, setIsPlayer] = useState(true);

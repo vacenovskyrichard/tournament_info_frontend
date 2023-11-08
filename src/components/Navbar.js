@@ -2,10 +2,16 @@ import "../styles/Navbar.css";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import HamburgerMenu from "./HamburgerMenu";
+import useToken from "../components/useToken";
+import { useRecoilValue } from "recoil";
+import { apiUrlState } from "../state/atoms/ApiUrlState";
 
-function Navbar({ token, removeToken, apiUrl, title, isTabletOrMobile }) {
+function Navbar({ title, isTabletOrMobile }) {
+  const apiUrl = useRecoilValue(apiUrlState);
+  const { token, removeToken } = useToken();
   const navigate = useNavigate();
-
+  console.log("token");
+  console.log(token);
   // logout user
   function logout() {
     axios({
@@ -26,7 +32,6 @@ function Navbar({ token, removeToken, apiUrl, title, isTabletOrMobile }) {
         }
       });
   }
-
   return (
     <div className="navbar">
       <div className="navbar--left">
@@ -46,7 +51,7 @@ function Navbar({ token, removeToken, apiUrl, title, isTabletOrMobile }) {
 
       <div className="navbar--right">
         <div>
-          {token ? (
+          {token.id != "" ? (
             <HamburgerMenu
               logout={logout}
               isTabletOrMobile={isTabletOrMobile}

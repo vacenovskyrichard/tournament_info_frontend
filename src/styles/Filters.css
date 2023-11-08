@@ -31,7 +31,8 @@
   display: flex;
   justify-content: center;
   flex-direction: column;
-  font-family: "Bebas Neue", sans-serif;
+  /* font-family: "Bebas Neue", sans-serif; */
+  font-family: "PT Serif", serif;
   font-size: 22px;
   margin-left: 10px;
   margin-right: 10px;
@@ -52,7 +53,8 @@
   display: flex;
   transition: box-shadow 0.3s;
   font-size: 22px;
-  font-family: "Bebas Neue", sans-serif;
+  /* font-family: "Bebas Neue", sans-serif; */
+  font-family: "PT Serif", serif;
   justify-content: center;
   align-items: center;
   padding: 5px 15px;

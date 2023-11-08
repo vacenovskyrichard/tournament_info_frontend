@@ -7,14 +7,16 @@ import "react-big-calendar/lib/css/react-big-calendar.css";
 // import "react-big-calendar/lib/sass/styles";
 import "react-responsive-modal/styles.css";
 import { Modal } from "react-responsive-modal";
+import { useRecoilValue } from "recoil";
+import { sortedTorunamentsState } from "../state/selectors/SortedTournaments";
 
 export default function MyCalendar({
-  tournamentsData,
   filterResults,
   setShowData,
   showData,
   isTabletOrMobile,
 }) {
+  const tournaments = useRecoilValue(sortedTorunamentsState);
   // Define custom month names in Czech
   const customMonthNames = [
     "Leden",
@@ -50,8 +52,8 @@ export default function MyCalendar({
   //Custom calendar labels
   const messages = {
     allDay: "Celý den",
-    previous: "minulý měsíc",
-    next: "další měsíc",
+    previous: "Minulý měsíc",
+    next: "Další měsíc",
     today: "Dnes",
     month: "Měsíc",
     week: "Týden",
@@ -62,8 +64,8 @@ export default function MyCalendar({
     event: "Událost",
   };
   var myEventsList = [];
-  if (tournamentsData) {
-    myEventsList = tournamentsData.map((tournament) => {
+  if (tournaments) {
+    myEventsList = tournaments.map((tournament) => {
       const [year, month, day] = tournament.date.split("-").map(Number);
       const [hour, minute] = tournament.start.split(":").map(Number);
 
@@ -189,7 +191,7 @@ export default function MyCalendar({
           style={{
             height: 700,
             fontSize: 20,
-            fontFamily: "Babas Neue",
+            fontFamily: " PT Serif, serif",
             backgroundColor: "rgb(245, 245, 245)",
           }}
           onSelectEvent={handleEventClick}

@@ -7,16 +7,16 @@ import { ReactComponent as CustomIconMobile } from "../icons/info-circle-mobile.
 import jwt_decode from "jwt-decode";
 import axios from "axios";
 import ExpandedComponent from "./ExpandedRow";
+import { sortedTorunamentsState } from "../state/selectors/SortedTournaments";
+import useToken from "../components/useToken";
+import { useRecoilValue } from "recoil";
+import { apiUrlState } from "../state/atoms/ApiUrlState";
 
-function Data({
-  tournamentsData,
-  setShowData,
-  isTabletOrMobile,
-  token,
-  apiUrl,
-  loadingMainTable,
-}) {
+function Data({ setShowData, isTabletOrMobile, loadingMainTable }) {
   // initialize variables and states
+  const apiUrl = useRecoilValue(apiUrlState);
+  const tournaments = useRecoilValue(sortedTorunamentsState);
+  const { token } = useToken();
   const { register, control, handleSubmit, formState } = useForm();
   const [loading, setLoading] = useState(true); // used for loading of teams
   const [statusChanged, setStatusChanged] = useState(false); // used to trigger rerender after sign in/out from tournament
@@ -24,16 +24,16 @@ function Data({
 
   const [signedTeams, setSignedTeams] = useState({});
 
+  console.log("token");
+  console.log(token);
   useEffect(() => {
-    const userId = token ? jwt_decode(token.access_token).sub : "";
-    const at = token ? token.access_token : "";
     fetch(`${apiUrl}/get_teams`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        Authorization: `Bearer ${at}`,
+        Authorization: `Bearer ${token.accessToken}`,
       },
-      body: JSON.stringify({ userId: userId }),
+      body: JSON.stringify({ userId: token.id }),
     })
       .then((resp) => {
         if (resp.status === 200) {
@@ -63,14 +63,6 @@ function Data({
     return "\u00A0".repeat(count); // '\u00A0' represents the non-breaking space character
   }
 
-  // Function to compare dates in "YYYY-MM-DD" format
-  function compareDates(dateA, dateB) {
-    return dateA.localeCompare(dateB);
-  }
-
-  // Sort data by date
-  tournamentsData.sort((a, b) => compareDates(a.date, b.date));
-
   // custom styles of data table
   const tableFontSize = isTabletOrMobile ? "30px" : "23px";
   const customStyles = {
@@ -79,13 +71,15 @@ function Data({
         backgroundColor: "rgb(37, 31, 31);",
         color: "white",
         fontSize: tableFontSize,
-        fontFamily: "Bebas Neue",
+        // fontFamily: "Bebas Neue",
+        fontFamily: "PT Serif, serif",
       },
     },
     cells: {
       style: {
         fontSize: tableFontSize,
-        fontFamily: "Bebas Neue",
+        fontFamily: "PT Serif, serif",
+        // fontFamily: "Bebas Neue",
       },
     },
     background: "rgb(216, 216, 216);",
@@ -100,7 +94,7 @@ function Data({
           row.date.split("-")[0]
         }`;
       },
-      width: "140px",
+      width: "150px",
     },
     {
       name: "Název",
@@ -205,7 +199,7 @@ function Data({
       >
         <DataTable
           columns={columns}
-          data={tournamentsData}
+          data={tournaments}
           pagination
           expandableRows
           expandableRowsComponent={(row) => (
@@ -213,10 +207,8 @@ function Data({
               data={row}
               loading={loading}
               signedTeams={signedTeams}
-              token={token}
               setStatusChanged={setStatusChanged}
               statusChanged={statusChanged}
-              apiUrl={apiUrl}
               whitespaces={whitespaces}
             />
           )}
@@ -233,7 +225,7 @@ function Data({
             )
           }
           className={
-            tournamentsData.length === 0 ? "custom-no-data-background" : ""
+            tournaments.length === 0 ? "custom-no-data-background" : ""
           }
         />
       </div>

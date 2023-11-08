@@ -14,8 +14,15 @@ function useToken() {
   }
 
   function removeToken() {
-    localStorage.removeItem("token");
-    _setToken(null);
+    // localStorage.removeItem("token");
+    setToken({
+      accessToken: "",
+      id: "",
+      role: "",
+      email: "",
+      name: "",
+      surname: "",
+    });
   }
 
   return {

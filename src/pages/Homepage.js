@@ -6,52 +6,31 @@ import Resources from "../components/Resources";
 import Footer from "../components/Footer";
 import { useState } from "react";
 
-function Homepage({
-  token,
-  removeToken,
-  setToken,
-  tournamentsData,
-  setTournamentsData,
-  apiUrl,
-  filterOptions,
-  isTabletOrMobile,
-  loadingMainTable,
-}) {
+function Homepage({ filterOptions, isTabletOrMobile, loadingMainTable }) {
   const [showData, setShowData] = useState(true);
   const [filterResults, setFilterResults] = useState();
 
   return (
     <>
       <Navbar
-        token={token}
-        removeToken={removeToken}
-        setToken={setToken}
-        apiUrl={apiUrl}
         // title={"Přehled"}
         title={""}
         isTabletOrMobile={isTabletOrMobile}
       />
       <Filters
-        data={tournamentsData}
-        setData={setTournamentsData}
-        apiUrl={apiUrl}
         setFilterResults={setFilterResults}
         filterOptions={filterOptions}
         isTabletOrMobile={isTabletOrMobile}
       />
       {showData ? (
         <Data
-          tournamentsData={tournamentsData}
           setShowData={setShowData}
           showData={showData}
           isTabletOrMobile={isTabletOrMobile}
-          token={token}
-          apiUrl={apiUrl}
           loadingMainTable={loadingMainTable}
         />
       ) : (
         <MyCalendar
-          tournamentsData={tournamentsData}
           filterResults={filterResults}
           setShowData={setShowData}
           showData={showData}

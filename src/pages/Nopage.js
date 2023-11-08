@@ -1,14 +1,8 @@
 import Navbar from "../components/Navbar";
-function Nopage({ token, removeToken, setToken, apiUrl }) {
+function Nopage({}) {
   return (
     <>
-      <Navbar
-        token={token}
-        removeToken={removeToken}
-        setToken={setToken}
-        apiUrl={apiUrl}
-        title={"Tady nic nenajdete"}
-      />
+      <Navbar title={"Tady nic nenajdete"} />
       <div
         style={{
           display: "flex",

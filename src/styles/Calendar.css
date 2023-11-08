@@ -22,7 +22,8 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  font-family: "Bebas Neue", sans-serif;
+  /* font-family: "Bebas Neue", sans-serif; */
+  font-family: "PT Serif", serif;
   font-size: 28px;
   margin: 5px 0px 3px 0px;
   width: 150px;
@@ -64,7 +65,8 @@
   border-radius: 15px;
   background-color: black;
   color: rgb(245, 245, 245);
-  font-family: "Bebas Neue", sans-serif;
+  /* font-family: "Bebas Neue", sans-serif; */
+  font-family: "PT Serif", serif;
 }
 .Calendar--url-button-box-mobile > button {
   width: 250px;
@@ -78,41 +80,48 @@
 }
 
 .rbc-event-content {
-  font-family: "Bebas Neue", sans-serif;
+  /* font-family: "Bebas Neue", sans-serif; */
+  font-family: "PT Serif", serif;
   font-size: 23px;
 }
 
 .rbc-toolbar {
   background-color: rgb(37, 31, 31);
-  font-family: "Bebas Neue", sans-serif;
+  /* font-family: "Bebas Neue", sans-serif; */
+  font-family: "PT Serif", serif;
   color: rgb(245, 245, 245);
 }
 
 .rbc-toolbar > span {
   font-size: 23px;
-  font-family: "Bebas Neue", sans-serif;
+  /* font-family: "Bebas Neue", sans-serif; */
+  font-family: "PT Serif", serif;
 }
 
 .rbc-toolbar > span > button {
-  font-family: "Bebas Neue", sans-serif;
+  /* font-family: "Bebas Neue", sans-serif; */
+  font-family: "PT Serif", serif;
   font-size: 23px;
   color: rgb(245, 245, 245);
 }
 
 .Calendar--calendar-box {
   width: 75%;
-  font-family: "Bebas Neue", sans-serif;
+  /* font-family: "Bebas Neue", sans-serif; */
+  font-family: "PT Serif", serif;
 }
 .Calendar--calendar-box-mobile {
   width: 85%;
-  font-family: "Bebas Neue", sans-serif;
+  /* font-family: "Bebas Neue", sans-serif; */
+  font-family: "PT Serif", serif;
 }
 
 .Calendar--detail-window {
   display: flex;
   align-items: center;
   justify-content: center;
-  font-family: "Bebas Neue", sans-serif;
+  /* font-family: "Bebas Neue", sans-serif; */
+  font-family: "PT Serif", serif;
 }
 
 .Calendar--detail-window-textbox {

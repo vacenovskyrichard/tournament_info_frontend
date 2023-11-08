@@ -3,7 +3,8 @@
   display: flex;
   background-color: rgb(37, 31, 31);
   color: rgb(216, 216, 216);
-  font-family: "Bebas Neue", sans-serif;
+  /* font-family: "Bebas Neue", sans-serif; */
+  font-family: "PT Serif", serif;
   font-size: 20px;
 }
 .Footer--main-mobile {

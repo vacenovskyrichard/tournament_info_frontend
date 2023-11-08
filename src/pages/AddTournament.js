@@ -6,20 +6,20 @@ import jwt_decode from "jwt-decode";
 import Select from "react-select";
 import { DevTool } from "@hookform/devtools";
 import Navbar from "../components/Navbar";
+import useToken from "../components/useToken";
+import { useRecoilValue } from "recoil";
+import { apiUrlState } from "../state/atoms/ApiUrlState";
 
-export default function AddTournament({
-  token,
-  removeToken,
-  setToken,
-  apiUrl,
-}) {
+export default function AddTournament({}) {
+  const apiUrl = useRecoilValue(apiUrlState);
+  const { token } = useToken();
   const navigate = useNavigate();
   const { register, control, handleSubmit, formState } = useForm();
   const { errors } = formState;
 
   // on submit form function sends data to backend about newly created tournament
   const onSubmit = (data) => {
-    data.user_id = jwt_decode(token.access_token).sub;
+    data.user_id = jwt_decode(token.accessToken).sub;
     data.category = data.category.label;
     data.level = data.level.label;
     console.log(data);
@@ -27,7 +27,7 @@ export default function AddTournament({
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        Authorization: `Bearer ${token.access_token}`,
+        Authorization: `Bearer ${token.accessToken}`,
       },
       body: JSON.stringify(data),
     })
@@ -49,13 +49,7 @@ export default function AddTournament({
 
   return (
     <>
-      <Navbar
-        token={token}
-        removeToken={removeToken}
-        setToken={setToken}
-        apiUrl={apiUrl}
-        title={"Vytvoření nového turnaje"}
-      />
+      <Navbar title={"Vytvoření nového turnaje"} />
 
       <div className="AddTournament--main">
         <p></p>
