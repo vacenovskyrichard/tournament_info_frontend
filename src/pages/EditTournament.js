@@ -32,7 +32,6 @@ export default function EditTournament({}) {
 
   // get all tournaments and filter by id the one to be edited
   useEffect(() => {
-    console.log("Rendering...");
     fetch(`${apiUrl}/get`, {
       method: "GET",
       headers: {

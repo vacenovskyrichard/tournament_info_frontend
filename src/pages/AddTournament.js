@@ -1,17 +1,16 @@
-import "../styles/AddTournament.css";
-import "../styles/Common.css";
 import { useForm, Controller } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
-import jwt_decode from "jwt-decode";
 import Select from "react-select";
-import { DevTool } from "@hookform/devtools";
-import Navbar from "../components/Navbar";
+import "../styles/AddTournament.css";
+import "../styles/Common.css";
 import InputField from "../components/InputField";
+import Navbar from "../components/Navbar";
+import jwt_decode from "jwt-decode";
 import useToken from "../components/useToken";
 import { useRecoilValue } from "recoil";
 import { apiUrlState } from "../state/atoms/ApiUrlState";
 
-export default function AddTournament({}) {
+export default function AddTournament() {
   const apiUrl = useRecoilValue(apiUrlState);
   const { token } = useToken();
   const navigate = useNavigate();
@@ -36,17 +35,22 @@ export default function AddTournament({}) {
       .then(() => navigate("/"));
   };
 
+  // options for category select form
   const categoryOptions = [
     { value: "mix", label: "Mixy" },
     { value: "men", label: "Muži" },
     { value: "women", label: "Ženy" },
     { value: "other", label: "Jiné" },
   ];
+
+  // options for level select form
   const levelOptions = [
     { value: "hobby", label: "Hobby" },
     { value: "open", label: "Open" },
     { value: "cvf", label: "CVF (svazový turnaj)" },
   ];
+
+  // function to check time input
   const onChangeStartTime = (e) => {
     const input = e.target;
     const value = input.value;
@@ -62,8 +66,8 @@ export default function AddTournament({}) {
     }
   };
 
+  // Add custom styles to select form
   const selectStyle = {
-    // Add custom styles for the border
     control: (base) => ({
       ...base,
       border: "1px solid #e6e6e6",
@@ -79,9 +83,7 @@ export default function AddTournament({}) {
   return (
     <>
       <Navbar title={"Vytvoření nového turnaje"} />
-
       <div className="AddTournament">
-        <p></p>
         <form className="AddTournament--form" onSubmit={handleSubmit(onSubmit)}>
           {/* Tournament name */}
           <InputField

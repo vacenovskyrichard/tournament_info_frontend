@@ -12,8 +12,6 @@ import InputField from "../components/InputField";
 function Login({ isTabletOrMobile }) {
   const apiUrl = useRecoilValue(apiUrlState);
   const { setToken, token } = useToken();
-  console.log("token");
-  console.log(token);
 
   const [registrationFailed, setRegistrationFailed] = useState(false);
   const [isPlayer, setIsPlayer] = useState(true);
