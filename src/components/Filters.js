@@ -4,19 +4,19 @@ import "../styles/Filters.css";
 import Filter from "./Filter";
 import { Controller } from "react-hook-form";
 import Select from "react-select";
-import { useRecoilValue } from "recoil";
+import { useRecoilValue, useSetRecoilState } from "recoil";
 import { apiUrlState } from "../state/atoms/ApiUrlState";
+import { tournamentsState } from "../state/atoms/TournamentsState";
 
 export default function Filters({
-  data,
-  setData,
   setFilterResults,
   filterOptions,
   isTabletOrMobile,
 }) {
-  const { control, handleSubmit, register, errors } = useForm();
+  const { control, handleSubmit } = useForm();
 
   const apiUrl = useRecoilValue(apiUrlState);
+  const setTournamentsData = useSetRecoilState(tournamentsState);
   const filter_values = {
     areals: new Set(),
     cities: new Set(),
@@ -70,7 +70,7 @@ export default function Filters({
       body: JSON.stringify(form_data),
     })
       .then((resp) => resp.json())
-      .then((resp) => setData(resp));
+      .then((resp) => setTournamentsData(resp));
   };
 
   return (

@@ -14,18 +14,14 @@ import { apiUrlState } from "../state/atoms/ApiUrlState";
 
 function Data({ setShowData, isTabletOrMobile, loadingMainTable }) {
   // initialize variables and states
+  const { token } = useToken();
   const apiUrl = useRecoilValue(apiUrlState);
   const tournaments = useRecoilValue(sortedTorunamentsState);
-  const { token } = useToken();
-  const { register, control, handleSubmit, formState } = useForm();
   const [loading, setLoading] = useState(true); // used for loading of teams
   const [statusChanged, setStatusChanged] = useState(false); // used to trigger rerender after sign in/out from tournament
-  const { errors } = formState;
 
   const [signedTeams, setSignedTeams] = useState({});
 
-  console.log("token");
-  console.log(token);
   useEffect(() => {
     fetch(`${apiUrl}/get_teams`, {
       method: "POST",

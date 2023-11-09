@@ -24,11 +24,14 @@
   font-family: "PT Serif", serif;
   /* font-family: "Bebas Neue", sans-serif; */
   font-size: 28px;
-  margin: 5px 0px 3px 0px;
-  width: 150px;
+  width: 50%;
   height: 35px;
-  border-radius: 10px;
+  border-top-right-radius: 30px;
+  border-top-left-radius: 5px;
+
+  border: 0;
 }
+
 .Data--content-buttons-mobile > button {
   font-size: 35px;
   height: 40px;

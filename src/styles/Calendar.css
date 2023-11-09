@@ -22,13 +22,14 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  /* font-family: "Bebas Neue", sans-serif; */
   font-family: "PT Serif", serif;
+  /* font-family: "Bebas Neue", sans-serif; */
   font-size: 28px;
-  margin: 5px 0px 3px 0px;
-  width: 150px;
+  width: 50%;
   height: 35px;
-  border-radius: 10px;
+  border-top-right-radius: 30px;
+  border-top-left-radius: 5px;
+  border: 0;
 }
 
 .Calendar--content-buttons-mobile > button {
@@ -68,6 +69,7 @@
   /* font-family: "Bebas Neue", sans-serif; */
   font-family: "PT Serif", serif;
 }
+
 .Calendar--url-button-box-mobile > button {
   width: 250px;
   height: 45px;
@@ -135,20 +137,21 @@
   color: rgb(37, 31, 31);
 }
 
-.label-text {
-  font-size: 29px;
-  margin-right: 15px;
-}
-
-.content-text {
-  /* font-style: italic; */
-  font-size: 29px;
-}
-
 .Calendar--detail-window-last-update {
   display: flex;
   justify-content: center;
   font-style: italic;
   font-size: 25px;
   color: rgb(80, 80, 80);
+}
+
+.Calendar--detail-window-body {
+  display: flex;
+  font-size: 25px;
+}
+.Calendar--detail-window-body-labels {
+  margin: 0px 20px;
+}
+.Calendar--detail-window-body-data {
+  font-style: italic;
 }
