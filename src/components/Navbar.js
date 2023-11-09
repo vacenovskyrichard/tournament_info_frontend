@@ -10,8 +10,6 @@ function Navbar({ title, isTabletOrMobile }) {
   const apiUrl = useRecoilValue(apiUrlState);
   const { token, removeToken } = useToken();
   const navigate = useNavigate();
-  console.log("token");
-  console.log(token);
   // logout user
   function logout() {
     axios({

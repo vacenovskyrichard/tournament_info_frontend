@@ -7,6 +7,7 @@ import { useGoogleLogin } from "@react-oauth/google";
 import useToken from "../components/useToken";
 import { useRecoilValue } from "recoil";
 import { apiUrlState } from "../state/atoms/ApiUrlState";
+import InputField from "../components/InputField";
 
 function Login({ isTabletOrMobile }) {
   const apiUrl = useRecoilValue(apiUrlState);
@@ -158,24 +159,15 @@ function Login({ isTabletOrMobile }) {
             </div>
 
             <div className="Login--main-form">
-              <p className="Login--label">Email</p>
-              <div className="wrap-input">
-                <input
-                  type="email"
-                  name="email"
-                  {...register("email", {
-                    required: {
-                      value: true,
-                      message: "Zadejte email",
-                    },
-                  })}
-                />
-                {errors.email && (
-                  <p style={{ fontSize: "20px", color: "red" }}>
-                    {errors.email?.message}
-                  </p>
-                )}
-              </div>
+              <InputField
+                label={"Email"}
+                type={"email"}
+                name={"email"}
+                requiredMessage={"Zadejte email"}
+                errors={errors.email}
+                register={register}
+              />
+
               <div className="Login--password-label-box">
                 <p className="Login--label">Heslo</p>
                 <p

@@ -5,6 +5,7 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { useRecoilValue } from "recoil";
 import { apiUrlState } from "../state/atoms/ApiUrlState";
+import InputField from "../components/InputField";
 
 function ForgotPassword({ isTabletOrMobile }) {
   const apiUrl = useRecoilValue(apiUrlState);
@@ -85,24 +86,15 @@ function ForgotPassword({ isTabletOrMobile }) {
           <span className="login-form-title">Zapomenuté heslo</span>
 
           <div className="Login--main-form">
-            <p className="Login--label">Email</p>
-            <div className="wrap-input">
-              <input
-                type="email"
-                name="email"
-                {...register("email", {
-                  required: {
-                    value: true,
-                    message: "Zadejte email",
-                  },
-                })}
-              />
-              {errors.email && (
-                <p style={{ fontSize: "20px", color: "red" }}>
-                  {errors.email?.message}
-                </p>
-              )}
-            </div>
+            <InputField
+              label={"Email"}
+              type={"email"}
+              name={"email"}
+              requiredMessage={"Zadejte email"}
+              errors={errors.email}
+              register={register}
+            />
+
             <button className="Login--login-button" type="submit">
               <p>Vygenerovat nové heslo</p>
             </button>

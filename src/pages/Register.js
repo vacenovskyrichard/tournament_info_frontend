@@ -5,6 +5,7 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { useRecoilValue } from "recoil";
 import { apiUrlState } from "../state/atoms/ApiUrlState";
+import InputField from "../components/InputField";
 
 function Register({ isTabletOrMobile }) {
   const apiUrl = useRecoilValue(apiUrlState);
@@ -87,78 +88,42 @@ function Register({ isTabletOrMobile }) {
             <span className="login-form-title">Registrace</span>
 
             <div className="Login--main-form">
-              <p className="Login--label">Jméno</p>
-              <div className="wrap-input">
-                <input
-                  type="name"
-                  name="name"
-                  {...register("name", {
-                    required: {
-                      value: true,
-                      message: "Zadejte jméno",
-                    },
-                  })}
-                />
-                {errors.name && (
-                  <p style={{ fontSize: "20px", color: "red" }}>
-                    {errors.name?.message}
-                  </p>
-                )}{" "}
-              </div>
-              <p className="Login--label">Příjmení</p>
-              <div className="wrap-input">
-                <input
-                  type="surname"
-                  name="surname"
-                  {...register("surname", {
-                    required: {
-                      value: true,
-                      message: "Zadejte příjmení",
-                    },
-                  })}
-                />
-                {errors.surname && (
-                  <p style={{ fontSize: "20px", color: "red" }}>
-                    {errors.surname?.message}
-                  </p>
-                )}
-              </div>
-              <p className="Login--label">Email</p>
-              <div className="wrap-input">
-                <input
-                  type="email"
-                  name="email"
-                  {...register("email", {
-                    required: {
-                      value: true,
-                      message: "Zadejte email",
-                    },
-                  })}
-                />
-                {errors.email && (
-                  <p style={{ fontSize: "20px", color: "red" }}>
-                    {errors.email?.message}
-                  </p>
-                )}
-              </div>
-              <p className="Login--label">Heslo</p>
-              <div className="wrap-input">
-                <input
-                  type="password"
-                  name="password"
-                  {...register("password", {
-                    required: {
-                      value: true,
-                      message: "Zadejte heslo",
-                    },
-                  })}
-                />
-                {errors.password && (
-                  <p style={{ fontSize: "20px", color: "red" }}>
-                    {errors.password?.message}
-                  </p>
-                )}
-              </div>
+              <InputField
+                label={"Jméno"}
+                type={"text"}
+                name={"name"}
+                requiredMessage={"Zadejte jméno"}
+                errors={errors.name}
+                register={register}
+              />
+
+              <InputField
+                label={"Příjmení"}
+                type={"text"}
+                name={"surname"}
+                requiredMessage={"Zadejte příjmení"}
+                errors={errors.surname}
+                register={register}
+              />
+
+              <InputField
+                label={"Email"}
+                type={"email"}
+                name={"email"}
+                requiredMessage={"Zadejte email"}
+                errors={errors.email}
+                register={register}
+              />
+
+              <InputField
+                label={"Heslo"}
+                type={"password"}
+                name={"password"}
+                requiredMessage={"Zadejte heslo"}
+                errors={errors.password}
+                register={register}
+              />
+
               <button className="Login--login-button" type="submit">
                 <p>Registrovat</p>
               </button>

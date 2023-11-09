@@ -6,6 +6,7 @@ import jwt_decode from "jwt-decode";
 import Select from "react-select";
 import { DevTool } from "@hookform/devtools";
 import Navbar from "../components/Navbar";
+import InputField from "../components/InputField";
 import useToken from "../components/useToken";
 import { useRecoilValue } from "recoil";
 import { apiUrlState } from "../state/atoms/ApiUrlState";
@@ -46,190 +47,135 @@ export default function AddTournament({}) {
     { value: "open", label: "Open" },
     { value: "cvf", label: "CVF (svazový turnaj)" },
   ];
+  const onChangeStartTime = (e) => {
+    const input = e.target;
+    const value = input.value;
+    if (/^\d{1,2}:\d{0,2}$/.test(value)) {
+      const [hours, minutes] = value.split(":");
+      if (parseInt(hours, 10) <= 23 && parseInt(minutes, 10) <= 59) {
+        input.setCustomValidity("");
+      } else {
+        input.setCustomValidity("Invalid time");
+      }
+    } else {
+      input.setCustomValidity("Invalid time");
+    }
+  };
+
+  const selectStyle = {
+    // Add custom styles for the border
+    control: (base) => ({
+      ...base,
+      border: "1px solid #e6e6e6",
+      fontFamily: "Montserrat, sans-serif",
+      fontSize: "18px",
+      width: "103%",
+      backgroundColor: "#f7f7f7",
+      height: "42px",
+      borderRadius: "10px",
+    }),
+  };
 
   return (
     <>
       <Navbar title={"Vytvoření nového turnaje"} />
 
-      <div className="AddTournament--main">
+      <div className="AddTournament">
         <p></p>
-        <form onSubmit={handleSubmit(onSubmit)}>
+        <form className="AddTournament--form" onSubmit={handleSubmit(onSubmit)}>
           {/* Tournament name */}
-          <div className="AddTournament--form-element">
-            <label>Jméno turnaje</label>
-            <input
-              type="text"
-              name="name"
-              {...register("name", {
-                required: {
-                  value: true,
-                  message: "Zadejte jméno turnaje",
-                },
-              })}
-            />
-            {errors.name && (
-              <p className="error-message">{errors.name?.message}</p>
-            )}
-          </div>
+          <InputField
+            label={"Jméno turnaje"}
+            type={"text"}
+            name={"name"}
+            requiredMessage={"Zadejte jméno turnaje"}
+            errors={errors.name}
+            register={register}
+          />
 
           {/* Tournament date */}
-          <div className="AddTournament--form-element">
-            <label>Datum</label>
-            <input
-              type="date"
-              name="date"
-              {...register("date", {
-                required: {
-                  value: true,
-                  message: "Zadejte datum turnaje",
-                },
-              })}
-            />
-            {errors.date && (
-              <p className="error-message">{errors.date?.message}</p>
-            )}
-          </div>
+          <InputField
+            label={"Datum"}
+            type={"date"}
+            name={"date"}
+            requiredMessage={"Zadejte datum turnaje"}
+            errors={errors.date}
+            register={register}
+          />
 
           {/* Tournament city */}
-          <div className="AddTournament--form-element">
-            <label>Město</label>
-            <input
-              type="text"
-              name="city"
-              {...register("city", {
-                required: {
-                  value: true,
-                  message: "Zadejte město, kde se turnaj koná",
-                },
-              })}
-            />
-            {errors.city && (
-              <p className="error-message">{errors.city?.message}</p>
-            )}
-          </div>
+          <InputField
+            label={"Město"}
+            type={"text"}
+            name={"city"}
+            requiredMessage={"Zadejte město, kde se turnaj koná"}
+            errors={errors.city}
+            register={register}
+          />
 
           {/* Tournament areal */}
-          <div className="AddTournament--form-element">
-            <label>Název areálu</label>
-            <input
-              type="text"
-              name="areal"
-              {...register("areal", {
-                required: {
-                  value: true,
-                  message: "Zadejte jméno areálu",
-                },
-              })}
-            />
-            {errors.areal && (
-              <p className="error-message"> {errors.areal?.message}</p>
-            )}
-          </div>
+          <InputField
+            label={"Areál"}
+            type={"text"}
+            name={"areal"}
+            requiredMessage={"Zadejte areál"}
+            errors={errors.areal}
+            register={register}
+          />
 
           {/* Tournament capacity */}
-          <div className="AddTournament--form-element">
-            <label>Kapacita</label>
-            <input
-              type="text"
-              name="capacity"
-              {...register("capacity", {
-                required: {
-                  value: true,
-                  message: "Zadejte kapacitu turnaje.",
-                },
-
-                pattern: {
-                  value: /^\d+$/,
-                  message: "Zadaná hodnota není validní",
-                },
-              })}
-            />
-            {errors.capacity && (
-              <p className="error-message">{errors.capacity?.message}</p>
-            )}
-          </div>
+          <InputField
+            label={"Kapacita"}
+            type={"text"}
+            name={"capacity"}
+            requiredMessage={"Zadejte kapacitu"}
+            errors={errors.capacity}
+            register={register}
+            pattern={{
+              value: /^\d+$/,
+              message: "Zadaná hodnota není validní",
+            }}
+          />
 
           {/* Tournament price */}
-          <div className="AddTournament--form-element">
-            <label>Startovné (za osobu)</label>
-            <input
-              type="text"
-              name="price"
-              {...register("price", {
-                required: {
-                  value: true,
-                  message: "Zadejte cenu startovného",
-                },
-
-                pattern: {
-                  value: /^\d+$/,
-                  message: "Zadaná hodnota není validní",
-                },
-              })}
-            />
-            {errors.price && (
-              <p className="error-message">{errors.price?.message}</p>
-            )}
-          </div>
+          <InputField
+            label={"Startovné (za osobu)"}
+            type={"text"}
+            name={"price"}
+            requiredMessage={"Zadejte startovné"}
+            errors={errors.price}
+            register={register}
+            pattern={{
+              value: /^\d+$/,
+              message: "Zadaná hodnota není validní",
+            }}
+          />
 
           {/* Tournament start */}
-          <div className="AddTournament--form-element">
-            <label>Začátek turnaje</label>
-            <input
-              type="text"
-              name="start"
-              placeholder="HH:mm"
-              pattern="^([0-1]?[0-9]|2[0-3]):[0-5][0-9]$"
-              {...register("start", {
-                required: {
-                  value: true,
-                  message: "Zadejte čas začátku turnaje ",
-                },
-              })}
-              onChange={(e) => {
-                const input = e.target;
-                const value = input.value;
-                if (/^\d{1,2}:\d{0,2}$/.test(value)) {
-                  const [hours, minutes] = value.split(":");
-                  if (
-                    parseInt(hours, 10) <= 23 &&
-                    parseInt(minutes, 10) <= 59
-                  ) {
-                    input.setCustomValidity("");
-                  } else {
-                    input.setCustomValidity("Invalid time");
-                  }
-                } else {
-                  input.setCustomValidity("Invalid time");
-                }
-              }}
-            />
-            {errors.start && (
-              <p className="error-message">{errors.start?.message}</p>
-            )}
-          </div>
+          <InputField
+            label={"Začátek turnaje"}
+            type={"text"}
+            name={"start"}
+            requiredMessage={"Zadejte čas začátku turnaje"}
+            errors={errors.start}
+            register={register}
+            pattern={"^([0-1]?[0-9]|2[0-3]):[0-5][0-9]$"}
+            onChange={onChangeStartTime}
+          />
 
           {/* Tournament organizer */}
-          <div className="AddTournament--form-element">
-            <label>Jméno organizátora</label>
-            <input
-              type="text"
-              name="organizer"
-              {...register("organizer", {
-                required: {
-                  value: true,
-                  message: "Zadejte jméno organizátora",
-                },
-              })}
-            />
-            {errors.organizer && (
-              <p className="error-message">{errors.organizer?.message}</p>
-            )}
-          </div>
+          <InputField
+            label={"Jméno organizátora"}
+            type={"text"}
+            name={"organizer"}
+            requiredMessage={"Zadejte jméno organizátora"}
+            errors={errors.organizer}
+            register={register}
+          />
 
           {/* Tournament category */}
           <div className="AddTournament--form-element">
-            <label>Kategorie</label>
+            <label className="InputField--label">Kategorie</label>
             <Controller
               name="category"
               control={control}
@@ -239,19 +185,7 @@ export default function AddTournament({}) {
                   {...field}
                   options={categoryOptions}
                   placeholder={"Vyberte kategorii"}
-                  styles={{
-                    // Add custom styles for the border
-                    control: (base, state) => ({
-                      ...base,
-                      border: "1px solid #e6e6e6",
-                      fontFamily: "Montserrat, sans-serif",
-                      fontSize: "18px",
-                      width: "100%",
-                      backgroundColor: "#f7f7f7",
-                      height: "40px",
-                      borderRadius: "10px",
-                    }),
-                  }}
+                  styles={selectStyle}
                 />
               )}
             />
@@ -261,8 +195,8 @@ export default function AddTournament({}) {
           </div>
 
           {/* Tournament level */}
-          <div className="AddTournament--form-element">
-            <label>Úroveň</label>
+          <div>
+            <label className="InputField--label">Úroveň</label>
             <Controller
               name="level"
               control={control}
@@ -272,19 +206,7 @@ export default function AddTournament({}) {
                   {...field}
                   options={levelOptions}
                   placeholder={"Vyberte úroveň"}
-                  styles={{
-                    // Add custom styles for the border
-                    control: (base, state) => ({
-                      ...base,
-                      border: "1px solid #e6e6e6",
-                      fontFamily: "Montserrat, sans-serif",
-                      fontSize: "18px",
-                      width: "100%",
-                      backgroundColor: "#f7f7f7",
-                      height: "40px",
-                      borderRadius: "10px",
-                    }),
-                  }}
+                  styles={selectStyle}
                 />
               )}
             />
@@ -294,26 +216,20 @@ export default function AddTournament({}) {
           </div>
 
           {/* Tournament link */}
-          <div className="AddTournament--form-element">
-            <label>Odkaz na turnaj</label>
-            <input
-              type="text"
-              name="link"
-              {...register("link", {
-                required: {
-                  value: true,
-                  message: "Zadejte odkaz na turnaj",
-                },
-              })}
-            />
-            {errors.link && (
-              <p className="error-message">{errors.link?.message}</p>
-            )}
-          </div>
+          <InputField
+            label={"Odkaz na turnaj"}
+            type={"text"}
+            name={"link"}
+            requiredMessage={"Zadejte odkaz na turnaj"}
+            errors={errors.link}
+            register={register}
+          />
 
           {/* Enable logging with turnajky.cz */}
           <div className="AddTournament--form-element-checkbox">
-            <label>Povolit přihlašování přes turnajky.cz</label>
+            <label className="InputField--label">
+              Povolit přihlašování přes turnajky.cz
+            </label>
 
             <input
               type="checkbox"
@@ -323,8 +239,7 @@ export default function AddTournament({}) {
           </div>
 
           {/* Submit button */}
-          <div className="AddTournament--form-element">
-            <label></label>
+          <div>
             <div className="AddTournament--submit-button-box">
               <button className="AddTournament--submit-button" type="submit">
                 Přidat turnaj

@@ -13,6 +13,7 @@ import { useMediaQuery } from "react-responsive";
 import { useRecoilState, useSetRecoilState } from "recoil";
 import { tournamentsState } from "./state/atoms/TournamentsState";
 import { apiUrlState } from "./state/atoms/ApiUrlState";
+import useToken from "./components/useToken";
 
 function App() {
   const setTournaments = useSetRecoilState(tournamentsState);
@@ -20,6 +21,7 @@ function App() {
   const [filterOptions, setFilterOptions] = useState([]);
   const [tournamentToEditId, setTournamentToEditId] = useState();
   const [loadingMainTable, setLoadingMainTable] = useState(true);
+  const { token, removeToken } = useToken();
 
   // eslint-disable-next-line
   const localhost = "http://127.0.0.1:5000";
@@ -29,6 +31,8 @@ function App() {
   setApiUrl(localhost);
 
   useEffect(() => {
+    // initialize empty token if token is null
+    token || removeToken();
     fetch(`${apiUrl}/get`, {
       method: "GET",
       headers: {
