@@ -7,11 +7,17 @@ import { sortedTorunamentsState } from "../state/selectors/SortedTournaments";
 import useToken from "../components/useToken";
 import { useRecoilValue } from "recoil";
 import { apiUrlState } from "../state/atoms/ApiUrlState";
+import { screenSize } from "../state/atoms/ScreenSize";
+import { ReactComponent as ExpandedIconMobile } from "../icons/expanded-mobile.svg";
+import { ReactComponent as CollapsedIconMobile } from "../icons/collapsed-mobile.svg";
+import { ReactComponent as ExpandedIcon } from "../icons/expanded.svg";
+import { ReactComponent as CollapsedIcon } from "../icons/collapsed.svg";
 
-function Data({ setShowData, isTabletOrMobile, loadingMainTable }) {
+function Data({ setShowData, loadingMainTable }) {
   // initialize variables and states
   const { token } = useToken();
   const apiUrl = useRecoilValue(apiUrlState);
+  const screenType = useRecoilValue(screenSize);
   const tournaments = useRecoilValue(sortedTorunamentsState);
   const [loading, setLoading] = useState(true); // used for loading of teams
   const [statusChanged, setStatusChanged] = useState(false); // used to trigger rerender after sign in/out from tournament
@@ -58,12 +64,12 @@ function Data({ setShowData, isTabletOrMobile, loadingMainTable }) {
           row.date.split("-")[0]
         }`;
       },
-      width: "160px",
+      width: screenType !== "mobile" ? "160px" : "200px",
     },
     {
       name: "Název",
       selector: (row) => row.name,
-      width: "550px",
+      width: screenType === "mobile" ? "auto" : "550px",
     },
     {
       name: "Kategorie",
@@ -123,19 +129,30 @@ function Data({ setShowData, isTabletOrMobile, loadingMainTable }) {
     },
   ];
 
+  const [expandedRows, setExpandedRows] = useState({});
+
+  const handleRowClick = (row) => {
+    const newRowState = { ...expandedRows };
+    newRowState[row.id] = !newRowState[row.id];
+    setExpandedRows(newRowState);
+  };
+
+  const mobileColumns = columns.slice(0, 2);
   return (
     <div className="Data">
       <div
         className={
-          isTabletOrMobile
+          screenType === "mobile"
             ? "Data--tournament-table-mobile"
             : "Data--tournament-table"
         }
       >
         <DataTable
-          columns={columns}
+          columns={screenType === "mobile" ? mobileColumns : columns}
           data={tournaments}
           pagination
+          paginationPerPage={screenType === "mobile" ? 5 : 10}
+          paginationRowsPerPageOptions={[5, 10, 20]}
           expandableRows
           expandableRowsComponent={(row) => (
             <ExpandedComponent
@@ -153,9 +170,25 @@ function Data({ setShowData, isTabletOrMobile, loadingMainTable }) {
               <h3>Žádná data nejsou k dispozici</h3>
             )
           }
+          expandableIcon={{
+            collapsed:
+              screenType === "mobile" ? (
+                <CollapsedIconMobile />
+              ) : (
+                <CollapsedIcon />
+              ),
+            expanded:
+              screenType === "mobile" ? (
+                <ExpandedIconMobile />
+              ) : (
+                <ExpandedIcon />
+              ),
+          }}
           className={
             tournaments.length === 0 ? "custom-no-data-background" : ""
           }
+          expandableRowExpanded={(row) => expandedRows[row.id]}
+          onRowClicked={handleRowClick}
         />
       </div>
     </div>

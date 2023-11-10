@@ -1,8 +1,23 @@
 import "../styles/ElevatorText.css";
+import { useRecoilValue } from "recoil";
+import { screenSize } from "../state/atoms/ScreenSize";
+
 export default function ElevatorText() {
+  const screenType = useRecoilValue(screenSize);
+
   return (
-    <div className="ElevatorText">
-      <div className="ElevatorText--main-text">
+    <div
+      className={
+        screenType === "mobile" ? "ElevatorText-mobile" : "ElevatorText"
+      }
+    >
+      <div
+        className={
+          screenType === "mobile"
+            ? "ElevatorText--main-text-mobile"
+            : "ElevatorText--main-text"
+        }
+      >
         <p>
           Taky už tě nebaví neustále hledat, kam půjdeš na beachovej turnaj?
           <p>

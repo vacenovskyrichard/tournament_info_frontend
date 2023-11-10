@@ -13,11 +13,13 @@ import { useMediaQuery } from "react-responsive";
 import { useRecoilState, useSetRecoilState } from "recoil";
 import { tournamentsState } from "./state/atoms/TournamentsState";
 import { apiUrlState } from "./state/atoms/ApiUrlState";
+import { screenSize } from "./state/atoms/ScreenSize";
 import useToken from "./components/useToken";
 import "./variables.css";
 
 function App() {
   const setTournaments = useSetRecoilState(tournamentsState);
+  const setScreenSize = useSetRecoilState(screenSize);
   const [apiUrl, setApiUrl] = useRecoilState(apiUrlState);
   const [filterOptions, setFilterOptions] = useState([]);
   const [tournamentToEditId, setTournamentToEditId] = useState();
@@ -30,6 +32,10 @@ function App() {
   const production = "https://jdem-hrat-58da3e527841.herokuapp.com";
 
   setApiUrl(localhost);
+  // eslint-disable-next-line
+  setScreenSize(
+    useMediaQuery({ query: "(max-width: 1224px)" }) ? "mobile" : "desktop"
+  );
 
   useEffect(() => {
     // initialize empty token if token is null
@@ -67,15 +73,6 @@ function App() {
       }); // eslint-disable-next-line
   }, []);
 
-  // eslint-disable-next-line
-  const isDesktopOrLaptop = useMediaQuery({
-    query: "(min-width: 1224px)",
-  });
-
-  // eslint-disable-next-line
-  const isPortrait = useMediaQuery({ query: "(orientation: portrait)" });
-  const isTabletOrMobile = useMediaQuery({ query: "(max-width: 1224px)" });
-
   return (
     <div>
       <BrowserRouter>
@@ -85,42 +82,23 @@ function App() {
             element={
               <Homepage
                 filterOptions={filterOptions}
-                isTabletOrMobile={isTabletOrMobile}
                 loadingMainTable={loadingMainTable}
               />
             }
           />
-          <Route
-            path="/add_tournament"
-            element={<AddTournament isTabletOrMobile={isTabletOrMobile} />}
-          />
+          <Route path="/add_tournament" element={<AddTournament />} />
           <Route
             path="/edit_tournament"
-            element={
-              <EditTournament
-                tournamentToEditId={tournamentToEditId}
-                isTabletOrMobile={isTabletOrMobile}
-              />
-            }
+            element={<EditTournament tournamentToEditId={tournamentToEditId} />}
           />
-          <Route
-            path="/login"
-            element={<Login isTabletOrMobile={isTabletOrMobile} />}
-          />
-          <Route
-            path="/register"
-            element={<Register isTabletOrMobile={isTabletOrMobile} />}
-          />
-          <Route
-            path="/forgot_password"
-            element={<ForgotPassword isTabletOrMobile={isTabletOrMobile} />}
-          />
+          <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
+          <Route path="/forgot_password" element={<ForgotPassword />} />
           <Route
             path="/profile"
             element={
               <Profile
                 setTournamentToEditId={setTournamentToEditId}
-                isTabletOrMobile={isTabletOrMobile}
                 loadingMainTable={loadingMainTable}
               />
             }
@@ -128,16 +106,10 @@ function App() {
           <Route
             path="/change_password"
             element={
-              <ChangePassword
-                setTournamentToEditId={setTournamentToEditId}
-                isTabletOrMobile={isTabletOrMobile}
-              />
+              <ChangePassword setTournamentToEditId={setTournamentToEditId} />
             }
           />
-          <Route
-            path="*"
-            element={<Nopage isTabletOrMobile={isTabletOrMobile} />}
-          />
+          <Route path="*" element={<Nopage />} />
         </Routes>
       </BrowserRouter>
     </div>

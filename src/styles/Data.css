@@ -31,6 +31,10 @@
   height: 60px;
 }
 
+.Data--tournament-table .rdt_TableRow:hover {
+  cursor: pointer;
+}
+
 /* Table tail row */
 .rdt_Pagination > span,
 .rdt_Pagination > div,
@@ -48,38 +52,8 @@
 /* --------------------- Mobile css ---------------------*/
 /* ======================================================*/
 
-/* content buttons */
-.Data--content-buttons,
-.Data--content-buttons-mobile {
-  width: 75%;
-  display: flex;
-  align-items: left;
-}
-
-.Data--content-buttons-mobile {
-  width: 85%;
-}
-
-.Data--content-buttons > button,
-.Data--content-buttons-mobile > button {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-family: var(--main-font);
-  font-size: 28px;
-  margin: 5px 0px 3px 0px;
-  width: 150px;
-  height: 35px;
-  border-radius: 10px;
-}
-.Data--content-buttons-mobile > button {
-  font-size: 35px;
-  height: 40px;
-  width: 200px;
-}
-
 .Data--tournament-table-mobile {
-  width: 85%;
+  width: 98%;
 }
 
 /* Table all components */
@@ -87,6 +61,22 @@
 .Data--tournament-table-mobile .rdt_TableRow,
 .Data--tournament-table-mobile .rdt_Pagination {
   background-color: rgb(216, 216, 216);
-  font-size: 24px;
+  font-size: 28px;
   font-family: var(--main-font);
 }
+
+/* Table head row */
+.Data--tournament-table-mobile .rdt_TableHeadRow {
+  background-color: rgb(37, 31, 31);
+  color: rgb(245, 245, 245);
+  font-size: 24px;
+}
+
+/* Table row */
+.Data--tournament-table-mobile .rdt_TableRow {
+  height: 90px;
+}
+
+/* .Data--tournament-table-mobile:hover .rdt_TableRow {
+  cursor: pointer;
+} */
