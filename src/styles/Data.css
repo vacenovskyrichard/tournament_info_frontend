@@ -69,14 +69,11 @@
 .Data--tournament-table-mobile .rdt_TableHeadRow {
   background-color: rgb(37, 31, 31);
   color: rgb(245, 245, 245);
-  font-size: 24px;
+  font-size: 28px;
+  height: 70px;
 }
 
 /* Table row */
 .Data--tournament-table-mobile .rdt_TableRow {
   height: 90px;
 }
-
-/* .Data--tournament-table-mobile:hover .rdt_TableRow {
-  cursor: pointer;
-} */

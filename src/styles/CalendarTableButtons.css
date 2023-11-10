@@ -36,3 +36,43 @@
 .Content-buttons-body > button:hover {
   cursor: pointer;
 }
+
+/* ======================================================*/
+/* --------------------- Mobile css ---------------------*/
+/* ======================================================*/
+
+.Content-buttons--mobile {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+}
+
+.Content-buttons-body--mobile {
+  display: flex;
+  align-items: left;
+  width: 98%;
+}
+
+.Content-buttons-body--mobile > button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--main-font);
+  font-size: 24px;
+  margin: 5px 0px 3px 0px;
+  width: 50%;
+  height: 55px;
+  /* border-radius: 10px; */
+  border-top-right-radius: 50px;
+  margin-bottom: 0;
+  color: rgb(245, 245, 245);
+}
+
+.isActive {
+  background-color: rgb(37, 31, 31);
+}
+
+.notActive {
+  background-color: rgb(116, 110, 110);
+}

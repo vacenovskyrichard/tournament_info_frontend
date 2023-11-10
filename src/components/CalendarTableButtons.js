@@ -1,17 +1,23 @@
 import "../styles/CalendarTableButtons.css";
+import { useRecoilValue } from "recoil";
+import { screenSize } from "../state/atoms/ScreenSize";
 
-export default function CalendarTableButtons({
-  showData,
-  setShowData,
-  isTabletOrMobile,
-}) {
+export default function CalendarTableButtons({ showData, setShowData }) {
+  const screenType = useRecoilValue(screenSize);
+
   return (
     <div
       className={
-        isTabletOrMobile ? "Content-buttons--mobile" : "Content-buttons"
+        screenType === "mobile" ? "Content-buttons--mobile" : "Content-buttons"
       }
     >
-      <div className="Content-buttons-body">
+      <div
+        className={
+          screenType === "mobile"
+            ? "Content-buttons-body--mobile"
+            : "Content-buttons-body"
+        }
+      >
         <button
           className={showData ? "isActive" : "notActive"}
           onClick={() => setShowData(true)}
