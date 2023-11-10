@@ -1,9 +1,11 @@
+/* main component style */
 .Data {
   display: flex;
   flex-direction: column;
   align-items: center;
 }
 
+/* content buttons */
 .Data--content-buttons,
 .Data--content-buttons-mobile {
   width: 75%;
@@ -47,6 +49,7 @@
   color: rgb(245, 245, 245);
 }
 
+/* Main table component */
 .Data--tournament-table {
   width: 75%;
 }
@@ -55,26 +58,29 @@
   width: 85%;
 }
 
-.Data--tournament-table .rdt_TableHeadRow {
-  background-color: rgb(37, 31, 31);
-  color: rgb(245, 245, 245);
-  font-family: var(--main-font);
-  font-size: 22px;
-}
-
+/* Table all components */
+.Data--tournament-table .rdt_TableHeadRow,
 .Data--tournament-table .rdt_TableRow,
 .Data--tournament-table-mobile .rdt_TableRow,
 .Data--tournament-table .rdt_Pagination,
 .Data--tournament-table-mobile .rdt_Pagination {
   background-color: rgb(216, 216, 216);
-  font-size: 22px;
+  font-size: 24px;
   font-family: var(--main-font);
 }
 
-.Data--tournament-table-mobile .rdt_Pagination {
-  font-size: 20px;
+/* Table head row */
+.Data--tournament-table .rdt_TableHeadRow {
+  background-color: rgb(37, 31, 31);
+  color: rgb(245, 245, 245);
 }
 
+/* Table row */
+.Data--tournament-table .rdt_TableRow {
+  height: 60px;
+}
+
+/* Table tail row */
 .rdt_Pagination > span,
 .rdt_Pagination > div,
 .rdt_Pagination > div > select {
@@ -82,47 +88,7 @@
   font-family: var(--main-font);
 }
 
-.Data--login-to-tournament-btn {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background-image: linear-gradient(
-    90deg,
-    rgba(255, 164, 46, 1) 0%,
-    rgba(247, 28, 61, 1) 100%
-  );
-  transition: box-shadow 0.3s;
-  font-size: 22px;
-  font-family: var(--main-font);
-  font-style: italic;
-  color: rgb(245, 245, 245);
-  border-radius: 20px;
-  height: 30px;
-  width: 50%;
-  margin-left: 15px;
-}
-.Data--logout-from-tournament-btn {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background-color: red;
-  transition: box-shadow 0.3s;
-  font-size: 22px;
-  font-family: var(--main-font);
-  font-style: italic;
-  color: rgb(245, 245, 245);
-  border-radius: 20px;
-  height: 30px;
-  width: 50%;
-  margin-left: 15px;
-}
-
-.Data--login-to-tournament-btn:hover,
-.Data--logout-from-tournament-btn:hover {
-  cursor: pointer;
-  box-shadow: 0 0 11px rgba(33, 33, 33, 0.7);
-}
-
+/* no data table background */
 .custom-no-data-background > div > div > div {
   background-color: rgb(216, 216, 216);
 }
