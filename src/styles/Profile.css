@@ -3,8 +3,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  /* font-family: "Bebas Neue", sans-serif; */
-  font-family: "PT Serif", serif;
+  font-family: var(--main-font);
 }
 
 h1 {
@@ -28,8 +27,7 @@ h1 {
   padding: 2px 20px;
   background-color: rgb(37, 31, 31);
   border-radius: 10px;
-  /* font-family: "Bebas Neue", sans-serif; */
-  font-family: "PT Serif", serif;
+  font-family: var(--main-font);
   font-size: 28px;
   color: rgb(245, 245, 245);
   margin: 10px;
@@ -76,8 +74,7 @@ h1 {
   margin: 0px 50px 0px 50px;
   transition: box-shadow 0.3s;
   font-size: 22px;
-  /* font-family: "Bebas Neue", sans-serif; */
-  font-family: "PT Serif", serif;
+  font-family: var(--main-font);
   font-style: italic;
 }
 .Profile--request-btn-box > button:hover {
@@ -116,8 +113,7 @@ h1 {
   display: flex;
   transition: box-shadow 0.3s;
   font-size: 22px;
-  /* font-family: "Bebas Neue", sans-serif; */
-  font-family: "PT Serif", serif;
+  font-family: var(--main-font);
   justify-content: center;
   align-items: center;
   padding: 5px 15px;
@@ -133,25 +129,31 @@ h1 {
   flex-direction: column;
   width: 75%;
 }
-.Profile--user-data-box {
+
+.Profile--user-data-body {
   display: flex;
+  margin-left: 14px;
+  margin-bottom: 0px;
   font-size: 25px;
 }
 
-.Profile--user-data-box > p {
-  margin: 5px 0px 5px 15px;
+.Profile--user-data-body > div > p {
+  margin-top: 0px;
 }
 
-.Profile--change-passwor-box {
+.Profile--user-data-body-data {
+  margin-left: 15px;
+}
+
+.Profile--change-password-box {
   border-top: 2px solid rgb(37, 31, 31);
-  margin: 15px 0px 5px 14px;
+  margin: 3px 0px 5px 14px;
   padding-top: 15px;
 }
 
-.Profile--change-passwor-box > a {
+.Profile--change-password-box > a {
   transition: box-shadow 0.3s;
-  /* font-family: "Bebas Neue", sans-serif; */
-  font-family: "PT Serif", serif;
+  font-family: var(--main-font);
   font-size: 25px;
   width: 100%;
   background-image: linear-gradient(
@@ -175,21 +177,41 @@ h1 {
 .Profile--tournament-table {
   width: 75%; /* Set the width of the DataTable */
 }
+
+.Profile--tournament-table .rdt_TableHeadRow {
+  background-color: rgb(37, 31, 31);
+  color: rgb(245, 245, 245);
+  font-family: var(--main-font);
+  font-size: 22px;
+}
 .Profile--tournament-table .rdt_TableRow,
-.Profile--tournament-table .rdt_Pagination {
+.Profile--tournament-table-mobile .rdt_TableRow,
+.Profile--tournament-table .rdt_Pagination,
+.Profile--tournament-table-mobile .rdt_Pagination {
   background-color: rgb(216, 216, 216);
+  font-size: 22px;
+  font-family: var(--main-font);
+}
+
+.Profile--tournament-table-mobile .rdt_Pagination {
+  font-size: 20px;
+}
+
+.rdt_Pagination > span,
+.rdt_Pagination > div,
+.rdt_Pagination > div > select {
+  font-size: 20px;
+  font-family: var(--main-font);
 }
 
 .Profile--confirm-window {
   background: rgb(216, 216, 216);
   color: rgb(37, 31, 31);
-  /* font-family: "Bebas Neue", sans-serif; */
-  font-family: "PT Serif", serif;
+  font-family: var(--main-font);
 }
 
 .Profile-delete-confirmation {
-  /* font-family: "Bebas Neue", sans-serif; */
-  font-family: "PT Serif", serif;
+  font-family: var(--main-font);
 }
 
 .Profile-delete-confirmation > div {
@@ -211,8 +233,7 @@ h1 {
   padding: 0 20px;
   height: 50px;
   border-radius: 10px;
-  /* font-family: "Bebas Neue", sans-serif; */
-  font-family: "PT Serif", serif;
+  font-family: var(--main-font);
   font-size: 28px;
   color: rgb(245, 245, 245);
   margin-top: 10px;
@@ -238,8 +259,7 @@ h1 {
 
 .Profile--logged-out > h1 {
   margin: 50px;
-  /* font-family: "Bebas Neue", sans-serif; */
-  font-family: "PT Serif", serif;
+  font-family: var(--main-font);
 }
 
 .custom-no-data-background > div > div > div {

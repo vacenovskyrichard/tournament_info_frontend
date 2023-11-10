@@ -52,26 +52,6 @@ function Profile({ setTournamentToEditId, isTabletOrMobile }) {
     navigate("/edit_tournament");
   };
 
-  const customStyles = {
-    headRow: {
-      style: {
-        backgroundColor: "rgb(37, 31, 31);",
-        color: "rgb(245,245,245)",
-        fontSize: "23px",
-        // fontWeight: "600",
-        // fontFamily: "Bebas Neue",
-        fontFamily: "PT Serif, serif",
-      },
-    },
-    cells: {
-      style: {
-        fontSize: "23px",
-        // fontFamily: "Bebas Neue",
-        fontFamily: "PT Serif, serif",
-      },
-    },
-    background: "rgb(216, 216, 216);",
-  };
   const columns =
     token.role === "player"
       ? [
@@ -266,21 +246,23 @@ function Profile({ setTournamentToEditId, isTabletOrMobile }) {
           {token && (
             <div className="Profile--user-data">
               <h1>Osobní údaje</h1>
-              <div className="Profile--user-data-box">
-                <p>Jméno:</p>
-                <p>
-                  {token.name} {token.surname}{" "}
-                </p>
+
+              <div className="Profile--user-data-body">
+                <div className="Profile--user-data-body-labels">
+                  <p>Jméno:</p>
+                  <p>Email:</p>
+                  <p>Role:</p>
+                </div>
+                <div className="Profile--user-data-body-data">
+                  <p>
+                    {token.name} {token.surname}
+                  </p>
+                  <p>{token.email}</p>
+                  <p>{token.role}</p>
+                </div>
               </div>
-              <div className="Profile--user-data-box">
-                <p>Email:</p>
-                <p>{token.email}</p>
-              </div>
-              <div className="Profile--user-data-box">
-                <p>Role:</p>
-                <p>{token.role}</p>
-              </div>
-              <div className="Profile--change-passwor-box">
+
+              <div className="Profile--change-password-box">
                 <a href="./change_password">Změnit heslo</a>
               </div>
             </div>
@@ -292,7 +274,6 @@ function Profile({ setTournamentToEditId, isTabletOrMobile }) {
                 columns={columns}
                 data={userTournaments}
                 pagination
-                customStyles={customStyles}
                 noDataComponent={
                   loading ? (
                     <h3 style={{ fontSize: "30px" }}>Data se načítají...</h3>

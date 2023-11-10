@@ -1,9 +1,7 @@
-.Calendar--main-content {
+.Calendar {
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin: 10px;
-  color: rgb(37, 31, 31);
 }
 
 .Calendar--content-buttons,
@@ -22,14 +20,12 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  font-family: "PT Serif", serif;
-  /* font-family: "Bebas Neue", sans-serif; */
+  font-family: var(--main-font);
   font-size: 28px;
-  width: 50%;
+  margin: 5px 0px 3px 0px;
+  width: 150px;
   height: 35px;
-  border-top-right-radius: 30px;
-  border-top-left-radius: 5px;
-  border: 0;
+  border-radius: 10px;
 }
 
 .Calendar--content-buttons-mobile > button {
@@ -66,10 +62,8 @@
   border-radius: 15px;
   background-color: black;
   color: rgb(245, 245, 245);
-  /* font-family: "Bebas Neue", sans-serif; */
-  font-family: "PT Serif", serif;
+  font-family: var(--main-font);
 }
-
 .Calendar--url-button-box-mobile > button {
   width: 250px;
   height: 45px;
@@ -82,48 +76,45 @@
 }
 
 .rbc-event-content {
-  /* font-family: "Bebas Neue", sans-serif; */
-  font-family: "PT Serif", serif;
+  font-family: var(--main-font);
   font-size: 23px;
 }
 
 .rbc-toolbar {
   background-color: rgb(37, 31, 31);
-  /* font-family: "Bebas Neue", sans-serif; */
-  font-family: "PT Serif", serif;
+  font-family: var(--main-font);
   color: rgb(245, 245, 245);
 }
 
 .rbc-toolbar > span {
   font-size: 23px;
-  /* font-family: "Bebas Neue", sans-serif; */
-  font-family: "PT Serif", serif;
+  font-family: var(--main-font);
 }
 
 .rbc-toolbar > span > button {
-  /* font-family: "Bebas Neue", sans-serif; */
-  font-family: "PT Serif", serif;
+  font-family: var(--main-font);
   font-size: 23px;
   color: rgb(245, 245, 245);
 }
 
 .Calendar--calendar-box {
   width: 75%;
-  /* font-family: "Bebas Neue", sans-serif; */
-  font-family: "PT Serif", serif;
+  height: 700px;
+  background-color: rgb(245, 245, 245);
+  font-family: var(--main-font);
+  font-size: 20px;
 }
+
 .Calendar--calendar-box-mobile {
   width: 85%;
-  /* font-family: "Bebas Neue", sans-serif; */
-  font-family: "PT Serif", serif;
+  font-family: var(--main-font);
 }
 
 .Calendar--detail-window {
   display: flex;
   align-items: center;
   justify-content: center;
-  /* font-family: "Bebas Neue", sans-serif; */
-  font-family: "PT Serif", serif;
+  font-family: var(--main-font);
 }
 
 .Calendar--detail-window-textbox {
@@ -137,6 +128,16 @@
   color: rgb(37, 31, 31);
 }
 
+.label-text {
+  font-size: 29px;
+  margin-right: 15px;
+}
+
+.content-text {
+  /* font-style: italic; */
+  font-size: 29px;
+}
+
 .Calendar--detail-window-last-update {
   display: flex;
   justify-content: center;
@@ -147,11 +148,10 @@
 
 .Calendar--detail-window-body {
   display: flex;
-  font-size: 25px;
+  font-size: 28px;
 }
-.Calendar--detail-window-body-labels {
-  margin: 0px 20px;
-}
+
 .Calendar--detail-window-body-data {
   font-style: italic;
+  margin-left: 20px;
 }

@@ -1,10 +1,6 @@
 import "../styles/Data.css";
-import { useForm } from "react-hook-form";
 import { useEffect, useState } from "react";
 import DataTable from "react-data-table-component";
-import { ReactComponent as CustomIcon } from "../icons/info-circle.svg";
-import { ReactComponent as CustomIconMobile } from "../icons/info-circle-mobile.svg";
-import jwt_decode from "jwt-decode";
 import axios from "axios";
 import ExpandedComponent from "./ExpandedRow";
 import { sortedTorunamentsState } from "../state/selectors/SortedTournaments";
@@ -23,63 +19,37 @@ function Data({ setShowData, isTabletOrMobile, loadingMainTable }) {
   const [signedTeams, setSignedTeams] = useState({});
 
   useEffect(() => {
-    fetch(`${apiUrl}/get_teams`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${token.accessToken}`,
-      },
-      body: JSON.stringify({ userId: token.id }),
-    })
-      .then((resp) => {
-        if (resp.status === 200) {
-          return resp.json();
-        } else {
-          return "Unauthorized";
-        }
+    token.role === "player" &&
+      fetch(`${apiUrl}/get_teams`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token.accessToken}`,
+        },
+        body: JSON.stringify({ userId: token.id }),
       })
-      .then((response) => {
-        setSignedTeams(response);
-      })
-      .then(() => {
-        setLoading(false);
-      })
-      .catch((error) => {
-        if (error.response) {
-          alert("Něco se nepovedlo");
-          console.log(error.response);
-          console.log(error.response.status);
-          console.log(error.response.headers);
-        }
-      });
+        .then((resp) => {
+          if (resp.status === 200) {
+            return resp.json();
+          } else {
+            return "Unauthorized";
+          }
+        })
+        .then((response) => {
+          setSignedTeams(response);
+        })
+        .then(() => {
+          setLoading(false);
+        })
+        .catch((error) => {
+          if (error.response) {
+            alert("Něco se nepovedlo");
+            console.log(error.response);
+            console.log(error.response.status);
+            console.log(error.response.headers);
+          }
+        });
   }, [statusChanged]);
-
-  // creates whitespaces in jsx
-  function whitespaces(count) {
-    return "\u00A0".repeat(count); // '\u00A0' represents the non-breaking space character
-  }
-
-  // custom styles of data table
-  const tableFontSize = isTabletOrMobile ? "30px" : "23px";
-  const customStyles = {
-    headRow: {
-      style: {
-        backgroundColor: "rgb(37, 31, 31);",
-        color: "white",
-        fontSize: tableFontSize,
-        // fontFamily: "Bebas Neue",
-        fontFamily: "PT Serif, serif",
-      },
-    },
-    cells: {
-      style: {
-        fontSize: tableFontSize,
-        fontFamily: "PT Serif, serif",
-        // fontFamily: "Bebas Neue",
-      },
-    },
-    background: "rgb(216, 216, 216);",
-  };
 
   // set comlumns
   const columns = [
@@ -109,7 +79,7 @@ function Data({ setShowData, isTabletOrMobile, loadingMainTable }) {
     {
       name: "Areál",
       selector: (row) => row.areal,
-      width: "350px",
+      width: "300px",
     },
     {
       name: "Kapacita",
@@ -165,7 +135,7 @@ function Data({ setShowData, isTabletOrMobile, loadingMainTable }) {
   ];
 
   return (
-    <div className="Data--main">
+    <div className="Data">
       <div
         className={
           isTabletOrMobile
@@ -205,14 +175,8 @@ function Data({ setShowData, isTabletOrMobile, loadingMainTable }) {
               signedTeams={signedTeams}
               setStatusChanged={setStatusChanged}
               statusChanged={statusChanged}
-              whitespaces={whitespaces}
             />
           )}
-          expandableIcon={{
-            collapsed: isTabletOrMobile ? <CustomIconMobile /> : <CustomIcon />,
-            expanded: isTabletOrMobile ? <CustomIconMobile /> : <CustomIcon />,
-          }}
-          customStyles={customStyles}
           noDataComponent={
             loadingMainTable ? (
               <h3>Data se načítají...</h3>

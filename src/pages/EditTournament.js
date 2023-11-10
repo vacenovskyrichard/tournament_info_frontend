@@ -8,6 +8,7 @@ import Select from "react-select";
 import useToken from "../components/useToken";
 import { useRecoilValue } from "recoil";
 import { apiUrlState } from "../state/atoms/ApiUrlState";
+import { SelectFormFontFamily } from "../config/Font";
 
 export default function EditTournament({}) {
   const apiUrl = useRecoilValue(apiUrlState);
@@ -386,7 +387,7 @@ export default function EditTournament({}) {
                         control: (base, state) => ({
                           ...base,
                           border: "1px solid #e6e6e6",
-                          fontFamily: "Montserrat, sans-serif",
+                          fontFamily: SelectFormFontFamily,
                           fontSize: "18px",
                           width: "100%",
                           backgroundColor: "#f7f7f7",
@@ -427,7 +428,7 @@ export default function EditTournament({}) {
                         control: (base, state) => ({
                           ...base,
                           border: "1px solid #e6e6e6",
-                          fontFamily: "Montserrat, sans-serif",
+                          fontFamily: SelectFormFontFamily,
                           fontSize: "18px",
                           width: "100%",
                           backgroundColor: "#f7f7f7",

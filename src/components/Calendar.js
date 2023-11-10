@@ -120,7 +120,7 @@ export default function MyCalendar({
   };
 
   return (
-    <div className="Calendar--main-content">
+    <div className="Calendar">
       <div
         className={
           isTabletOrMobile
@@ -155,12 +155,6 @@ export default function MyCalendar({
           messages={messages}
           startAccessor="start"
           endAccessor="end"
-          style={{
-            height: 700,
-            fontSize: 20,
-            fontFamily: " PT Serif, serif",
-            backgroundColor: "rgb(245, 245, 245)",
-          }}
           onSelectEvent={handleEventClick}
         />
       </div>
@@ -204,7 +198,7 @@ export default function MyCalendar({
                   </p>
                   <p>{selectedEvent.price},- (za osobu)</p>
                   <p>{selectedEvent.organizer}</p>
-                  <p>{selectedEvent.link}</p>
+                  <a href={selectedEvent.link}>{selectedEvent.link}</a>
                 </div>
               </div>
             </div>

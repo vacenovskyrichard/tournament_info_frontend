@@ -4,8 +4,7 @@
   justify-content: center;
   flex-direction: row;
   width: 100%;
-  /* font-family: "Bebas Neue", sans-serif; */
-  font-family: "PT Serif", serif;
+  font-family: var(--main-font);
   margin-bottom: 500px;
 }
 

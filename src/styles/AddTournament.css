@@ -43,8 +43,7 @@
   height: 60px;
   background-color: rgb(37, 31, 31);
   border-radius: 10px;
-  /* font-family: "Bebas Neue", sans-serif; */
-  font-family: "PT Serif", serif;
+  font-family: var(--main-font);
   font-size: 28px;
   color: rgb(216, 216, 216);
   margin: 10px;

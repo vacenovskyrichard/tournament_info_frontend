@@ -14,6 +14,7 @@ import { useRecoilState, useSetRecoilState } from "recoil";
 import { tournamentsState } from "./state/atoms/TournamentsState";
 import { apiUrlState } from "./state/atoms/ApiUrlState";
 import useToken from "./components/useToken";
+import "./variables.css";
 
 function App() {
   const setTournaments = useSetRecoilState(tournamentsState);

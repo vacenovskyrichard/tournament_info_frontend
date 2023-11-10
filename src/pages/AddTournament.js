@@ -9,6 +9,7 @@ import jwt_decode from "jwt-decode";
 import useToken from "../components/useToken";
 import { useRecoilValue } from "recoil";
 import { apiUrlState } from "../state/atoms/ApiUrlState";
+import { SelectFormFontFamily } from "../config/Font";
 
 export default function AddTournament() {
   const apiUrl = useRecoilValue(apiUrlState);
@@ -71,7 +72,7 @@ export default function AddTournament() {
     control: (base) => ({
       ...base,
       border: "1px solid #e6e6e6",
-      fontFamily: "Montserrat, sans-serif",
+      fontFamily: SelectFormFontFamily,
       fontSize: "18px",
       width: "103%",
       backgroundColor: "#f7f7f7",

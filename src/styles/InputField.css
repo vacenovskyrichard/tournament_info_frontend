@@ -3,7 +3,7 @@
 }
 
 .InputField--label {
-  font-family: "PT Serif", serif;
+  font-family: var(--main-font);
   font-weight: bold;
   font-size: 22px;
   background-image: linear-gradient(
@@ -21,7 +21,7 @@
 }
 
 .InputField--input {
-  font-family: "Montserrat", sans-serif;
+  font-family: var(--input-font);
   font-size: 18px;
   width: 100%;
   background-color: #f7f7f7;

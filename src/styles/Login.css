@@ -31,8 +31,7 @@
 .login-form-title {
   width: 100%;
   display: block;
-  /* font-family: "Bebas Neue", sans-serif; */
-  font-family: "PT Serif", serif;
+  font-family: var(--main-font);
   font-size: 39px;
   /* color: #555; */
   background-image: linear-gradient(
@@ -154,8 +153,7 @@
 }
 
 .Login--label {
-  /* font-family: "Bebas Neue", sans-serif; */
-  font-family: "PT Serif", serif;
+  font-family: var(--main-font);
   font-weight: bold;
   font-size: 22px;
   background-image: linear-gradient(
@@ -179,8 +177,7 @@
 }
 
 .Login--tiny-label {
-  /* font-family: "Bebas Neue", sans-serif; */
-  font-family: "PT Serif", serif;
+  font-family: var(--main-font);
   font-size: 22px;
   color: #999;
   line-height: 1.5;
@@ -190,7 +187,7 @@
 }
 
 .wrap-input > input {
-  font-family: "Montserrat", sans-serif;
+  font-family: var(--input-font);
   font-size: 18px;
   width: 100%;
   background-color: #f7f7f7;
@@ -212,8 +209,7 @@
   height: 60px;
   background-color: #333;
   border-radius: 10px;
-  /* font-family: "Bebas Neue", sans-serif; */
-  font-family: "PT Serif", serif;
+  font-family: var(--main-font);
   font-size: 22px;
   color: #fff;
   margin-top: 10px;
@@ -257,7 +253,7 @@
   position: absolute;
   top: 2px;
   right: 10px;
-  font-family: "Autour One", sans-serif;
+  font-family: var(--x-font);
   font-size: 35px;
   background-image: linear-gradient(
     90deg,
@@ -282,7 +278,7 @@
   justify-content: center;
   margin: 10px;
   background-color: rgb(99, 255, 99);
-  font-family: "Autour One", sans-serif;
+  font-family: var(--main-font);
   width: 600px;
   height: 25px;
   border-radius: 15px;
@@ -299,8 +295,7 @@
 
 .Login--player-btn,
 .Login--organizer-btn {
-  /* font-family: "Bebas Neue", sans-serif; */
-  font-family: "PT Serif", serif;
+  font-family: var(--main-font);
   font-size: 28px;
   border-top-right-radius: 20px;
   border-top-left-radius: 10px;
