@@ -124,26 +124,6 @@ export default function MyCalendar({
       <div
         className={
           isTabletOrMobile
-            ? "Calendar--content-buttons-mobile"
-            : "Calendar--content-buttons"
-        }
-      >
-        <button
-          className="Calendar--table-button"
-          onClick={() => setShowData(true)}
-        >
-          Tabulka
-        </button>
-        <button
-          className="Calendar--calendar-button"
-          onClick={() => setShowData(false)}
-        >
-          Kalendář
-        </button>
-      </div>
-      <div
-        className={
-          isTabletOrMobile
             ? "Calendar--calendar-box-mobile"
             : "Calendar--calendar-box"
         }

@@ -23,6 +23,10 @@
   justify-content: left;
 }
 
+.Resources--content > h1 {
+  font-size: 30px;
+}
+
 .Resources--resources {
   display: flex;
   flex-wrap: wrap;

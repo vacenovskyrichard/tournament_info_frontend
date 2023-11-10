@@ -171,17 +171,28 @@ export default function ExpandedComponent({
   return (
     <div className="ExpandedRow--main">
       <div className="ExpandedRow--left">
-        <h3 className="ExpandedRow--title">Detail</h3>
+        <h3 className="ExpandedRow--title">{data.name}</h3>
         <div className="ExpandedRow--details">
           <div className="ExpandedRow--details-labels">
-            <p>Název:</p>
+            <p>Kategorie:</p>
+            <p>Úroveň:</p>
+            <p>Kapacita:</p>
+            <p>Areál:</p>
             <p>Cena:</p>
             <p>Start:</p>
             <p>Pořádá:</p>
             <p>Odkaz:</p>
           </div>
           <div className="ExpandedRow--details-data">
-            <p>{data.name} </p>
+            <p>{data.category}</p>
+            <p>{data.level}</p>
+
+            <p>
+              {data.signed}/{data.capacity}
+            </p>
+            <p>
+              {data.areal} ({data.city})
+            </p>
             <p>{data.price},- (na osobu)</p>
             <p>{data.start}</p>
             <p>{data.organizer}</p>

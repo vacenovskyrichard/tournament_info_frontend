@@ -1,7 +1,9 @@
 import Navbar from "../components/Navbar";
+import ElevatorText from "../components/ElevatorText";
+import Filters from "../components/Filters";
+import CalendarTableButtons from "../components/CalendarTableButtons";
 import Data from "../components/Data";
 import MyCalendar from "../components/Calendar";
-import Filters from "../components/Filters";
 import Resources from "../components/Resources";
 import Footer from "../components/Footer";
 import { useState } from "react";
@@ -17,14 +19,20 @@ function Homepage({ filterOptions, isTabletOrMobile, loadingMainTable }) {
         title={""}
         isTabletOrMobile={isTabletOrMobile}
       />
+
+      <ElevatorText />
       <Filters
         setFilterResults={setFilterResults}
         filterOptions={filterOptions}
         isTabletOrMobile={isTabletOrMobile}
       />
+      <CalendarTableButtons
+        isTabletOrMobile={isTabletOrMobile}
+        setShowData={setShowData}
+        showData={showData}
+      />
       {showData ? (
         <Data
-          setShowData={setShowData}
           showData={showData}
           isTabletOrMobile={isTabletOrMobile}
           loadingMainTable={loadingMainTable}
@@ -32,7 +40,6 @@ function Homepage({ filterOptions, isTabletOrMobile, loadingMainTable }) {
       ) : (
         <MyCalendar
           filterResults={filterResults}
-          setShowData={setShowData}
           showData={showData}
           isTabletOrMobile={isTabletOrMobile}
         />

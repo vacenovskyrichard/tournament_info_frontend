@@ -19,36 +19,34 @@ function Data({ setShowData, isTabletOrMobile, loadingMainTable }) {
   const [signedTeams, setSignedTeams] = useState({});
 
   useEffect(() => {
-    token.role === "player" &&
-      fetch(`${apiUrl}/get_teams`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token.accessToken}`,
-        },
-        body: JSON.stringify({ userId: token.id }),
+    fetch(`${apiUrl}/get_teams`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ userId: token.id }),
+    })
+      .then((resp) => {
+        if (resp.status === 200) {
+          return resp.json();
+        } else {
+          return "Unauthorized";
+        }
       })
-        .then((resp) => {
-          if (resp.status === 200) {
-            return resp.json();
-          } else {
-            return "Unauthorized";
-          }
-        })
-        .then((response) => {
-          setSignedTeams(response);
-        })
-        .then(() => {
-          setLoading(false);
-        })
-        .catch((error) => {
-          if (error.response) {
-            alert("Něco se nepovedlo");
-            console.log(error.response);
-            console.log(error.response.status);
-            console.log(error.response.headers);
-          }
-        });
+      .then((response) => {
+        setSignedTeams(response);
+      })
+      .then(() => {
+        setLoading(false);
+      })
+      .catch((error) => {
+        if (error.response) {
+          alert("Něco se nepovedlo");
+          console.log(error.response);
+          console.log(error.response.status);
+          console.log(error.response.headers);
+        }
+      });
   }, [statusChanged]);
 
   // set comlumns
@@ -60,26 +58,22 @@ function Data({ setShowData, isTabletOrMobile, loadingMainTable }) {
           row.date.split("-")[0]
         }`;
       },
-      width: "150px",
+      width: "160px",
     },
     {
       name: "Název",
       selector: (row) => row.name,
-      width: "350px",
+      width: "550px",
     },
     {
       name: "Kategorie",
       selector: (row) => row.category,
-      // width: "150px",
-    },
-    {
-      name: "Město",
-      selector: (row) => row.city,
+      width: "180px",
     },
     {
       name: "Areál",
       selector: (row) => row.areal,
-      width: "300px",
+      width: "260px",
     },
     {
       name: "Kapacita",
@@ -125,37 +119,12 @@ function Data({ setShowData, isTabletOrMobile, loadingMainTable }) {
         },
       ],
 
-      width: "130px",
-    },
-    {
-      name: "Úroveň",
-      selector: (row) => row.level,
-      width: "150px",
+      width: "180px",
     },
   ];
 
   return (
     <div className="Data">
-      <div
-        className={
-          isTabletOrMobile
-            ? "Data--content-buttons-mobile"
-            : "Data--content-buttons"
-        }
-      >
-        <button
-          className="Data--table-button"
-          onClick={() => setShowData(true)}
-        >
-          Tabulka
-        </button>
-        <button
-          className="Data--calendar-button"
-          onClick={() => setShowData(false)}
-        >
-          Kalendář
-        </button>
-      </div>
       <div
         className={
           isTabletOrMobile

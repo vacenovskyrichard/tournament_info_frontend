@@ -1,0 +1,38 @@
+/* content buttons */
+.Content-buttons {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+}
+
+.Content-buttons-body {
+  display: flex;
+  align-items: left;
+  width: 75%;
+}
+
+.Content-buttons-body > button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--main-font);
+  font-size: 24px;
+  margin: 5px 0px 3px 0px;
+  width: 150px;
+  height: 35px;
+  border-radius: 10px;
+  color: rgb(245, 245, 245);
+}
+
+.isActive {
+  background-color: rgb(37, 31, 31);
+}
+
+.notActive {
+  background-color: rgb(116, 110, 110);
+}
+
+.Content-buttons-body > button:hover {
+  cursor: pointer;
+}

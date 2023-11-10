@@ -5,6 +5,49 @@
   align-items: center;
 }
 
+/* Main table component */
+.Data--tournament-table {
+  width: 75%;
+}
+
+/* Table all components */
+.Data--tournament-table .rdt_TableHeadRow,
+.Data--tournament-table .rdt_TableRow,
+.Data--tournament-table .rdt_Pagination {
+  background-color: rgb(216, 216, 216);
+  font-size: 20px;
+  font-family: var(--main-font);
+}
+
+/* Table head row */
+.Data--tournament-table .rdt_TableHeadRow {
+  background-color: rgb(37, 31, 31);
+  color: rgb(245, 245, 245);
+  font-size: 24px;
+}
+
+/* Table row */
+.Data--tournament-table .rdt_TableRow {
+  height: 60px;
+}
+
+/* Table tail row */
+.rdt_Pagination > span,
+.rdt_Pagination > div,
+.rdt_Pagination > div > select {
+  font-size: 20px;
+  font-family: var(--main-font);
+}
+
+/* no data table background */
+.custom-no-data-background > div > div > div {
+  background-color: rgb(216, 216, 216);
+}
+
+/* ======================================================*/
+/* --------------------- Mobile css ---------------------*/
+/* ======================================================*/
+
 /* content buttons */
 .Data--content-buttons,
 .Data--content-buttons-mobile {
@@ -35,60 +78,15 @@
   width: 200px;
 }
 
-.Data--content-buttons > button:hover {
-  cursor: pointer;
-}
-
-.Data--table-button {
-  background-color: rgb(37, 31, 31);
-  color: rgb(245, 245, 245);
-}
-
-.Data--calendar-button {
-  background-color: rgb(116, 110, 110);
-  color: rgb(245, 245, 245);
-}
-
-/* Main table component */
-.Data--tournament-table {
-  width: 75%;
-}
-
 .Data--tournament-table-mobile {
   width: 85%;
 }
 
 /* Table all components */
-.Data--tournament-table .rdt_TableHeadRow,
-.Data--tournament-table .rdt_TableRow,
+.Data--tournament-table-mobile .rdt_TableHeadRow,
 .Data--tournament-table-mobile .rdt_TableRow,
-.Data--tournament-table .rdt_Pagination,
 .Data--tournament-table-mobile .rdt_Pagination {
   background-color: rgb(216, 216, 216);
   font-size: 24px;
   font-family: var(--main-font);
-}
-
-/* Table head row */
-.Data--tournament-table .rdt_TableHeadRow {
-  background-color: rgb(37, 31, 31);
-  color: rgb(245, 245, 245);
-}
-
-/* Table row */
-.Data--tournament-table .rdt_TableRow {
-  height: 60px;
-}
-
-/* Table tail row */
-.rdt_Pagination > span,
-.rdt_Pagination > div,
-.rdt_Pagination > div > select {
-  font-size: 20px;
-  font-family: var(--main-font);
-}
-
-/* no data table background */
-.custom-no-data-background > div > div > div {
-  background-color: rgb(216, 216, 216);
 }

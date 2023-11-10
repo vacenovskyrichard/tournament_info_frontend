@@ -13,7 +13,7 @@ export default function Resource({ isImage, style, imgPath, text1, text2 }) {
           style={{
             display: "flex",
             flexDirection: "column",
-            fontSize: "25px",
+            fontSize: "18px",
           }}
         >
           <h3 style={{ margin: "5px" }}>{text1} </h3>
