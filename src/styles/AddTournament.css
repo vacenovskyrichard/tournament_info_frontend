@@ -5,8 +5,9 @@
 }
 
 .AddTournament--form {
-  width: 500px;
+  width: 35%;
 }
+
 .AddTournament--form-element {
   margin: 20px 0px;
 }
@@ -20,7 +21,7 @@
 
 .AddTournament--form-element-checkbox > input {
   height: 40px;
-  width: 25px;
+  width: 40px;
 }
 
 .AddTournament--submit-button-box {
@@ -52,4 +53,49 @@
 
 .AddTournament--submit-button:hover {
   box-shadow: 0 0 11px rgb(37, 31, 31);
+}
+
+/* ======================================================*/
+/* --------------------- Mobile css ---------------------*/
+/* ======================================================*/
+
+.AddTournament--form-mobile {
+  width: 90%;
+}
+
+.AddTournament--form-mobile > div {
+  height: 150px;
+}
+.AddTournament--form-mobile > div > label {
+  font-size: 35px;
+}
+.AddTournament--form-mobile > div > input {
+  font-size: 35px;
+  height: 60px;
+}
+
+.AddTournament--form-mobile > div > div > div {
+  font-size: 30px;
+}
+
+.AddTournament--submit-button-box-mobile {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  flex-direction: column;
+}
+
+.AddTournament--submit-button-box-mobile > button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0 20px;
+  height: 90px;
+  background-color: rgb(37, 31, 31);
+  border-radius: 10px;
+  font-family: var(--main-font);
+  font-size: 45px;
+  color: rgb(216, 216, 216);
+  margin: 10px;
+  width: 80%;
 }

@@ -10,9 +10,11 @@ import useToken from "../components/useToken";
 import { useRecoilValue } from "recoil";
 import { apiUrlState } from "../state/atoms/ApiUrlState";
 import { SelectFormFontFamily } from "../config/Font";
+import { screenSize } from "../state/atoms/ScreenSize";
 
 export default function AddTournament() {
   const apiUrl = useRecoilValue(apiUrlState);
+  const screenType = useRecoilValue(screenSize);
   const { token } = useToken();
   const navigate = useNavigate();
   const { register, control, handleSubmit, formState } = useForm();
@@ -85,7 +87,14 @@ export default function AddTournament() {
     <>
       <Navbar title={"Vytvoření nového turnaje"} />
       <div className="AddTournament">
-        <form className="AddTournament--form" onSubmit={handleSubmit(onSubmit)}>
+        <form
+          className={
+            screenType === "mobile"
+              ? "AddTournament--form-mobile"
+              : "AddTournament--form"
+          }
+          onSubmit={handleSubmit(onSubmit)}
+        >
           {/* Tournament name */}
           <InputField
             label={"Jméno turnaje"}
@@ -243,7 +252,13 @@ export default function AddTournament() {
 
           {/* Submit button */}
           <div>
-            <div className="AddTournament--submit-button-box">
+            <div
+              className={
+                screenType === "mobile"
+                  ? "AddTournament--submit-button-box-mobile"
+                  : "AddTournament--submit-button-box"
+              }
+            >
               <button className="AddTournament--submit-button" type="submit">
                 Přidat turnaj
               </button>
