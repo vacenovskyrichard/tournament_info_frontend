@@ -102,14 +102,21 @@ export default function MyCalendar({ filterResults }) {
 
   const generateCalendarUrl = () => {
     const city =
-      filterResults.city && filterResults.city.map((c) => c.label).join(";");
+      filterResults && filterResults.city
+        ? filterResults.city.map((c) => c.label).join(";")
+        : "";
     const areal =
-      filterResults.areal && filterResults.areal.map((c) => c.label).join(";");
+      filterResults && filterResults.areal
+        ? filterResults.areal.map((c) => c.label).join(";")
+        : "";
     const category =
-      filterResults.category &&
-      filterResults.category.map((c) => c.label).join(";");
+      filterResults && filterResults.category
+        ? filterResults.category.map((c) => c.label).join(";")
+        : "";
     const level =
-      filterResults.level && filterResults.level.map((c) => c.label).join(";");
+      filterResults && filterResults.level
+        ? filterResults.level.map((c) => c.label).join(";")
+        : "";
 
     setCalendarUrl(
       `https://jdem-hrat-58da3e527841.herokuapp.com/ical.feed?city=${city}&areal=${areal}&category=${category}&level=${level}`
@@ -140,14 +147,29 @@ export default function MyCalendar({ filterResults }) {
         open={selectedEvent !== null}
         onClose={() => setSelectedEvent(null)}
         classNames={{
-          modal: "Calendar--detail-window",
+          modal:
+            screenType === "mobile"
+              ? "Calendar--detail-window-mobile"
+              : "Calendar--detail-window",
         }}
       >
         {selectedEvent && (
           <div>
             <h1>{selectedEvent.title}</h1>
-            <div className="Calendar--detail-window-textbox">
-              <div className="Calendar--detail-window-body">
+            <div
+              className={
+                screenType === "mobile"
+                  ? "Calendar--detail-window-textbox-mobile"
+                  : "Calendar--detail-window-textbox"
+              }
+            >
+              <div
+                className={
+                  screenType === "mobile"
+                    ? "Calendar--detail-window-body-mobile"
+                    : "Calendar--detail-window-body"
+                }
+              >
                 <div className="Calendar--detail-window-body-labels">
                   <p>Datum:</p>
                   <p>Areál:</p>
@@ -176,11 +198,17 @@ export default function MyCalendar({ filterResults }) {
                   </p>
                   <p>{selectedEvent.price},- (za osobu)</p>
                   <p>{selectedEvent.organizer}</p>
-                  <a href={selectedEvent.link}>{selectedEvent.link}</a>
+                  <a href={selectedEvent.link}>link</a>
                 </div>
               </div>
             </div>
-            <div className="Calendar--detail-window-last-update">
+            <div
+              className={
+                screenType === "mobile"
+                  ? "Calendar--detail-window-last-update-mobile"
+                  : "Calendar--detail-window-last-update"
+              }
+            >
               <p>Naposledy aktualizováno: {selectedEvent.last_update}</p>
             </div>
           </div>
@@ -200,7 +228,10 @@ export default function MyCalendar({ filterResults }) {
         open={showCalendarUrl}
         onClose={() => setShowCalendarUrl(false)}
         classNames={{
-          modal: "Calendar--detail-window",
+          modal:
+            screenType === "mobile"
+              ? "Calendar--detail-window-mobile"
+              : "Calendar--detail-window",
         }}
       >
         {calendarUrl && (

@@ -174,27 +174,42 @@ h1 {
   text-shadow: 0 0 1px rgb(37, 31, 31);
 }
 
+/* Main table component */
 .Profile--tournament-table {
-  width: 75%; /* Set the width of the DataTable */
+  width: 75%;
 }
 
+/* Table all components */
+.Profile--tournament-table .rdt_TableHeadRow,
+.Profile--tournament-table .rdt_TableRow,
+.Profile--tournament-table .rdt_Pagination {
+  background-color: rgb(216, 216, 216);
+  font-size: 20px;
+  font-family: var(--main-font);
+}
+
+/* Table head row */
 .Profile--tournament-table .rdt_TableHeadRow {
   background-color: rgb(37, 31, 31);
   color: rgb(245, 245, 245);
-  font-family: var(--main-font);
-  font-size: 22px;
-}
-.Profile--tournament-table .rdt_TableRow,
-.Profile--tournament-table-mobile .rdt_TableRow,
-.Profile--tournament-table .rdt_Pagination,
-.Profile--tournament-table-mobile .rdt_Pagination {
-  background-color: rgb(216, 216, 216);
-  font-size: 22px;
-  font-family: var(--main-font);
+  font-size: 24px;
 }
 
-.Profile--tournament-table-mobile .rdt_Pagination {
+/* Table row */
+.Profile--tournament-table .rdt_TableRow {
+  height: 60px;
+}
+
+.Profile--tournament-table .rdt_TableRow:hover {
+  cursor: pointer;
+}
+
+/* Table tail row */
+.rdt_Pagination > span,
+.rdt_Pagination > div,
+.rdt_Pagination > div > select {
   font-size: 20px;
+  font-family: var(--main-font);
 }
 
 .rdt_Pagination > span,
@@ -264,4 +279,73 @@ h1 {
 
 .custom-no-data-background > div > div > div {
   background-color: rgb(216, 216, 216);
+}
+
+/* ======================================================*/
+/* --------------------- Mobile css ---------------------*/
+/* ======================================================*/
+
+.Profile--tournament-table-mobile {
+  width: 98%;
+}
+
+/* Table all components */
+.Profile--tournament-table-mobile .rdt_TableHeadRow,
+.Profile--tournament-table-mobile .rdt_TableRow,
+.Profile--tournament-table-mobile .rdt_Pagination {
+  background-color: rgb(216, 216, 216);
+  font-size: 28px;
+  font-family: var(--main-font);
+}
+
+/* Table head row */
+.Profile--tournament-table-mobile .rdt_TableHeadRow {
+  background-color: rgb(37, 31, 31);
+  color: rgb(245, 245, 245);
+  font-size: 28px;
+  height: 70px;
+}
+
+.Profile--tournament-table-mobile .rdt_TableCol_Sortable {
+  display: flex;
+  justify-content: center;
+}
+
+/* Table row */
+.Profile--tournament-table-mobile .rdt_TableRow {
+  height: 90px;
+}
+
+/* Table cell */
+.Profile--tournament-table-mobile .rdt_TableCell {
+  display: flex;
+  /* justify-content: center; */
+  /* color: red; */
+}
+
+.Profile--tournament-table-mobile .svYMe {
+  margin-right: 20px;
+  width: 50px;
+}
+
+.Profile--tournament-table-mobile .svYMe > select {
+  font-size: 25px;
+}
+
+.Profile--tournament-table-mobile .svYMe > svg {
+  transform: scale(2);
+}
+
+.Profile--tournament-table-mobile .rdt_Pagination {
+  display: flex;
+}
+
+.Profile--tournament-table-mobile .rdt_Pagination > span {
+  font-size: 26px;
+}
+.Profile--tournament-table-mobile .rdt_Pagination > div > button {
+  width: 100px;
+}
+.Profile--tournament-table-mobile .rdt_Pagination > div > button > svg {
+  transform: scale(2.5); /* Adjust the scale factor as needed */
 }

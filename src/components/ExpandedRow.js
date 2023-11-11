@@ -18,6 +18,9 @@ export default function ExpandedComponent({
   statusChanged,
   whitespaces,
   data,
+  showEditerButtons,
+  editTorunament,
+  deleteTorunament,
 }) {
   data = data.data;
   const apiUrl = useRecoilValue(apiUrlState);
@@ -179,165 +182,15 @@ export default function ExpandedComponent({
       <div
         className={
           screenType === "mobile"
-            ? "ExpandedRow--left-mobile"
-            : "ExpandedRow--left"
+            ? "ExpandedRow-main--mobile"
+            : "ExpandedRow-main"
         }
       >
-        <h3
-          className={
-            screenType === "mobile"
-              ? "ExpandedRow--title-mobile"
-              : "ExpandedRow--title"
-          }
-        >
-          {data.name}
-        </h3>
-        <div className="ExpandedRow--details">
-          <div className="ExpandedRow--details-labels">
-            <p>Kategorie:</p>
-            <p>Úroveň:</p>
-            <p>Kapacita:</p>
-            <p>Areál:</p>
-            <p>Cena:</p>
-            <p>Start:</p>
-            <p>Pořádá:</p>
-            <p>Odkaz:</p>
-          </div>
-          <div className="ExpandedRow--details-data">
-            <p>{data.category}</p>
-            <p>{data.level}</p>
-
-            <p>
-              {data.signed}/{data.capacity}
-            </p>
-            <p>
-              {data.areal} ({data.city})
-            </p>
-            <p>{data.price},- (na osobu)</p>
-            <p>{data.start}</p>
-            <p>{data.organizer}</p>
-            <a href={data.link}>{data.link}</a>
-          </div>
-        </div>
-        {data.registration_enabled && token.role === "player" && token && (
-          <>
-            <h3
-              className={
-                screenType === "mobile"
-                  ? "ExpandedRow--title-mobile"
-                  : "ExpandedRow--title"
-              }
-            >
-              Přihlášení
-            </h3>
-            {!isSigned && (
-              <form
-                className={
-                  screenType === "mobile"
-                    ? "ExpandedRow--sign-form-mobile"
-                    : "ExpandedRow--sign-form"
-                }
-                onSubmit={handleSubmit(signToTournament)}
-              >
-                <div className="ExpandedRow--sign-form-main">
-                  <div className="ExpandedRow--details-labels">
-                    <p>Jméno spoluhráče:</p>
-                    <p>Příjmení spoluhráče:</p>
-                  </div>
-
-                  <div className="ExpandedRow--details-data">
-                    <p
-                      className={
-                        screenType === "mobile"
-                          ? "ExpandedRow-form-box-mobile"
-                          : "ExpandedRow-form-box"
-                      }
-                    >
-                      <input
-                        type="text"
-                        name="name"
-                        {...register("name", {
-                          required: {
-                            value: true,
-                            message: "Zadejte jméno spoluhráče",
-                          },
-                        })}
-                      />
-                      {errors.name && (
-                        <p className="error-message">
-                          {whitespaces(10)}
-                          {errors.name?.message}
-                        </p>
-                      )}
-                    </p>
-                    <p
-                      className={
-                        screenType === "mobile"
-                          ? "ExpandedRow-form-box-mobile"
-                          : "ExpandedRow-form-box"
-                      }
-                    >
-                      <input
-                        type="text"
-                        name="surname"
-                        {...register("surname", {
-                          required: {
-                            value: true,
-                            message: "Zadejte příjmení spoluhráče",
-                          },
-                        })}
-                      />
-                      {errors.surname && (
-                        <p className="error-message">
-                          {" "}
-                          {whitespaces(10)}
-                          {errors.surname?.message}
-                        </p>
-                      )}
-                    </p>
-                  </div>
-                </div>
-
-                <button
-                  className={
-                    screenType === "mobile"
-                      ? "ExpandedRow--login-to-tournament-btn-mobile"
-                      : "ExpandedRow--login-to-tournament-btn"
-                  }
-                  type="submit"
-                >
-                  Přihlásit
-                </button>
-              </form>
-            )}
-
-            {isSigned && !loading && (
-              <div
-                className={
-                  screenType === "mobile"
-                    ? "ExpandedRow--logout-from-tournament-btn-mobile"
-                    : "ExpandedRow--logout-from-tournament-btn"
-                }
-                onClick={signOutTorunament}
-              >
-                Odhlásit
-              </div>
-            )}
-          </>
-        )}
-        {screenType !== "mobile" && (
-          <p style={{ fontStyle: "italic", color: "rgb(80, 80, 80)" }}>
-            {timeOfLastUpdate}
-          </p>
-        )}
-      </div>
-
-      {data.registration_enabled && (
         <div
           className={
             screenType === "mobile"
-              ? "ExpandedRow--right-mobile"
-              : "ExpandedRow--right"
+              ? "ExpandedRow--left-mobile"
+              : "ExpandedRow--left"
           }
         >
           <h3
@@ -347,20 +200,37 @@ export default function ExpandedComponent({
                 : "ExpandedRow--title"
             }
           >
-            Přihlášené týmy
+            {data.name}
           </h3>
-          {loading ? (
-            <h3>Loading...</h3>
-          ) : (
-            <div>
-              {mainTeams &&
-                mainTeams.map((team, index) => (
-                  <p key={index}>
-                    {index + 1}. {team.player1_name} {team.player1_surname} /{" "}
-                    {team.player2_name} {team.player2_surname}
-                  </p>
-                ))}
+          <div className="ExpandedRow--details">
+            <div className="ExpandedRow--details-labels">
+              <p>Kategorie:</p>
+              <p>Úroveň:</p>
+              <p>Kapacita:</p>
+              <p>Areál:</p>
+              <p>Cena:</p>
+              <p>Start:</p>
+              <p>Pořádá:</p>
+              <p>Odkaz:</p>
+            </div>
+            <div className="ExpandedRow--details-data">
+              <p>{data.category}</p>
+              <p>{data.level}</p>
 
+              <p>
+                {data.signed}/{data.capacity}
+              </p>
+              <p>
+                {data.areal} ({data.city})
+              </p>
+              <p>{data.price},- (na osobu)</p>
+              <p>{data.start}</p>
+              <p>{data.organizer}</p>
+              <a href={data.link}>link</a>
+            </div>
+          </div>
+          {data.registration_enabled && token.role === "player" && token && (
+            <>
               <h3
                 className={
                   screenType === "mobile"
@@ -368,17 +238,178 @@ export default function ExpandedComponent({
                     : "ExpandedRow--title"
                 }
               >
-                Náhradníci
+                Přihlášení
               </h3>
-              {subTeams.length > 0 &&
-                subTeams.map((team, index) => (
-                  <p key={index}>
-                    {index + 1}. {team.player1_name} {team.player1_surname} /{" "}
-                    {team.player2_name} {team.player2_surname}
-                  </p>
-                ))}
-            </div>
+              {!isSigned && (
+                <form
+                  className={
+                    screenType === "mobile"
+                      ? "ExpandedRow--sign-form-mobile"
+                      : "ExpandedRow--sign-form"
+                  }
+                  onSubmit={handleSubmit(signToTournament)}
+                >
+                  <div className="ExpandedRow--sign-form-main">
+                    <div className="ExpandedRow--details-labels">
+                      <p>Jméno spoluhráče:</p>
+                      <p>Příjmení spoluhráče:</p>
+                    </div>
+
+                    <div className="ExpandedRow--details-data">
+                      <p
+                        className={
+                          screenType === "mobile"
+                            ? "ExpandedRow-form-box-mobile"
+                            : "ExpandedRow-form-box"
+                        }
+                      >
+                        <input
+                          type="text"
+                          name="name"
+                          {...register("name", {
+                            required: {
+                              value: true,
+                              message: "Zadejte jméno spoluhráče",
+                            },
+                          })}
+                        />
+                        {errors.name && (
+                          <p className="error-message">
+                            {whitespaces(10)}
+                            {errors.name?.message}
+                          </p>
+                        )}
+                      </p>
+                      <p
+                        className={
+                          screenType === "mobile"
+                            ? "ExpandedRow-form-box-mobile"
+                            : "ExpandedRow-form-box"
+                        }
+                      >
+                        <input
+                          type="text"
+                          name="surname"
+                          {...register("surname", {
+                            required: {
+                              value: true,
+                              message: "Zadejte příjmení spoluhráče",
+                            },
+                          })}
+                        />
+                        {errors.surname && (
+                          <p className="error-message">
+                            {" "}
+                            {whitespaces(10)}
+                            {errors.surname?.message}
+                          </p>
+                        )}
+                      </p>
+                    </div>
+                  </div>
+
+                  <button
+                    className={
+                      screenType === "mobile"
+                        ? "ExpandedRow--login-to-tournament-btn-mobile"
+                        : "ExpandedRow--login-to-tournament-btn"
+                    }
+                    type="submit"
+                  >
+                    Přihlásit
+                  </button>
+                </form>
+              )}
+
+              {isSigned && !loading && (
+                <div
+                  className={
+                    screenType === "mobile"
+                      ? "ExpandedRow--logout-from-tournament-btn-mobile"
+                      : "ExpandedRow--logout-from-tournament-btn"
+                  }
+                  onClick={signOutTorunament}
+                >
+                  Odhlásit
+                </div>
+              )}
+            </>
           )}
+          {screenType !== "mobile" && (
+            <p style={{ fontStyle: "italic", color: "rgb(80, 80, 80)" }}>
+              {timeOfLastUpdate}
+            </p>
+          )}
+        </div>
+
+        {data.registration_enabled && (
+          <div
+            className={
+              screenType === "mobile"
+                ? "ExpandedRow--right-mobile"
+                : "ExpandedRow--right"
+            }
+          >
+            <h3
+              className={
+                screenType === "mobile"
+                  ? "ExpandedRow--title-mobile"
+                  : "ExpandedRow--title"
+              }
+            >
+              Přihlášené týmy
+            </h3>
+            {loading ? (
+              <h3>Loading...</h3>
+            ) : (
+              <div>
+                {mainTeams &&
+                  mainTeams.map((team, index) => (
+                    <p key={index}>
+                      {index + 1}. {team.player1_name} {team.player1_surname} /{" "}
+                      {team.player2_name} {team.player2_surname}
+                    </p>
+                  ))}
+
+                <h3
+                  className={
+                    screenType === "mobile"
+                      ? "ExpandedRow--title-mobile"
+                      : "ExpandedRow--title"
+                  }
+                >
+                  Náhradníci
+                </h3>
+                {subTeams.length > 0 &&
+                  subTeams.map((team, index) => (
+                    <p key={index}>
+                      {index + 1}. {team.player1_name} {team.player1_surname} /{" "}
+                      {team.player2_name} {team.player2_surname}
+                    </p>
+                  ))}
+              </div>
+            )}
+          </div>
+        )}
+      </div>
+
+      {showEditerButtons && (
+        <div
+          className={
+            screenType === "mobile"
+              ? "ExpandedRow--editer-buttons-mobile"
+              : "ExpandedRow--editer-buttons"
+          }
+        >
+          <button className="ExpandedRow--edit-button" onClick={editTorunament}>
+            Upravit turnaj
+          </button>
+          <button
+            className="ExpandedRow--delete-button"
+            onClick={deleteTorunament}
+          >
+            Smazat turnaj
+          </button>
         </div>
       )}
     </div>

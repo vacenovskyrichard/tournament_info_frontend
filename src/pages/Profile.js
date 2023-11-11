@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import jwt_decode from "jwt-decode";
 import DataTable from "react-data-table-component";
+import ExpandedComponent from "../components/ExpandedRow";
 import Navbar from "../components/Navbar";
 import { useNavigate } from "react-router-dom";
 import { Modal } from "react-responsive-modal";
@@ -11,9 +12,15 @@ import { sortedTorunamentsState } from "../state/selectors/SortedTournaments";
 import useToken from "../components/useToken";
 import { useRecoilValue } from "recoil";
 import { apiUrlState } from "../state/atoms/ApiUrlState";
+import { screenSize } from "../state/atoms/ScreenSize";
+import { ReactComponent as ExpandedIconMobile } from "../icons/expanded-mobile.svg";
+import { ReactComponent as CollapsedIconMobile } from "../icons/collapsed-mobile.svg";
+import { ReactComponent as ExpandedIcon } from "../icons/expanded.svg";
+import { ReactComponent as CollapsedIcon } from "../icons/collapsed.svg";
 
-function Profile({ setTournamentToEditId, isTabletOrMobile }) {
+function Profile({ setTournamentToEditId, loadingMainTable }) {
   const apiUrl = useRecoilValue(apiUrlState);
+  const screenType = useRecoilValue(screenSize);
   const { setToken, token, removeToken } = useToken();
   const tournaments = useRecoilValue(sortedTorunamentsState);
 
@@ -52,92 +59,6 @@ function Profile({ setTournamentToEditId, isTabletOrMobile }) {
     navigate("/edit_tournament");
   };
 
-  const columns =
-    token.role === "player"
-      ? [
-          {
-            name: "Datum",
-            selector: (row) => {
-              return `${row.date.split("-")[2]}.${row.date.split("-")[1]}.${
-                row.date.split("-")[0]
-              }`;
-            },
-          },
-          {
-            name: "Název",
-            selector: (row) => row.name,
-            width: "350px",
-          },
-          {
-            name: "Kategorie",
-            selector: (row) => row.category,
-          },
-          {
-            name: "Areál",
-            selector: (row) => row.areal,
-            width: "350px",
-          },
-        ]
-      : [
-          {
-            name: "Datum",
-            selector: (row) => {
-              return `${row.date.split("-")[2]}.${row.date.split("-")[1]}.${
-                row.date.split("-")[0]
-              }`;
-            },
-          },
-
-          {
-            name: "Název",
-            selector: (row) => row.name,
-            width: "350px",
-          },
-          {
-            name: "Kategorie",
-            selector: (row) => row.category,
-          },
-          {
-            name: "Areál",
-            selector: (row) => row.areal,
-            width: "350px",
-          },
-          {
-            name: "",
-            cell: (row) => (
-              <img
-                src="./edit.png"
-                style={{
-                  height: "30px",
-                  width: "30px",
-                  cursor: "pointer",
-                }}
-                onClick={() => edit_tournament(row.id)}
-              />
-            ),
-            width: "50px",
-          },
-          {
-            name: "",
-            cell: (row) => (
-              <img
-                src="./delete.png"
-                style={{
-                  height: "30px",
-                  width: "30px",
-                  cursor: "pointer",
-                  marginRight: "10px",
-                }}
-                onClick={() => {
-                  setDeleteId(row.id);
-                  setShowConfirmation(true);
-                }}
-              />
-            ),
-            width: "60px",
-          },
-        ];
-
   // filter user tournaments and show all, if user is admin
   const [userTournaments, setUserTournaments] = useState([]);
 
@@ -171,7 +92,7 @@ function Profile({ setTournamentToEditId, isTabletOrMobile }) {
       );
       setLoading(false);
     }
-  }, [token]);
+  }, [tournaments]);
 
   // creates tournament with random data - used for testing
   const create_random_tournament = () => {
@@ -238,9 +159,138 @@ function Profile({ setTournamentToEditId, isTabletOrMobile }) {
       });
   };
 
+  // ============================================================================
+  const [statusChanged, setStatusChanged] = useState(false); // used to trigger rerender after sign in/out from tournament
+
+  const [signedTeams, setSignedTeams] = useState({});
+
+  // load all signed teams from all tournaments from database
+  useEffect(() => {
+    fetch(`${apiUrl}/get_teams`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ userId: token.id }),
+    })
+      .then((resp) => {
+        if (resp.status === 200) {
+          return resp.json();
+        } else {
+          return "Unauthorized";
+        }
+      })
+      .then((response) => {
+        setSignedTeams(response);
+      })
+      .then(() => {
+        setLoading(false);
+      })
+      .catch((error) => {
+        if (error.response) {
+          alert("Něco se nepovedlo");
+          console.log(error.response);
+          console.log(error.response.status);
+          console.log(error.response.headers);
+        }
+      });
+  }, [statusChanged]);
+
+  // set czech labels to table
+  const paginationOptions = {
+    rowsPerPageText: "Řádků na stranu ",
+    rangeSeparatorText: "z",
+    selectAllRowsItem: true,
+    selectAllRowsItemText: "Zobrazit vše",
+  };
+
+  // set comlumns
+  const columns = [
+    {
+      name: "Datum",
+      selector: (row) => {
+        return `${row.date.split("-")[2]}.${row.date.split("-")[1]}.${
+          row.date.split("-")[0]
+        }`;
+      },
+      width: screenType === "mobile" ? "220px" : "180px",
+    },
+    {
+      name: "Název",
+      selector: (row) => row.name,
+      width: screenType === "mobile" ? "650px" : "900px",
+    },
+    {
+      name: "Kapacita",
+      selector: (row) => {
+        if (row.signed == null && row.capacity == null) {
+          return "";
+        } else if (row.signed == null) {
+          return `/${row.capacity}`;
+        }
+        return `${row.signed}/${row.capacity}`;
+      },
+
+      // conditional style of capacity based on number of teams
+      conditionalCellStyles: [
+        {
+          when: (row) => row.signed >= row.capacity,
+          style: {
+            color: "rgb(200, 31, 31)",
+            "&:hover": {
+              cursor: "pointer",
+            },
+          },
+        },
+        {
+          when: (row) =>
+            row.signed < row.capacity &&
+            row.signed >= row.capacity - row.capacity / 8,
+          style: {
+            color: "rgb(235, 120, 31)",
+            "&:hover": {
+              cursor: "pointer",
+            },
+          },
+        },
+        {
+          when: (row) => row.signed < row.capacity - row.capacity / 8,
+          style: {
+            // color: "green",
+            "&:hover": {
+              cursor: "pointer",
+            },
+          },
+        },
+      ],
+
+      width: "250px",
+    },
+  ];
+
+  const [expandedRows, setExpandedRows] = useState({});
+
+  const handleRowClick = (row) => {
+    const newRowState = { ...expandedRows };
+    newRowState[row.id] = !newRowState[row.id];
+    setExpandedRows(newRowState);
+  };
+
+  const mobileColumns = columns.slice(0, 2);
+
+  const conditionalRowStyles = [
+    {
+      when: (row) => expandedRows[row.id],
+      style: {
+        backgroundColor: "rgb(175, 175, 175)",
+        color: "rgb(245, 245, 245)",
+      },
+    },
+  ];
+
   return (
     <>
-      <Navbar title={"Profil"} isTabletOrMobile={isTabletOrMobile} />
+      <Navbar title={"Profil"} />
       {logged ? (
         <div className="Profile--main">
           {token && (
@@ -267,13 +317,40 @@ function Profile({ setTournamentToEditId, isTabletOrMobile }) {
               </div>
             </div>
           )}
-          <div className="Profile--tournament-table">
+          <div
+            className={
+              screenType === "mobile"
+                ? "Profile--tournament-table-mobile"
+                : "Profile--tournament-table"
+            }
+          >
             <h1>Moje Turnaje</h1>
             {userTournaments && token.role !== "basic" && (
               <DataTable
-                columns={columns}
+                columns={screenType === "mobile" ? mobileColumns : columns}
                 data={userTournaments}
                 pagination
+                paginationPerPage={screenType === "mobile" ? 8 : 10}
+                paginationRowsPerPageOptions={[8, 10, 20]}
+                paginationComponentOptions={paginationOptions}
+                expandableRows
+                expandableRowsComponent={(row) => (
+                  <ExpandedComponent
+                    data={row}
+                    loading={loading}
+                    signedTeams={signedTeams}
+                    setStatusChanged={setStatusChanged}
+                    statusChanged={statusChanged}
+                    showEditerButtons={
+                      token.role === "organizer" || token.role === "admin"
+                    }
+                    editTorunament={() => edit_tournament(row.id)}
+                    deleteTorunament={() => {
+                      setDeleteId(row.id);
+                      setShowConfirmation(true);
+                    }}
+                  />
+                )}
                 noDataComponent={
                   loading ? (
                     <h3 style={{ fontSize: "30px" }}>Data se načítají...</h3>
@@ -285,10 +362,27 @@ function Profile({ setTournamentToEditId, isTabletOrMobile }) {
                     <h3 style={{ fontSize: "30px" }}>Nemáte žádné turnaje</h3>
                   )
                 }
+                expandableIcon={{
+                  collapsed:
+                    screenType === "mobile" ? (
+                      <CollapsedIconMobile />
+                    ) : (
+                      <CollapsedIcon />
+                    ),
+                  expanded:
+                    screenType === "mobile" ? (
+                      <ExpandedIconMobile />
+                    ) : (
+                      <ExpandedIcon />
+                    ),
+                }}
                 className={
-                  userTournaments.length === 0
-                    ? "custom-no-data-background"
-                    : ""
+                  tournaments.length === 0 ? "custom-no-data-background" : ""
+                }
+                expandableRowExpanded={(row) => expandedRows[row.id]}
+                onRowClicked={handleRowClick}
+                conditionalRowStyles={
+                  screenType === "mobile" && conditionalRowStyles
                 }
               />
             )}

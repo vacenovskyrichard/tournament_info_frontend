@@ -14,8 +14,7 @@
   margin: 10px;
 }
 
-.line,
-.line-mobile {
+.line {
   background: linear-gradient(
     90deg,
     rgba(255, 164, 46, 1) 0%,
@@ -29,21 +28,11 @@
   border-radius: 20px;
 }
 
-.line-mobile {
-  height: 7px;
-  width: 50px;
-  margin: 9px 0;
-}
-
 .open.line {
   width: 42px;
 }
-.open-mobile.line-mobile {
-  width: 60px;
-}
 
-.menu,
-.menu-mobile {
+.menu {
   position: absolute; /* Position the menu absolutely */
   top: 65px; /* Adjust this as needed to position the menu relative to the button */
   background: #fff;
@@ -54,12 +43,8 @@
   overflow: hidden; /* Hide overflow content */
   transition: max-height 0.3s ease; /* Add max-height transition */
 }
-.menu-mobile {
-  top: 85px; /* Adjust this as needed to position the menu relative to the button */
-}
 
-.open.menu,
-.open-mobile.menu-mobile {
+.open.menu {
   max-height: 200px; /* Adjust the max-height to show menu items */
   background-color: white;
   z-index: 1;
@@ -67,9 +52,7 @@
 }
 
 .menu > a,
-.menu-mobile > a,
-.menu > p,
-.menu-mobile > p {
+.menu > p {
   display: flex;
   margin: 10px 5px;
   text-decoration: none;
@@ -77,16 +60,66 @@
   font-size: 20px;
 }
 
-.menu-mobile > a,
-.menu-mobile > p {
-  margin: 15px 5px;
-  font-size: 30px;
-}
-
 .menu > a:hover,
 .menu > p:hover {
   box-shadow: 0 0 11px rgba(33, 33, 33, 0.7);
   border-radius: 15px;
+}
+
+.Hamburger-menu--logout {
+  color: red;
+  cursor: pointer;
+}
+
+/* ======================================================*/
+/* --------------------- Mobile css ---------------------*/
+/* ======================================================*/
+
+.line-mobile {
+  background: linear-gradient(
+    90deg,
+    rgba(255, 164, 46, 1) 0%,
+    rgba(247, 28, 61, 1) 100%
+  );
+  /* background-color: #333; */
+  height: 7px;
+  width: 50px;
+  margin: 9px 0;
+  transition: 0.4s;
+  border-radius: 20px;
+}
+
+.open-mobile.line-mobile {
+  width: 60px;
+}
+
+.menu-mobile {
+  position: absolute; /* Position the menu absolutely */
+  top: 85px; /* Adjust this as needed to position the menu relative to the button */
+  right: 0px;
+  background: #fff;
+  display: flex; /* Display as flex */
+  flex-direction: column; /* Stack menu items vertically */
+  border-radius: 5px;
+  max-height: 0; /* Start with a max-height of 0 */
+  overflow: hidden; /* Hide overflow content */
+  transition: max-height 0.3s ease; /* Add max-height transition */
+}
+
+.open-mobile.menu-mobile {
+  max-height: 300px; /* Adjust the max-height to show menu items */
+  background-color: white;
+  z-index: 1;
+  box-shadow: 0 0 11px rgba(117, 116, 116, 0.7);
+}
+
+.menu-mobile > a,
+.menu-mobile > p {
+  display: flex;
+  text-decoration: none;
+  padding: 1px 15px;
+  margin: 25px 5px;
+  font-size: 30px;
 }
 
 .Hamburger-menu--logout {

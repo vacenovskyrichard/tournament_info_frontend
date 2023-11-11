@@ -1,4 +1,5 @@
 import Navbar from "../components/Navbar";
+import Footer from "../components/Footer";
 function Nopage({}) {
   return (
     <>
@@ -7,8 +8,8 @@ function Nopage({}) {
         style={{
           display: "flex",
           justifyContent: "center",
-          alignItems: "center",
-          height: "auto",
+          alignItems: "start",
+          height: "120vh",
         }}
       >
         <img
@@ -16,11 +17,14 @@ function Nopage({}) {
           alt="monkey"
           src="./monkey2.gif"
           style={{
-            height: "700px",
+            top: "20px",
+            width: "90%",
+            height: "auto",
             margin: "50px",
           }}
         />
       </div>
+      <Footer />
     </>
   );
 }

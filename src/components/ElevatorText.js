@@ -9,14 +9,24 @@ export default function ElevatorText() {
     <div className="ElevatorText">
       {screenType === "mobile" ? (
         <div className="ElevatorText--main-text-mobile">
-          <p>Všechny turnaje v beach volejbale na jednom místě</p>
+          <p>
+            Všechny
+            <label className="ElevatorText--highlighted">turnájky</label>v beach
+            volejbale na jednom místě!
+          </p>
         </div>
       ) : (
         <div className="ElevatorText--main-text">
           <p>
-            Hraješ <i>beach volejbal</i> a hledáš, kam půjdeš na turnaj?
+            Hraješ
+            <label className="ElevatorText--italic">beach volejbal</label>a
+            hledáš, kam půjdeš na turnaj?
           </p>
-          <p>Tady najdeš všechny turnájky přehledně na jednom místě.</p>
+          <p>
+            Tady najdeš všechny
+            <label className="ElevatorText--highlighted">turnájky</label>
+            přehledně na jednom místě!
+          </p>
         </div>
       )}
     </div>

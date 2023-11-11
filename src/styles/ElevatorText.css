@@ -8,6 +8,10 @@
 }
 
 .ElevatorText--main-text {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
   border-top: 2px solid rgb(37, 31, 31);
   border-bottom: 2px solid rgb(37, 31, 31);
   width: 70%;
@@ -15,11 +19,47 @@
   padding: 20px;
 }
 
+.ElevatorText--main-text > div {
+  display: flex;
+  flex-direction: row;
+}
+
+.ElevatorText--italic {
+  font-style: italic;
+  margin: 20px 10px;
+  background-image: linear-gradient(
+    90deg,
+    rgba(255, 164, 46, 1) 0%,
+    rgba(247, 28, 61, 1) 100%
+  );
+  -webkit-background-clip: text; /* For compatibility with some browsers */
+  background-clip: text;
+  color: transparent; /* Hide the actual text color */
+}
+
+.ElevatorText--highlighted {
+  background-image: linear-gradient(
+    90deg,
+    rgba(255, 164, 46, 1) 0%,
+    rgba(247, 28, 61, 1) 100%
+  );
+  -webkit-background-clip: text; /* For compatibility with some browsers */
+  background-clip: text;
+  color: transparent; /* Hide the actual text color */
+  font-family: "Caesar dressing", sans-serif;
+  margin: 17px 10px;
+  font-size: 25px;
+}
+
 /* ======================================================*/
 /* --------------------- Mobile css ---------------------*/
 /* ======================================================*/
 
 .ElevatorText--main-text-mobile {
+  display: flex;
+  /* flex-direction: column; */
+  justify-content: center;
+  align-items: center;
   /* border-top: 2px solid rgb(37, 31, 31); */
   border-bottom: 2px solid rgb(37, 31, 31);
   width: 80%;
