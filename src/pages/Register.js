@@ -6,9 +6,11 @@ import { useNavigate } from "react-router-dom";
 import { useRecoilValue } from "recoil";
 import { apiUrlState } from "../state/atoms/ApiUrlState";
 import InputField from "../components/InputField";
+import { screenSize } from "../state/atoms/ScreenSize";
 
-function Register({ isTabletOrMobile }) {
+function Register() {
   const apiUrl = useRecoilValue(apiUrlState);
+  const screenType = useRecoilValue(screenSize);
   const { register, control, handleSubmit, formState } = useForm();
   const { errors } = formState;
   const [registrationSuccesful, setRegistrationSuccesful] = useState(false);
@@ -53,7 +55,7 @@ function Register({ isTabletOrMobile }) {
 
   return (
     <>
-      <div className="login-page">
+      <div className="Login">
         {registrationSuccesful && (
           <div className="Login--registration_succesfull">
             <span>Registrace proběhla úspěšně</span>
@@ -71,7 +73,7 @@ function Register({ isTabletOrMobile }) {
         )}
         <div
           className={
-            isTabletOrMobile
+            screenType === "mobile"
               ? "Login--organizer-player-switch-mobile"
               : "Login--organizer-player-switch"
           }
@@ -89,14 +91,40 @@ function Register({ isTabletOrMobile }) {
             Organizátor
           </button>
         </div>
-        <div className="login-box">
-          <span className="Login--x-btn" onClick={() => navigate("/")}>
+        <div
+          className={screenType === "mobile" ? "login-box-mobile" : "login-box"}
+        >
+          <span
+            className={
+              screenType === "mobile" ? "Login--x-btn-mobile" : "Login--x-btn"
+            }
+            onClick={() => navigate("/")}
+          >
             x
           </span>
-          <form onSubmit={handleSubmit(register_user)} className="login-form">
-            <span className="login-form-title">Registrace</span>
+          <form
+            onSubmit={handleSubmit(register_user)}
+            className={
+              screenType === "mobile" ? "login-form-mobile" : "login-form"
+            }
+          >
+            <span
+              className={
+                screenType === "mobile"
+                  ? "login-form-title-mobile"
+                  : "login-form-title"
+              }
+            >
+              Registrace
+            </span>
 
-            <div className="Login--main-form">
+            <div
+              className={
+                screenType === "mobile"
+                  ? "Login--main-form-mobile"
+                  : "Login--main-form"
+              }
+            >
               <InputField
                 label={"Jméno"}
                 type={"text"}
@@ -146,7 +174,13 @@ function Register({ isTabletOrMobile }) {
                 <p>Registrovat</p>
               </button>
             </div>
-            <div className="Login--register">
+            <div
+              className={
+                screenType === "mobile"
+                  ? "Login--register-mobile"
+                  : "Login--register"
+              }
+            >
               <p
                 onClick={() => navigate("/login")}
                 className="Login--tiny-label clickable"

@@ -4,7 +4,7 @@
 
 .InputField--label {
   font-family: var(--main-font);
-  font-weight: bold;
+  /* font-weight: bold; */
   font-size: 22px;
   background-image: linear-gradient(
     90deg,
@@ -18,6 +18,20 @@
   margin-right: 5px;
   margin-top: 5px;
   margin-bottom: 5px;
+}
+
+.InputField--additional-label {
+  font-family: var(--main-font);
+  font-size: 22px;
+  color: #999;
+  line-height: 1.5;
+  margin-right: 3px;
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+.InputField--additional-label:hover {
+  text-decoration: underline;
+  cursor: pointer;
 }
 
 .InputField--input {

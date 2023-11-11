@@ -6,6 +6,8 @@ export default function InputField({
   className,
   type,
   label,
+  additionalLabel,
+  additionalLabelOnClick,
   name,
   placeholder,
   pattern,
@@ -17,6 +19,12 @@ export default function InputField({
   return (
     <div className={className ? className : "InputField"}>
       <label className="InputField--label">{label && label}</label>
+      <label
+        className="InputField--additional-label"
+        onClick={additionalLabelOnClick && additionalLabelOnClick}
+      >
+        {additionalLabel && additionalLabel}
+      </label>
       <input
         className="InputField--input"
         type={type && type}

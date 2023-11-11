@@ -6,9 +6,11 @@ import { useNavigate } from "react-router-dom";
 import { useRecoilValue } from "recoil";
 import { apiUrlState } from "../state/atoms/ApiUrlState";
 import InputField from "../components/InputField";
+import { screenSize } from "../state/atoms/ScreenSize";
 
-function ForgotPassword({ isTabletOrMobile }) {
+function ForgotPassword() {
   const apiUrl = useRecoilValue(apiUrlState);
+  const screenType = useRecoilValue(screenSize);
   const [sendFailed, setSendFailed] = useState(false);
   const [sendSuccess, setSendSuccess] = useState(false);
   const [isPlayer, setIsPlayer] = useState(true);
@@ -44,7 +46,7 @@ function ForgotPassword({ isTabletOrMobile }) {
   }
 
   return (
-    <div className="login-page">
+    <div className="Login">
       {sendSuccess && (
         <div className="Login--registration_succesfull">
           <span>Nové heslo bylo zasláno na uvedený email.</span>
@@ -57,7 +59,7 @@ function ForgotPassword({ isTabletOrMobile }) {
       )}
       <div
         className={
-          isTabletOrMobile
+          screenType === "mobile"
             ? "Login--organizer-player-switch-mobile"
             : "Login--organizer-player-switch"
         }
@@ -75,17 +77,40 @@ function ForgotPassword({ isTabletOrMobile }) {
           Organizátor
         </button>
       </div>
-      <div className="login-box">
-        <span className="Login--x-btn" onClick={() => navigate("/")}>
+      <div
+        className={screenType === "mobile" ? "login-box-mobile" : "login-box"}
+      >
+        <span
+          className={
+            screenType === "mobile" ? "Login--x-btn-mobile" : "Login--x-btn"
+          }
+          onClick={() => navigate("/")}
+        >
           x
         </span>
         <form
           onSubmit={handleSubmit(create_new_password)}
-          className="login-form"
+          className={
+            screenType === "mobile" ? "login-form-mobile" : "login-form"
+          }
         >
-          <span className="login-form-title">Zapomenuté heslo</span>
+          <span
+            className={
+              screenType === "mobile"
+                ? "login-form-title-mobile"
+                : "login-form-title"
+            }
+          >
+            Zapomenuté heslo
+          </span>
 
-          <div className="Login--main-form">
+          <div
+            className={
+              screenType === "mobile"
+                ? "Login--main-form-mobile"
+                : "Login--main-form"
+            }
+          >
             <InputField
               label={"Email"}
               type={"email"}
@@ -99,7 +124,13 @@ function ForgotPassword({ isTabletOrMobile }) {
               <p>Vygenerovat nové heslo</p>
             </button>
           </div>
-          <div className="Login--register">
+          <div
+            className={
+              screenType === "mobile"
+                ? "Login--register-mobile"
+                : "Login--register"
+            }
+          >
             <p
               onClick={() => navigate("/login")}
               className="Login--tiny-label clickable"

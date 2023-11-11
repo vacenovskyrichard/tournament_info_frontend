@@ -49,6 +49,7 @@
   width: 95%;
   flex-direction: column;
   justify-content: left;
+  margin-top: 100px;
 }
 
 .Resources--resource-mobile {
