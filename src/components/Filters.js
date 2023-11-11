@@ -5,6 +5,7 @@ import Filter from "./Filter";
 import { useRecoilValue, useSetRecoilState } from "recoil";
 import { apiUrlState } from "../state/atoms/ApiUrlState";
 import { tournamentsState } from "../state/atoms/TournamentsState";
+import { screenSize } from "../state/atoms/ScreenSize";
 
 export default function Filters({
   setFilterResults,
@@ -14,6 +15,7 @@ export default function Filters({
   const { control, handleSubmit } = useForm();
   const [showFilters, setShowFilers] = useState(false);
   const apiUrl = useRecoilValue(apiUrlState);
+  const screenType = useRecoilValue(screenSize);
   const setTournamentsData = useSetRecoilState(tournamentsState);
   const filter_values = {
     areals: new Set(),
@@ -72,10 +74,12 @@ export default function Filters({
   };
 
   return (
-    <div className={isTabletOrMobile ? "filters-mobile" : "filters"}>
+    <div className={screenType === "mobile" ? "filters-mobile" : "filters"}>
       {/* {showFilters ? ( */}
       <form
-        className={isTabletOrMobile ? "filters-form-mobile" : "filters-form"}
+        className={
+          screenType === "mobile" ? "filters-form-mobile" : "filters-form"
+        }
         onSubmit={handleSubmit(saveData)}
       >
         <Filter header="Město" name="city" control={control} options={cities} />
@@ -100,7 +104,7 @@ export default function Filters({
         <div>
           <button
             className={
-              isTabletOrMobile
+              screenType === "mobile"
                 ? "Filters--save-button-mobile"
                 : "Filters--save-button"
             }

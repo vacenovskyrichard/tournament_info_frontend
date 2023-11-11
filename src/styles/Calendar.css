@@ -1,47 +1,17 @@
+/* Main component */
 .Calendar {
   display: flex;
   flex-direction: column;
   align-items: center;
 }
 
-.Calendar--content-buttons,
-.Calendar--content-buttons-mobile {
+/* Whole calendar coponent */
+.Calendar--calendar-box {
   width: 75%;
-  display: flex;
-  align-items: left;
-}
-
-.Calendar--content-buttons-mobile {
-  width: 85%;
-}
-
-.Calendar--content-buttons > button,
-.Calendar--content-buttons-mobile > button {
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  height: 700px;
+  background-color: rgb(245, 245, 245);
   font-family: var(--main-font);
-  font-size: 28px;
-  margin: 5px 0px 3px 0px;
-  width: 150px;
-  height: 35px;
-  border-radius: 10px;
-}
-
-.Calendar--content-buttons-mobile > button {
-  font-size: 35px;
-  height: 40px;
-  width: 200px;
-}
-
-.Calendar--table-button {
-  background-color: rgb(116, 110, 110);
-  color: rgb(245, 245, 245);
-}
-
-.Calendar--calendar-button {
-  background-color: black;
-  color: rgb(245, 245, 245);
+  font-size: 20px;
 }
 
 .Calendar--url-button-box {
@@ -50,24 +20,18 @@
   justify-content: center;
 }
 
-.Calendar--url-button-box > button,
-.Calendar--url-button-box-mobile > button {
+.Calendar--url-button-box > button {
   display: flex;
   align-items: center;
   justify-content: center;
   margin: 8px;
-  width: 200px;
+  width: 240px;
   height: 35px;
   font-size: 22px;
   border-radius: 15px;
   background-color: black;
   color: rgb(245, 245, 245);
   font-family: var(--main-font);
-}
-.Calendar--url-button-box-mobile > button {
-  width: 250px;
-  height: 45px;
-  font-size: 28px;
 }
 
 .Calendar--url-button-box > button:hover {
@@ -97,19 +61,15 @@
   color: rgb(245, 245, 245);
 }
 
-.Calendar--calendar-box {
-  width: 75%;
-  height: 700px;
-  background-color: rgb(245, 245, 245);
-  font-family: var(--main-font);
-  font-size: 20px;
+.Calendar--calendar-box .rbc-today {
+  background: linear-gradient(
+    90deg,
+    rgba(255, 164, 46, 1) 0%,
+    rgba(247, 28, 61, 1) 100%
+  );
 }
 
-.Calendar--calendar-box-mobile {
-  width: 85%;
-  font-family: var(--main-font);
-}
-
+/* -------------- Detail window styles --------------*/
 .Calendar--detail-window {
   display: flex;
   align-items: center;
@@ -154,4 +114,44 @@
 .Calendar--detail-window-body-data {
   font-style: italic;
   margin-left: 20px;
+}
+
+/* ======================================================*/
+/* --------------------- Mobile css ---------------------*/
+/* ======================================================*/
+
+.Calendar--calendar-box-mobile {
+  width: 98%;
+  height: 800px;
+  background-color: rgb(245, 245, 245);
+  font-family: var(--main-font);
+  font-size: 20px;
+}
+
+.Calendar--url-button-box-mobile {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.Calendar--url-button-box-mobile > button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 8px;
+  width: 240px;
+  height: 35px;
+  font-size: 22px;
+  border-radius: 15px;
+  background-color: black;
+  color: rgb(245, 245, 245);
+  font-family: var(--main-font);
+}
+
+.Calendar--calendar-box-mobile .rbc-today {
+  background: linear-gradient(
+    90deg,
+    rgba(255, 164, 46, 1) 0%,
+    rgba(247, 28, 61, 1) 100%
+  );
 }

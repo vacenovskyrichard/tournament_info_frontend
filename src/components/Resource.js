@@ -1,15 +1,28 @@
 import "../styles/Resources.css";
+import { useRecoilValue } from "recoil";
+import { screenSize } from "../state/atoms/ScreenSize";
 
 export default function Resource({ isImage, style, imgPath, text1, text2 }) {
+  const screenType = useRecoilValue(screenSize);
   return (
     <>
       {isImage ? (
-        <div className="Resources--resource">
+        <div
+          className={
+            screenType === "mobile"
+              ? "Resources--resource-mobile"
+              : "Resources--resource"
+          }
+        >
           <img alt="resource" src={imgPath} style={style} />
         </div>
       ) : (
         <div
-          className="Resources--resource"
+          className={
+            screenType === "mobile"
+              ? "Resources--resource-mobile"
+              : "Resources--resource"
+          }
           style={{
             display: "flex",
             flexDirection: "column",

@@ -8,13 +8,11 @@ import "react-responsive-modal/styles.css";
 import { Modal } from "react-responsive-modal";
 import { useRecoilValue } from "recoil";
 import { sortedTorunamentsState } from "../state/selectors/SortedTournaments";
+import { screenSize } from "../state/atoms/ScreenSize";
 
-export default function MyCalendar({
-  filterResults,
-  setShowData,
-  isTabletOrMobile,
-}) {
+export default function MyCalendar({ filterResults }) {
   const tournaments = useRecoilValue(sortedTorunamentsState);
+  const screenType = useRecoilValue(screenSize);
   // Define custom month names in Czech
   const customMonthNames = [
     "Leden",
@@ -50,8 +48,8 @@ export default function MyCalendar({
   //Custom calendar labels
   const messages = {
     allDay: "Celý den",
-    previous: "Minulý měsíc",
-    next: "Další měsíc",
+    previous: "<",
+    next: ">",
     today: "Dnes",
     month: "Měsíc",
     week: "Týden",
@@ -123,7 +121,7 @@ export default function MyCalendar({
     <div className="Calendar">
       <div
         className={
-          isTabletOrMobile
+          screenType === "mobile"
             ? "Calendar--calendar-box-mobile"
             : "Calendar--calendar-box"
         }
@@ -191,7 +189,7 @@ export default function MyCalendar({
 
       <div
         className={
-          isTabletOrMobile
+          screenType === "mobile"
             ? "Calendar--url-button-box-mobile "
             : "Calendar--url-button-box"
         }

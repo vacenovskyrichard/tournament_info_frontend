@@ -8,7 +8,7 @@ import Resources from "../components/Resources";
 import Footer from "../components/Footer";
 import { useState } from "react";
 
-function Homepage({ filterOptions, isTabletOrMobile, loadingMainTable }) {
+function Homepage({ filterOptions, loadingMainTable }) {
   const [showData, setShowData] = useState(true);
   const [filterResults, setFilterResults] = useState();
 
@@ -17,35 +17,21 @@ function Homepage({ filterOptions, isTabletOrMobile, loadingMainTable }) {
       <Navbar
         // title={"Přehled"}
         title={""}
-        isTabletOrMobile={isTabletOrMobile}
       />
 
       <ElevatorText />
       <Filters
         setFilterResults={setFilterResults}
         filterOptions={filterOptions}
-        isTabletOrMobile={isTabletOrMobile}
       />
-      <CalendarTableButtons
-        isTabletOrMobile={isTabletOrMobile}
-        setShowData={setShowData}
-        showData={showData}
-      />
+      <CalendarTableButtons setShowData={setShowData} showData={showData} />
       {showData ? (
-        <Data
-          showData={showData}
-          isTabletOrMobile={isTabletOrMobile}
-          loadingMainTable={loadingMainTable}
-        />
+        <Data showData={showData} loadingMainTable={loadingMainTable} />
       ) : (
-        <MyCalendar
-          filterResults={filterResults}
-          showData={showData}
-          isTabletOrMobile={isTabletOrMobile}
-        />
+        <MyCalendar filterResults={filterResults} showData={showData} />
       )}
-      <Resources isTabletOrMobile={isTabletOrMobile} />
-      <Footer isTabletOrMobile={isTabletOrMobile} />
+      <Resources />
+      <Footer />
     </>
   );
 }

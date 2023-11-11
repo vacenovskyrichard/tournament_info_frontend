@@ -6,26 +6,19 @@ export default function ElevatorText() {
   const screenType = useRecoilValue(screenSize);
 
   return (
-    <div
-      className={
-        screenType === "mobile" ? "ElevatorText-mobile" : "ElevatorText"
-      }
-    >
-      <div
-        className={
-          screenType === "mobile"
-            ? "ElevatorText--main-text-mobile"
-            : "ElevatorText--main-text"
-        }
-      >
-        <p>
-          Taky už tě nebaví neustále hledat, kam půjdeš na beachovej turnaj?
+    <div className="ElevatorText">
+      {screenType === "mobile" ? (
+        <div className="ElevatorText--main-text-mobile">
+          <p>Všechny turnaje v beach volejbale na jednom místě</p>
+        </div>
+      ) : (
+        <div className="ElevatorText--main-text">
           <p>
-            Mě taky ne, tak jsem vytvořil portál, kde jsou všechny turnájky na
-            jednom místě!
+            Hraješ <i>beach volejbal</i> a hledáš, kam půjdeš na turnaj?
           </p>
-        </p>
-      </div>
+          <p>Tady najdeš všechny turnájky přehledně na jednom místě.</p>
+        </div>
+      )}
     </div>
   );
 }

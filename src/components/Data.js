@@ -13,7 +13,7 @@ import { ReactComponent as CollapsedIconMobile } from "../icons/collapsed-mobile
 import { ReactComponent as ExpandedIcon } from "../icons/expanded.svg";
 import { ReactComponent as CollapsedIcon } from "../icons/collapsed.svg";
 
-function Data({ setShowData, loadingMainTable }) {
+function Data({ loadingMainTable }) {
   // initialize variables and states
   const { token } = useToken();
   const apiUrl = useRecoilValue(apiUrlState);
@@ -24,6 +24,7 @@ function Data({ setShowData, loadingMainTable }) {
 
   const [signedTeams, setSignedTeams] = useState({});
 
+  // load all signed teams from all tournaments from database
   useEffect(() => {
     fetch(`${apiUrl}/get_teams`, {
       method: "POST",
@@ -55,6 +56,14 @@ function Data({ setShowData, loadingMainTable }) {
       });
   }, [statusChanged]);
 
+  // set czech labels to table
+  const paginationOptions = {
+    rowsPerPageText: "Řádků na stranu ",
+    rangeSeparatorText: "z",
+    selectAllRowsItem: true,
+    selectAllRowsItemText: "Zobrazit vše",
+  };
+
   // set comlumns
   const columns = [
     {
@@ -64,22 +73,17 @@ function Data({ setShowData, loadingMainTable }) {
           row.date.split("-")[0]
         }`;
       },
-      width: screenType !== "mobile" ? "160px" : "200px",
+      width: screenType === "mobile" ? "220px" : "160px",
     },
     {
       name: "Název",
       selector: (row) => row.name,
-      width: screenType === "mobile" ? "auto" : "550px",
+      width: screenType === "mobile" ? "650px" : "800px",
     },
     {
       name: "Kategorie",
       selector: (row) => row.category,
       width: "180px",
-    },
-    {
-      name: "Areál",
-      selector: (row) => row.areal,
-      width: "260px",
     },
     {
       name: "Kapacita",
@@ -138,6 +142,17 @@ function Data({ setShowData, loadingMainTable }) {
   };
 
   const mobileColumns = columns.slice(0, 2);
+
+  const conditionalRowStyles = [
+    {
+      when: (row) => expandedRows[row.id],
+      style: {
+        backgroundColor: "rgb(175, 175, 175)",
+        color: "rgb(245, 245, 245)",
+      },
+    },
+  ];
+
   return (
     <div className="Data">
       <div
@@ -151,8 +166,9 @@ function Data({ setShowData, loadingMainTable }) {
           columns={screenType === "mobile" ? mobileColumns : columns}
           data={tournaments}
           pagination
-          paginationPerPage={screenType === "mobile" ? 5 : 10}
-          paginationRowsPerPageOptions={[5, 10, 20]}
+          paginationPerPage={screenType === "mobile" ? 8 : 10}
+          paginationRowsPerPageOptions={[8, 10, 20]}
+          paginationComponentOptions={paginationOptions}
           expandableRows
           expandableRowsComponent={(row) => (
             <ExpandedComponent
@@ -189,6 +205,7 @@ function Data({ setShowData, loadingMainTable }) {
           }
           expandableRowExpanded={(row) => expandedRows[row.id]}
           onRowClicked={handleRowClick}
+          conditionalRowStyles={screenType === "mobile" && conditionalRowStyles}
         />
       </div>
     </div>

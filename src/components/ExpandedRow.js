@@ -8,6 +8,7 @@ import { useForm } from "react-hook-form";
 import useToken from "../components/useToken";
 import { useRecoilValue } from "recoil";
 import { apiUrlState } from "../state/atoms/ApiUrlState";
+import { screenSize } from "../state/atoms/ScreenSize";
 
 // Expanded component for every tournament in table
 export default function ExpandedComponent({
@@ -20,6 +21,7 @@ export default function ExpandedComponent({
 }) {
   data = data.data;
   const apiUrl = useRecoilValue(apiUrlState);
+  const screenType = useRecoilValue(screenSize);
   const { token } = useToken();
   const [timeOfLastUpdate, setTimeOfLastUpdate] = useState(); //stores string containing time from last update
   const lastUpdateDate = new Date(data.last_update);
@@ -169,9 +171,27 @@ export default function ExpandedComponent({
 
   // return component for expandable row
   return (
-    <div className="ExpandedRow--main">
-      <div className="ExpandedRow--left">
-        <h3 className="ExpandedRow--title">{data.name}</h3>
+    <div
+      className={
+        screenType === "mobile" ? "ExpandedRow--mobile" : "ExpandedRow"
+      }
+    >
+      <div
+        className={
+          screenType === "mobile"
+            ? "ExpandedRow--left-mobile"
+            : "ExpandedRow--left"
+        }
+      >
+        <h3
+          className={
+            screenType === "mobile"
+              ? "ExpandedRow--title-mobile"
+              : "ExpandedRow--title"
+          }
+        >
+          {data.name}
+        </h3>
         <div className="ExpandedRow--details">
           <div className="ExpandedRow--details-labels">
             <p>Kategorie:</p>
@@ -199,13 +219,24 @@ export default function ExpandedComponent({
             <a href={data.link}>{data.link}</a>
           </div>
         </div>
-
         {data.registration_enabled && token.role === "player" && token && (
           <>
-            <h3 className="ExpandedRow--title">Přihlášení</h3>
+            <h3
+              className={
+                screenType === "mobile"
+                  ? "ExpandedRow--title-mobile"
+                  : "ExpandedRow--title"
+              }
+            >
+              Přihlášení
+            </h3>
             {!isSigned && (
               <form
-                className="ExpandedRow--sign-form"
+                className={
+                  screenType === "mobile"
+                    ? "ExpandedRow--sign-form-mobile"
+                    : "ExpandedRow--sign-form"
+                }
                 onSubmit={handleSubmit(signToTournament)}
               >
                 <div className="ExpandedRow--sign-form-main">
@@ -215,7 +246,13 @@ export default function ExpandedComponent({
                   </div>
 
                   <div className="ExpandedRow--details-data">
-                    <p className="ExpandedRow-form-box">
+                    <p
+                      className={
+                        screenType === "mobile"
+                          ? "ExpandedRow-form-box-mobile"
+                          : "ExpandedRow-form-box"
+                      }
+                    >
                       <input
                         type="text"
                         name="name"
@@ -233,7 +270,13 @@ export default function ExpandedComponent({
                         </p>
                       )}
                     </p>
-                    <p className="ExpandedRow-form-box">
+                    <p
+                      className={
+                        screenType === "mobile"
+                          ? "ExpandedRow-form-box-mobile"
+                          : "ExpandedRow-form-box"
+                      }
+                    >
                       <input
                         type="text"
                         name="surname"
@@ -256,7 +299,11 @@ export default function ExpandedComponent({
                 </div>
 
                 <button
-                  className="ExpandedRow--login-to-tournament-btn"
+                  className={
+                    screenType === "mobile"
+                      ? "ExpandedRow--login-to-tournament-btn-mobile"
+                      : "ExpandedRow--login-to-tournament-btn"
+                  }
                   type="submit"
                 >
                   Přihlásit
@@ -266,7 +313,11 @@ export default function ExpandedComponent({
 
             {isSigned && !loading && (
               <div
-                className="ExpandedRow--logout-from-tournament-btn"
+                className={
+                  screenType === "mobile"
+                    ? "ExpandedRow--logout-from-tournament-btn-mobile"
+                    : "ExpandedRow--logout-from-tournament-btn"
+                }
                 onClick={signOutTorunament}
               >
                 Odhlásit
@@ -274,14 +325,30 @@ export default function ExpandedComponent({
             )}
           </>
         )}
-        <p style={{ fontStyle: "italic", color: "rgb(80, 80, 80)" }}>
-          {timeOfLastUpdate}
-        </p>
+        {screenType !== "mobile" && (
+          <p style={{ fontStyle: "italic", color: "rgb(80, 80, 80)" }}>
+            {timeOfLastUpdate}
+          </p>
+        )}
       </div>
 
       {data.registration_enabled && (
-        <div className="ExpandedRow--right">
-          <h3 className="ExpandedRow--title">Přihlášené týmy</h3>
+        <div
+          className={
+            screenType === "mobile"
+              ? "ExpandedRow--right-mobile"
+              : "ExpandedRow--right"
+          }
+        >
+          <h3
+            className={
+              screenType === "mobile"
+                ? "ExpandedRow--title-mobile"
+                : "ExpandedRow--title"
+            }
+          >
+            Přihlášené týmy
+          </h3>
           {loading ? (
             <h3>Loading...</h3>
           ) : (
@@ -294,7 +361,15 @@ export default function ExpandedComponent({
                   </p>
                 ))}
 
-              <h3 className="ExpandedRow--title">Náhradníci</h3>
+              <h3
+                className={
+                  screenType === "mobile"
+                    ? "ExpandedRow--title-mobile"
+                    : "ExpandedRow--title"
+                }
+              >
+                Náhradníci
+              </h3>
               {subTeams.length > 0 &&
                 subTeams.map((team, index) => (
                   <p key={index}>

@@ -73,7 +73,46 @@
   height: 70px;
 }
 
+.Data--tournament-table-mobile .rdt_TableCol_Sortable {
+  display: flex;
+  justify-content: center;
+}
+
 /* Table row */
 .Data--tournament-table-mobile .rdt_TableRow {
   height: 90px;
+}
+
+/* Table cell */
+.Data--tournament-table-mobile .rdt_TableCell {
+  display: flex;
+  /* justify-content: center; */
+  /* color: red; */
+}
+
+.Data--tournament-table-mobile .svYMe {
+  margin-right: 20px;
+  width: 50px;
+}
+
+.Data--tournament-table-mobile .svYMe > select {
+  font-size: 25px;
+}
+
+.Data--tournament-table-mobile .svYMe > svg {
+  transform: scale(2);
+}
+
+.Data--tournament-table-mobile .rdt_Pagination {
+  display: flex;
+}
+
+.Data--tournament-table-mobile .rdt_Pagination > span {
+  font-size: 26px;
+}
+.Data--tournament-table-mobile .rdt_Pagination > div > button {
+  width: 100px;
+}
+.Data--tournament-table-mobile .rdt_Pagination > div > button > svg {
+  transform: scale(2.5); /* Adjust the scale factor as needed */
 }
