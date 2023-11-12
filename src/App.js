@@ -40,7 +40,10 @@ function App() {
 
     // initialize empty token if token is null
     token || removeToken();
-    fetch(`${apiUrl}/get`, {
+    console.log("calling GET");
+    console.log(`${apiUrl}/get`);
+
+    fetch(`${production}/get`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
