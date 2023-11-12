@@ -154,6 +154,14 @@ function Data({ loadingMainTable }) {
     },
   ];
 
+  // =====================================================================
+  console.log("loadingMainTable");
+  console.log(loadingMainTable);
+  console.log("DATA:");
+  console.log(tournaments);
+
+  // =====================================================================
+
   return (
     <div className="Data">
       <div
