@@ -40,10 +40,8 @@ function App() {
 
     // initialize empty token if token is null
     token || removeToken();
-    console.log("calling GET");
-    console.log(`${apiUrl}/get`);
 
-    fetch(`${production}/get`, {
+    fetch(`${apiUrl}/get`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -54,8 +52,6 @@ function App() {
       })
       .then((resp) => {
         // save tournament data to state and format last update time
-        console.log("RESPOSNE:");
-        console.log(resp);
         setTournaments(
           resp.map((tournament) => {
             const [last_update_date, last_update_time] =
