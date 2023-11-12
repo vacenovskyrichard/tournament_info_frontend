@@ -335,7 +335,8 @@ export default function ExpandedComponent({
               )}
             </>
           )}
-          {screenType !== "mobile" && (
+
+          {!data.registration_enabled && (
             <p style={{ fontStyle: "italic", color: "rgb(80, 80, 80)" }}>
               {timeOfLastUpdate}
             </p>
