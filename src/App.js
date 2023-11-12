@@ -51,6 +51,8 @@ function App() {
       })
       .then((resp) => {
         // save tournament data to state and format last update time
+        console.log("RESPOSNE:");
+        console.log(resp);
         setTournaments(
           resp.map((tournament) => {
             const [last_update_date, last_update_time] =
@@ -68,6 +70,7 @@ function App() {
       })
       .then(() => setLoadingMainTable(false))
       .catch((err) => {
+        console.log("ERROR:");
         console.log(err);
         setLoadingMainTable(false);
       }); // eslint-disable-next-line
