@@ -132,3 +132,14 @@
   align-items: center;
   width: 60%;
 }
+
+.EditTournament--form-mobile > div {
+  font-size: 30px;
+}
+.EditTournament--form-mobile > div > form {
+  height: 80px;
+}
+
+.EditTournament--form-mobile > div > form > input {
+  font-size: 30px;
+}
