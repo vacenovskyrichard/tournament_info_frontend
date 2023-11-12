@@ -12,8 +12,6 @@
   display: flex;
   flex-direction: column;
   margin: 20px;
-  /* border: 2px solid rgb(37, 31, 31);
-  border-radius: 20px; */
   align-items: center;
 }
 
@@ -121,4 +119,27 @@
 
 .EditTournament--finish-button:hover {
   box-shadow: 0 0 11px rgb(37, 31, 31);
+}
+
+/* ======================================================*/
+/* --------------------- Mobile css ---------------------*/
+/* ======================================================*/
+
+.EditTournament--form-mobile {
+  display: flex;
+  flex-direction: column;
+  margin: 20px;
+  align-items: center;
+  width: 60%;
+}
+
+.EditTournament--form-mobile > div {
+  font-size: 30px;
+}
+.EditTournament--form-mobile > div > form {
+  height: 80px;
+}
+
+.EditTournament--form-mobile > div > form > input {
+  font-size: 30px;
 }

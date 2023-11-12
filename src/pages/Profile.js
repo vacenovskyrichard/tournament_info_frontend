@@ -32,6 +32,8 @@ function Profile({ setTournamentToEditId, loadingMainTable }) {
 
   // send command to delete tournament to backend
   const delete_tournament = (id) => {
+    console.log("id");
+    console.log(id);
     const accessToken = token && token.accessToken;
 
     axios
@@ -295,7 +297,13 @@ function Profile({ setTournamentToEditId, loadingMainTable }) {
       {logged ? (
         <div className="Profile--main">
           {token && (
-            <div className="Profile--user-data">
+            <div
+              className={
+                screenType === "mobile"
+                  ? "Profile--user-data-mobile"
+                  : "Profile--user-data"
+              }
+            >
               <h1>Osobní údaje</h1>
 
               <div className="Profile--user-data-body">
@@ -346,11 +354,9 @@ function Profile({ setTournamentToEditId, loadingMainTable }) {
                       token &&
                       (token.role === "organizer" || token.role === "admin")
                     }
-                    editTorunament={() => edit_tournament(row.id)}
-                    deleteTorunament={() => {
-                      setDeleteId(row.id);
-                      setShowConfirmation(true);
-                    }}
+                    editTorunament={edit_tournament}
+                    setDeleteId={setDeleteId}
+                    setShowConfirmation={setShowConfirmation}
                   />
                 )}
                 noDataComponent={
@@ -389,7 +395,13 @@ function Profile({ setTournamentToEditId, loadingMainTable }) {
               />
             )}
           </div>
-          <div className="Profile--buttons">
+          <div
+            className={
+              screenType === "mobile"
+                ? "Profile--buttons-mobile"
+                : "Profile--buttons"
+            }
+          >
             {token &&
               (token.role === "admin" || token.role === "organizer") && (
                 <button onClick={() => navigate("/add_tournament")}>

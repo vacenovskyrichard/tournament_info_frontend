@@ -238,7 +238,7 @@ export default function AddTournament() {
           />
 
           {/* Enable logging with turnajky.cz */}
-          <div className="AddTournament--form-element-checkbox">
+          {/* <div className="AddTournament--form-element-checkbox">
             <label className="InputField--label">
               Povolit přihlašování přes turnajky.cz
             </label>
@@ -248,7 +248,7 @@ export default function AddTournament() {
               name="registration_enabled"
               {...register("registration_enabled")}
             />
-          </div>
+          </div> */}
 
           {/* Submit button */}
           <div>
