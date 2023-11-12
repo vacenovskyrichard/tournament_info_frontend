@@ -5,19 +5,14 @@ import { useNavigate } from "react-router-dom";
 import Navbar from "../components/Navbar";
 import jwt_decode from "jwt-decode";
 import Select from "react-select";
-import { DevTool } from "@hookform/devtools";
-import dayjs from "dayjs";
-import { TimePicker } from "antd";
+import useToken from "../components/useToken";
+import { useRecoilValue } from "recoil";
+import { apiUrlState } from "../state/atoms/ApiUrlState";
+import { SelectFormFontFamily } from "../config/Font";
 
-export default function EditTournament({
-  token,
-  removeToken,
-  setToken,
-  apiUrl,
-  tournamentToEditId,
-  tournamentsData,
-  setTournamentsData,
-}) {
+export default function EditTournament({}) {
+  const apiUrl = useRecoilValue(apiUrlState);
+  const { token } = useToken();
   const navigate = useNavigate();
   const { register, control, handleSubmit, formState } = useForm();
   const { errors } = formState;
@@ -38,7 +33,6 @@ export default function EditTournament({
 
   // get all tournaments and filter by id the one to be edited
   useEffect(() => {
-    console.log("Rendering...");
     fetch(`${apiUrl}/get`, {
       method: "GET",
       headers: {
@@ -60,7 +54,7 @@ export default function EditTournament({
 
   // send data about edited tournament to bakckend
   const onSubmit = (data) => {
-    data.user_id = jwt_decode(token.access_token).sub;
+    data.user_id = jwt_decode(token.accessToken).sub;
     if (data.level) {
       data.level = data.level.label;
     }
@@ -73,7 +67,6 @@ export default function EditTournament({
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
-        // Authorization: `Bearer ${token.access_token}`,
       },
       body: JSON.stringify(data),
     })
@@ -95,13 +88,7 @@ export default function EditTournament({
 
   return (
     <>
-      <Navbar
-        token={token}
-        removeToken={removeToken}
-        setToken={setToken}
-        apiUrl={apiUrl}
-        title={"Upravení turnaje"}
-      />
+      <Navbar title={"Upravení turnaje"} />
 
       <div className="EditTournament--main">
         <div className="EditTournament--form">
@@ -400,7 +387,7 @@ export default function EditTournament({
                         control: (base, state) => ({
                           ...base,
                           border: "1px solid #e6e6e6",
-                          fontFamily: "Montserrat, sans-serif",
+                          fontFamily: SelectFormFontFamily,
                           fontSize: "18px",
                           width: "100%",
                           backgroundColor: "#f7f7f7",
@@ -441,7 +428,7 @@ export default function EditTournament({
                         control: (base, state) => ({
                           ...base,
                           border: "1px solid #e6e6e6",
-                          fontFamily: "Montserrat, sans-serif",
+                          fontFamily: SelectFormFontFamily,
                           fontSize: "18px",
                           width: "100%",
                           backgroundColor: "#f7f7f7",

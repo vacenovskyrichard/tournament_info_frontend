@@ -3,28 +3,26 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import jwt_decode from "jwt-decode";
 import DataTable from "react-data-table-component";
+import ExpandedComponent from "../components/ExpandedRow";
 import Navbar from "../components/Navbar";
 import { useNavigate } from "react-router-dom";
 import { Modal } from "react-responsive-modal";
 import Footer from "../components/Footer";
+import { sortedTorunamentsState } from "../state/selectors/SortedTournaments";
+import useToken from "../components/useToken";
+import { useRecoilValue } from "recoil";
+import { apiUrlState } from "../state/atoms/ApiUrlState";
+import { screenSize } from "../state/atoms/ScreenSize";
+import { ReactComponent as ExpandedIconMobile } from "../icons/expanded-mobile.svg";
+import { ReactComponent as CollapsedIconMobile } from "../icons/collapsed-mobile.svg";
+import { ReactComponent as ExpandedIcon } from "../icons/expanded.svg";
+import { ReactComponent as CollapsedIcon } from "../icons/collapsed.svg";
 
-function Profile({
-  token,
-  removeToken,
-  setToken,
-  tournamentsData,
-  setTournamentsData,
-  apiUrl,
-  setTournamentToEditId,
-  isTabletOrMobile,
-}) {
-  const [userData, setUserData] = useState({
-    id: "",
-    name: "",
-    surname: "",
-    email: "",
-    role: "",
-  });
+function Profile({ setTournamentToEditId, loadingMainTable }) {
+  const apiUrl = useRecoilValue(apiUrlState);
+  const screenType = useRecoilValue(screenSize);
+  const { setToken, token, removeToken } = useToken();
+  const tournaments = useRecoilValue(sortedTorunamentsState);
 
   const [logged, setLogged] = useState(true);
   const [requestSent, setRequestSent] = useState(false);
@@ -39,20 +37,8 @@ function Profile({
     axios
       .delete(`${apiUrl}/delete/${id}/`, {
         headers: {
-          Authorization: `Bearer ${token.access_token}`,
+          Authorization: `Bearer ${token.accessToken}`,
         },
-      })
-      .then((response) => {
-        if (response.status === 200) {
-          const new_access_token = response.headers.get("new_access_token");
-          if (new_access_token !== "None") {
-            console.log("new_access_token has been set");
-            setToken({ access_token: new_access_token });
-          }
-          return response;
-        } else {
-          alert("Turnaj se nepodařilo smazat.");
-        }
       })
       .then(() => window.location.reload(false))
       .catch((error) => {
@@ -73,157 +59,13 @@ function Profile({
     navigate("/edit_tournament");
   };
 
-  const customStyles = {
-    headRow: {
-      style: {
-        backgroundColor: "rgb(37, 31, 31);",
-        color: "rgb(245,245,245)",
-        fontSize: "23px",
-        // fontWeight: "600",
-        fontFamily: "Bebas Neue",
-      },
-    },
-    cells: {
-      style: {
-        fontSize: "23px",
-        fontFamily: "Bebas Neue",
-      },
-    },
-    background: "rgb(216, 216, 216);",
-  };
-  const columns =
-    localStorage.getItem("isPlayer") === "true"
-      ? [
-          {
-            name: "Datum",
-            selector: (row) => {
-              return `${row.date.split("-")[2]}.${row.date.split("-")[1]}.${
-                row.date.split("-")[0]
-              }`;
-            },
-          },
-          {
-            name: "Název",
-            selector: (row) => row.name,
-            width: "350px",
-          },
-          {
-            name: "Kategorie",
-            selector: (row) => row.category,
-          },
-          {
-            name: "Areál",
-            selector: (row) => row.areal,
-            width: "350px",
-          },
-        ]
-      : [
-          {
-            name: "Datum",
-            selector: (row) => {
-              return `${row.date.split("-")[2]}.${row.date.split("-")[1]}.${
-                row.date.split("-")[0]
-              }`;
-            },
-          },
-
-          {
-            name: "Název",
-            selector: (row) => row.name,
-            width: "350px",
-          },
-          {
-            name: "Kategorie",
-            selector: (row) => row.category,
-          },
-          {
-            name: "Areál",
-            selector: (row) => row.areal,
-            width: "350px",
-          },
-          {
-            name: "",
-            cell: (row) => (
-              <img
-                src="./edit.png"
-                style={{
-                  height: "30px",
-                  width: "30px",
-                  cursor: "pointer",
-                }}
-                onClick={() => edit_tournament(row.id)}
-              />
-            ),
-            width: "50px",
-          },
-          {
-            name: "",
-            cell: (row) => (
-              <img
-                src="./delete.png"
-                style={{
-                  height: "30px",
-                  width: "30px",
-                  cursor: "pointer",
-                  marginRight: "10px",
-                }}
-                onClick={() => {
-                  setDeleteId(row.id);
-                  setShowConfirmation(true);
-                }}
-              />
-            ),
-            width: "60px",
-          },
-        ];
-
-  useEffect(() => {
-    console.log("token");
-    console.log(token);
-    const isPlayer = localStorage.getItem("isPlayer") === "true";
-    const at = token ? token.access_token : "";
-    fetch(`${apiUrl}/user_info`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${at}`,
-      },
-      body: JSON.stringify({ user_id: userId, isPlayer: isPlayer }),
-    })
-      .then((response) => {
-        if (response.status === 401 || response.status === 422) {
-          // Handle the 401 error here, for example:
-          // Redirect the user to a login page or display an error message
-          console.log("Unauthorized: Token expired or invalid");
-          removeToken();
-          setLogged(false);
-        }
-        if (response.status === 200) {
-          const new_access_token = response.headers.get("new_access_token");
-          if (new_access_token !== "None") {
-            console.log("new_access_token has been set");
-            setToken({ access_token: new_access_token });
-          }
-          return response.json();
-        }
-      })
-      .then((response) => {
-        console.log(response);
-        setUserData(response);
-      })
-      .catch((error) => {
-        console.log("Other error ocured.");
-      }); // eslint-disable-next-line
-  }, []);
-
   // filter user tournaments and show all, if user is admin
-  const userId = token ? jwt_decode(token.access_token).sub : "";
   const [userTournaments, setUserTournaments] = useState([]);
 
   useEffect(() => {
-    if (localStorage.getItem("isPlayer") === "true") {
-      if (userId != "") {
-        fetch(`${apiUrl}/get_players_tournaments/${userId}/`, {
+    if (token.role === "player") {
+      if (token.id != "") {
+        fetch(`${apiUrl}/get_players_tournaments/${token.id}/`, {
           method: "GET",
           headers: {
             "Content-Type": "application/json",
@@ -244,23 +86,13 @@ function Profile({
       }
     } else {
       setUserTournaments(
-        userData.role === "admin"
-          ? tournamentsData
-          : tournamentsData.filter(
-              (tournament) => tournament.user_id === userId
-            )
+        token.role === "admin"
+          ? tournaments
+          : tournaments.filter((tournament) => tournament.user_id === token.id)
       );
       setLoading(false);
     }
-  }, [userData, token]);
-
-  // Function to compare dates in "YYYY-MM-DD" format
-  function compareDates(dateA, dateB) {
-    return dateA.localeCompare(dateB);
-  }
-
-  // Sort data by date
-  userTournaments.sort((a, b) => compareDates(a.date, b.date));
+  }, [tournaments]);
 
   // creates tournament with random data - used for testing
   const create_random_tournament = () => {
@@ -284,7 +116,7 @@ function Profile({
       organizer: "Random Name",
       price: 400,
       start: "10:00",
-      user_id: jwt_decode(token.access_token).sub,
+      user_id: jwt_decode(token.accessToken).sub,
       registration_enabled: false,
     };
 
@@ -292,7 +124,7 @@ function Profile({
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        Authorization: `Bearer ${token.access_token}`,
+        Authorization: `Bearer ${token.accessToken}`,
       },
       body: JSON.stringify(data),
     })
@@ -310,7 +142,7 @@ function Profile({
       method: "POST",
       url: `${apiUrl}/request_organizer`,
       data: {
-        id: userData.id,
+        id: token.id,
       },
     })
       .then((resp) => {
@@ -327,52 +159,202 @@ function Profile({
       });
   };
 
+  // ============================================================================
+  const [statusChanged, setStatusChanged] = useState(false); // used to trigger rerender after sign in/out from tournament
+
+  const [signedTeams, setSignedTeams] = useState({});
+
+  // load all signed teams from all tournaments from database
+  useEffect(() => {
+    fetch(`${apiUrl}/get_teams`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ userId: token.id }),
+    })
+      .then((resp) => {
+        if (resp.status === 200) {
+          return resp.json();
+        } else {
+          return "Unauthorized";
+        }
+      })
+      .then((response) => {
+        setSignedTeams(response);
+      })
+      .then(() => {
+        setLoading(false);
+      })
+      .catch((error) => {
+        if (error.response) {
+          alert("Něco se nepovedlo");
+          console.log(error.response);
+          console.log(error.response.status);
+          console.log(error.response.headers);
+        }
+      });
+  }, [statusChanged]);
+
+  // set czech labels to table
+  const paginationOptions = {
+    rowsPerPageText: "Řádků na stranu ",
+    rangeSeparatorText: "z",
+    selectAllRowsItem: true,
+    selectAllRowsItemText: "Zobrazit vše",
+  };
+
+  // set comlumns
+  const columns = [
+    {
+      name: "Datum",
+      selector: (row) => {
+        return `${row.date.split("-")[2]}.${row.date.split("-")[1]}.${
+          row.date.split("-")[0]
+        }`;
+      },
+      width: screenType === "mobile" ? "220px" : "180px",
+    },
+    {
+      name: "Název",
+      selector: (row) => row.name,
+      width: screenType === "mobile" ? "650px" : "900px",
+    },
+    {
+      name: "Kapacita",
+      selector: (row) => {
+        if (row.signed == null && row.capacity == null) {
+          return "";
+        } else if (row.signed == null) {
+          return `/${row.capacity}`;
+        }
+        return `${row.signed}/${row.capacity}`;
+      },
+
+      // conditional style of capacity based on number of teams
+      conditionalCellStyles: [
+        {
+          when: (row) => row.signed >= row.capacity,
+          style: {
+            color: "rgb(200, 31, 31)",
+            "&:hover": {
+              cursor: "pointer",
+            },
+          },
+        },
+        {
+          when: (row) =>
+            row.signed < row.capacity &&
+            row.signed >= row.capacity - row.capacity / 8,
+          style: {
+            color: "rgb(235, 120, 31)",
+            "&:hover": {
+              cursor: "pointer",
+            },
+          },
+        },
+        {
+          when: (row) => row.signed < row.capacity - row.capacity / 8,
+          style: {
+            // color: "green",
+            "&:hover": {
+              cursor: "pointer",
+            },
+          },
+        },
+      ],
+
+      width: "250px",
+    },
+  ];
+
+  const [expandedRows, setExpandedRows] = useState({});
+
+  const handleRowClick = (row) => {
+    const newRowState = { ...expandedRows };
+    newRowState[row.id] = !newRowState[row.id];
+    setExpandedRows(newRowState);
+  };
+
+  const mobileColumns = columns.slice(0, 2);
+
+  const conditionalRowStyles = [
+    {
+      when: (row) => expandedRows[row.id],
+      style: {
+        backgroundColor: "rgb(175, 175, 175)",
+        color: "rgb(245, 245, 245)",
+      },
+    },
+  ];
+
   return (
     <>
-      <Navbar
-        token={token}
-        removeToken={removeToken}
-        setToken={setToken}
-        apiUrl={apiUrl}
-        title={"Profil"}
-        isTabletOrMobile={isTabletOrMobile}
-      />
+      <Navbar title={"Profil"} />
       {logged ? (
         <div className="Profile--main">
           {token && (
             <div className="Profile--user-data">
               <h1>Osobní údaje</h1>
-              <div className="Profile--user-data-box">
-                <p>Jméno:</p>
-                <p>
-                  {userData.name} {userData.surname}{" "}
-                </p>
+
+              <div className="Profile--user-data-body">
+                <div className="Profile--user-data-body-labels">
+                  <p>Jméno:</p>
+                  <p>Email:</p>
+                  <p>Role:</p>
+                </div>
+                <div className="Profile--user-data-body-data">
+                  <p>
+                    {token.name} {token.surname}
+                  </p>
+                  <p>{token.email}</p>
+                  <p>{token.role}</p>
+                </div>
               </div>
-              <div className="Profile--user-data-box">
-                <p>Email:</p>
-                <p>{userData.email}</p>
-              </div>
-              <div className="Profile--user-data-box">
-                <p>Role:</p>
-                <p>{userData.role}</p>
-              </div>
-              <div className="Profile--change-passwor-box">
+
+              <div className="Profile--change-password-box">
                 <a href="./change_password">Změnit heslo</a>
               </div>
             </div>
           )}
-          <div className="Profile--tournament-table">
+          <div
+            className={
+              screenType === "mobile"
+                ? "Profile--tournament-table-mobile"
+                : "Profile--tournament-table"
+            }
+          >
             <h1>Moje Turnaje</h1>
-            {userTournaments && userData.role !== "basic" && (
+            {userTournaments && token.role !== "basic" && (
               <DataTable
-                columns={columns}
+                columns={screenType === "mobile" ? mobileColumns : columns}
                 data={userTournaments}
                 pagination
-                customStyles={customStyles}
+                paginationPerPage={screenType === "mobile" ? 8 : 10}
+                paginationRowsPerPageOptions={[8, 10, 20]}
+                paginationComponentOptions={paginationOptions}
+                expandableRows
+                expandableRowsComponent={(row) => (
+                  <ExpandedComponent
+                    data={row}
+                    loading={loading}
+                    signedTeams={signedTeams}
+                    setStatusChanged={setStatusChanged}
+                    statusChanged={statusChanged}
+                    showEditerButtons={
+                      token.role === "organizer" || token.role === "admin"
+                    }
+                    editTorunament={() => edit_tournament(row.id)}
+                    deleteTorunament={() => {
+                      setDeleteId(row.id);
+                      setShowConfirmation(true);
+                    }}
+                  />
+                )}
                 noDataComponent={
                   loading ? (
                     <h3 style={{ fontSize: "30px" }}>Data se načítají...</h3>
-                  ) : localStorage.getItem("isPlayer") === "true" ? (
+                  ) : token.role === "player" ? (
                     <h3 style={{ fontSize: "30px" }}>
                       Nejste přihlášeni na žádný turnaj
                     </h3>
@@ -380,26 +362,43 @@ function Profile({
                     <h3 style={{ fontSize: "30px" }}>Nemáte žádné turnaje</h3>
                   )
                 }
+                expandableIcon={{
+                  collapsed:
+                    screenType === "mobile" ? (
+                      <CollapsedIconMobile />
+                    ) : (
+                      <CollapsedIcon />
+                    ),
+                  expanded:
+                    screenType === "mobile" ? (
+                      <ExpandedIconMobile />
+                    ) : (
+                      <ExpandedIcon />
+                    ),
+                }}
                 className={
-                  userTournaments.length === 0
-                    ? "custom-no-data-background"
-                    : ""
+                  tournaments.length === 0 ? "custom-no-data-background" : ""
+                }
+                expandableRowExpanded={(row) => expandedRows[row.id]}
+                onRowClicked={handleRowClick}
+                conditionalRowStyles={
+                  screenType === "mobile" && conditionalRowStyles
                 }
               />
             )}
           </div>
           <div className="Profile--buttons">
-            {(userData.role === "admin" || userData.role === "organizer") && (
+            {(token.role === "admin" || token.role === "organizer") && (
               <button onClick={() => navigate("/add_tournament")}>
                 Přidat turnaj
               </button>
             )}
-            {userData.role === "admin" && (
+            {token.role === "admin" && (
               <button onClick={create_random_tournament}>
                 Přidat random turnaj
               </button>
             )}
-            {userData.role === "basic" &&
+            {token.role === "basic" &&
               (requestSent ? (
                 <h3 className="Profile-request-sent">
                   Žádost byla úspěšně poslána!

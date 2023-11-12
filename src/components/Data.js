@@ -1,39 +1,37 @@
 import "../styles/Data.css";
-import { useForm } from "react-hook-form";
 import { useEffect, useState } from "react";
 import DataTable from "react-data-table-component";
-import { ReactComponent as CustomIcon } from "../icons/info-circle.svg";
-import { ReactComponent as CustomIconMobile } from "../icons/info-circle-mobile.svg";
-import jwt_decode from "jwt-decode";
 import axios from "axios";
 import ExpandedComponent from "./ExpandedRow";
+import { sortedTorunamentsState } from "../state/selectors/SortedTournaments";
+import useToken from "../components/useToken";
+import { useRecoilValue } from "recoil";
+import { apiUrlState } from "../state/atoms/ApiUrlState";
+import { screenSize } from "../state/atoms/ScreenSize";
+import { ReactComponent as ExpandedIconMobile } from "../icons/expanded-mobile.svg";
+import { ReactComponent as CollapsedIconMobile } from "../icons/collapsed-mobile.svg";
+import { ReactComponent as ExpandedIcon } from "../icons/expanded.svg";
+import { ReactComponent as CollapsedIcon } from "../icons/collapsed.svg";
 
-function Data({
-  tournamentsData,
-  setShowData,
-  isTabletOrMobile,
-  token,
-  apiUrl,
-  loadingMainTable,
-}) {
+function Data({ loadingMainTable }) {
   // initialize variables and states
-  const { register, control, handleSubmit, formState } = useForm();
+  const { token } = useToken();
+  const apiUrl = useRecoilValue(apiUrlState);
+  const screenType = useRecoilValue(screenSize);
+  const tournaments = useRecoilValue(sortedTorunamentsState);
   const [loading, setLoading] = useState(true); // used for loading of teams
   const [statusChanged, setStatusChanged] = useState(false); // used to trigger rerender after sign in/out from tournament
-  const { errors } = formState;
 
   const [signedTeams, setSignedTeams] = useState({});
 
+  // load all signed teams from all tournaments from database
   useEffect(() => {
-    const userId = token ? jwt_decode(token.access_token).sub : "";
-    const at = token ? token.access_token : "";
     fetch(`${apiUrl}/get_teams`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        Authorization: `Bearer ${at}`,
       },
-      body: JSON.stringify({ userId: userId }),
+      body: JSON.stringify({ userId: token.id }),
     })
       .then((resp) => {
         if (resp.status === 200) {
@@ -58,37 +56,12 @@ function Data({
       });
   }, [statusChanged]);
 
-  // creates whitespaces in jsx
-  function whitespaces(count) {
-    return "\u00A0".repeat(count); // '\u00A0' represents the non-breaking space character
-  }
-
-  // Function to compare dates in "YYYY-MM-DD" format
-  function compareDates(dateA, dateB) {
-    return dateA.localeCompare(dateB);
-  }
-
-  // Sort data by date
-  tournamentsData.sort((a, b) => compareDates(a.date, b.date));
-
-  // custom styles of data table
-  const tableFontSize = isTabletOrMobile ? "30px" : "23px";
-  const customStyles = {
-    headRow: {
-      style: {
-        backgroundColor: "rgb(37, 31, 31);",
-        color: "white",
-        fontSize: tableFontSize,
-        fontFamily: "Bebas Neue",
-      },
-    },
-    cells: {
-      style: {
-        fontSize: tableFontSize,
-        fontFamily: "Bebas Neue",
-      },
-    },
-    background: "rgb(216, 216, 216);",
+  // set czech labels to table
+  const paginationOptions = {
+    rowsPerPageText: "Řádků na stranu ",
+    rangeSeparatorText: "z",
+    selectAllRowsItem: true,
+    selectAllRowsItemText: "Zobrazit vše",
   };
 
   // set comlumns
@@ -100,26 +73,17 @@ function Data({
           row.date.split("-")[0]
         }`;
       },
-      width: "140px",
+      width: screenType === "mobile" ? "220px" : "160px",
     },
     {
       name: "Název",
       selector: (row) => row.name,
-      width: "350px",
+      width: screenType === "mobile" ? "650px" : "800px",
     },
     {
       name: "Kategorie",
       selector: (row) => row.category,
-      // width: "150px",
-    },
-    {
-      name: "Město",
-      selector: (row) => row.city,
-    },
-    {
-      name: "Areál",
-      selector: (row) => row.areal,
-      width: "350px",
+      width: "180px",
     },
     {
       name: "Kapacita",
@@ -165,66 +129,56 @@ function Data({
         },
       ],
 
-      width: "130px",
+      width: "180px",
     },
+  ];
+
+  const [expandedRows, setExpandedRows] = useState({});
+
+  const handleRowClick = (row) => {
+    const newRowState = { ...expandedRows };
+    newRowState[row.id] = !newRowState[row.id];
+    setExpandedRows(newRowState);
+  };
+
+  const mobileColumns = columns.slice(0, 2);
+
+  const conditionalRowStyles = [
     {
-      name: "Úroveň",
-      selector: (row) => row.level,
-      width: "150px",
+      when: (row) => expandedRows[row.id],
+      style: {
+        backgroundColor: "rgb(175, 175, 175)",
+        color: "rgb(245, 245, 245)",
+      },
     },
   ];
 
   return (
-    <div className="Data--main">
+    <div className="Data">
       <div
         className={
-          isTabletOrMobile
-            ? "Data--content-buttons-mobile"
-            : "Data--content-buttons"
-        }
-      >
-        <button
-          className="Data--table-button"
-          onClick={() => setShowData(true)}
-        >
-          Tabulka
-        </button>
-        <button
-          className="Data--calendar-button"
-          onClick={() => setShowData(false)}
-        >
-          Kalendář
-        </button>
-      </div>
-      <div
-        className={
-          isTabletOrMobile
+          screenType === "mobile"
             ? "Data--tournament-table-mobile"
             : "Data--tournament-table"
         }
       >
         <DataTable
-          columns={columns}
-          data={tournamentsData}
+          columns={screenType === "mobile" ? mobileColumns : columns}
+          data={tournaments}
           pagination
+          paginationPerPage={screenType === "mobile" ? 8 : 10}
+          paginationRowsPerPageOptions={[8, 10, 20]}
+          paginationComponentOptions={paginationOptions}
           expandableRows
           expandableRowsComponent={(row) => (
             <ExpandedComponent
               data={row}
               loading={loading}
               signedTeams={signedTeams}
-              token={token}
               setStatusChanged={setStatusChanged}
               statusChanged={statusChanged}
-              apiUrl={apiUrl}
-              whitespaces={whitespaces}
             />
           )}
-          expandableIcon={{
-            collapsed: isTabletOrMobile ? <CustomIconMobile /> : <CustomIcon />,
-            expanded: isTabletOrMobile ? <CustomIconMobile /> : <CustomIcon />,
-          }}
-          customStyles={customStyles}
           noDataComponent={
             loadingMainTable ? (
               <h3>Data se načítají...</h3>
@@ -232,9 +186,26 @@ function Data({
               <h3>Žádná data nejsou k dispozici</h3>
             )
           }
+          expandableIcon={{
+            collapsed:
+              screenType === "mobile" ? (
+                <CollapsedIconMobile />
+              ) : (
+                <CollapsedIcon />
+              ),
+            expanded:
+              screenType === "mobile" ? (
+                <ExpandedIconMobile />
+              ) : (
+                <ExpandedIcon />
+              ),
+          }}
           className={
-            tournamentsData.length === 0 ? "custom-no-data-background" : ""
+            tournaments.length === 0 ? "custom-no-data-background" : ""
           }
+          expandableRowExpanded={(row) => expandedRows[row.id]}
+          onRowClicked={handleRowClick}
+          conditionalRowStyles={screenType === "mobile" && conditionalRowStyles}
         />
       </div>
     </div>

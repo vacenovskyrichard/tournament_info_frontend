@@ -1,8 +1,12 @@
 import React, { useState } from "react";
 import "../styles/HamburgerMenu.css";
+import { useRecoilValue } from "recoil";
 
-const HamburgerMenu = ({ logout, isTabletOrMobile }) => {
+import { screenSize } from "../state/atoms/ScreenSize";
+
+const HamburgerMenu = ({ logout }) => {
   const [isOpen, setIsOpen] = useState(false);
+  const screenType = useRecoilValue(screenSize);
 
   const toggleMenu = () => {
     setIsOpen(!isOpen);
@@ -14,21 +18,21 @@ const HamburgerMenu = ({ logout, isTabletOrMobile }) => {
         <button onClick={toggleMenu} className="hamburger-button">
           <div
             className={
-              isTabletOrMobile
+              screenType === "mobile"
                 ? `line-mobile ${isOpen ? "open-mobile" : ""}`
                 : `line ${isOpen ? "open" : ""}`
             }
           />
           <div
             className={
-              isTabletOrMobile
+              screenType === "mobile"
                 ? `line-mobile ${isOpen ? "open-mobile" : ""}`
                 : `line ${isOpen ? "open" : ""}`
             }
           />
           <div
             className={
-              isTabletOrMobile
+              screenType === "mobile"
                 ? `line-mobile ${isOpen ? "open-mobile" : ""}`
                 : `line ${isOpen ? "open" : ""}`
             }
@@ -37,7 +41,7 @@ const HamburgerMenu = ({ logout, isTabletOrMobile }) => {
       </div>
       <div
         className={
-          isTabletOrMobile
+          screenType === "mobile"
             ? `menu-mobile ${isOpen ? "open-mobile" : ""}`
             : `menu ${isOpen ? "open" : ""}`
         }

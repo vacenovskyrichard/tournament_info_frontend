@@ -1,65 +1,37 @@
 import Navbar from "../components/Navbar";
+import ElevatorText from "../components/ElevatorText";
+import Filters from "../components/Filters";
+import CalendarTableButtons from "../components/CalendarTableButtons";
 import Data from "../components/Data";
 import MyCalendar from "../components/Calendar";
-import Filters from "../components/Filters";
 import Resources from "../components/Resources";
 import Footer from "../components/Footer";
 import { useState } from "react";
 
-function Homepage({
-  token,
-  removeToken,
-  setToken,
-  tournamentsData,
-  setTournamentsData,
-  apiUrl,
-  filterOptions,
-  isTabletOrMobile,
-  loadingMainTable,
-}) {
+function Homepage({ filterOptions, loadingMainTable }) {
   const [showData, setShowData] = useState(true);
   const [filterResults, setFilterResults] = useState();
 
   return (
     <>
       <Navbar
-        token={token}
-        removeToken={removeToken}
-        setToken={setToken}
-        apiUrl={apiUrl}
         // title={"Přehled"}
         title={""}
-        isTabletOrMobile={isTabletOrMobile}
       />
+
+      <ElevatorText />
       <Filters
-        data={tournamentsData}
-        setData={setTournamentsData}
-        apiUrl={apiUrl}
         setFilterResults={setFilterResults}
         filterOptions={filterOptions}
-        isTabletOrMobile={isTabletOrMobile}
       />
+      <CalendarTableButtons setShowData={setShowData} showData={showData} />
       {showData ? (
-        <Data
-          tournamentsData={tournamentsData}
-          setShowData={setShowData}
-          showData={showData}
-          isTabletOrMobile={isTabletOrMobile}
-          token={token}
-          apiUrl={apiUrl}
-          loadingMainTable={loadingMainTable}
-        />
+        <Data showData={showData} loadingMainTable={loadingMainTable} />
       ) : (
-        <MyCalendar
-          tournamentsData={tournamentsData}
-          filterResults={filterResults}
-          setShowData={setShowData}
-          showData={showData}
-          isTabletOrMobile={isTabletOrMobile}
-        />
+        <MyCalendar filterResults={filterResults} showData={showData} />
       )}
-      <Resources isTabletOrMobile={isTabletOrMobile} />
-      <Footer isTabletOrMobile={isTabletOrMobile} />
+      <Resources />
+      <Footer />
     </>
   );
 }

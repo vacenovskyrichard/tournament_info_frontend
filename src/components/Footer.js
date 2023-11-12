@@ -1,9 +1,16 @@
 import "../styles/Footer.css";
+import { useRecoilValue } from "recoil";
+import { screenSize } from "../state/atoms/ScreenSize";
 
 export default function Footer({ isTabletOrMobile }) {
+  const screenType = useRecoilValue(screenSize);
   return (
-    <div className={isTabletOrMobile ? "Footer--main-mobile" : "Footer--main"}>
-      {!isTabletOrMobile && (
+    <div
+      className={
+        screenType === "mobile" ? "Footer--main-mobile" : "Footer--main"
+      }
+    >
+      {screenType !== "mobile" && (
         <div
           style={{
             display: "flex",

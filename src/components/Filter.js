@@ -2,23 +2,20 @@ import { Controller } from "react-hook-form";
 import Select from "react-select";
 import "../styles/Filters.css";
 
-export default function Filter(props) {
+export default function Filter({ header, name, control, options }) {
   return (
-    <div className="filter">
+    <div>
+      <h3>{header}</h3>
       <Controller
-        control={props.control}
+        name={name}
+        control={control}
+        defaultValue=""
         rules={{
           required: false,
         }}
-        render={({ field: { onChange, onBlur, value } }) => (
-          <Select
-            options={props.data}
-            value={props.data.find((c) => c.value === value)}
-            onChange={(val) => onChange(val.value)}
-            defaultValue={props.data.find((c) => c.value === "Bez filtru")}
-          />
+        render={({ field }) => (
+          <Select placeholder="Vyberte" isMulti {...field} options={options} />
         )}
-        name={props.name}
       />
     </div>
   );

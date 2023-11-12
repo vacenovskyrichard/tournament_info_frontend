@@ -1,12 +1,18 @@
 import "../styles/Resources.css";
 import Resource from "./Resource";
 
-export default function Resources({ isTabletOrMobile }) {
+import { useRecoilValue } from "recoil";
+import { screenSize } from "../state/atoms/ScreenSize";
+
+export default function Resources() {
+  const screenType = useRecoilValue(screenSize);
   return (
     <div className="Resources--main">
       <div
         className={
-          isTabletOrMobile ? "Resources--content-mobile" : "Resources--content"
+          screenType === "mobile"
+            ? "Resources--content-mobile"
+            : "Resources--content"
         }
       >
         <h1>Na naší stránce najdete</h1>

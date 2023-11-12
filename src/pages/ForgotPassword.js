@@ -3,8 +3,14 @@ import { useForm, Controller } from "react-hook-form";
 import { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { useRecoilValue } from "recoil";
+import { apiUrlState } from "../state/atoms/ApiUrlState";
+import InputField from "../components/InputField";
+import { screenSize } from "../state/atoms/ScreenSize";
 
-function ForgotPassword({ apiUrl, isTabletOrMobile }) {
+function ForgotPassword() {
+  const apiUrl = useRecoilValue(apiUrlState);
+  const screenType = useRecoilValue(screenSize);
   const [sendFailed, setSendFailed] = useState(false);
   const [sendSuccess, setSendSuccess] = useState(false);
   const [isPlayer, setIsPlayer] = useState(true);
@@ -40,7 +46,7 @@ function ForgotPassword({ apiUrl, isTabletOrMobile }) {
   }
 
   return (
-    <div className="login-page">
+    <div className="Login">
       {sendSuccess && (
         <div className="Login--registration_succesfull">
           <span>Nové heslo bylo zasláno na uvedený email.</span>
@@ -53,7 +59,7 @@ function ForgotPassword({ apiUrl, isTabletOrMobile }) {
       )}
       <div
         className={
-          isTabletOrMobile
+          screenType === "mobile"
             ? "Login--organizer-player-switch-mobile"
             : "Login--organizer-player-switch"
         }
@@ -71,40 +77,60 @@ function ForgotPassword({ apiUrl, isTabletOrMobile }) {
           Organizátor
         </button>
       </div>
-      <div className="login-box">
-        <span className="Login--x-btn" onClick={() => navigate("/")}>
+      <div
+        className={screenType === "mobile" ? "login-box-mobile" : "login-box"}
+      >
+        <span
+          className={
+            screenType === "mobile" ? "Login--x-btn-mobile" : "Login--x-btn"
+          }
+          onClick={() => navigate("/")}
+        >
           x
         </span>
         <form
           onSubmit={handleSubmit(create_new_password)}
-          className="login-form"
+          className={
+            screenType === "mobile" ? "login-form-mobile" : "login-form"
+          }
         >
-          <span className="login-form-title">Zapomenuté heslo</span>
+          <span
+            className={
+              screenType === "mobile"
+                ? "login-form-title-mobile"
+                : "login-form-title"
+            }
+          >
+            Zapomenuté heslo
+          </span>
 
-          <div className="Login--main-form">
-            <p className="Login--label">Email</p>
-            <div className="wrap-input">
-              <input
-                type="email"
-                name="email"
-                {...register("email", {
-                  required: {
-                    value: true,
-                    message: "Zadejte email",
-                  },
-                })}
-              />
-              {errors.email && (
-                <p style={{ fontSize: "20px", color: "red" }}>
-                  {errors.email?.message}
-                </p>
-              )}
-            </div>
+          <div
+            className={
+              screenType === "mobile"
+                ? "Login--main-form-mobile"
+                : "Login--main-form"
+            }
+          >
+            <InputField
+              label={"Email"}
+              type={"email"}
+              name={"email"}
+              requiredMessage={"Zadejte email"}
+              errors={errors.email}
+              register={register}
+            />
+
             <button className="Login--login-button" type="submit">
               <p>Vygenerovat nové heslo</p>
             </button>
           </div>
-          <div className="Login--register">
+          <div
+            className={
+              screenType === "mobile"
+                ? "Login--register-mobile"
+                : "Login--register"
+            }
+          >
             <p
               onClick={() => navigate("/login")}
               className="Login--tiny-label clickable"

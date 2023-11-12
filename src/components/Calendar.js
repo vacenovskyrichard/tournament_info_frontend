@@ -4,17 +4,15 @@ import { Calendar, momentLocalizer } from "react-big-calendar";
 import moment from "moment";
 import "moment/locale/cs";
 import "react-big-calendar/lib/css/react-big-calendar.css";
-// import "react-big-calendar/lib/sass/styles";
 import "react-responsive-modal/styles.css";
 import { Modal } from "react-responsive-modal";
+import { useRecoilValue } from "recoil";
+import { sortedTorunamentsState } from "../state/selectors/SortedTournaments";
+import { screenSize } from "../state/atoms/ScreenSize";
 
-export default function MyCalendar({
-  tournamentsData,
-  filterResults,
-  setShowData,
-  showData,
-  isTabletOrMobile,
-}) {
+export default function MyCalendar({ filterResults }) {
+  const tournaments = useRecoilValue(sortedTorunamentsState);
+  const screenType = useRecoilValue(screenSize);
   // Define custom month names in Czech
   const customMonthNames = [
     "Leden",
@@ -50,8 +48,8 @@ export default function MyCalendar({
   //Custom calendar labels
   const messages = {
     allDay: "Celý den",
-    previous: "minulý měsíc",
-    next: "další měsíc",
+    previous: "<",
+    next: ">",
     today: "Dnes",
     month: "Měsíc",
     week: "Týden",
@@ -61,34 +59,34 @@ export default function MyCalendar({
     time: "Čas",
     event: "Událost",
   };
-  var myEventsList = [];
-  if (tournamentsData) {
-    myEventsList = tournamentsData.map((tournament) => {
-      const [year, month, day] = tournament.date.split("-").map(Number);
-      const [hour, minute] = tournament.start.split(":").map(Number);
 
-      const startDate = new Date(year, month - 1, day, hour, minute); // Subtract 1 from the month since months are 0-based
-      const endHour = hour < 11 ? hour + 8 : hour + 4;
-      const endDate = new Date(year, month - 1, day, endHour, minute); // Subtract 1 from the month since months are 0-based
-      return {
-        title: tournament.name,
-        areal: tournament.areal,
-        city: tournament.city,
-        start: startDate,
-        end: endDate,
-        startTime: tournament.start,
-        category: tournament.category,
-        level: tournament.level,
-        capacity: tournament.capacity,
-        signed: tournament.signed,
-        organizer: tournament.organizer,
-        price: tournament.price,
-        link: tournament.link,
-        date: tournament.date,
-        last_update: tournament.last_update,
-      };
-    });
-  }
+  const myEventsList = tournaments
+    ? tournaments.map((tournament) => {
+        // set estimated duration of tournament
+        const [year, month, day] = tournament.date.split("-").map(Number);
+        const [hour, minute] = tournament.start.split(":").map(Number);
+        const startDate = new Date(year, month - 1, day, hour, minute);
+        const endHour = hour < 11 ? hour + 8 : hour + 4;
+        const endDate = new Date(year, month - 1, day, endHour, minute);
+        return {
+          title: tournament.name,
+          areal: tournament.areal,
+          city: tournament.city,
+          start: startDate,
+          end: endDate,
+          startTime: tournament.start,
+          category: tournament.category,
+          level: tournament.level,
+          capacity: tournament.capacity,
+          signed: tournament.signed,
+          organizer: tournament.organizer,
+          price: tournament.price,
+          link: tournament.link,
+          date: tournament.date,
+          last_update: tournament.last_update,
+        };
+      })
+    : [];
 
   // Handle click on specific event
   const [selectedEvent, setSelectedEvent] = useState(null);
@@ -97,84 +95,40 @@ export default function MyCalendar({
   };
 
   // Generate url for calendar export
-  const [calendarUrl, setCalendarUrl] = useState(null);
+  const [showCalendarUrl, setShowCalendarUrl] = useState(false);
+  const [calendarUrl, setCalendarUrl] = useState(
+    "https://jdem-hrat-58da3e527841.herokuapp.com/ical.feed"
+  );
+
   const generateCalendarUrl = () => {
-    if (filterResults !== undefined) {
-      var city = "none";
-      if (filterResults.city) {
-        city = "";
-        filterResults.city.forEach((c) => {
-          city += c.label + ";";
-        });
-        city = city.slice(0, -1);
-      }
+    const city =
+      filterResults && filterResults.city
+        ? filterResults.city.map((c) => c.label).join(";")
+        : "";
+    const areal =
+      filterResults && filterResults.areal
+        ? filterResults.areal.map((c) => c.label).join(";")
+        : "";
+    const category =
+      filterResults && filterResults.category
+        ? filterResults.category.map((c) => c.label).join(";")
+        : "";
+    const level =
+      filterResults && filterResults.level
+        ? filterResults.level.map((c) => c.label).join(";")
+        : "";
 
-      var areal = "none";
-      if (filterResults.areal) {
-        areal = "";
-        filterResults.areal.forEach((a) => {
-          areal += a.label + ";";
-        });
-        areal = areal.slice(0, -1);
-      }
-
-      var category = "none";
-      if (filterResults.category) {
-        category = "";
-        filterResults.category.forEach((c) => {
-          category += c.label + ";";
-        });
-        category = category.slice(0, -1);
-      }
-
-      var level = "none";
-      if (filterResults.level) {
-        level = "";
-        filterResults.level.forEach((l) => {
-          level += l.label + ";";
-        });
-        level = level.slice(0, -1);
-      }
-
-      setCalendarUrl(
-        `https://jdem-hrat-58da3e527841.herokuapp.com/ical.feed/${city}/${areal}/${category}/${level}/`
-      );
-      console.log("calendarUrl");
-      console.log(calendarUrl);
-    } else {
-      setCalendarUrl(
-        "https://jdem-hrat-58da3e527841.herokuapp.com/ical.feed/none/none/none/none/"
-      );
-    }
+    setCalendarUrl(
+      `https://jdem-hrat-58da3e527841.herokuapp.com/ical.feed?city=${city}&areal=${areal}&category=${category}&level=${level}`
+    );
+    setShowCalendarUrl(true);
   };
-  function whitespaces(count) {
-    return "\u00A0".repeat(count); // '\u00A0' represents the non-breaking space character
-  }
+
   return (
-    <div className="Calendar--main-content">
+    <div className="Calendar">
       <div
         className={
-          isTabletOrMobile
-            ? "Calendar--content-buttons-mobile"
-            : "Calendar--content-buttons"
-        }
-      >
-        <button
-          className="Calendar--table-button"
-          onClick={() => setShowData(true)}
-        >
-          Tabulka
-        </button>
-        <button
-          className="Calendar--calendar-button"
-          onClick={() => setShowData(false)}
-        >
-          Kalendář
-        </button>
-      </div>
-      <div
-        className={
-          isTabletOrMobile
+          screenType === "mobile"
             ? "Calendar--calendar-box-mobile"
             : "Calendar--calendar-box"
         }
@@ -186,12 +140,6 @@ export default function MyCalendar({
           messages={messages}
           startAccessor="start"
           endAccessor="end"
-          style={{
-            height: 700,
-            fontSize: 20,
-            fontFamily: "Babas Neue",
-            backgroundColor: "rgb(245, 245, 245)",
-          }}
           onSelectEvent={handleEventClick}
         />
       </div>
@@ -199,88 +147,91 @@ export default function MyCalendar({
         open={selectedEvent !== null}
         onClose={() => setSelectedEvent(null)}
         classNames={{
-          modal: "Calendar--detail-window",
+          modal:
+            screenType === "mobile"
+              ? "Calendar--detail-window-mobile"
+              : "Calendar--detail-window",
         }}
       >
         {selectedEvent && (
           <div>
             <h1>{selectedEvent.title}</h1>
-            <div className="Calendar--detail-window-textbox">
-              <p className="label-text">Datum:{whitespaces(9)}</p>
-              <p className="content-text">
-                {selectedEvent.date.split("-")[2]}.
-                {selectedEvent.date.split("-")[1]}.
-                {selectedEvent.date.split("-")[0]}
-              </p>
+            <div
+              className={
+                screenType === "mobile"
+                  ? "Calendar--detail-window-textbox-mobile"
+                  : "Calendar--detail-window-textbox"
+              }
+            >
+              <div
+                className={
+                  screenType === "mobile"
+                    ? "Calendar--detail-window-body-mobile"
+                    : "Calendar--detail-window-body"
+                }
+              >
+                <div className="Calendar--detail-window-body-labels">
+                  <p>Datum:</p>
+                  <p>Areál:</p>
+                  <p>Město:</p>
+                  <p>Kategorie:</p>
+                  <p>Úroveň:</p>
+                  <p>Začátek:</p>
+                  <p>Týmy:</p>
+                  <p>Cena:</p>
+                  <p>Pořádá:</p>
+                  <p>Odkaz:</p>
+                </div>
+                <div className="Calendar--detail-window-body-data">
+                  <p>
+                    {selectedEvent.date.split("-")[2]}.
+                    {selectedEvent.date.split("-")[1]}.
+                    {selectedEvent.date.split("-")[0]}
+                  </p>
+                  <p>{selectedEvent.areal}</p>
+                  <p>{selectedEvent.city}</p>
+                  <p>{selectedEvent.category}</p>
+                  <p>{selectedEvent.level}</p>
+                  <p>{selectedEvent.startTime}</p>
+                  <p>
+                    {selectedEvent.signed}/{selectedEvent.capacity}
+                  </p>
+                  <p>{selectedEvent.price},- (za osobu)</p>
+                  <p>{selectedEvent.organizer}</p>
+                  <a href={selectedEvent.link}>link</a>
+                </div>
+              </div>
             </div>
-            <div className="Calendar--detail-window-textbox">
-              <p className="label-text">Areál:{whitespaces(10)}</p>
-              <p className="content-text"> {selectedEvent.areal}</p>
-            </div>
-            <div className="Calendar--detail-window-textbox">
-              <p className="label-text">Město:{whitespaces(9)}</p>
-              <p className="content-text"> {selectedEvent.city}</p>
-            </div>
-
-            <div className="Calendar--detail-window-textbox">
-              <p className="label-text">Kategorie:{whitespaces(2)}</p>
-              <p className="content-text"> {selectedEvent.category}</p>
-            </div>
-
-            <div className="Calendar--detail-window-textbox">
-              <p className="label-text">Úroveň:{whitespaces(7)}</p>
-              <p className="content-text"> {selectedEvent.level}</p>
-            </div>
-
-            <div className="Calendar--detail-window-textbox">
-              <p className="label-text">Začátek:{whitespaces(5)}</p>
-              <p className="content-text"> {selectedEvent.startTime}</p>
-            </div>
-
-            <div className="Calendar--detail-window-textbox">
-              <p className="label-text">Týmy:{whitespaces(12)}</p>
-              <p className="content-text">
-                {selectedEvent.signed}/{selectedEvent.capacity}
-              </p>
-            </div>
-
-            <div className="Calendar--detail-window-textbox">
-              <p className="label-text">Cena:{whitespaces(12)}</p>
-              <p className="content-text">{`${selectedEvent.price},- (na osobu)`}</p>
-            </div>
-
-            <div className="Calendar--detail-window-textbox">
-              <p className="label-text">Pořádá:{whitespaces(7)}</p>
-              <p className="content-text"> {selectedEvent.organizer}</p>
-            </div>
-
-            <div className="Calendar--detail-window-textbox">
-              <p className="label-text"> Odkaz:{whitespaces(10)}</p>
-              <p className="content-text">
-                <a href={selectedEvent.link}>{selectedEvent.link}</a>
-              </p>
-            </div>
-
-            <div className="Calendar--detail-window-last-update">
+            <div
+              className={
+                screenType === "mobile"
+                  ? "Calendar--detail-window-last-update-mobile"
+                  : "Calendar--detail-window-last-update"
+              }
+            >
               <p>Naposledy aktualizováno: {selectedEvent.last_update}</p>
             </div>
           </div>
         )}
       </Modal>
-      {/* <div
+
+      <div
         className={
-          isTabletOrMobile
+          screenType === "mobile"
             ? "Calendar--url-button-box-mobile "
             : "Calendar--url-button-box"
         }
       >
         <button onClick={generateCalendarUrl}>Vygenerovat URL</button>
-      </div> */}
-      {/* <Modal
-        open={calendarUrl !== null}
-        onClose={() => setCalendarUrl(null)}
+      </div>
+      <Modal
+        open={showCalendarUrl}
+        onClose={() => setShowCalendarUrl(false)}
         classNames={{
-          modal: "Calendar--detail-window",
+          modal:
+            screenType === "mobile"
+              ? "Calendar--detail-window-mobile"
+              : "Calendar--detail-window",
         }}
       >
         {calendarUrl && (
@@ -291,7 +242,7 @@ export default function MyCalendar({
             </p>
           </div>
         )}
-      </Modal> */}
+      </Modal>
     </div>
   );
 }

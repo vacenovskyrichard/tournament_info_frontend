@@ -1,22 +1,72 @@
-.login-page {
+/* Main component style */
+.Login {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   height: 100vh;
-  /* background-image: url("../../public/login.jpg"); */
-  background-color: rgb(216, 216, 216);
+  background-image: url("../../public/login-orange.webp");
   /* background: linear-gradient(
     90deg,
     rgba(255, 164, 46, 1) 0%,
     rgba(247, 28, 61, 1) 100%
   ); */
-  /* background-color: #ff847c; */
   background-size: cover; /* Cover the entire container */
   background-repeat: no-repeat; /* Prevent image repetition */
-  background-position: center; /* Center the image */ /* background-image: "./public/"; */
+  background-position: center; /*Center the image */
 }
 
+.Login--registration_failed {
+  background-color: rgb(255, 0, 0);
+  color: rgb(245, 245, 245);
+}
+
+/* PLAYER/ORGANIZER switch buttons */
+.Login--organizer-player-switch {
+  width: 600px;
+}
+
+.Login--player-btn,
+.Login--organizer-btn {
+  font-family: var(--main-font);
+  font-size: 28px;
+  border-top-right-radius: 50px;
+  border-top-left-radius: 5px;
+  color: rgb(245, 245, 245);
+  background-color: rgb(131, 110, 110);
+  width: 50%;
+  border: 0;
+  box-shadow: 0 0 10px rgb(37, 31, 31);
+}
+
+.chosen {
+  background-color: rgb(37, 31, 31);
+}
+
+/* X Button style */
+.Login--x-btn {
+  position: absolute;
+  top: 2px;
+  right: 10px;
+  font-family: var(--x-font);
+  font-size: 35px;
+  background-image: linear-gradient(
+    90deg,
+    rgba(255, 164, 46, 1) 0%,
+    rgba(247, 28, 61, 1) 100%
+  );
+  -webkit-background-clip: text; /* For compatibility with some browsers */
+  background-clip: text;
+  color: transparent; /* Hide the actual text color */
+  text-align: center;
+}
+
+.Login--x-btn:hover {
+  text-shadow: 0 0 25px rgba(247, 28, 61, 1);
+  cursor: pointer;
+}
+
+/* Main login box style*/
 .login-box {
   position: relative;
   display: flex;
@@ -25,15 +75,15 @@
   border-bottom-left-radius: 15px;
   border-bottom-right-radius: 15px;
   justify-content: center;
-  /* color: rgb(216, 216, 216); */
+  box-shadow: 0 0 25px rgb(37, 31, 31);
 }
 
+/* Title */
 .login-form-title {
   width: 100%;
   display: block;
-  font-family: "Bebas Neue", sans-serif;
+  font-family: var(--main-font);
   font-size: 39px;
-  /* color: #555; */
   background-image: linear-gradient(
     90deg,
     rgba(255, 164, 46, 1) 0%,
@@ -48,6 +98,7 @@
   margin-top: 20px;
 }
 
+/* Social buttons */
 .socials-buttons {
   display: flex;
   font-family: "Montserrat", sans-serif;
@@ -147,47 +198,14 @@
   cursor: default;
 }
 
+/* Form box include email password and submit button */
 .Login--main-form {
   width: 500px;
   margin: 40px 0px;
 }
 
-.Login--label {
-  font-family: "Bebas Neue", sans-serif;
-  font-weight: bold;
-  font-size: 22px;
-  background-image: linear-gradient(
-    90deg,
-    rgba(255, 164, 46, 1) 0%,
-    rgba(247, 28, 61, 1) 100%
-  );
-  -webkit-background-clip: text; /* For compatibility with some browsers */
-  background-clip: text;
-  color: transparent; /* Hide the actual text color */
-  line-height: 1.5;
-  margin-right: 5px;
-  margin-top: 5px;
-  margin-bottom: 5px;
-}
-.Login--password-label-box {
-  margin-top: 5px;
-  margin-bottom: 5px;
-  display: flex;
-  align-items: center;
-}
-
-.Login--tiny-label {
-  font-family: "Bebas Neue", sans-serif;
-  font-size: 22px;
-  color: #999;
-  line-height: 1.5;
-  margin-right: 3px;
-  margin-top: 5px;
-  margin-bottom: 5px;
-}
-
 .wrap-input > input {
-  font-family: "Montserrat", sans-serif;
+  font-family: var(--input-font);
   font-size: 18px;
   width: 100%;
   background-color: #f7f7f7;
@@ -195,7 +213,7 @@
   height: 40px;
   border-radius: 10px;
 }
-/* =========================================================== */
+
 .Login--login-button {
   -webkit-transition: all 0.4s;
   -o-transition: all 0.4s;
@@ -209,7 +227,7 @@
   height: 60px;
   background-color: #333;
   border-radius: 10px;
-  font-family: "Bebas Neue", sans-serif;
+  font-family: var(--main-font);
   font-size: 22px;
   color: #fff;
   margin-top: 10px;
@@ -233,6 +251,7 @@
   box-shadow: 0 0 11px rgba(255, 255, 255, 0.7);
 }
 
+/* Bottom part with register */
 .Login--register {
   display: flex;
   position: relative;
@@ -240,21 +259,56 @@
   bottom: 0;
 }
 
+.Login--register > p {
+  font-family: var(--main-font);
+  font-size: 22px;
+  color: #999;
+  line-height: 1.5;
+  margin-right: 3px;
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+
 .clickable:hover {
   text-decoration: underline;
   cursor: pointer;
 }
 
-.Login--navbar {
+/* Popup error and success messages */
+.Login--registration_succesfull,
+.Login--registration_failed {
   display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 10px;
+  background-color: rgb(99, 255, 99);
+  font-family: var(--main-font);
+  width: 600px;
+  height: 25px;
+  border-radius: 15px;
 }
 
-.Login--x-btn {
+/* ======================================================*/
+/* --------------------- Mobile css ---------------------*/
+/* ======================================================*/
+
+/* PLAYER/ORGANIZER switch buttons */
+.Login--organizer-player-switch-mobile {
+  width: 95%;
+}
+
+.Login--organizer-player-switch-mobile > button {
+  height: 80px;
+  font-size: 45px;
+}
+
+/* X Button style */
+.Login--x-btn-mobile {
   position: absolute;
   top: 2px;
-  right: 10px;
-  font-family: "Autour One", sans-serif;
-  font-size: 35px;
+  right: 20px;
+  font-family: var(--x-font);
+  font-size: 80px;
   background-image: linear-gradient(
     90deg,
     rgba(255, 164, 46, 1) 0%,
@@ -266,44 +320,99 @@
   text-align: center;
 }
 
-.Login--x-btn:hover {
-  text-shadow: 0 0 25px rgba(247, 28, 61, 1);
-  cursor: pointer;
-}
-
-.Login--registration_succesfull,
-.Login--registration_failed {
+/* Main login box style*/
+.login-box-mobile {
+  position: relative;
   display: flex;
-  align-items: center;
+  background-color: rgb(37, 31, 31); /* Background color for the login box */
+  border-bottom-left-radius: 15px;
+  border-bottom-right-radius: 15px;
   justify-content: center;
-  margin: 10px;
-  background-color: rgb(99, 255, 99);
-  font-family: "Autour One", sans-serif;
-  width: 600px;
-  height: 25px;
-  border-radius: 15px;
+  box-shadow: 0 0 25px rgb(37, 31, 31);
+  width: 95%;
 }
 
-.Login--registration_failed {
-  background-color: rgb(255, 0, 0);
+/* Box inside main box without X button*/
+.login-form-mobile {
+  width: 85%;
+  margin: 100px 0px;
 }
 
-.Login--organizer-player-switch,
-.Login--organizer-player-switch-mobile {
-  width: 600px;
+/* Email and password whole boxes with label and input */
+.Login--main-form-mobile > div {
+  margin-top: 40px;
 }
 
-.Login--player-btn,
-.Login--organizer-btn {
-  font-family: "Bebas Neue", sans-serif;
-  font-size: 28px;
-  border-top-right-radius: 20px;
-  border-top-left-radius: 10px;
-  color: rgb(245, 245, 245);
-  background-color: rgb(131, 110, 110);
-  width: 50%;
+/* Email and password labels */
+.Login--main-form-mobile > div > label {
+  font-size: 40px;
 }
 
-.chosen {
-  background-color: rgb(37, 31, 31);
+/* Email and password input fields */
+.Login--main-form-mobile > div > input {
+  font-size: 40px;
+  height: 75px;
+}
+
+/* Login sumbmit button */
+.Login--main-form-mobile > button {
+  font-size: 35px;
+  height: 90px;
+  margin-top: 25px;
+}
+
+/* Title */
+.login-form-title-mobile {
+  width: 100%;
+  display: block;
+  font-family: var(--main-font);
+  font-size: 65px;
+  background-image: linear-gradient(
+    90deg,
+    rgba(255, 164, 46, 1) 0%,
+    rgba(247, 28, 61, 1) 100%
+  );
+  -webkit-background-clip: text; /* For compatibility with some browsers */
+  background-clip: text;
+  color: transparent; /* Hide the actual text color */
+  line-height: 1.2;
+  text-align: center;
+  margin-bottom: 20px;
+  margin-top: 20px;
+}
+
+/* Social buttons */
+.socials-buttons-mobile {
+  display: flex;
+  font-family: "Montserrat", sans-serif;
+  margin-bottom: 50px;
+}
+
+.socials-buttons-mobile > div {
+  font-size: 30px;
+  height: 80px;
+}
+
+.socials-buttons-mobile > div > img {
+  height: 45px;
+  width: auto;
+}
+
+/* bottom register label field */
+.Login--register-mobile {
+  height: 200px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  bottom: 0;
+}
+
+.Login--register-mobile > p {
+  font-family: var(--main-font);
+  font-size: 35px;
+  color: #999;
+  line-height: 1.5;
+  margin-right: 3px;
+  margin-top: 5px;
+  margin-bottom: 5px;
 }

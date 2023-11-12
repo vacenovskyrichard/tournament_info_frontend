@@ -2,19 +2,21 @@ import { useForm } from "react-hook-form";
 import { useState } from "react";
 import "../styles/Filters.css";
 import Filter from "./Filter";
-import { Controller } from "react-hook-form";
-import Select from "react-select";
+import { useRecoilValue, useSetRecoilState } from "recoil";
+import { apiUrlState } from "../state/atoms/ApiUrlState";
+import { tournamentsState } from "../state/atoms/TournamentsState";
+import { screenSize } from "../state/atoms/ScreenSize";
 
 export default function Filters({
-  data,
-  setData,
-  apiUrl,
   setFilterResults,
   filterOptions,
   isTabletOrMobile,
 }) {
-  const { control, handleSubmit, register, errors } = useForm();
-
+  const { control, handleSubmit } = useForm();
+  const [showFilters, setShowFilers] = useState(false);
+  const apiUrl = useRecoilValue(apiUrlState);
+  const screenType = useRecoilValue(screenSize);
+  const setTournamentsData = useSetRecoilState(tournamentsState);
   const filter_values = {
     areals: new Set(),
     cities: new Set(),
@@ -68,105 +70,64 @@ export default function Filters({
       body: JSON.stringify(form_data),
     })
       .then((resp) => resp.json())
-      .then((resp) => setData(resp));
+      .then((resp) => setTournamentsData(resp));
   };
 
   return (
-    <div className={isTabletOrMobile ? "filters-mobile" : "filters"}>
+    <div className={screenType === "mobile" ? "filters-mobile" : "filters"}>
+      {/* {showFilters ? ( */}
       <form
-        className={isTabletOrMobile ? "filters-form-mobile" : "filters-form"}
+        className={
+          screenType === "mobile" ? "filters-form-mobile" : "filters-form"
+        }
         onSubmit={handleSubmit(saveData)}
       >
-        <div>
-          <h3>Město</h3>
-          {/* <Filter name="city" data={cities} control={control} /> */}
-
-          <Controller
-            name="city"
-            control={control}
-            defaultValue=""
-            rules={{
-              required: false,
-            }}
-            render={({ field }) => (
-              <Select
-                placeholder="Vyberte"
-                isMulti
-                {...field}
-                options={cities}
-              />
-            )}
-          />
-        </div>
-        <div>
-          <h3>Areál</h3>
-          {/* <Filter name="areal" data={areals} control={control} /> */}
-          <Controller
-            name="areal"
-            control={control}
-            defaultValue=""
-            rules={{
-              required: false,
-            }}
-            render={({ field }) => (
-              <Select
-                placeholder="Vyberte"
-                isMulti
-                {...field}
-                options={areals}
-              />
-            )}
-          />
-        </div>
-        <div>
-          <h3>Kategorie</h3>
-          {/* <Filter name="category" data={categories} control={control} /> */}
-          <Controller
-            name="category"
-            control={control}
-            defaultValue=""
-            rules={{
-              required: false,
-            }}
-            render={({ field }) => (
-              <Select
-                placeholder="Vyberte"
-                isMulti
-                {...field}
-                options={categories}
-              />
-            )}
-          />
-        </div>
-        <div>
-          <h3>Úroveň</h3>
-          {/* <Filter name="level" data={levels} control={control} /> */}
-          <Controller
-            name="level"
-            control={control}
-            defaultValue=""
-            rules={{
-              required: false,
-            }}
-            render={({ field }) => (
-              <Select
-                placeholder="Vyberte"
-                isMulti
-                {...field}
-                options={levels}
-              />
-            )}
-          />
-        </div>
+        <Filter header="Město" name="city" control={control} options={cities} />
+        <Filter
+          header="Areál"
+          name="areal"
+          control={control}
+          options={areals}
+        />
+        <Filter
+          header="Kategorie"
+          name="category"
+          control={control}
+          options={categories}
+        />
+        <Filter
+          header="Úroveň"
+          name="level"
+          control={control}
+          options={levels}
+        />
         <div>
           <button
-            className={isTabletOrMobile ? "save-button-mobile" : "save-button"}
+            className={
+              screenType === "mobile"
+                ? "Filters--save-button-mobile"
+                : "Filters--save-button"
+            }
             type="submit"
           >
             Filtrovat
           </button>
         </div>
+        {/* <button
+          className="Filters--hide-filters-btn"
+          onClick={() => setShowFilers(false)}
+        >
+          X
+        </button> */}
       </form>
+      {/* ) : (
+        <button
+          className="Filters--show-filters-btn"
+          onClick={() => setShowFilers(true)}
+        >
+          Zobrazit filtry
+        </button>
+      )} */}
     </div>
   );
 }

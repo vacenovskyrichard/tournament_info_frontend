@@ -1,20 +1,15 @@
 import Navbar from "../components/Navbar";
-function Nopage({ token, removeToken, setToken, apiUrl }) {
+import Footer from "../components/Footer";
+function Nopage({}) {
   return (
     <>
-      <Navbar
-        token={token}
-        removeToken={removeToken}
-        setToken={setToken}
-        apiUrl={apiUrl}
-        title={"Tady nic nenajdete"}
-      />
+      <Navbar title={"Tady nic nenajdete"} />
       <div
         style={{
           display: "flex",
           justifyContent: "center",
-          alignItems: "center",
-          height: "auto",
+          alignItems: "start",
+          height: "120vh",
         }}
       >
         <img
@@ -22,11 +17,14 @@ function Nopage({ token, removeToken, setToken, apiUrl }) {
           alt="monkey"
           src="./monkey2.gif"
           style={{
-            height: "700px",
+            top: "20px",
+            width: "90%",
+            height: "auto",
             margin: "50px",
           }}
         />
       </div>
+      <Footer />
     </>
   );
 }

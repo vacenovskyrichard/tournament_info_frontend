@@ -4,13 +4,15 @@ import "./index.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import { GoogleOAuthProvider } from "@react-oauth/google";
-
+import { RecoilRoot } from "recoil";
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
-    <GoogleOAuthProvider clientId="661291522017-e1rivse89ghgjbiq8b9iu1s2l19ku7lo.apps.googleusercontent.com">
-      <App />
-    </GoogleOAuthProvider>
+    <RecoilRoot>
+      <GoogleOAuthProvider clientId="661291522017-e1rivse89ghgjbiq8b9iu1s2l19ku7lo.apps.googleusercontent.com">
+        <App />
+      </GoogleOAuthProvider>
+    </RecoilRoot>
   </React.StrictMode>
 );
 

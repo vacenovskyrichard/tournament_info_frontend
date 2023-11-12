@@ -4,8 +4,17 @@ import { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { useGoogleLogin } from "@react-oauth/google";
+import useToken from "../components/useToken";
+import { useRecoilValue } from "recoil";
+import { apiUrlState } from "../state/atoms/ApiUrlState";
+import InputField from "../components/InputField";
+import { screenSize } from "../state/atoms/ScreenSize";
 
-function Login({ setToken, apiUrl, isTabletOrMobile }) {
+function Login() {
+  const apiUrl = useRecoilValue(apiUrlState);
+  const screenType = useRecoilValue(screenSize);
+  const { setToken, token } = useToken();
+
   const [registrationFailed, setRegistrationFailed] = useState(false);
   const [isPlayer, setIsPlayer] = useState(true);
   const navigate = useNavigate();
@@ -25,7 +34,6 @@ function Login({ setToken, apiUrl, isTabletOrMobile }) {
     })
       .then((response) => {
         setToken(response.data);
-        localStorage.setItem("isPlayer", isPlayer);
         navigate("/");
       })
       .catch((error) => {
@@ -83,7 +91,6 @@ function Login({ setToken, apiUrl, isTabletOrMobile }) {
       .then((response) => {
         console.log("STATUS CODE:" + response.status);
         setToken(response.data);
-        localStorage.setItem("isPlayer", isPlayer);
         console.log(response.data);
         navigate("/");
       })
@@ -97,122 +104,129 @@ function Login({ setToken, apiUrl, isTabletOrMobile }) {
   }
 
   return (
-    <>
-      <div className="login-page">
-        {registrationFailed && (
-          <div className="Login--registration_failed">
-            <span>Neplatný email nebo heslo</span>
-          </div>
-        )}
-        <div
+    <div className="Login">
+      {registrationFailed && (
+        <div className="Login--registration_failed">
+          <span>Neplatný email nebo heslo</span>
+        </div>
+      )}
+      <div
+        className={
+          screenType === "mobile"
+            ? "Login--organizer-player-switch-mobile"
+            : "Login--organizer-player-switch"
+        }
+      >
+        <button
+          className={`Login--player-btn ${isPlayer ? "chosen" : ""}`}
+          onClick={() => setIsPlayer(true)}
+        >
+          Hráč
+        </button>
+        <button
+          className={`Login--organizer-btn ${isPlayer ? "" : "chosen"}`}
+          onClick={() => setIsPlayer(false)}
+        >
+          Organizátor
+        </button>
+      </div>
+
+      <div
+        className={screenType === "mobile" ? "login-box-mobile" : "login-box"}
+      >
+        <span
           className={
-            isTabletOrMobile
-              ? "Login--organizer-player-switch-mobile"
-              : "Login--organizer-player-switch"
+            screenType === "mobile" ? "Login--x-btn-mobile" : "Login--x-btn"
+          }
+          onClick={() => navigate("/")}
+        >
+          x
+        </span>
+        <form
+          onSubmit={handleSubmit(login)}
+          className={
+            screenType === "mobile" ? "login-form-mobile" : "login-form"
           }
         >
-          <button
-            className={`Login--player-btn ${isPlayer ? "chosen" : ""}`}
-            onClick={() => setIsPlayer(true)}
+          <span
+            className={
+              screenType === "mobile"
+                ? "login-form-title-mobile"
+                : "login-form-title"
+            }
           >
-            Hráč
-          </button>
-          <button
-            className={`Login--organizer-btn ${isPlayer ? "" : "chosen"}`}
-            onClick={() => setIsPlayer(false)}
-          >
-            Organizátor
-          </button>
-        </div>
-        <div className="login-box">
-          <span className="Login--x-btn" onClick={() => navigate("/")}>
-            x
+            Přihlášení
           </span>
-          <form onSubmit={handleSubmit(login)} className="login-form">
-            {/* <form className="login-form"> */}
-            <span className="login-form-title">Přihlášení</span>
-            <div className="socials-buttons">
-              <div className="facebook-button">
-                <img
-                  className="facebook-logo"
-                  alt="logo"
-                  src="./facebook-logo.png"
-                />
-                Facebook
-              </div>
-
-              <div onClick={google_login} className="google-button">
-                <img
-                  className="google-logo"
-                  alt="logo"
-                  src="./google-logo.png"
-                />
-                Google
-              </div>
+          <div
+            className={
+              screenType === "mobile"
+                ? "socials-buttons-mobile"
+                : "socials-buttons"
+            }
+          >
+            <div className="facebook-button">
+              <img
+                className="facebook-logo"
+                alt="logo"
+                src="./facebook-logo.png"
+              />
+              Facebook
             </div>
 
-            <div className="Login--main-form">
-              <p className="Login--label">Email</p>
-              <div className="wrap-input">
-                <input
-                  type="email"
-                  name="email"
-                  {...register("email", {
-                    required: {
-                      value: true,
-                      message: "Zadejte email",
-                    },
-                  })}
-                />
-                {errors.email && (
-                  <p style={{ fontSize: "20px", color: "red" }}>
-                    {errors.email?.message}
-                  </p>
-                )}
-              </div>
-              <div className="Login--password-label-box">
-                <p className="Login--label">Heslo</p>
-                <p
-                  onClick={() => navigate("/forgot_password")}
-                  className="Login--tiny-label clickable"
-                >
-                  Zapomněli jste?
-                </p>
-              </div>
-              <div className="wrap-input">
-                <input
-                  type="password"
-                  name="password"
-                  {...register("password", {
-                    required: {
-                      value: true,
-                      message: "Zadejte heslo",
-                    },
-                  })}
-                />
-                {errors.password && (
-                  <p style={{ fontSize: "20px", color: "red" }}>
-                    {errors.password?.message}
-                  </p>
-                )}
-              </div>
-              <button className="Login--login-button" type="submit">
-                <p>Přihlásit</p>
-              </button>
+            <div onClick={google_login} className="google-button">
+              <img className="google-logo" alt="logo" src="./google-logo.png" />
+              Google
             </div>
-            <div className="Login--register">
-              <p className="Login--tiny-label">Nemáte účet?</p>
-              <p
-                onClick={() => navigate("/register")}
-                className="Login--tiny-label clickable"
-              >
-                Registrovat
-              </p>
-            </div>
-          </form>
-        </div>
+          </div>
+
+          <div
+            className={
+              screenType === "mobile"
+                ? "Login--main-form-mobile"
+                : "Login--main-form"
+            }
+          >
+            <InputField
+              label={"Email"}
+              type={"email"}
+              name={"email"}
+              requiredMessage={"Zadejte email"}
+              errors={errors.email}
+              register={register}
+            />
+            <InputField
+              label={"Heslo"}
+              additionalLabel={"Zapomněli jste?"}
+              additionalLabelOnClick={() => navigate("/forgot_password")}
+              type={"password"}
+              name={"password"}
+              requiredMessage={"Zadejte heslo"}
+              errors={errors.password}
+              register={register}
+            />
+
+            <button className="Login--login-button" type="submit">
+              <p>Přihlásit</p>
+            </button>
+          </div>
+          <div
+            className={
+              screenType === "mobile"
+                ? "Login--register-mobile"
+                : "Login--register"
+            }
+          >
+            <p className="Login--tiny-label">Nemáte účet?</p>
+            <p
+              onClick={() => navigate("/register")}
+              className="Login--tiny-label clickable"
+            >
+              Registrovat
+            </p>
+          </div>
+        </form>
       </div>
-    </>
+    </div>
   );
 }
 export default Login;

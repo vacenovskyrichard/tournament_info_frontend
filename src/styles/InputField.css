@@ -1,0 +1,46 @@
+.InputField {
+  margin: 20px 0px;
+}
+
+.InputField--label {
+  font-family: var(--main-font);
+  /* font-weight: bold; */
+  font-size: 22px;
+  background-image: linear-gradient(
+    90deg,
+    rgba(255, 164, 46, 1) 0%,
+    rgba(247, 28, 61, 1) 100%
+  );
+  -webkit-background-clip: text; /* For compatibility with some browsers */
+  background-clip: text;
+  color: transparent; /* Hide the actual text color */
+  line-height: 1.5;
+  margin-right: 5px;
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+
+.InputField--additional-label {
+  font-family: var(--main-font);
+  font-size: 22px;
+  color: #999;
+  line-height: 1.5;
+  margin-right: 3px;
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+.InputField--additional-label:hover {
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.InputField--input {
+  font-family: var(--input-font);
+  font-size: 18px;
+  width: 100%;
+  background-color: #f7f7f7;
+  border: 1px solid #e6e6e6;
+  height: 40px;
+  border-radius: 10px;
+  padding-left: 10px;
+}

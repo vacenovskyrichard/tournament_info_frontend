@@ -1,16 +1,15 @@
-.AddTournament--main {
+.AddTournament {
   display: flex;
   flex-direction: column;
   align-items: center;
 }
-.AddTournament--main > form {
-  width: 500px;
+
+.AddTournament--form {
+  width: 35%;
 }
 
 .AddTournament--form-element {
-  display: flex;
-  flex-direction: column;
-  margin: 15px;
+  margin: 20px 0px;
 }
 
 .AddTournament--form-element-checkbox {
@@ -20,40 +19,9 @@
   margin: 15px;
 }
 
-.AddTournament--form-element > label {
-  font-family: "Bebas Neue", sans-serif;
-  font-weight: bold;
-  font-size: 25px;
-  color: #555;
-  margin-right: 5px;
-  margin-top: 5px;
-  margin-bottom: 5px;
-}
-
-.AddTournament--form-element-checkbox > label {
-  margin-right: 5px;
-  margin-top: 5px;
-  margin-bottom: 5px;
-  font-size: 25px;
-  color: #555;
-  font-weight: bold;
-  line-height: 1.5;
-  font-family: "Bebas Neue", sans-serif;
-}
-
-.AddTournament--form-element > input,
 .AddTournament--form-element-checkbox > input {
-  font-family: "Montserrat", sans-serif;
-  font-size: 18px;
-  width: 100%;
-  background-color: #f7f7f7;
-  border: 1px solid #e6e6e6;
   height: 40px;
-  border-radius: 10px;
-}
-
-.AddTournament--form-element-checkbox > input {
-  width: 25px;
+  width: 40px;
 }
 
 .AddTournament--submit-button-box {
@@ -76,7 +44,7 @@
   height: 60px;
   background-color: rgb(37, 31, 31);
   border-radius: 10px;
-  font-family: "Bebas Neue", sans-serif;
+  font-family: var(--main-font);
   font-size: 28px;
   color: rgb(216, 216, 216);
   margin: 10px;
@@ -85,4 +53,49 @@
 
 .AddTournament--submit-button:hover {
   box-shadow: 0 0 11px rgb(37, 31, 31);
+}
+
+/* ======================================================*/
+/* --------------------- Mobile css ---------------------*/
+/* ======================================================*/
+
+.AddTournament--form-mobile {
+  width: 90%;
+}
+
+.AddTournament--form-mobile > div {
+  height: 150px;
+}
+.AddTournament--form-mobile > div > label {
+  font-size: 35px;
+}
+.AddTournament--form-mobile > div > input {
+  font-size: 35px;
+  height: 60px;
+}
+
+.AddTournament--form-mobile > div > div > div {
+  font-size: 30px;
+}
+
+.AddTournament--submit-button-box-mobile {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  flex-direction: column;
+}
+
+.AddTournament--submit-button-box-mobile > button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0 20px;
+  height: 90px;
+  background-color: rgb(37, 31, 31);
+  border-radius: 10px;
+  font-family: var(--main-font);
+  font-size: 45px;
+  color: rgb(216, 216, 216);
+  margin: 10px;
+  width: 80%;
 }

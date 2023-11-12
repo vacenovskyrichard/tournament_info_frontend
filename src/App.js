@@ -8,22 +8,38 @@ import Register from "./pages/Register";
 import ChangePassword from "./pages/ChangePassword";
 import ForgotPassword from "./pages/ForgotPassword";
 import Profile from "./pages/Profile";
-import useToken from "./components/useToken";
 import { useEffect, useState } from "react";
 import { useMediaQuery } from "react-responsive";
+import { useRecoilState, useSetRecoilState } from "recoil";
+import { tournamentsState } from "./state/atoms/TournamentsState";
+import { apiUrlState } from "./state/atoms/ApiUrlState";
+import { screenSize } from "./state/atoms/ScreenSize";
+import useToken from "./components/useToken";
+import "./variables.css";
 
 function App() {
-  const { setToken, token, removeToken } = useToken();
-  const [tournamentsData, setTournamentsData] = useState([]);
+  const setTournaments = useSetRecoilState(tournamentsState);
+  const setScreenSize = useSetRecoilState(screenSize);
+  const [apiUrl, setApiUrl] = useRecoilState(apiUrlState);
   const [filterOptions, setFilterOptions] = useState([]);
   const [tournamentToEditId, setTournamentToEditId] = useState();
   const [loadingMainTable, setLoadingMainTable] = useState(true);
+  const { token, removeToken } = useToken();
+
+  // eslint-disable-next-line
   const localhost = "http://127.0.0.1:5000";
   // eslint-disable-next-line
   const production = "https://jdem-hrat-58da3e527841.herokuapp.com";
 
-  const apiUrl = production;
+  setApiUrl(localhost);
+  // eslint-disable-next-line
+  setScreenSize(
+    useMediaQuery({ query: "(max-width: 1224px)" }) ? "mobile" : "desktop"
+  );
+
   useEffect(() => {
+    // initialize empty token if token is null
+    token || removeToken();
     fetch(`${apiUrl}/get`, {
       method: "GET",
       headers: {
@@ -35,7 +51,7 @@ function App() {
       })
       .then((resp) => {
         // save tournament data to state and format last update time
-        setTournamentsData(
+        setTournaments(
           resp.map((tournament) => {
             const [last_update_date, last_update_time] =
               tournament.last_update.split("T");
@@ -57,16 +73,6 @@ function App() {
       }); // eslint-disable-next-line
   }, []);
 
-  // eslint-disable-next-line
-  const isDesktopOrLaptop = useMediaQuery({
-    query: "(min-width: 1224px)",
-  });
-
-  // eslint-disable-next-line
-  const isPortrait = useMediaQuery({ query: "(orientation: portrait)" });
-
-  const isTabletOrMobile = useMediaQuery({ query: "(max-width: 1224px)" });
-
   return (
     <div>
       <BrowserRouter>
@@ -75,93 +81,24 @@ function App() {
             index
             element={
               <Homepage
-                token={token}
-                removeToken={removeToken}
-                setToken={setToken}
-                tournamentsData={tournamentsData}
-                setTournamentsData={setTournamentsData}
-                apiUrl={apiUrl}
                 filterOptions={filterOptions}
-                isTabletOrMobile={isTabletOrMobile}
                 loadingMainTable={loadingMainTable}
               />
             }
           />
-          <Route
-            path="/add_tournament"
-            element={
-              <AddTournament
-                token={token}
-                removeToken={removeToken}
-                setToken={setToken}
-                apiUrl={apiUrl}
-                isTabletOrMobile={isTabletOrMobile}
-              />
-            }
-          />
+          <Route path="/add_tournament" element={<AddTournament />} />
           <Route
             path="/edit_tournament"
-            element={
-              <EditTournament
-                token={token}
-                removeToken={removeToken}
-                setToken={setToken}
-                apiUrl={apiUrl}
-                tournamentToEditId={tournamentToEditId}
-                tournamentsData={tournamentsData}
-                setTournamentsData={setTournamentsData}
-                isTabletOrMobile={isTabletOrMobile}
-              />
-            }
+            element={<EditTournament tournamentToEditId={tournamentToEditId} />}
           />
-          <Route
-            path="/login"
-            element={
-              <Login
-                token={token}
-                removeToken={removeToken}
-                setToken={setToken}
-                apiUrl={apiUrl}
-                isTabletOrMobile={isTabletOrMobile}
-              />
-            }
-          />
-          <Route
-            path="/register"
-            element={
-              <Register
-                token={token}
-                removeToken={removeToken}
-                setToken={setToken}
-                apiUrl={apiUrl}
-                isTabletOrMobile={isTabletOrMobile}
-              />
-            }
-          />
-          <Route
-            path="/forgot_password"
-            element={
-              <ForgotPassword
-                token={token}
-                removeToken={removeToken}
-                setToken={setToken}
-                apiUrl={apiUrl}
-                isTabletOrMobile={isTabletOrMobile}
-              />
-            }
-          />
+          <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
+          <Route path="/forgot_password" element={<ForgotPassword />} />
           <Route
             path="/profile"
             element={
               <Profile
-                token={token}
-                removeToken={removeToken}
-                setToken={setToken}
-                tournamentsData={tournamentsData}
-                setTournamentsData={setTournamentsData}
-                apiUrl={apiUrl}
                 setTournamentToEditId={setTournamentToEditId}
-                isTabletOrMobile={isTabletOrMobile}
                 loadingMainTable={loadingMainTable}
               />
             }
@@ -169,30 +106,10 @@ function App() {
           <Route
             path="/change_password"
             element={
-              <ChangePassword
-                token={token}
-                removeToken={removeToken}
-                setToken={setToken}
-                tournamentsData={tournamentsData}
-                setTournamentsData={setTournamentsData}
-                apiUrl={apiUrl}
-                setTournamentToEditId={setTournamentToEditId}
-                isTabletOrMobile={isTabletOrMobile}
-              />
+              <ChangePassword setTournamentToEditId={setTournamentToEditId} />
             }
           />
-          <Route
-            path="*"
-            element={
-              <Nopage
-                token={token}
-                removeToken={removeToken}
-                setToken={setToken}
-                apiUrl={apiUrl}
-                isTabletOrMobile={isTabletOrMobile}
-              />
-            }
-          />
+          <Route path="*" element={<Nopage />} />
         </Routes>
       </BrowserRouter>
     </div>
