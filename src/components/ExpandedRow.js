@@ -20,7 +20,8 @@ export default function ExpandedComponent({
   data,
   showEditerButtons,
   editTorunament,
-  deleteTorunament,
+  setDeleteId,
+  setShowConfirmation,
 }) {
   data = data.data;
   const apiUrl = useRecoilValue(apiUrlState);
@@ -402,12 +403,18 @@ export default function ExpandedComponent({
               : "ExpandedRow--editer-buttons"
           }
         >
-          <button className="ExpandedRow--edit-button" onClick={editTorunament}>
+          <button
+            className="ExpandedRow--edit-button"
+            onClick={() => editTorunament(data.id)}
+          >
             Upravit turnaj
           </button>
           <button
             className="ExpandedRow--delete-button"
-            onClick={deleteTorunament}
+            onClick={() => {
+              setDeleteId(data.id);
+              setShowConfirmation(true);
+            }}
           >
             Smazat turnaj
           </button>

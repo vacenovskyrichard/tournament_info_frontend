@@ -86,10 +86,9 @@
 /* Table cell */
 .Data--tournament-table-mobile .rdt_TableCell {
   display: flex;
-  /* justify-content: center; */
-  /* color: red; */
 }
 
+/* Pagination bar */
 .Data--tournament-table-mobile .svYMe {
   margin-right: 20px;
   width: 50px;
@@ -114,5 +113,5 @@
   width: 100px;
 }
 .Data--tournament-table-mobile .rdt_Pagination > div > button > svg {
-  transform: scale(2.5); /* Adjust the scale factor as needed */
+  transform: scale(2.5);
 }

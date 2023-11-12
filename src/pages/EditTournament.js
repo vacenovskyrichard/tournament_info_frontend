@@ -8,10 +8,12 @@ import Select from "react-select";
 import useToken from "../components/useToken";
 import { useRecoilValue } from "recoil";
 import { apiUrlState } from "../state/atoms/ApiUrlState";
+import { screenSize } from "../state/atoms/ScreenSize";
 import { SelectFormFontFamily } from "../config/Font";
 
 export default function EditTournament({}) {
   const apiUrl = useRecoilValue(apiUrlState);
+  const screenType = useRecoilValue(screenSize);
   const { token } = useToken();
   const navigate = useNavigate();
   const { register, control, handleSubmit, formState } = useForm();
@@ -85,13 +87,20 @@ export default function EditTournament({}) {
     { value: "open", label: "Open" },
     { value: "cvf", label: "CVF (svazový turnaj)" },
   ];
-
+  console.log("editedTournament");
+  console.log(editedTournament);
   return (
     <>
       <Navbar title={"Upravení turnaje"} />
 
       <div className="EditTournament--main">
-        <div className="EditTournament--form">
+        <div
+          className={
+            screenType === "mobile"
+              ? "EditTournament--form-mobile"
+              : "EditTournament--form"
+          }
+        >
           {/* Tournament name */}
           <div className="EditTournament--form-element">
             <h3>Jméno turnaje</h3>
@@ -473,7 +482,7 @@ export default function EditTournament({}) {
           </div>
 
           {/* Tournament signing enabled */}
-          <div className="EditTournament--form-element">
+          {/* <div className="EditTournament--form-element">
             <h3>Povolit přihlašování přes turnajky.cz</h3>
             <form onSubmit={handleSubmit(onSubmit)}>
               <input
@@ -485,7 +494,7 @@ export default function EditTournament({}) {
 
               <button type="submit">uložit</button>
             </form>
-          </div>
+          </div> */}
           <div
             className="EditTournament--finish-button"
             onClick={() => {

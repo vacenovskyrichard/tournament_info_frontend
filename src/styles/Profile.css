@@ -289,6 +289,17 @@ h1 {
   width: 98%;
 }
 
+.Profile--user-data-mobile {
+  display: flex;
+  flex-direction: column;
+  width: 98%;
+}
+
+.Profile--user-data-mobile > div,
+.Profile--user-data-mobile > div > a {
+  font-size: 30px;
+}
+
 /* Table all components */
 .Profile--tournament-table-mobile .rdt_TableHeadRow,
 .Profile--tournament-table-mobile .rdt_TableRow,
@@ -323,6 +334,7 @@ h1 {
   /* color: red; */
 }
 
+/* Pagination bar */
 .Profile--tournament-table-mobile .svYMe {
   margin-right: 20px;
   width: 50px;
@@ -347,5 +359,24 @@ h1 {
   width: 100px;
 }
 .Profile--tournament-table-mobile .rdt_Pagination > div > button > svg {
-  transform: scale(2.5); /* Adjust the scale factor as needed */
+  transform: scale(2.5);
+}
+
+.Profile--buttons-mobile {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.Profile--buttons-mobile > a,
+.Profile--buttons-mobile > button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 4px 30px;
+  background-color: rgb(37, 31, 31);
+  border-radius: 30px;
+  font-family: var(--main-font);
+  font-size: 35px;
+  color: rgb(245, 245, 245);
+  margin: 10px;
 }
