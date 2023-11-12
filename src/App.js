@@ -31,13 +31,13 @@ function App() {
   // eslint-disable-next-line
   const production = "https://jdem-hrat-58da3e527841.herokuapp.com";
 
-  setApiUrl(production);
-  // eslint-disable-next-line
-  setScreenSize(
-    useMediaQuery({ query: "(max-width: 1224px)" }) ? "mobile" : "desktop"
-  );
-
   useEffect(() => {
+    setApiUrl(production);
+    // eslint-disable-next-line
+    setScreenSize(
+      useMediaQuery({ query: "(max-width: 1224px)" }) ? "mobile" : "desktop"
+    );
+
     // initialize empty token if token is null
     token || removeToken();
     fetch(`${apiUrl}/get`, {
