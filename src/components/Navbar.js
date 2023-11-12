@@ -53,7 +53,7 @@ function Navbar({ title }) {
 
       <div className="navbar--right">
         <div>
-          {token.id != "" ? (
+          {token && token.id != "" ? (
             <HamburgerMenu logout={logout} />
           ) : (
             <div>

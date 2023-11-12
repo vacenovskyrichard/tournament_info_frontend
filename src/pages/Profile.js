@@ -32,12 +32,12 @@ function Profile({ setTournamentToEditId, loadingMainTable }) {
 
   // send command to delete tournament to backend
   const delete_tournament = (id) => {
-    console.log(id);
+    const accessToken = token && token.accessToken;
 
     axios
       .delete(`${apiUrl}/delete/${id}/`, {
         headers: {
-          Authorization: `Bearer ${token.accessToken}`,
+          Authorization: `Bearer ${accessToken}`,
         },
       })
       .then(() => window.location.reload(false))
@@ -63,7 +63,7 @@ function Profile({ setTournamentToEditId, loadingMainTable }) {
   const [userTournaments, setUserTournaments] = useState([]);
 
   useEffect(() => {
-    if (token.role === "player") {
+    if (token && token.role === "player") {
       if (token.id != "") {
         fetch(`${apiUrl}/get_players_tournaments/${token.id}/`, {
           method: "GET",
@@ -86,7 +86,7 @@ function Profile({ setTournamentToEditId, loadingMainTable }) {
       }
     } else {
       setUserTournaments(
-        token.role === "admin"
+        token && token.role === "admin"
           ? tournaments
           : tournaments.filter((tournament) => tournament.user_id === token.id)
       );
@@ -96,6 +96,7 @@ function Profile({ setTournamentToEditId, loadingMainTable }) {
 
   // creates tournament with random data - used for testing
   const create_random_tournament = () => {
+    const accessToken = token && token.accessToken;
     const generateRandomNumber = (min, max) => {
       return Math.floor(Math.random() * (max - min + 1)) + min;
     };
@@ -116,7 +117,7 @@ function Profile({ setTournamentToEditId, loadingMainTable }) {
       organizer: "Random Name",
       price: 400,
       start: "10:00",
-      user_id: jwt_decode(token.accessToken).sub,
+      user_id: jwt_decode(accessToken).sub,
       registration_enabled: false,
     };
 
@@ -142,7 +143,7 @@ function Profile({ setTournamentToEditId, loadingMainTable }) {
       method: "POST",
       url: `${apiUrl}/request_organizer`,
       data: {
-        id: token.id,
+        id: token && token.id,
       },
     })
       .then((resp) => {
@@ -325,7 +326,7 @@ function Profile({ setTournamentToEditId, loadingMainTable }) {
             }
           >
             <h1>Moje Turnaje</h1>
-            {userTournaments && token.role !== "basic" && (
+            {userTournaments && token && token.role !== "basic" && (
               <DataTable
                 columns={screenType === "mobile" ? mobileColumns : columns}
                 data={userTournaments}
@@ -342,7 +343,8 @@ function Profile({ setTournamentToEditId, loadingMainTable }) {
                     setStatusChanged={setStatusChanged}
                     statusChanged={statusChanged}
                     showEditerButtons={
-                      token.role === "organizer" || token.role === "admin"
+                      token &&
+                      (token.role === "organizer" || token.role === "admin")
                     }
                     editTorunament={() => edit_tournament(row.id)}
                     deleteTorunament={() => {
@@ -354,7 +356,7 @@ function Profile({ setTournamentToEditId, loadingMainTable }) {
                 noDataComponent={
                   loading ? (
                     <h3 style={{ fontSize: "30px" }}>Data se načítají...</h3>
-                  ) : token.role === "player" ? (
+                  ) : token && token.role === "player" ? (
                     <h3 style={{ fontSize: "30px" }}>
                       Nejste přihlášeni na žádný turnaj
                     </h3>
@@ -388,17 +390,19 @@ function Profile({ setTournamentToEditId, loadingMainTable }) {
             )}
           </div>
           <div className="Profile--buttons">
-            {(token.role === "admin" || token.role === "organizer") && (
-              <button onClick={() => navigate("/add_tournament")}>
-                Přidat turnaj
-              </button>
-            )}
-            {token.role === "admin" && (
+            {token &&
+              (token.role === "admin" || token.role === "organizer") && (
+                <button onClick={() => navigate("/add_tournament")}>
+                  Přidat turnaj
+                </button>
+              )}
+            {token && token.role === "admin" && (
               <button onClick={create_random_tournament}>
                 Přidat random turnaj
               </button>
             )}
-            {token.role === "basic" &&
+            {token &&
+              token.role === "basic" &&
               (requestSent ? (
                 <h3 className="Profile-request-sent">
                   Žádost byla úspěšně poslána!

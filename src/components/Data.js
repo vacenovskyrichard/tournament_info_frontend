@@ -26,12 +26,13 @@ function Data({ loadingMainTable }) {
 
   // load all signed teams from all tournaments from database
   useEffect(() => {
+    const userId = token && token.id;
     fetch(`${apiUrl}/get_teams`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ userId: token.id }),
+      body: JSON.stringify({ userId: userId }),
     })
       .then((resp) => {
         if (resp.status === 200) {
