@@ -22,7 +22,7 @@ export default function AddTournament() {
 
   // on submit form function sends data to backend about newly created tournament
   const onSubmit = (data) => {
-    data.user_id = jwt_decode(token.accessToken).sub;
+    data.user_id = token && jwt_decode(token.accessToken).sub;
     data.category = data.category.label;
     data.level = data.level.label;
     console.log(data);

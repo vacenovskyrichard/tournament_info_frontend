@@ -54,7 +54,7 @@ export default function EditTournament({}) {
 
   // send data about edited tournament to bakckend
   const onSubmit = (data) => {
-    data.user_id = jwt_decode(token.accessToken).sub;
+    data.user_id = token && jwt_decode(token.accessToken).sub;
     if (data.level) {
       data.level = data.level.label;
     }
