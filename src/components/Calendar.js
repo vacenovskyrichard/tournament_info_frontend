@@ -198,7 +198,9 @@ export default function MyCalendar({ filterResults }) {
                   </p>
                   <p>{selectedEvent.price},- (za osobu)</p>
                   <p>{selectedEvent.organizer}</p>
-                  <a href={selectedEvent.link}>link</a>
+                  <a href={selectedEvent.link} target="_blank" rel="noreferrer">
+                    link
+                  </a>
                 </div>
               </div>
             </div>

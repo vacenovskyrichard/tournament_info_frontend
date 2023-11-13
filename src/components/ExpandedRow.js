@@ -227,7 +227,9 @@ export default function ExpandedComponent({
               <p>{data.price},- (na osobu)</p>
               <p>{data.start}</p>
               <p>{data.organizer}</p>
-              <a href={data.link}>link</a>
+              <a href={data.link} target="_blank" rel="noreferrer">
+                link
+              </a>
             </div>
           </div>
           {data.registration_enabled && token.role === "player" && token && (
