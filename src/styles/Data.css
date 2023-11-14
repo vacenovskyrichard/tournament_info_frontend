@@ -15,7 +15,7 @@
 .Data--tournament-table .rdt_TableRow,
 .Data--tournament-table .rdt_Pagination {
   background-color: rgb(216, 216, 216);
-  font-size: 20px;
+  font-size: 17px;
   font-family: var(--main-font);
 }
 
@@ -23,7 +23,7 @@
 .Data--tournament-table .rdt_TableHeadRow {
   background-color: rgb(37, 31, 31);
   color: rgb(245, 245, 245);
-  font-size: 24px;
+  font-size: 20px;
 }
 
 /* Table row */

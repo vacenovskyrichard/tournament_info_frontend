@@ -29,7 +29,7 @@
 .Login--player-btn,
 .Login--organizer-btn {
   font-family: var(--main-font);
-  font-size: 28px;
+  font-size: 22px;
   border-top-right-radius: 50px;
   border-top-left-radius: 5px;
   color: rgb(245, 245, 245);
@@ -49,7 +49,7 @@
   top: 2px;
   right: 10px;
   font-family: var(--x-font);
-  font-size: 35px;
+  font-size: 30px;
   background-image: linear-gradient(
     90deg,
     rgba(255, 164, 46, 1) 0%,
@@ -83,7 +83,7 @@
   width: 100%;
   display: block;
   font-family: var(--main-font);
-  font-size: 39px;
+  font-size: 30px;
   background-image: linear-gradient(
     90deg,
     rgba(255, 164, 46, 1) 0%,
@@ -228,7 +228,7 @@
   background-color: #333;
   border-radius: 10px;
   font-family: var(--main-font);
-  font-size: 22px;
+  font-size: 20px;
   color: #fff;
   margin-top: 10px;
   width: 100%;
@@ -261,7 +261,7 @@
 
 .Login--register > p {
   font-family: var(--main-font);
-  font-size: 22px;
+  font-size: 17px;
   color: #999;
   line-height: 1.5;
   margin-right: 3px;
