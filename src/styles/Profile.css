@@ -7,7 +7,7 @@
 }
 
 h1 {
-  font-size: 40px;
+  font-size: 30px;
 }
 .Profile--buttons {
   display: flex;
@@ -28,7 +28,7 @@ h1 {
   background-color: rgb(37, 31, 31);
   border-radius: 10px;
   font-family: var(--main-font);
-  font-size: 28px;
+  font-size: 20px;
   color: rgb(245, 245, 245);
   margin: 10px;
   /* width: 80%; */
@@ -134,7 +134,7 @@ h1 {
   display: flex;
   margin-left: 14px;
   margin-bottom: 0px;
-  font-size: 25px;
+  font-size: 17px;
 }
 
 .Profile--user-data-body > div > p {
@@ -154,7 +154,7 @@ h1 {
 .Profile--change-password-box > a {
   transition: box-shadow 0.3s;
   font-family: var(--main-font);
-  font-size: 25px;
+  font-size: 17px;
   width: 100%;
   background-image: linear-gradient(
     90deg,
@@ -184,7 +184,7 @@ h1 {
 .Profile--tournament-table .rdt_TableRow,
 .Profile--tournament-table .rdt_Pagination {
   background-color: rgb(216, 216, 216);
-  font-size: 20px;
+  font-size: 17px;
   font-family: var(--main-font);
 }
 
@@ -192,7 +192,7 @@ h1 {
 .Profile--tournament-table .rdt_TableHeadRow {
   background-color: rgb(37, 31, 31);
   color: rgb(245, 245, 245);
-  font-size: 24px;
+  font-size: 20px;
 }
 
 /* Table row */
@@ -208,14 +208,14 @@ h1 {
 .rdt_Pagination > span,
 .rdt_Pagination > div,
 .rdt_Pagination > div > select {
-  font-size: 20px;
+  font-size: 17px;
   font-family: var(--main-font);
 }
 
 .rdt_Pagination > span,
 .rdt_Pagination > div,
 .rdt_Pagination > div > select {
-  font-size: 20px;
+  font-size: 17px;
   font-family: var(--main-font);
 }
 
@@ -246,10 +246,10 @@ h1 {
   justify-content: center;
   align-items: center;
   padding: 0 20px;
-  height: 50px;
+  height: 40px;
   border-radius: 10px;
   font-family: var(--main-font);
-  font-size: 28px;
+  font-size: 20px;
   color: rgb(245, 245, 245);
   margin-top: 10px;
   width: 65%;

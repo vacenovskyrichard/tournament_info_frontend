@@ -4,7 +4,7 @@
   justify-content: center;
   width: 100%;
   font-family: var(--main-font);
-  font-size: 20px;
+  font-size: 18px;
 }
 
 .ElevatorText--main-text {
@@ -48,7 +48,7 @@
   color: transparent; /* Hide the actual text color */
   font-family: "Caesar dressing", sans-serif;
   margin: 17px 10px;
-  font-size: 25px;
+  font-size: 22px;
 }
 
 /* ======================================================*/

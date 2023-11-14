@@ -4,8 +4,9 @@
   background-color: rgb(37, 31, 31);
   color: rgb(216, 216, 216);
   font-family: var(--main-font);
-  font-size: 20px;
+  font-size: 15px;
 }
+
 .Footer--main-mobile {
   font-size: 30px;
 }
@@ -43,5 +44,5 @@
 }
 
 .Footer--logo {
-  width: 80%;
+  width: 60%;
 }
