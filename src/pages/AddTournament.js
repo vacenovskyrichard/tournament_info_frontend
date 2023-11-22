@@ -25,12 +25,12 @@ export default function AddTournament() {
     data.user_id = token && jwt_decode(token.accessToken).sub;
     data.category = data.category.label;
     data.level = data.level.label;
+    console.log(apiUrl);
     console.log(data);
     fetch(`${apiUrl}/post`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        Authorization: `Bearer ${token.accessToken}`,
       },
       body: JSON.stringify(data),
     })
@@ -142,11 +142,8 @@ export default function AddTournament() {
             name={"capacity"}
             requiredMessage={"Zadejte kapacitu"}
             errors={errors.capacity}
+            pattern={"^[0-9]*$"}
             register={register}
-            pattern={{
-              value: /^\d+$/,
-              message: "Zadaná hodnota není validní",
-            }}
           />
 
           {/* Tournament price */}
@@ -156,11 +153,8 @@ export default function AddTournament() {
             name={"price"}
             requiredMessage={"Zadejte startovné"}
             errors={errors.price}
+            pattern={"^[0-9]*$"}
             register={register}
-            pattern={{
-              value: /^\d+$/,
-              message: "Zadaná hodnota není validní",
-            }}
           />
 
           {/* Tournament start */}

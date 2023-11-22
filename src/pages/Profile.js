@@ -216,12 +216,12 @@ function Profile({ setTournamentToEditId, loadingMainTable }) {
           row.date.split("-")[0]
         }`;
       },
-      width: screenType === "mobile" ? "220px" : "180px",
+      width: screenType === "mobile" ? "220px" : "12%",
     },
     {
       name: "Název",
       selector: (row) => row.name,
-      width: screenType === "mobile" ? "650px" : "900px",
+      width: screenType === "mobile" ? "650px" : "69%",
     },
     {
       name: "Kapacita",
@@ -267,7 +267,7 @@ function Profile({ setTournamentToEditId, loadingMainTable }) {
         },
       ],
 
-      width: "250px",
+      width: "15%",
     },
   ];
 
@@ -389,7 +389,9 @@ function Profile({ setTournamentToEditId, loadingMainTable }) {
                     ),
                 }}
                 className={
-                  tournaments.length === 0 ? "custom-no-data-background" : ""
+                  userTournaments.length === 0
+                    ? "custom-no-data-background"
+                    : "data-background"
                 }
                 expandableRowExpanded={(row) => expandedRows[row.id]}
                 onRowClicked={handleRowClick}
