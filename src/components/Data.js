@@ -74,17 +74,17 @@ function Data({ loadingMainTable }) {
           row.date.split("-")[0]
         }`;
       },
-      width: screenType === "mobile" ? "220px" : "160px",
+      width: screenType === "mobile" ? "220px" : "12%",
     },
     {
       name: "Název",
       selector: (row) => row.name,
-      width: screenType === "mobile" ? "650px" : "800px",
+      width: screenType === "mobile" ? "650px" : "55%",
     },
     {
       name: "Kategorie",
       selector: (row) => row.category,
-      width: "180px",
+      width: "15%",
     },
     {
       name: "Kapacita",
@@ -130,7 +130,7 @@ function Data({ loadingMainTable }) {
         },
       ],
 
-      width: "180px",
+      width: "13%",
     },
   ];
 
