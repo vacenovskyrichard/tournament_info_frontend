@@ -295,7 +295,11 @@ function Profile({ setTournamentToEditId, loadingMainTable }) {
     <>
       <Navbar title={"Profil"} />
       {logged ? (
-        <div className="Profile--main">
+        <div
+          className={
+            screenType === "mobile" ? "Profile--main-mobile" : "Profile--main"
+          }
+        >
           {token && (
             <div
               className={
@@ -421,12 +425,12 @@ function Profile({ setTournamentToEditId, loadingMainTable }) {
                 </h3>
               ) : (
                 <div className="Profile--request-box">
-                  <h3>
+                  <p>
                     Jste organizátor/ka a přejete si mít možnost na této
                     platformě přidávat a spravovat své turnaje?
-                  </h3>
+                  </p>
                   <div className="Profile--request-btn-box">
-                    <h3>Požádajte o roli organizátora: </h3>
+                    <p>Požádajte o roli organizátora: </p>
                     <button
                       onClick={sendOrganizerRequest}
                       className="Profile--request-btn"
