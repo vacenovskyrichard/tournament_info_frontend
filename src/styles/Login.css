@@ -4,7 +4,7 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  height: 100vh;
+  min-height: 100vh;
   background-image: url("../../public/login-orange.webp");
   /* background: linear-gradient(
     90deg,
@@ -24,6 +24,7 @@
 /* PLAYER/ORGANIZER switch buttons */
 .Login--organizer-player-switch {
   width: 600px;
+  margin-top: 50px;
 }
 
 .Login--player-btn,
@@ -70,6 +71,7 @@
 .login-box {
   position: relative;
   display: flex;
+  margin-bottom: 50px;
   padding: 50px; /* Add some padding for spacing */
   background-color: rgb(37, 31, 31); /* Background color for the login box */
   border-bottom-left-radius: 15px;
