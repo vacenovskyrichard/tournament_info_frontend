@@ -157,6 +157,7 @@ function Login() {
           >
             Přihlášení
           </span>
+
           <div
             className={
               screenType === "mobile"
@@ -178,7 +179,6 @@ function Login() {
               Google
             </div>
           </div>
-
           <div
             className={
               screenType === "mobile"
@@ -206,7 +206,11 @@ function Login() {
             />
 
             <button className="Login--login-button" type="submit">
-              <p>Přihlásit</p>
+              {isPlayer ? (
+                <p>Přihlásit jako hráč</p>
+              ) : (
+                <p>Přihlásit jako organizátor</p>
+              )}
             </button>
           </div>
           <div

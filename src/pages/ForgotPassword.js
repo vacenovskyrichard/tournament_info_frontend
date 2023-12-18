@@ -94,15 +94,27 @@ function ForgotPassword() {
             screenType === "mobile" ? "login-form-mobile" : "login-form"
           }
         >
-          <span
-            className={
-              screenType === "mobile"
-                ? "login-form-title-mobile"
-                : "login-form-title"
-            }
-          >
-            Zapomenuté heslo
-          </span>
+          {isPlayer ? (
+            <span
+              className={
+                screenType === "mobile"
+                  ? "login-form-title-mobile"
+                  : "login-form-title"
+              }
+            >
+              Nové heslo - Hráč
+            </span>
+          ) : (
+            <span
+              className={
+                screenType === "mobile"
+                  ? "login-form-title-mobile"
+                  : "login-form-title"
+              }
+            >
+              Nové heslo - Organizátor
+            </span>
+          )}
 
           <div
             className={
