@@ -123,6 +123,19 @@ export default function MyCalendar({ filterResults }) {
     );
     setShowCalendarUrl(true);
   };
+  const generateLink = (url) => {
+    // Check if the URL already contains a protocol
+    const hasProtocol = /^https?:\/\//.test(url);
+
+    // If no protocol, assume http
+    const fullUrl = hasProtocol ? url : `http://${url}`;
+
+    return (
+      <a href={fullUrl} target="_blank" rel="noreferrer">
+        link
+      </a>
+    );
+  };
 
   return (
     <div className="Calendar">
@@ -198,9 +211,7 @@ export default function MyCalendar({ filterResults }) {
                   </p>
                   <p>{selectedEvent.price},- (za osobu)</p>
                   <p>{selectedEvent.organizer}</p>
-                  <a href={selectedEvent.link} target="_blank" rel="noreferrer">
-                    link
-                  </a>
+                  {generateLink(selectedEvent.link)}
                 </div>
               </div>
             </div>
