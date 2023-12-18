@@ -159,10 +159,10 @@ function ChangePassword() {
               }
             >
               <p
-                onClick={() => navigate("/login")}
+                onClick={() => navigate("/profile")}
                 className="Login--tiny-label clickable"
               >
-                Zpět na přihlášení
+                Zpět na profil
               </p>
             </div>
           </form>

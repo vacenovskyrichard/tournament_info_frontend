@@ -171,7 +171,11 @@ function Register() {
               />
 
               <button className="Login--login-button" type="submit">
-                <p>Registrovat</p>
+                {isPlayer ? (
+                  <p>Registrovat jako hráč</p>
+                ) : (
+                  <p>Registrovat jako organizátor</p>
+                )}
               </button>
             </div>
             <div

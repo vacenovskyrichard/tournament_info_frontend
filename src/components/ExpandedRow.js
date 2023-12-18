@@ -39,6 +39,20 @@ export default function ExpandedComponent({
     return [firstPart, secondPart];
   };
 
+  const generateLink = (url) => {
+    // Check if the URL already contains a protocol
+    const hasProtocol = /^https?:\/\//.test(url);
+
+    // If no protocol, assume http
+    const fullUrl = hasProtocol ? url : `http://${url}`;
+
+    return (
+      <a href={fullUrl} target="_blank" rel="noreferrer">
+        link
+      </a>
+    );
+  };
+
   const isSigned =
     loading || signedTeams === "Unauthorized"
       ? ""
@@ -227,9 +241,7 @@ export default function ExpandedComponent({
               <p>{data.price},- (na osobu)</p>
               <p>{data.start}</p>
               <p>{data.organizer}</p>
-              <a href={data.link} target="_blank" rel="noreferrer">
-                link
-              </a>
+              {generateLink(data.link)}
             </div>
           </div>
           {data.registration_enabled && token.role === "player" && token && (
