@@ -35,7 +35,7 @@ export default function AddTournament() {
       body: JSON.stringify(data),
     })
       .then((resp) => resp.json())
-      .then(() => navigate("/"));
+      .then(() => navigate("/profile"));
   };
 
   // options for category select form
@@ -148,11 +148,12 @@ export default function AddTournament() {
 
           {/* Tournament price */}
           <InputField
-            label={"Startovné (za osobu)"}
+            label={"Startovné za osobu (v czk)"}
             type={"text"}
             name={"price"}
             requiredMessage={"Zadejte startovné"}
             errors={errors.price}
+            placeholder={"250"}
             pattern={"^[0-9]*$"}
             register={register}
           />
@@ -165,6 +166,7 @@ export default function AddTournament() {
             requiredMessage={"Zadejte čas začátku turnaje"}
             errors={errors.start}
             register={register}
+            placeholder={"HH:mm (09:00)"}
             pattern={"^([0-1]?[0-9]|2[0-3]):[0-5][0-9]$"}
             onChange={onChangeStartTime}
           />
