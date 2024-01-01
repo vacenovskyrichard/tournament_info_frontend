@@ -20,11 +20,17 @@ export default function AddTournament() {
   const { register, control, handleSubmit, formState } = useForm();
   const { errors } = formState;
 
+  const checkDate = (date) => {
+    console.log("date");
+    console.log(date);
+  };
+
   // on submit form function sends data to backend about newly created tournament
   const onSubmit = (data) => {
     data.user_id = token && jwt_decode(token.accessToken).sub;
     data.category = data.category.label;
     data.level = data.level.label;
+    checkDate(data.date);
     console.log(apiUrl);
     console.log(data);
     fetch(`${apiUrl}/post`, {
