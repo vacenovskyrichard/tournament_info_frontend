@@ -70,7 +70,8 @@ export default function Filters({
       body: JSON.stringify(form_data),
     })
       .then((resp) => resp.json())
-      .then((resp) => setTournamentsData(resp));
+      .then((resp) => setTournamentsData(resp))
+      .catch((error) => console.log(error));
   };
 
   return (
