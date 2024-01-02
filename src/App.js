@@ -31,6 +31,7 @@ function App() {
   // eslint-disable-next-line
   const production = "https://jdem-hrat-58da3e527841.herokuapp.com";
 
+  // FIXME: This causes error in rendering
   setScreenSize(
     useMediaQuery({ query: "(max-width: 1224px)" }) ? "mobile" : "desktop"
   );

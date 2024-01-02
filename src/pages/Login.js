@@ -190,7 +190,7 @@ function Login() {
               label={"Email"}
               type={"email"}
               name={"email"}
-              requiredMessage={"Zadejte email"}
+              // requiredMessage={"Zadejte email"}
               errors={errors.email}
               register={register}
             />
@@ -200,7 +200,7 @@ function Login() {
               additionalLabelOnClick={() => navigate("/forgot_password")}
               type={"password"}
               name={"password"}
-              requiredMessage={"Zadejte heslo"}
+              // requiredMessage={"Zadejte heslo"}
               errors={errors.password}
               register={register}
             />
