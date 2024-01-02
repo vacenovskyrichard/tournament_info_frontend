@@ -38,7 +38,9 @@ export default function InputField({
               value: true,
               message: requiredMessage,
             },
-          }
+          },
+          // Set defaultValue based on pre-filled value from the browser
+          { defaultValue: "" }
         )}
         onChange={onChange && onChange}
       />
