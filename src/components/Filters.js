@@ -71,7 +71,10 @@ export default function Filters({
     })
       .then((resp) => resp.json())
       .then((resp) => setTournamentsData(resp))
-      .catch((error) => console.log(error));
+      .catch((error) => {
+        console.log(error);
+        setTournamentsData([]);
+      });
   };
 
   return (
