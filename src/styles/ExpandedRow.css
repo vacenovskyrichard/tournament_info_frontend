@@ -127,6 +127,16 @@
   margin-left: 50px;
 }
 
+.ExpandedRow--login-link {
+  font-style: italic;
+  color: rgb(241, 90, 90);
+}
+
+.ExpandedRow--login-link:hover {
+  text-decoration: underline;
+  cursor: pointer;
+}
+
 /* ======================================================*/
 /* --------------------- Mobile css ---------------------*/
 /* ======================================================*/

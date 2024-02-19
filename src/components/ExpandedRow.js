@@ -2,6 +2,7 @@ import "../styles/Data.css";
 import "../styles/ExpandedRow.css";
 import "../styles/Common.css";
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import jwt_decode from "jwt-decode";
 import axios from "axios";
 import { useForm } from "react-hook-form";
@@ -31,6 +32,7 @@ export default function ExpandedComponent({
   const lastUpdateDate = new Date(data.last_update);
   const { register, control, handleSubmit, formState } = useForm();
   const { errors } = formState;
+  const navigate = useNavigate();
 
   const splitArray = (arr, index) => {
     const firstPart = arr.slice(0, index);
@@ -350,6 +352,35 @@ export default function ExpandedComponent({
               )}
             </>
           )}
+
+          {/* ======================================================================================================== */}
+          {data.registration_enabled && token.role == "" && (
+            <>
+              <h3
+                className={
+                  screenType === "mobile"
+                    ? "ExpandedRow--title-mobile"
+                    : "ExpandedRow--title"
+                }
+              >
+                Přihlášení
+              </h3>
+              <div className="ExpandedRow--details-labels">
+                <p>
+                  Pro registraci je nutné se{" "}
+                  <a
+                    className="ExpandedRow--login-link"
+                    onClick={() => navigate("/login")}
+                  >
+                    přihlásit
+                  </a>
+                  .
+                </p>
+              </div>
+            </>
+          )}
+
+          {/* ======================================================================================================== */}
 
           {!data.registration_enabled && (
             <p style={{ fontStyle: "italic", color: "rgb(80, 80, 80)" }}>
