@@ -125,50 +125,101 @@ function Register() {
                   : "Login--main-form"
               }
             >
-              <InputField
-                label={"Jméno"}
-                type={"text"}
-                name={"name"}
-                requiredMessage={"Zadejte jméno"}
-                errors={errors.name}
-                register={register}
-              />
+              <div className="InputField">
+                <label className="InputField--label">Jméno</label>
+                <input
+                  className="InputField--input"
+                  type="text"
+                  name="name"
+                  {...register("name", {
+                    required: {
+                      value: true,
+                      message: "Zadejte jméno",
+                    },
+                  })}
+                />
+                {errors.name && (
+                  <p className="error-message">{errors.name.message}</p>
+                )}
+              </div>
 
-              <InputField
-                label={"Příjmení"}
-                type={"text"}
-                name={"surname"}
-                requiredMessage={"Zadejte příjmení"}
-                errors={errors.surname}
-                register={register}
-              />
+              <div className="InputField">
+                <label className="InputField--label">Příjmení</label>
+                <input
+                  className="InputField--input"
+                  type="text"
+                  name="surname"
+                  {...register("surname", {
+                    required: {
+                      value: true,
+                      message: "Zadejte příjmení",
+                    },
+                  })}
+                />
+                {errors.surname && (
+                  <p className="error-message">{errors.surname.message}</p>
+                )}
+              </div>
 
-              <InputField
-                label={"Email"}
-                type={"email"}
-                name={"email"}
-                requiredMessage={"Zadejte email"}
-                errors={errors.email}
-                register={register}
-              />
+              <div className="InputField">
+                <label className="InputField--label">Email</label>
+                <input
+                  className="InputField--input"
+                  type="email"
+                  name="email"
+                  {...register("email", {
+                    required: {
+                      value: true,
+                      message: "Zadejte email",
+                    },
+                    pattern: {
+                      value: /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/,
+                      message: "Zadejte platný email",
+                    },
+                  })}
+                />
+                {errors.email && (
+                  <p className="error-message">{errors.email.message}</p>
+                )}
+              </div>
 
-              <InputField
-                label={"Heslo"}
-                type={"password"}
-                name={"password"}
-                requiredMessage={"Zadejte heslo"}
-                errors={errors.password}
-                register={register}
-              />
+              <div className="InputField">
+                <label className="InputField--label">Heslo</label>
+                <input
+                  className="InputField--input"
+                  type="password"
+                  name="password"
+                  {...register("password", {
+                    required: {
+                      value: true,
+                      message: "Zadejte heslo",
+                    },
+                  })}
+                />
+                {errors.password && (
+                  <p className="error-message">{errors.password.message}</p>
+                )}
+              </div>
 
-              <InputField
-                label={"Heslo znovu"}
-                type={"password"}
-                name={"passwordCheck"}
-                requiredMessage={"Zadejte znovu heslo"}
-                errors={errors.passwordCheck}
-                register={register}
-              />
+              <div className="InputField">
+                <label className="InputField--label">Heslo</label>
+                <input
+                  className="InputField--input"
+                  type="password"
+                  name="passwordCheck"
+                  {...register("passwordCheck", {
+                    required: {
+                      value: true,
+                      message: "Zadejte heslo znovu",
+                    },
+                  })}
+                />
+                {errors.passwordCheck && (
+                  <p className="error-message">
+                    {errors.passwordCheck.message}
+                  </p>
+                )}
+              </div>
 
               <button className="Login--login-button" type="submit">
                 {isPlayer ? (

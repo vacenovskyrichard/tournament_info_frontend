@@ -123,14 +123,27 @@ function ForgotPassword() {
                 : "Login--main-form"
             }
           >
-            <InputField
-              label={"Email"}
-              type={"email"}
-              name={"email"}
-              requiredMessage={"Zadejte email"}
-              errors={errors.email}
-              register={register}
-            />
+            <div className="InputField">
+              <label className="InputField--label">Email</label>
+              <input
+                className="InputField--input"
+                type="email"
+                name="email"
+                {...register("email", {
+                  required: {
+                    value: true,
+                    message: "Zadejte email",
+                  },
+                  pattern: {
+                    value: /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/,
+                    message: "Zadejte platný email",
+                  },
+                })}
+              />
+              {errors.email && (
+                <p className="error-message">{errors.email.message}</p>
+              )}
+            </div>
 
             <button className="Login--login-button" type="submit">
               <p>Vygenerovat nové heslo</p>

@@ -43,6 +43,7 @@ export default function InputField({
           { defaultValue: "" }
         )}
         onChange={onChange && onChange}
+        onInput={onChange && onChange}
       />
       {errors && <p className="error-message">{errors?.message}</p>}
     </div>
