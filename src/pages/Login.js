@@ -186,25 +186,51 @@ function Login() {
                 : "Login--main-form"
             }
           >
-            <InputField
-              label={"Email"}
-              type={"email"}
-              name={"email"}
-              // requiredMessage={"Zadejte email"}
-              errors={errors.email}
-              register={register}
-            />
-            <InputField
-              label={"Heslo"}
-              additionalLabel={"Zapomněli jste?"}
-              additionalLabelOnClick={() => navigate("/forgot_password")}
-              type={"password"}
-              name={"password"}
-              // requiredMessage={"Zadejte heslo"}
-              errors={errors.password}
-              register={register}
-            />
+            {/* =============================================================================== */}
 
+            <div className="InputField">
+              <label className="InputField--label">Email</label>
+              <input
+                className="InputField--input"
+                type="email"
+                name="email"
+                {...register("email", {
+                  required: {
+                    value: true,
+                    message: "Zadejte email",
+                  },
+                })}
+              />
+              {errors.email && (
+                <p className="error-message">{errors.email.message}</p>
+              )}
+            </div>
+
+            <div className="InputField">
+              <label className="InputField--label">Heslo</label>
+              <label
+                className="InputField--additional-label"
+                onClick={() => navigate("/forgot_password")}
+              >
+                Zapomněli jste?
+              </label>
+              <input
+                className="InputField--input"
+                type="password"
+                name="password"
+                {...register("password", {
+                  required: {
+                    value: true,
+                    message: "Zadejte heslo",
+                  },
+                })}
+              />
+              {errors.password && (
+                <p className="error-message">{errors.password.message}</p>
+              )}
+            </div>
+
+            {/* =============================================================================== */}
             <button className="Login--login-button" type="submit">
               {isPlayer ? (
                 <p>Přihlásit jako hráč</p>

@@ -120,32 +120,61 @@ function ChangePassword() {
                   : "Login--main-form"
               }
             >
-              <InputField
-                label={"Původní heslo"}
-                type={"password"}
-                name={"oldPassword"}
-                requiredMessage={"Zadejte heslo"}
-                errors={errors.oldPassword}
-                register={register}
-              />
+              <div className="InputField">
+                <label className="InputField--label">Původní heslo</label>
+                <input
+                  className="InputField--input"
+                  type="password"
+                  name="oldPassword"
+                  {...register("oldPassword", {
+                    required: {
+                      value: true,
+                      message: "Zadejte aktuální heslo",
+                    },
+                  })}
+                />
+                {errors.oldPassword && (
+                  <p className="error-message">{errors.oldPassword.message}</p>
+                )}
+              </div>
 
-              <InputField
-                label={"Nové heslo"}
-                type={"password"}
-                name={"password"}
-                requiredMessage={"Zadejte heslo"}
-                errors={errors.password}
-                register={register}
-              />
+              <div className="InputField">
+                <label className="InputField--label">Nové heslo</label>
+                <input
+                  className="InputField--input"
+                  type="password"
+                  name="password"
+                  {...register("password", {
+                    required: {
+                      value: true,
+                      message: "Zadejte nové heslo",
+                    },
+                  })}
+                />
+                {errors.password && (
+                  <p className="error-message">{errors.password.message}</p>
+                )}
+              </div>
 
-              <InputField
-                label={"Nové heslo znovu"}
-                type={"password"}
-                name={"passwordCheck"}
-                requiredMessage={"Zadejte znovu heslo"}
-                errors={errors.passwordCheck}
-                register={register}
-              />
+              <div className="InputField">
+                <label className="InputField--label">Nové heslo znovu</label>
+                <input
+                  className="InputField--input"
+                  type="password"
+                  name="passwordCheck"
+                  {...register("passwordCheck", {
+                    required: {
+                      value: true,
+                      message: "Zadejte nové heslo znovu",
+                    },
+                  })}
+                />
+                {errors.passwordCheck && (
+                  <p className="error-message">
+                    {errors.passwordCheck.message}
+                  </p>
+                )}
+              </div>
 
               <button className="Login--login-button" type="submit">
                 <p>Změnit heslo</p>
