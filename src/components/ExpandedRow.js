@@ -246,7 +246,7 @@ export default function ExpandedComponent({
               {generateLink(data.link)}
             </div>
           </div>
-          {data.registration_enabled && token.role === "player" && token && (
+          {/* {data.registration_enabled && token.role === "player" && token && (
             <>
               <h3
                 className={
@@ -351,7 +351,7 @@ export default function ExpandedComponent({
                 </div>
               )}
             </>
-          )}
+          )} */}
 
           {/* ======================================================================================================== */}
           {data.registration_enabled && token.role == "" && (
