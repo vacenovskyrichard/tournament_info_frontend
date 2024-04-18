@@ -340,21 +340,23 @@ export default function ExpandedComponent({
                 </form>
               )}
 
-              // {isSigned && !loading && (
-              //   <div
-              //     className={
-              //       screenType === "mobile"
-              //         ? "ExpandedRow--logout-from-tournament-btn-mobile"
-              //         : "ExpandedRow--logout-from-tournament-btn"
-              //     }
-              //     onClick={signOutTorunament}
-              //   >
-              //     Odhlásit
-              //   </div>
-              // )}
+           {/* 
+              {isSigned && !loading && (
+                <div
+                  className={
+                    screenType === "mobile"
+                      ? "ExpandedRow--logout-from-tournament-btn-mobile"
+                      : "ExpandedRow--logout-from-tournament-btn"
+                  }
+                  onClick={signOutTorunament}
+                >
+                  Odhlásit
+                </div>
+              )}
+              */}
             </>
           )}
-
+          
           {/* ======================================================================================================== */}
           {data.registration_enabled && token.role == "" && (
             <>
