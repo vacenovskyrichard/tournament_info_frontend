@@ -340,7 +340,7 @@ export default function ExpandedComponent({
                 </form>
               )}
 
-           {/* 
+           {/* */}
               {isSigned && !loading && (
                 <div
                   className={
@@ -353,7 +353,7 @@ export default function ExpandedComponent({
                   Odhlásit
                 </div>
               )}
-              */}
+            {/* */}
             </>
           )}
           
