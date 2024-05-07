@@ -235,7 +235,7 @@ export default function ExpandedComponent({
               <p>{data.level}</p>
 
               <p>
-                {data.signed}/{data.capacity}
+                {data.signed}/{data.capacity < 0 ? "?" : data.capacity}
               </p>
               <p>
                 {data.areal} ({data.city})
@@ -340,7 +340,7 @@ export default function ExpandedComponent({
                 </form>
               )}
 
-              {isSigned && !loading && (
+              {/* {isSigned && !loading && (
                 <div
                   className={
                     screenType === "mobile"
@@ -351,7 +351,7 @@ export default function ExpandedComponent({
                 >
                   Odhlásit
                 </div>
-              )}
+              )} */}
             </>
           )}
 
