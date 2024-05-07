@@ -235,7 +235,7 @@ export default function ExpandedComponent({
               <p>{data.level}</p>
 
               <p>
-                {data.signed}/{data.capacity}
+                {data.signed}/{data.capacity < 0 ? "?" : data.capacity}
               </p>
               <p>
                 {data.areal} ({data.city})
@@ -340,7 +340,7 @@ export default function ExpandedComponent({
                 </form>
               )}
 
-           {/*
+              {/*
               {isSigned && !loading && (
                 <div
                   className={
@@ -356,7 +356,7 @@ export default function ExpandedComponent({
             */}
             </>
           )}
-          
+
           {/* ======================================================================================================== */}
           {data.registration_enabled && token.role == "" && (
             <>
