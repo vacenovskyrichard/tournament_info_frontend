@@ -93,6 +93,8 @@ function Data({ loadingMainTable }) {
           return "";
         } else if (row.signed == null) {
           return `/${row.capacity}`;
+        } else if (row.capacity < 0) {
+          return `${row.signed}/?`;
         }
         return `${row.signed}/${row.capacity}`;
       },
@@ -100,7 +102,7 @@ function Data({ loadingMainTable }) {
       // conditional style of capacity based on number of teams
       conditionalCellStyles: [
         {
-          when: (row) => row.signed >= row.capacity,
+          when: (row) => row.capacity > 0 && row.signed >= row.capacity,
           style: {
             color: "rgb(200, 31, 31)",
             "&:hover": {
@@ -110,6 +112,7 @@ function Data({ loadingMainTable }) {
         },
         {
           when: (row) =>
+            row.capacity > 0 &&
             row.signed < row.capacity &&
             row.signed >= row.capacity - row.capacity / 8,
           style: {
@@ -120,7 +123,8 @@ function Data({ loadingMainTable }) {
           },
         },
         {
-          when: (row) => row.signed < row.capacity - row.capacity / 8,
+          when: (row) =>
+            row.capacity > 0 && row.signed < row.capacity - row.capacity / 8,
           style: {
             // color: "green",
             "&:hover": {
