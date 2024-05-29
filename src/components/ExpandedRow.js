@@ -339,8 +339,6 @@ export default function ExpandedComponent({
                   </button>
                 </form>
               )}
-
-              {/*
               {isSigned && !loading && (
                 <div
                   className={
@@ -353,7 +351,6 @@ export default function ExpandedComponent({
                   Odhlásit
                 </div>
               )}
-            */}
             </>
           )}
 
