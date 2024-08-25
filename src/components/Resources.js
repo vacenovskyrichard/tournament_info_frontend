@@ -51,12 +51,14 @@ export default function Resources() {
             text1="Turnaje s Ladou"
             text2="o MP oblečení"
           />
+          <Resource isImage={false} text1="Svazové turnaje" />
+
+          <Resource isImage={false} text1="Poděbrady" />
         </div>
 
         <h1 style={{ marginTop: "70px" }}>Dále můžete očekávat</h1>
 
         <div className="Resources--resources">
-          <Resource isImage={false} text1="Svazové turnaje" />
           <Resource isImage={false} text1="Fidorka turnaje" />
           <Resource isImage={false} text1="Radotín" />
           <Resource isImage={false} text1="Ústi" />
@@ -66,7 +68,6 @@ export default function Resources() {
           <Resource isImage={false} text1="Liberec" />
           <Resource isImage={false} text1="Kosmonosy" />
           <Resource isImage={false} text1="Gutovka" />
-          <Resource isImage={false} text1="Poděbrady" />
         </div>
       </div>
     </div>
