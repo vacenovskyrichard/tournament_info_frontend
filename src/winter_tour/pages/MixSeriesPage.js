@@ -1,69 +1,61 @@
 import React from "react";
-import {
-  Box,
-  Typography,
-  Table,
-  TableBody,
-  TableCell,
-  TableContainer,
-  TableHead,
-  TableRow,
-  Button,
-} from "@mui/material";
-import { Link } from "react-router-dom";
+import { Box, Typography, Container, Paper } from "@mui/material";
+import Navbar from "../components/Navbar"; // Importujeme Navbar
 
-function MixSeries() {
-  const tournaments = [
-    { date: "September 15, 2024", location: "Praha" },
-    { date: "October 20, 2024", location: "Brno" },
-    { date: "November 18, 2024", location: "Ostrava" },
-    { date: "December 16, 2024", location: "Plzeň" },
-    { date: "January 13, 2025", location: "Liberec" },
-    { date: "February 10, 2025", location: "Olomouc" },
-    { date: "March 17, 2025", location: "Hradec Králové" },
-  ];
-
+function MixovaSerie() {
   return (
-    <Box sx={{ padding: "20px" }}>
-      <Typography variant="h4" component="h2" gutterBottom>
-        Mixová Série
-      </Typography>
-      <Typography variant="body1" gutterBottom>
-        Mixová série je vzrušující formát turnajů, kde muži a ženy hrají
-        společně. Každý měsíc se koná jeden turnaj na různých místech v České
-        republice.
-      </Typography>
-
-      <TableContainer>
-        <Table>
-          <TableHead>
-            <TableRow>
-              <TableCell>Datum</TableCell>
-              <TableCell>Místo</TableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {tournaments.map((tournament, index) => (
-              <TableRow key={index}>
-                <TableCell>{tournament.date}</TableCell>
-                <TableCell>{tournament.location}</TableCell>
-              </TableRow>
-            ))}
-          </TableBody>
-        </Table>
-      </TableContainer>
-
-      <Button
-        variant="contained"
-        color="primary"
-        component={Link}
-        to="/wintertour"
-        sx={{ marginTop: "20px" }}
+    <Box>
+      <Navbar /> {/* Přidáme Navbar */}
+      <Box
+        sx={{
+          textAlign: "center",
+          padding: "20px",
+          backgroundImage: "url(/mix-series-background.jpg)", // URL pozadí v public
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+        }}
       >
-        Zpět na hlavní stránku
-      </Button>
+        <Typography variant="h3" component="h1" sx={{ color: "white", mb: 4 }}>
+          Mixová Série
+        </Typography>
+      </Box>
+      <Container sx={{ mt: 4 }}>
+        <Paper elevation={3} sx={{ padding: 3 }}>
+          <Typography variant="h5" gutterBottom>
+            Formát turnaje
+          </Typography>
+          <Typography variant="body1" paragraph>
+            Popis formátu turnaje, pravidla, a vše, co potřebujete vědět o
+            mixových zápasech.
+          </Typography>
+          {/* Tabulka s termíny turnajů */}
+          <Typography variant="h6" gutterBottom>
+            Termíny turnajů
+          </Typography>
+          <Paper sx={{ padding: 2 }}>
+            <Typography variant="body2">
+              Září: 15.9.2024
+              <br />
+              Říjen: 12.10.2024
+              <br />
+              Listopad: 9.11.2024
+              <br />
+              Prosinec: 14.12.2024
+              <br />
+              Leden: 11.1.2025
+              <br />
+              Únor: 8.2.2025
+              <br />
+              Březen: 15.3.2025
+              <br />
+              Duben: 12.4.2025
+              <br />
+            </Typography>
+          </Paper>
+        </Paper>
+      </Container>
     </Box>
   );
 }
 
-export default MixSeries;
+export default MixovaSerie;
