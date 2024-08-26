@@ -6,26 +6,26 @@ import { Link } from "react-router-dom";
 
 function Navbar() {
   return (
-    <AppBar position="static" sx={{ backgroundColor: "#1e1e1e" }}>
+    <AppBar position="static" sx={{ backgroundColor: "#333333" }}>
       {" "}
       {/* Tmavé pozadí */}
       <Toolbar>
-        <Typography variant="h6" sx={{ flexGrow: 1, color: "#FF5722" }}>
+        <Typography variant="h6" sx={{ flexGrow: 1, color: "#FFFFFF" }}>
           Beach Volejbalové Turnaje
         </Typography>
         <Box sx={{ display: "flex", gap: "16px" }}>
           <Link to="/wintertour" style={{ textDecoration: "none" }}>
-            <Button color="inherit" sx={{ color: "#e0e0e0" }}>
+            <Button color="inherit" sx={{ color: "#FFFFFF" }}>
               Domů
             </Button>
           </Link>
           <Link to="/wintertour/o-nas" style={{ textDecoration: "none" }}>
-            <Button color="inherit" sx={{ color: "#e0e0e0" }}>
+            <Button color="inherit" sx={{ color: "#FFFFFF" }}>
               O nás
             </Button>
           </Link>
           <Link to="/wintertour/kontakt" style={{ textDecoration: "none" }}>
-            <Button color="inherit" sx={{ color: "#e0e0e0" }}>
+            <Button color="inherit" sx={{ color: "#FFFFFF" }}>
               Kontakt
             </Button>
           </Link>
