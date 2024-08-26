@@ -1,33 +1,35 @@
+// winter_tour/components/Navbar.js
+
 import React from "react";
-import { AppBar, Toolbar, Typography, Button } from "@mui/material";
+import { AppBar, Toolbar, Typography, Button, Box } from "@mui/material";
 import { Link } from "react-router-dom";
 
 function Navbar() {
   return (
-    <AppBar position="static">
+    <AppBar position="static" sx={{ backgroundColor: "#333333" }}>
+      {" "}
+      {/* Tmavé pozadí */}
       <Toolbar>
-        <Typography variant="h6" sx={{ flexGrow: 1 }}>
+        <Typography variant="h6" sx={{ flexGrow: 1, color: "#FFFFFF" }}>
           Beach Volejbalové Turnaje
         </Typography>
-        <Button
-          component={Link}
-          to="/wintertour"
-          color="inherit"
-          sx={{ marginRight: 2 }}
-        >
-          Domů
-        </Button>
-        <Button
-          component={Link}
-          to="/wintertour/o-nas"
-          color="inherit"
-          sx={{ marginRight: 2 }}
-        >
-          O nás
-        </Button>
-        <Button component={Link} to="/wintertour/kontakt" color="inherit">
-          Kontakt
-        </Button>
+        <Box sx={{ display: "flex", gap: "16px" }}>
+          <Link to="/wintertour" style={{ textDecoration: "none" }}>
+            <Button color="inherit" sx={{ color: "#FFFFFF" }}>
+              Domů
+            </Button>
+          </Link>
+          <Link to="/wintertour/o-nas" style={{ textDecoration: "none" }}>
+            <Button color="inherit" sx={{ color: "#FFFFFF" }}>
+              O nás
+            </Button>
+          </Link>
+          <Link to="/wintertour/kontakt" style={{ textDecoration: "none" }}>
+            <Button color="inherit" sx={{ color: "#FFFFFF" }}>
+              Kontakt
+            </Button>
+          </Link>
+        </Box>
       </Toolbar>
     </AppBar>
   );

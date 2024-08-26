@@ -1,12 +1,5 @@
 import React from "react";
-import {
-  Box,
-  Typography,
-  Container,
-  Paper,
-  TextField,
-  Button,
-} from "@mui/material";
+import { Box, Typography, Container, Paper } from "@mui/material";
 import Navbar from "../components/Navbar"; // Importujeme Navbar
 
 function Contact() {
@@ -17,7 +10,7 @@ function Contact() {
         sx={{
           textAlign: "center",
           padding: "20px",
-          backgroundImage: "url(/contact-background.jpg)",
+          backgroundImage: "url(/contact-background.jpg)", // URL pozadí v public
           backgroundSize: "cover",
           backgroundPosition: "center",
         }}
@@ -29,44 +22,71 @@ function Contact() {
       <Container sx={{ mt: 4 }}>
         <Paper elevation={3} sx={{ padding: 3 }}>
           <Typography variant="h5" gutterBottom>
-            Rádi vás uslyšíme
+            Kontaktní informace
           </Typography>
           <Typography variant="body1" paragraph>
-            Pokud máte jakékoliv dotazy, neváhejte nás kontaktovat
-            prostřednictvím níže uvedeného formuláře. Budeme se snažit odpovědět
-            co nejdříve.
+            Pokud máte jakékoli dotazy nebo potřebujete více informací,
+            neváhejte nás kontaktovat prostřednictvím níže uvedených kontaktních
+            údajů.
           </Typography>
-          <form>
-            <TextField
-              label="Vaše jméno"
-              variant="outlined"
-              fullWidth
-              margin="normal"
-            />
-            <TextField
-              label="Email"
-              type="email"
-              variant="outlined"
-              fullWidth
-              margin="normal"
-            />
-            <TextField
-              label="Zpráva"
-              variant="outlined"
-              fullWidth
-              margin="normal"
-              multiline
-              rows={4}
-            />
-            <Button
-              variant="contained"
-              color="primary"
-              type="submit"
-              sx={{ mt: 2 }}
+
+          <Typography variant="h6" gutterBottom>
+            Jméno organizátora
+          </Typography>
+          <Typography variant="body1" paragraph>
+            Jan Novák
+          </Typography>
+
+          <Typography variant="h6" gutterBottom>
+            E-mail
+          </Typography>
+          <Typography variant="body1" paragraph>
+            <a
+              href="mailto:jan.novak@example.com"
+              style={{ color: "inherit", textDecoration: "none" }}
             >
-              Odeslat
-            </Button>
-          </form>
+              jan.novak@example.com
+            </a>
+          </Typography>
+
+          <Typography variant="h6" gutterBottom>
+            Telefon
+          </Typography>
+          <Typography variant="body1" paragraph>
+            +420 123 456 789
+          </Typography>
+
+          <Typography variant="h6" gutterBottom>
+            Sociální sítě
+          </Typography>
+          <Typography variant="body1">
+            <a
+              href="https://facebook.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              style={{ color: "inherit", textDecoration: "none" }}
+            >
+              Facebook
+            </a>
+            <br />
+            <a
+              href="https://twitter.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              style={{ color: "inherit", textDecoration: "none" }}
+            >
+              Twitter
+            </a>
+            <br />
+            <a
+              href="https://instagram.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              style={{ color: "inherit", textDecoration: "none" }}
+            >
+              Instagram
+            </a>
+          </Typography>
         </Paper>
       </Container>
     </Box>

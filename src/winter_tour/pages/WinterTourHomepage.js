@@ -1,29 +1,32 @@
 import React from "react";
-import {
-  Box,
-  Typography,
-  Card,
-  CardContent,
-  CardMedia,
-  CardActions,
-  Button,
-} from "@mui/material";
-import { Event, Info } from "@mui/icons-material";
-import { Link } from "react-router-dom"; // Importujeme Link
-import Navbar from "../components/Navbar"; // Importujeme Navbar
+import { useNavigate } from "react-router-dom";
+import { Box, Typography, Card, CardContent, CardMedia } from "@mui/material";
+import Navbar from "../components/Navbar";
+import Footer from "../components/Footer";
 
 function WinterTourHomepage() {
+  const navigate = useNavigate();
+
+  const handleCardClick = (path) => {
+    navigate(path);
+  };
+
   return (
-    <Box>
-      <Navbar /> {/* Přidáme Navbar */}
+    <Box
+      sx={{
+        backgroundColor: "#F5F5F5", // Světlé pozadí
+        color: "#333333", // Tmavý text
+        minHeight: "100vh",
+        display: "flex",
+        flexDirection: "column",
+      }}
+    >
+      <Navbar />
       <Box
         sx={{
           textAlign: "center",
           padding: "20px",
-          minHeight: "100vh",
-          backgroundImage: "url(/beach-background.jpg)", // URL pozadí v public
-          backgroundSize: "cover",
-          backgroundPosition: "center",
+          flex: 1,
           display: "flex",
           flexDirection: "column",
           justifyContent: "center",
@@ -34,9 +37,12 @@ function WinterTourHomepage() {
           variant="h3"
           component="h1"
           gutterBottom
-          sx={{ color: "white", textShadow: "2px 2px 4px rgba(0, 0, 0, 0.6)" }}
+          sx={{
+            color: "#FF5722",
+            textShadow: "2px 2px 4px rgba(0, 0, 0, 0.3)",
+          }} // Akcentová barva pro nadpis
         >
-          Beach Volejbalové Turnaje
+          Zimní série na Pankráci
         </Typography>
 
         <Box
@@ -45,62 +51,66 @@ function WinterTourHomepage() {
             justifyContent: "center",
             gap: "20px",
             marginTop: "30px",
+            flexWrap: "wrap",
           }}
         >
-          <Link
-            to="/wintertour/mixova-serie"
-            style={{ textDecoration: "none" }}
+          <Card
+            sx={{
+              maxWidth: 600,
+              cursor: "pointer",
+              backgroundColor: "#FFFFFF",
+              color: "#333333",
+            }}
+            onClick={() => handleCardClick("/wintertour/mixova-serie")}
           >
-            <Card sx={{ maxWidth: 345, cursor: "pointer" }}>
-              <CardMedia
-                component="img"
-                height="140"
-                image="/mix-series.jpg" // Použití obrázku z public
-                alt="Mixová Série"
-              />
-              <CardContent>
-                <Typography variant="h5" component="div">
-                  Mixová Série
-                </Typography>
-                <Typography variant="body2" color="text.secondary">
-                  Přijďte se podívat na mixové turnaje, kde se muži a ženy
-                  utkávají ve vzrušujících zápasech.
-                </Typography>
-              </CardContent>
-              <CardActions>
-                <Button size="small" color="primary" startIcon={<Event />}>
-                  Zobrazit Turnaje
-                </Button>
-              </CardActions>
-            </Card>
-          </Link>
+            <CardMedia
+              component="img"
+              height="400"
+              image="/mix-series2.jpg"
+              alt="Mr. Mango mixy o Prize Money"
+              sx={{ objectFit: "cover" }}
+            />
+            <CardContent>
+              <Typography variant="h5" component="div">
+                Mr. Mango mixy o 150 000,-
+              </Typography>
+              <Typography variant="body2" color="text.secondary">
+                Přichází zima s ní je tady další série mixových turnajů o
+                nějakou tu kačku. Přijď si zahrát kvalitní beach volejbal a
+                shrábnout výhru, která čeká nejen na první 3 týmy!
+              </Typography>
+            </CardContent>
+          </Card>
 
-          <Link to="/wintertour/king-queen" style={{ textDecoration: "none" }}>
-            <Card sx={{ maxWidth: 345, cursor: "pointer" }}>
-              <CardMedia
-                component="img"
-                height="140"
-                image="/king-queen.jpg" // Použití obrázku z public
-                alt="King/Queen of the Court"
-              />
-              <CardContent>
-                <Typography variant="h5" component="div">
-                  King/Queen of the Court
-                </Typography>
-                <Typography variant="body2" color="text.secondary">
-                  Staňte se králem nebo královnou kurtu v těchto napínavých
-                  turnajích s jedinečným formátem.
-                </Typography>
-              </CardContent>
-              <CardActions>
-                <Button size="small" color="primary" startIcon={<Info />}>
-                  Více Informací
-                </Button>
-              </CardActions>
-            </Card>
-          </Link>
+          <Card
+            sx={{
+              maxWidth: 600,
+              cursor: "pointer",
+              backgroundColor: "#FFFFFF",
+              color: "#333333",
+            }}
+            onClick={() => handleCardClick("/wintertour/king-queen")}
+          >
+            <CardMedia
+              component="img"
+              height="400"
+              image="/king-queen2.jpg"
+              alt="King/Queen of the Court"
+              sx={{ objectFit: "cover" }}
+            />
+            <CardContent>
+              <Typography variant="h5" component="div">
+                King/Queen of the Court
+              </Typography>
+              <Typography variant="body2" color="text.secondary">
+                Staňte se kingem nebo qeenou kurtu. Jedinečný formát inspirovaný
+                světovou sérií, který v Praze ještě nebyl!
+              </Typography>
+            </CardContent>
+          </Card>
         </Box>
       </Box>
+      <Footer />
     </Box>
   );
 }

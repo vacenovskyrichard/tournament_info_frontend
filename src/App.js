@@ -8,6 +8,11 @@ import Register from "./pages/Register";
 import ChangePassword from "./pages/ChangePassword";
 import ForgotPassword from "./pages/ForgotPassword";
 import Profile from "./pages/Profile";
+import WinterTourHomepage from "./winter_tour/pages/WinterTourHomepage";
+import MixSeriesPage from "./winter_tour/pages/MixSeriesPage";
+import KingQueenPage from "./winter_tour/pages/KingQueenPage";
+import AboutUs from "./winter_tour/pages/AboutUs";
+import Contact from "./winter_tour/pages/Contact";
 import { useEffect, useState } from "react";
 import { useMediaQuery } from "react-responsive";
 import { useRecoilState, useSetRecoilState } from "recoil";
@@ -106,12 +111,11 @@ function App() {
               />
             }
           />
-          <Route
-            path="/change_password"
-            element={
-              <ChangePassword setTournamentToEditId={setTournamentToEditId} />
-            }
-          />
+          <Route path="/wintertour" element={<WinterTourHomepage />} />
+          <Route path="/wintertour/mixova-serie" element={<MixSeriesPage />} />
+          <Route path="/wintertour/king-queen" element={<KingQueenPage />} />
+          <Route path="/wintertour/o-nas" element={<AboutUs />} />
+          <Route path="/wintertour/kontakt" element={<Contact />} />
           <Route path="*" element={<Nopage />} />
         </Routes>
       </BrowserRouter>
