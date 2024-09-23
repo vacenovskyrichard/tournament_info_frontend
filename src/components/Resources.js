@@ -46,7 +46,10 @@ export default function Resources() {
             imgPath="./resource_logos/logo-bvsp.png"
           />
 
-          <Resource isImage={true} imgPath="./resource_logos/BVU_logo.jpg" />
+          <Resource 
+              isImage={true} 
+              style={{ borderRadius: "20px" }}
+              imgPath="./resource_logos/BVU_logo.jpg" />
 
           <Resource
             isImage={false}
