@@ -46,6 +46,8 @@ export default function Resources() {
             imgPath="./resource_logos/logo-bvsp.png"
           />
 
+          <Resource isImage={true} imgPath="./resource_logos/BVU_logo.png" />
+
           <Resource
             isImage={false}
             text1="Turnaje s Ladou"
