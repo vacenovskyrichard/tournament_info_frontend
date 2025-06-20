@@ -41,7 +41,7 @@ function App() {
     useMediaQuery({ query: "(max-width: 1224px)" }) ? "mobile" : "desktop"
   );
   useEffect(() => {
-    setApiUrl(localhost);
+    setApiUrl(production);
     // eslint-disable-next-line
 
     // initialize empty token if token is null
