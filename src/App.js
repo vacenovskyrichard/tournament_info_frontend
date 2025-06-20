@@ -41,7 +41,7 @@ function App() {
     useMediaQuery({ query: "(max-width: 1224px)" }) ? "mobile" : "desktop"
   );
   useEffect(() => {
-    setApiUrl(production);
+    setApiUrl(localhost);
     // eslint-disable-next-line
 
     // initialize empty token if token is null
@@ -57,6 +57,8 @@ function App() {
         return resp.json();
       })
       .then((resp) => {
+        console.log("DATA");
+        console.log(resp);
         // save tournament data to state and format last update time
         setTournaments(
           resp.map((tournament) => {
@@ -72,6 +74,8 @@ function App() {
           })
         );
         setFilterOptions(resp);
+        console.log("filterOptions");
+        console.log(filterOptions);
       })
       .then(() => setLoadingMainTable(false))
       .catch((err) => {
