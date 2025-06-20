@@ -339,7 +339,7 @@ export default function ExpandedComponent({
                   </button>
                 </form>
               )}
-              {isSigned && !loading && (
+              {/* {isSigned && !loading && (
                 <div
                   className={
                     screenType === "mobile"
@@ -350,7 +350,7 @@ export default function ExpandedComponent({
                 >
                   Odhlásit
                 </div>
-              )}
+              )} */}
             </>
           )}
 
